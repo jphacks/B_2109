@@ -15,6 +15,10 @@
 		65610CB12723F7CB00549108 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 65610CAF2723F7CB00549108 /* LaunchScreen.storyboard */; };
 		65610CBC2723F7CB00549108 /* BookowlTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65610CBB2723F7CB00549108 /* BookowlTests.swift */; };
 		65610CC72723F7CB00549108 /* BookowlUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65610CC62723F7CB00549108 /* BookowlUITests.swift */; };
+		65610CDD2724097800549108 /* ISBNReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65610CDC2724097800549108 /* ISBNReader.swift */; };
+		65610CE62724137C00549108 /* CameraLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65610CE52724137C00549108 /* CameraLayer.swift */; };
+		65610CEE27243A7B00549108 /* ISBNScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65610CED27243A7B00549108 /* ISBNScannerView.swift */; };
+		65610CF327243D9500549108 /* ScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65610CF227243D9500549108 /* ScannerViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +53,10 @@
 		65610CC22723F7CB00549108 /* BookowlUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BookowlUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		65610CC62723F7CB00549108 /* BookowlUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookowlUITests.swift; sourceTree = "<group>"; };
 		65610CC82723F7CB00549108 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		65610CDC2724097800549108 /* ISBNReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISBNReader.swift; sourceTree = "<group>"; };
+		65610CE52724137C00549108 /* CameraLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraLayer.swift; sourceTree = "<group>"; };
+		65610CED27243A7B00549108 /* ISBNScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISBNScannerView.swift; sourceTree = "<group>"; };
+		65610CF227243D9500549108 /* ScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +107,10 @@
 		65610CA32723F7CA00549108 /* Bookowl */ = {
 			isa = PBXGroup;
 			children = (
+				65610CE42724134400549108 /* View */,
 				65610CA42723F7CA00549108 /* AppDelegate.swift */,
 				65610CA62723F7CA00549108 /* SceneDelegate.swift */,
-				65610CA82723F7CA00549108 /* ContentView.swift */,
+				65610CDB2724094E00549108 /* ISBNReader */,
 				65610CAA2723F7CB00549108 /* Assets.xcassets */,
 				65610CAF2723F7CB00549108 /* LaunchScreen.storyboard */,
 				65610CB22723F7CB00549108 /* Info.plist */,
@@ -134,6 +143,25 @@
 				65610CC82723F7CB00549108 /* Info.plist */,
 			);
 			path = BookowlUITests;
+			sourceTree = "<group>";
+		};
+		65610CDB2724094E00549108 /* ISBNReader */ = {
+			isa = PBXGroup;
+			children = (
+				65610CDC2724097800549108 /* ISBNReader.swift */,
+				65610CF227243D9500549108 /* ScannerViewModel.swift */,
+			);
+			path = ISBNReader;
+			sourceTree = "<group>";
+		};
+		65610CE42724134400549108 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				65610CA82723F7CA00549108 /* ContentView.swift */,
+				65610CE52724137C00549108 /* CameraLayer.swift */,
+				65610CED27243A7B00549108 /* ISBNScannerView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,8 +294,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65610CF327243D9500549108 /* ScannerViewModel.swift in Sources */,
+				65610CE62724137C00549108 /* CameraLayer.swift in Sources */,
+				65610CEE27243A7B00549108 /* ISBNScannerView.swift in Sources */,
 				65610CA52723F7CA00549108 /* AppDelegate.swift in Sources */,
 				65610CA72723F7CA00549108 /* SceneDelegate.swift in Sources */,
+				65610CDD2724097800549108 /* ISBNReader.swift in Sources */,
 				65610CA92723F7CA00549108 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
