@@ -1,0 +1,13 @@
+builds:
+- id: "bookowl"
+  dir: ./
+  binary: bookowl
+  goos:
+  - linux
+  - darwin
+  goarch:
+  - amd64
+  - arm
+  - arm64
+  env:
+  - CGO_ENABLED=0
