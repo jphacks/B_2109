@@ -21,6 +21,7 @@ class ISBNReader: NSObject, AVCaptureMetadataOutputObjectsDelegate ,  Observable
                 guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
                 guard let stringValue = readableObject.stringValue else { return }
                 let prefixBarCode = stringValue.prefix(3)
+//                読み取ったバーコードがISBNかどうかの判定。頭が978であればISBNとみなす。
                 if prefixBarCode == "978"{
                     foundBarcode(stringValue)
                 }
