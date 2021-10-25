@@ -7,9 +7,31 @@
 
 import SwiftUI
 struct ContentView: View {
-
+    let scannerModel = ScannerViewModel()
     var body: some View {
-        Text("Hello world!")
+        TabView{
+            TopView()
+                .tabItem {
+                    VStack{
+                       Text("Top")
+                    }
+                }.tag(1)
+        
+            ShelfView()
+                .tabItem{
+                    VStack{
+                        Text("Shelf")
+                    }
+                }.tag(2)
+            
+            ISBNView(viewModel:scannerModel)
+                .tabItem{
+                    VStack{
+                        Text("BarCode")
+                    }
+                }.tag(3)
+        }
+        
     }
 }
 

@@ -20,6 +20,8 @@
 		65610CEE27243A7B00549108 /* ISBNScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65610CED27243A7B00549108 /* ISBNScannerView.swift */; };
 		65610CF327243D9500549108 /* ScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65610CF227243D9500549108 /* ScannerViewModel.swift */; };
 		65610CF827271E3C00549108 /* ISBNView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65610CF727271E3C00549108 /* ISBNView.swift */; };
+		65610CFE2727235700549108 /* ShelfView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65610CFD2727235700549108 /* ShelfView.swift */; };
+		65610D062727237600549108 /* TopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65610D052727237600549108 /* TopView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		65610CED27243A7B00549108 /* ISBNScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISBNScannerView.swift; sourceTree = "<group>"; };
 		65610CF227243D9500549108 /* ScannerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewModel.swift; sourceTree = "<group>"; };
 		65610CF727271E3C00549108 /* ISBNView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISBNView.swift; sourceTree = "<group>"; };
+		65610CFD2727235700549108 /* ShelfView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfView.swift; sourceTree = "<group>"; };
+		65610D052727237600549108 /* TopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,11 +164,21 @@
 			isa = PBXGroup;
 			children = (
 				65610CA82723F7CA00549108 /* ContentView.swift */,
-				65610CF727271E3C00549108 /* ISBNView.swift */,
+				65610CFC2727219700549108 /* TabView */,
 				65610CE52724137C00549108 /* CameraLayer.swift */,
 				65610CED27243A7B00549108 /* ISBNScannerView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		65610CFC2727219700549108 /* TabView */ = {
+			isa = PBXGroup;
+			children = (
+				65610CFD2727235700549108 /* ShelfView.swift */,
+				65610CF727271E3C00549108 /* ISBNView.swift */,
+				65610D052727237600549108 /* TopView.swift */,
+			);
+			path = TabView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -300,8 +314,10 @@
 				65610CF827271E3C00549108 /* ISBNView.swift in Sources */,
 				65610CF327243D9500549108 /* ScannerViewModel.swift in Sources */,
 				65610CE62724137C00549108 /* CameraLayer.swift in Sources */,
+				65610CFE2727235700549108 /* ShelfView.swift in Sources */,
 				65610CEE27243A7B00549108 /* ISBNScannerView.swift in Sources */,
 				65610CA52723F7CA00549108 /* AppDelegate.swift in Sources */,
+				65610D062727237600549108 /* TopView.swift in Sources */,
 				65610CA72723F7CA00549108 /* SceneDelegate.swift in Sources */,
 				65610CDD2724097800549108 /* ISBNReader.swift in Sources */,
 				65610CA92723F7CA00549108 /* ContentView.swift in Sources */,
