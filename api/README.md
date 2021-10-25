@@ -10,12 +10,12 @@
   
     - [Book](#bookowl.Book)
   
-- [protos/book_event.proto](#protos/book_event.proto)
-    - [BookEventInfo](#bookowl.BookEventInfo)
-    - [BookEventRegisterRequest](#bookowl.BookEventRegisterRequest)
-    - [BookEventRegisterResponse](#bookowl.BookEventRegisterResponse)
+- [protos/read_event.proto](#protos/read_event.proto)
+    - [ReadEventInfo](#bookowl.ReadEventInfo)
+    - [ReadEventRegisterRequest](#bookowl.ReadEventRegisterRequest)
+    - [ReadEventRegisterResponse](#bookowl.ReadEventRegisterResponse)
   
-    - [BookEvent](#bookowl.BookEvent)
+    - [ReadEvent](#bookowl.ReadEvent)
   
 - [Scalar Value Types](#scalar-value-types)
 
@@ -96,16 +96,16 @@
 
 
 
-<a name="protos/book_event.proto"></a>
+<a name="protos/read_event.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## protos/book_event.proto
+## protos/read_event.proto
 
 
 
-<a name="bookowl.BookEventInfo"></a>
+<a name="bookowl.ReadEventInfo"></a>
 
-### BookEventInfo
+### ReadEventInfo
 
 
 
@@ -121,15 +121,15 @@
 
 
 
-<a name="bookowl.BookEventRegisterRequest"></a>
+<a name="bookowl.ReadEventRegisterRequest"></a>
 
-### BookEventRegisterRequest
+### ReadEventRegisterRequest
 
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| bookevent_info | [BookEventInfo](#bookowl.BookEventInfo) |  |  |
+| read_event_info | [ReadEventInfo](#bookowl.ReadEventInfo) |  |  |
 | bookmark_id | [string](#string) |  |  |
 
 
@@ -137,15 +137,15 @@
 
 
 
-<a name="bookowl.BookEventRegisterResponse"></a>
+<a name="bookowl.ReadEventRegisterResponse"></a>
 
-### BookEventRegisterResponse
+### ReadEventRegisterResponse
 
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| bookevent_id | [string](#string) |  |  |
+| read_event_id | [string](#string) |  |  |
 | time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
 
 
@@ -159,14 +159,14 @@
  
 
 
-<a name="bookowl.BookEvent"></a>
+<a name="bookowl.ReadEvent"></a>
 
-### BookEvent
+### ReadEvent
 
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| Register | [BookEventRegisterRequest](#bookowl.BookEventRegisterRequest) | [BookEventRegisterResponse](#bookowl.BookEventRegisterResponse) | Registering BookEvent with bookmark ID |
+| Register | [ReadEventRegisterRequest](#bookowl.ReadEventRegisterRequest) | [ReadEventRegisterResponse](#bookowl.ReadEventRegisterResponse) | Registering BookEvent with bookmark ID |
 
  
 
