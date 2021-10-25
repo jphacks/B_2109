@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package bookowl;
+
+option go_package = "github.com/jphacks/B_2109/server/api";
+
+import "google/protobuf/timestamp.proto";
+
+service Book{
+  // Registering Book using ISBN and a book width[mm].
+  rpc Register(BookRegisterRequest) returns (BookRegisterResponse);
+}
+
+message BookRegisterRequest {
+  BookInfo book_info = 1;
+  string bookmark_id = 2;
+  string user_id = 3;
+}
+
+message BookRegisterResponse {
+  string book_id = 1;
+  google.protobuf.Timestamp time = 2;
+}
+
+message BookInfo {
+  string isbn = 1;
+  int64 book_mili_width = 2;
+}

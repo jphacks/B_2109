@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package bookowl;
+
+option go_package = "github.com/jphacks/B_2109/server/api";
+
+import "google/protobuf/timestamp.proto";
+
+service BookEvent{
+  // Registering BookEvent with bookmark ID
+  rpc Register(BookEventRegisterRequest) returns (BookEventRegisterResponse);
+}
+
+message BookEventRegisterRequest {
+  BookEventInfo bookevent_info = 1;
+  string bookmark_id = 2;
+}
+
+message BookEventRegisterResponse {
+  string bookevent_id = 1;
+  google.protobuf.Timestamp time = 2;
+}
+
+message BookEventInfo {
+  google.protobuf.Timestamp read_start_time = 1;
+  google.protobuf.Timestamp read_end_time = 2;
+  int64 read_start_position = 3;
+  int64 read_end_position = 4;
+}
