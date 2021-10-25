@@ -33,4 +33,4 @@ jobs:
         file: ./server/docker/bookowl.Dockerfile
         push: true
         tags: |
-          ghcr.io/${{ github.repository_owner }}/B_2109/bookowl-server:latest
+          ghcr.io/${{ github.repository_owner }}/b_2109/bookowl-server:latest
