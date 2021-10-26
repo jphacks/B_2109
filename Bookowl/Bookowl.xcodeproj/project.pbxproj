@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C0A3349329BB80EFCE7B6BB /* Pods_Bookowl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6816C8DA74120A3B4B44593 /* Pods_Bookowl.framework */; };
 		65610CA52723F7CA00549108 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65610CA42723F7CA00549108 /* AppDelegate.swift */; };
 		65610CA72723F7CA00549108 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65610CA62723F7CA00549108 /* SceneDelegate.swift */; };
 		65610CA92723F7CA00549108 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65610CA82723F7CA00549108 /* ContentView.swift */; };
@@ -22,6 +23,8 @@
 		65610CF827271E3C00549108 /* ISBNView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65610CF727271E3C00549108 /* ISBNView.swift */; };
 		65610CFE2727235700549108 /* ShelfView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65610CFD2727235700549108 /* ShelfView.swift */; };
 		65610D062727237600549108 /* TopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65610D052727237600549108 /* TopView.swift */; };
+		7386028650AF3C437FC3A982 /* Pods_BookowlTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1763DF6EE88728F81131D98B /* Pods_BookowlTests.framework */; };
+		CACB1830902E5E9C0D265EEF /* Pods_Bookowl_BookowlUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7625C465EF40DF82DDFF4E9 /* Pods_Bookowl_BookowlUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +45,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1763DF6EE88728F81131D98B /* Pods_BookowlTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BookowlTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		242A479AA466F319FEF1B405 /* Pods-Bookowl-BookowlUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bookowl-BookowlUITests.debug.xcconfig"; path = "Target Support Files/Pods-Bookowl-BookowlUITests/Pods-Bookowl-BookowlUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		3DA3042A698A8CF25F2D5869 /* Pods-Bookowl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bookowl.release.xcconfig"; path = "Target Support Files/Pods-Bookowl/Pods-Bookowl.release.xcconfig"; sourceTree = "<group>"; };
+		4503653262335C4A1016AA28 /* Pods-Bookowl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bookowl.debug.xcconfig"; path = "Target Support Files/Pods-Bookowl/Pods-Bookowl.debug.xcconfig"; sourceTree = "<group>"; };
 		65610CA12723F7CA00549108 /* Bookowl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bookowl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65610CA42723F7CA00549108 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65610CA62723F7CA00549108 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +70,11 @@
 		65610CF727271E3C00549108 /* ISBNView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISBNView.swift; sourceTree = "<group>"; };
 		65610CFD2727235700549108 /* ShelfView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfView.swift; sourceTree = "<group>"; };
 		65610D052727237600549108 /* TopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopView.swift; sourceTree = "<group>"; };
+		680DE7ABB78700319C76EAED /* Pods-BookowlTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookowlTests.debug.xcconfig"; path = "Target Support Files/Pods-BookowlTests/Pods-BookowlTests.debug.xcconfig"; sourceTree = "<group>"; };
+		89BB34F5B95F7C1CEC261A7A /* Pods-Bookowl-BookowlUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bookowl-BookowlUITests.release.xcconfig"; path = "Target Support Files/Pods-Bookowl-BookowlUITests/Pods-Bookowl-BookowlUITests.release.xcconfig"; sourceTree = "<group>"; };
+		9457392607D7033437765C88 /* Pods-BookowlTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BookowlTests.release.xcconfig"; path = "Target Support Files/Pods-BookowlTests/Pods-BookowlTests.release.xcconfig"; sourceTree = "<group>"; };
+		D7625C465EF40DF82DDFF4E9 /* Pods_Bookowl_BookowlUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bookowl_BookowlUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6816C8DA74120A3B4B44593 /* Pods_Bookowl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bookowl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C0A3349329BB80EFCE7B6BB /* Pods_Bookowl.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7386028650AF3C437FC3A982 /* Pods_BookowlTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,12 +98,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CACB1830902E5E9C0D265EEF /* Pods_Bookowl_BookowlUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0D79919CA9D601C940FADED7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E6816C8DA74120A3B4B44593 /* Pods_Bookowl.framework */,
+				D7625C465EF40DF82DDFF4E9 /* Pods_Bookowl_BookowlUITests.framework */,
+				1763DF6EE88728F81131D98B /* Pods_BookowlTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		65610C982723F7CA00549108 = {
 			isa = PBXGroup;
 			children = (
@@ -97,6 +122,8 @@
 				65610CBA2723F7CB00549108 /* BookowlTests */,
 				65610CC52723F7CB00549108 /* BookowlUITests */,
 				65610CA22723F7CA00549108 /* Products */,
+				B0FF71205667B7D9396BE5DE /* Pods */,
+				0D79919CA9D601C940FADED7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -181,6 +208,20 @@
 			path = TabView;
 			sourceTree = "<group>";
 		};
+		B0FF71205667B7D9396BE5DE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4503653262335C4A1016AA28 /* Pods-Bookowl.debug.xcconfig */,
+				3DA3042A698A8CF25F2D5869 /* Pods-Bookowl.release.xcconfig */,
+				242A479AA466F319FEF1B405 /* Pods-Bookowl-BookowlUITests.debug.xcconfig */,
+				89BB34F5B95F7C1CEC261A7A /* Pods-Bookowl-BookowlUITests.release.xcconfig */,
+				680DE7ABB78700319C76EAED /* Pods-BookowlTests.debug.xcconfig */,
+				9457392607D7033437765C88 /* Pods-BookowlTests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -188,9 +229,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 65610CCB2723F7CB00549108 /* Build configuration list for PBXNativeTarget "Bookowl" */;
 			buildPhases = (
+				42FD850948A968BA2CCE87E5 /* [CP] Check Pods Manifest.lock */,
 				65610C9D2723F7CA00549108 /* Sources */,
 				65610C9E2723F7CA00549108 /* Frameworks */,
 				65610C9F2723F7CA00549108 /* Resources */,
+				708EBBB14B1E99622F27E86A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -205,6 +248,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 65610CCE2723F7CB00549108 /* Build configuration list for PBXNativeTarget "BookowlTests" */;
 			buildPhases = (
+				12EC182308723BD89588271E /* [CP] Check Pods Manifest.lock */,
 				65610CB32723F7CB00549108 /* Sources */,
 				65610CB42723F7CB00549108 /* Frameworks */,
 				65610CB52723F7CB00549108 /* Resources */,
@@ -223,9 +267,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 65610CD12723F7CB00549108 /* Build configuration list for PBXNativeTarget "BookowlUITests" */;
 			buildPhases = (
+				A1B4711BE57B1007F0952FA5 /* [CP] Check Pods Manifest.lock */,
 				65610CBE2723F7CB00549108 /* Sources */,
 				65610CBF2723F7CB00549108 /* Frameworks */,
 				65610CC02723F7CB00549108 /* Resources */,
+				8B003D6B35A3AB97C91A11FD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -305,6 +351,109 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		12EC182308723BD89588271E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BookowlTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		42FD850948A968BA2CCE87E5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Bookowl-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		708EBBB14B1E99622F27E86A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Bookowl/Pods-Bookowl-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Bookowl/Pods-Bookowl-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Bookowl/Pods-Bookowl-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8B003D6B35A3AB97C91A11FD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Bookowl-BookowlUITests/Pods-Bookowl-BookowlUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Bookowl-BookowlUITests/Pods-Bookowl-BookowlUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Bookowl-BookowlUITests/Pods-Bookowl-BookowlUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A1B4711BE57B1007F0952FA5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Bookowl-BookowlUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		65610C9D2723F7CA00549108 /* Sources */ = {
@@ -485,6 +634,7 @@
 		};
 		65610CCC2723F7CB00549108 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4503653262335C4A1016AA28 /* Pods-Bookowl.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -506,6 +656,7 @@
 		};
 		65610CCD2723F7CB00549108 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3DA3042A698A8CF25F2D5869 /* Pods-Bookowl.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -527,6 +678,7 @@
 		};
 		65610CCF2723F7CB00549108 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 680DE7ABB78700319C76EAED /* Pods-BookowlTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -549,6 +701,7 @@
 		};
 		65610CD02723F7CB00549108 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9457392607D7033437765C88 /* Pods-BookowlTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -571,6 +724,7 @@
 		};
 		65610CD22723F7CB00549108 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 242A479AA466F319FEF1B405 /* Pods-Bookowl-BookowlUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -591,6 +745,7 @@
 		};
 		65610CD32723F7CB00549108 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 89BB34F5B95F7C1CEC261A7A /* Pods-Bookowl-BookowlUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
