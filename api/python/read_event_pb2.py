@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z$github.com/jphacks/B_2109/server/api',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x10read_event.proto\x12\x07\x62ookowl\x1a\x1fgoogle/protobuf/timestamp.proto\"`\n\x18ReadEventRegisterRequest\x12/\n\x0fread_event_info\x18\x01 \x01(\x0b\x32\x16.bookowl.ReadEventInfo\x12\x13\n\x0b\x62ookmark_id\x18\x02 \x01(\t\"\xaf\x01\n\rReadEventInfo\x12\x33\n\x0fread_start_time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x31\n\rread_end_time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x1b\n\x13read_start_position\x18\x03 \x01(\x03\x12\x19\n\x11read_end_position\x18\x04 \x01(\x03\"\\\n\x19ReadEventRegisterResponse\x12\x15\n\rread_event_id\x18\x01 \x01(\t\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp2^\n\tReadEvent\x12Q\n\x08Register\x12!.bookowl.ReadEventRegisterRequest\x1a\".bookowl.ReadEventRegisterResponseB&Z$github.com/jphacks/B_2109/server/apib\x06proto3'
+  serialized_pb=b'\n\x10read_event.proto\x12\x07\x62ookowl\x1a\x1fgoogle/protobuf/timestamp.proto\"`\n\x18ReadEventRegisterRequest\x12/\n\x0fread_event_info\x18\x01 \x01(\x0b\x32\x16.bookowl.ReadEventInfo\x12\x13\n\x0b\x62ookmark_id\x18\x02 \x01(\x04\"%\n\x12GetByBookIDRequest\x12\x0f\n\x07\x62ook_id\x18\x01 \x01(\x04\"q\n\x14GetReadEventResponse\x12/\n\x0fread_event_info\x18\x01 \x03(\x0b\x32\x16.bookowl.ReadEventInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\\\n\x19ReadEventRegisterResponse\x12\x15\n\rread_event_id\x18\x01 \x01(\x04\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xaf\x01\n\rReadEventInfo\x12\x33\n\x0fread_start_time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x31\n\rread_end_time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x1b\n\x13read_start_position\x18\x03 \x01(\x03\x12\x19\n\x11read_end_position\x18\x04 \x01(\x03\x32\xa9\x01\n\tReadEvent\x12Q\n\x08Register\x12!.bookowl.ReadEventRegisterRequest\x1a\".bookowl.ReadEventRegisterResponse\x12I\n\x0bGetByBookID\x12\x1b.bookowl.GetByBookIDRequest\x1a\x1d.bookowl.GetReadEventResponseB&Z$github.com/jphacks/B_2109/server/apib\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
@@ -44,8 +44,8 @@ _READEVENTREGISTERREQUEST = _descriptor.Descriptor(
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
       name='bookmark_id', full_name='bookowl.ReadEventRegisterRequest.bookmark_id', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
+      number=2, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -63,6 +63,116 @@ _READEVENTREGISTERREQUEST = _descriptor.Descriptor(
   ],
   serialized_start=62,
   serialized_end=158,
+)
+
+
+_GETBYBOOKIDREQUEST = _descriptor.Descriptor(
+  name='GetByBookIDRequest',
+  full_name='bookowl.GetByBookIDRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='book_id', full_name='bookowl.GetByBookIDRequest.book_id', index=0,
+      number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=160,
+  serialized_end=197,
+)
+
+
+_GETREADEVENTRESPONSE = _descriptor.Descriptor(
+  name='GetReadEventResponse',
+  full_name='bookowl.GetReadEventResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='read_event_info', full_name='bookowl.GetReadEventResponse.read_event_info', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='time', full_name='bookowl.GetReadEventResponse.time', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=199,
+  serialized_end=312,
+)
+
+
+_READEVENTREGISTERRESPONSE = _descriptor.Descriptor(
+  name='ReadEventRegisterResponse',
+  full_name='bookowl.ReadEventRegisterResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='read_event_id', full_name='bookowl.ReadEventRegisterResponse.read_event_id', index=0,
+      number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='time', full_name='bookowl.ReadEventRegisterResponse.time', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=314,
+  serialized_end=406,
 )
 
 
@@ -114,56 +224,21 @@ _READEVENTINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=161,
-  serialized_end=336,
-)
-
-
-_READEVENTREGISTERRESPONSE = _descriptor.Descriptor(
-  name='ReadEventRegisterResponse',
-  full_name='bookowl.ReadEventRegisterResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='read_event_id', full_name='bookowl.ReadEventRegisterResponse.read_event_id', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='time', full_name='bookowl.ReadEventRegisterResponse.time', index=1,
-      number=2, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=338,
-  serialized_end=430,
+  serialized_start=409,
+  serialized_end=584,
 )
 
 _READEVENTREGISTERREQUEST.fields_by_name['read_event_info'].message_type = _READEVENTINFO
+_GETREADEVENTRESPONSE.fields_by_name['read_event_info'].message_type = _READEVENTINFO
+_GETREADEVENTRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_READEVENTREGISTERRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _READEVENTINFO.fields_by_name['read_start_time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _READEVENTINFO.fields_by_name['read_end_time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
-_READEVENTREGISTERRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 DESCRIPTOR.message_types_by_name['ReadEventRegisterRequest'] = _READEVENTREGISTERREQUEST
-DESCRIPTOR.message_types_by_name['ReadEventInfo'] = _READEVENTINFO
+DESCRIPTOR.message_types_by_name['GetByBookIDRequest'] = _GETBYBOOKIDREQUEST
+DESCRIPTOR.message_types_by_name['GetReadEventResponse'] = _GETREADEVENTRESPONSE
 DESCRIPTOR.message_types_by_name['ReadEventRegisterResponse'] = _READEVENTREGISTERRESPONSE
+DESCRIPTOR.message_types_by_name['ReadEventInfo'] = _READEVENTINFO
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 ReadEventRegisterRequest = _reflection.GeneratedProtocolMessageType('ReadEventRegisterRequest', (_message.Message,), {
@@ -173,12 +248,19 @@ ReadEventRegisterRequest = _reflection.GeneratedProtocolMessageType('ReadEventRe
   })
 _sym_db.RegisterMessage(ReadEventRegisterRequest)
 
-ReadEventInfo = _reflection.GeneratedProtocolMessageType('ReadEventInfo', (_message.Message,), {
-  'DESCRIPTOR' : _READEVENTINFO,
+GetByBookIDRequest = _reflection.GeneratedProtocolMessageType('GetByBookIDRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETBYBOOKIDREQUEST,
   '__module__' : 'read_event_pb2'
-  # @@protoc_insertion_point(class_scope:bookowl.ReadEventInfo)
+  # @@protoc_insertion_point(class_scope:bookowl.GetByBookIDRequest)
   })
-_sym_db.RegisterMessage(ReadEventInfo)
+_sym_db.RegisterMessage(GetByBookIDRequest)
+
+GetReadEventResponse = _reflection.GeneratedProtocolMessageType('GetReadEventResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETREADEVENTRESPONSE,
+  '__module__' : 'read_event_pb2'
+  # @@protoc_insertion_point(class_scope:bookowl.GetReadEventResponse)
+  })
+_sym_db.RegisterMessage(GetReadEventResponse)
 
 ReadEventRegisterResponse = _reflection.GeneratedProtocolMessageType('ReadEventRegisterResponse', (_message.Message,), {
   'DESCRIPTOR' : _READEVENTREGISTERRESPONSE,
@@ -186,6 +268,13 @@ ReadEventRegisterResponse = _reflection.GeneratedProtocolMessageType('ReadEventR
   # @@protoc_insertion_point(class_scope:bookowl.ReadEventRegisterResponse)
   })
 _sym_db.RegisterMessage(ReadEventRegisterResponse)
+
+ReadEventInfo = _reflection.GeneratedProtocolMessageType('ReadEventInfo', (_message.Message,), {
+  'DESCRIPTOR' : _READEVENTINFO,
+  '__module__' : 'read_event_pb2'
+  # @@protoc_insertion_point(class_scope:bookowl.ReadEventInfo)
+  })
+_sym_db.RegisterMessage(ReadEventInfo)
 
 
 DESCRIPTOR._options = None
@@ -197,8 +286,8 @@ _READEVENT = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=432,
-  serialized_end=526,
+  serialized_start=587,
+  serialized_end=756,
   methods=[
   _descriptor.MethodDescriptor(
     name='Register',
@@ -207,6 +296,16 @@ _READEVENT = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_READEVENTREGISTERREQUEST,
     output_type=_READEVENTREGISTERRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetByBookID',
+    full_name='bookowl.ReadEvent.GetByBookID',
+    index=1,
+    containing_service=None,
+    input_type=_GETBYBOOKIDREQUEST,
+    output_type=_GETREADEVENTRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

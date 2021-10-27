@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 type ReadEventClient interface {
 	// Registering BookEvent with bookmark ID
 	Register(ctx context.Context, in *ReadEventRegisterRequest, opts ...grpc.CallOption) (*ReadEventRegisterResponse, error)
+	GetByBookID(ctx context.Context, in *GetByBookIDRequest, opts ...grpc.CallOption) (*GetReadEventResponse, error)
 }
 
 type readEventClient struct {
@@ -39,12 +40,22 @@ func (c *readEventClient) Register(ctx context.Context, in *ReadEventRegisterReq
 	return out, nil
 }
 
+func (c *readEventClient) GetByBookID(ctx context.Context, in *GetByBookIDRequest, opts ...grpc.CallOption) (*GetReadEventResponse, error) {
+	out := new(GetReadEventResponse)
+	err := c.cc.Invoke(ctx, "/bookowl.ReadEvent/GetByBookID", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ReadEventServer is the server API for ReadEvent service.
 // All implementations must embed UnimplementedReadEventServer
 // for forward compatibility
 type ReadEventServer interface {
 	// Registering BookEvent with bookmark ID
 	Register(context.Context, *ReadEventRegisterRequest) (*ReadEventRegisterResponse, error)
+	GetByBookID(context.Context, *GetByBookIDRequest) (*GetReadEventResponse, error)
 	mustEmbedUnimplementedReadEventServer()
 }
 
@@ -54,6 +65,9 @@ type UnimplementedReadEventServer struct {
 
 func (UnimplementedReadEventServer) Register(context.Context, *ReadEventRegisterRequest) (*ReadEventRegisterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
+}
+func (UnimplementedReadEventServer) GetByBookID(context.Context, *GetByBookIDRequest) (*GetReadEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetByBookID not implemented")
 }
 func (UnimplementedReadEventServer) mustEmbedUnimplementedReadEventServer() {}
 
@@ -86,6 +100,24 @@ func _ReadEvent_Register_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ReadEvent_GetByBookID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetByBookIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ReadEventServer).GetByBookID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bookowl.ReadEvent/GetByBookID",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ReadEventServer).GetByBookID(ctx, req.(*GetByBookIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ReadEvent_ServiceDesc is the grpc.ServiceDesc for ReadEvent service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -96,6 +128,10 @@ var ReadEvent_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Register",
 			Handler:    _ReadEvent_Register_Handler,
+		},
+		{
+			MethodName: "GetByBookID",
+			Handler:    _ReadEvent_GetByBookID_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

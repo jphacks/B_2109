@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package bookowl;
+
+option go_package = "github.com/jphacks/B_2109/server/api";
+
+import "google/protobuf/timestamp.proto";
+
+service Goal {
+
+  rpc Register(RegisterGoalRequest) returns (RegisterGoalResponse);
+
+  rpc GetByUserID(GetGoalByUserIDRequest) returns (GetGoalResponse);
+
+  rpc UpdateGoalStatus(UpdateGoalStatusRequest) returns (UpdateGoalResponse);
+}
+
+message RegisterGoalRequest {
+  GoalInfo goal_info = 1;
+}
+
+message RegisterGoalResponse {
+  uint64 goal_id = 1;
+  google.protobuf.Timestamp time = 2;
+}
+
+message GetGoalByUserIDRequest {
+  uint64 user_id = 1;
+}
+
+message GetGoalResponse{
+  repeated GoalInfo goal_info = 1;
+  google.protobuf.Timestamp time = 2;
+}
+
+message UpdateGoalStatusRequest{
+  uint64 goal_id = 1;
+  GoalStatus goal_status = 2;
+}
+
+message UpdateGoalResponse {
+  GoalInfo goal_info = 1;
+  google.protobuf.Timestamp time = 2;
+}
+
+enum GoalStatus{
+  GOAL_PENDING = 0;
+  GOAL_DOING = 1;
+  GOAL_COMPLETE = 2;
+  GOAL_FAILED = 3;
+}
+
+message GoalInfo{
+  uint64 goal_id = 1;
+  google.protobuf.Timestamp start_date = 2;
+  google.protobuf.Timestamp end_date = 3;
+  int64 time_amount_minutes = 4;
+  int64 num_pages = 5;
+  GoalStatus goal_status = 6;
+  uint64 user_id = 7;
+}
