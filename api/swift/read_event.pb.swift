@@ -34,13 +34,71 @@ struct Bookowl_ReadEventRegisterRequest {
   /// Clears the value of `readEventInfo`. Subsequent reads from it will return its default value.
   mutating func clearReadEventInfo() {self._readEventInfo = nil}
 
-  var bookmarkID: String = String()
+  var bookmarkID: UInt64 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 
   fileprivate var _readEventInfo: Bookowl_ReadEventInfo? = nil
+}
+
+struct Bookowl_GetByBookIDRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var bookID: UInt64 = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Bookowl_GetReadEventResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var readEventInfo: [Bookowl_ReadEventInfo] = []
+
+  var time: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _time ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_time = newValue}
+  }
+  /// Returns true if `time` has been explicitly set.
+  var hasTime: Bool {return self._time != nil}
+  /// Clears the value of `time`. Subsequent reads from it will return its default value.
+  mutating func clearTime() {self._time = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _time: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
+struct Bookowl_ReadEventRegisterResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var readEventID: UInt64 = 0
+
+  var time: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _time ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_time = newValue}
+  }
+  /// Returns true if `time` has been explicitly set.
+  var hasTime: Bool {return self._time != nil}
+  /// Clears the value of `time`. Subsequent reads from it will return its default value.
+  mutating func clearTime() {self._time = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _time: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
 }
 
 struct Bookowl_ReadEventInfo {
@@ -78,29 +136,6 @@ struct Bookowl_ReadEventInfo {
   fileprivate var _readEndTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
 }
 
-struct Bookowl_ReadEventRegisterResponse {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  var readEventID: String = String()
-
-  var time: SwiftProtobuf.Google_Protobuf_Timestamp {
-    get {return _time ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
-    set {_time = newValue}
-  }
-  /// Returns true if `time` has been explicitly set.
-  var hasTime: Bool {return self._time != nil}
-  /// Clears the value of `time`. Subsequent reads from it will return its default value.
-  mutating func clearTime() {self._time = nil}
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-
-  fileprivate var _time: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
-}
-
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "bookowl"
@@ -119,7 +154,7 @@ extension Bookowl_ReadEventRegisterRequest: SwiftProtobuf.Message, SwiftProtobuf
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._readEventInfo) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.bookmarkID) }()
+      case 2: try { try decoder.decodeSingularUInt64Field(value: &self.bookmarkID) }()
       default: break
       }
     }
@@ -133,8 +168,8 @@ extension Bookowl_ReadEventRegisterRequest: SwiftProtobuf.Message, SwiftProtobuf
     try { if let v = self._readEventInfo {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
-    if !self.bookmarkID.isEmpty {
-      try visitor.visitSingularStringField(value: self.bookmarkID, fieldNumber: 2)
+    if self.bookmarkID != 0 {
+      try visitor.visitSingularUInt64Field(value: self.bookmarkID, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -142,6 +177,122 @@ extension Bookowl_ReadEventRegisterRequest: SwiftProtobuf.Message, SwiftProtobuf
   static func ==(lhs: Bookowl_ReadEventRegisterRequest, rhs: Bookowl_ReadEventRegisterRequest) -> Bool {
     if lhs._readEventInfo != rhs._readEventInfo {return false}
     if lhs.bookmarkID != rhs.bookmarkID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Bookowl_GetByBookIDRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetByBookIDRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "book_id"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularUInt64Field(value: &self.bookID) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.bookID != 0 {
+      try visitor.visitSingularUInt64Field(value: self.bookID, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Bookowl_GetByBookIDRequest, rhs: Bookowl_GetByBookIDRequest) -> Bool {
+    if lhs.bookID != rhs.bookID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Bookowl_GetReadEventResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetReadEventResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "read_event_info"),
+    2: .same(proto: "time"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.readEventInfo) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._time) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.readEventInfo.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.readEventInfo, fieldNumber: 1)
+    }
+    try { if let v = self._time {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Bookowl_GetReadEventResponse, rhs: Bookowl_GetReadEventResponse) -> Bool {
+    if lhs.readEventInfo != rhs.readEventInfo {return false}
+    if lhs._time != rhs._time {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Bookowl_ReadEventRegisterResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ReadEventRegisterResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "read_event_id"),
+    2: .same(proto: "time"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularUInt64Field(value: &self.readEventID) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._time) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.readEventID != 0 {
+      try visitor.visitSingularUInt64Field(value: self.readEventID, fieldNumber: 1)
+    }
+    try { if let v = self._time {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Bookowl_ReadEventRegisterResponse, rhs: Bookowl_ReadEventRegisterResponse) -> Bool {
+    if lhs.readEventID != rhs.readEventID {return false}
+    if lhs._time != rhs._time {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -196,48 +347,6 @@ extension Bookowl_ReadEventInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     if lhs._readEndTime != rhs._readEndTime {return false}
     if lhs.readStartPosition != rhs.readStartPosition {return false}
     if lhs.readEndPosition != rhs.readEndPosition {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Bookowl_ReadEventRegisterResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".ReadEventRegisterResponse"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "read_event_id"),
-    2: .same(proto: "time"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.readEventID) }()
-      case 2: try { try decoder.decodeSingularMessageField(value: &self._time) }()
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    if !self.readEventID.isEmpty {
-      try visitor.visitSingularStringField(value: self.readEventID, fieldNumber: 1)
-    }
-    try { if let v = self._time {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    } }()
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Bookowl_ReadEventRegisterResponse, rhs: Bookowl_ReadEventRegisterResponse) -> Bool {
-    if lhs.readEventID != rhs.readEventID {return false}
-    if lhs._time != rhs._time {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

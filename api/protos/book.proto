@@ -9,20 +9,73 @@ import "google/protobuf/timestamp.proto";
 service Book{
   // Registering Book using ISBN and a book width[mm].
   rpc Register(BookRegisterRequest) returns (BookRegisterResponse);
+
+  rpc GetByUserID(GetByUserIDRequest) returns (GetBookResponse);
+
+  rpc GetByBookmarkID(GetByBookmarkIDRequest) returns (GetBookResponse);
+
+  rpc UpdateBookmarkID(UpdateBookmarkIDRequest) returns (UpdateBookResponse);
+
+  rpc UpdateReadStatus(UpdateReadStatusRequest) returns (UpdateBookResponse);
 }
 
 message BookRegisterRequest {
   BookInfo book_info = 1;
-  string bookmark_id = 2;
-  string user_id = 3;
+  uint64 bookmark_id = 2;
+  uint64 user_id = 3;
 }
 
 message BookRegisterResponse {
-  string book_id = 1;
+  uint64 book_id = 1;
   google.protobuf.Timestamp time = 2;
 }
 
+message GetByUserIDRequest{
+  uint64 user_id = 1;
+}
+
+message GetByBookmarkIDRequest {
+  uint64 bookmark_id = 1;
+}
+
+message GetBookResponse{
+  repeated BookInfo book_info = 1;
+  google.protobuf.Timestamp time = 2;
+}
+
+message UpdateReadStatusRequest{
+  uint64 book_id=1;
+  ReadStatus read_status=2;
+}
+
+message UpdateBookmarkIDRequest{
+  uint64 book_id=1;
+  uint64 bookmark_id=2;
+}
+
+message UpdateBookResponse{
+  BookInfo book_info = 1;
+  google.protobuf.Timestamp time = 2;
+}
+
+// ReadStatus links to server/pkg/models/user_book.go ReadStatus
+enum ReadStatus{
+  READ_UNREAD = 0;
+  READ_READING = 1;
+  READ_SUSPENDED = 2;
+  READ_COMPLETE = 3;
+}
+
 message BookInfo {
-  string isbn = 1;
-  int64 book_mili_width = 2;
+  uint64 book_id=1;
+  string isbn = 2;
+  uint64 book_mili_width = 3;
+  string name = 4;
+  int64 pages = 5;
+  int64 price = 6;
+  repeated string authors = 7;
+  ReadStatus read_status = 8;
+  repeated string categories = 9;
+  repeated uint64 user_id = 10;
+  repeated uint64 bookmark_id = 11;
 }

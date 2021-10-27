@@ -9,11 +9,27 @@ import "google/protobuf/timestamp.proto";
 service ReadEvent{
   // Registering BookEvent with bookmark ID
   rpc Register(ReadEventRegisterRequest) returns (ReadEventRegisterResponse);
+
+  rpc GetByBookID(GetByBookIDRequest) returns (GetReadEventResponse);
 }
 
 message ReadEventRegisterRequest {
   ReadEventInfo read_event_info = 1;
-  string bookmark_id = 2;
+  uint64 bookmark_id = 2;
+}
+
+message GetByBookIDRequest {
+  uint64 book_id = 1;
+}
+
+message GetReadEventResponse {
+  repeated ReadEventInfo read_event_info = 1;
+  google.protobuf.Timestamp time = 2;
+}
+
+message ReadEventRegisterResponse {
+  uint64 read_event_id = 1;
+  google.protobuf.Timestamp time = 2;
 }
 
 message ReadEventInfo {
@@ -21,9 +37,4 @@ message ReadEventInfo {
   google.protobuf.Timestamp read_end_time = 2;
   int64 read_start_position = 3;
   int64 read_end_position = 4;
-}
-
-message ReadEventRegisterResponse {
-  string read_event_id = 1;
-  google.protobuf.Timestamp time = 2;
 }

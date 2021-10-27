@@ -2,11 +2,13 @@ SHELL:=/bin/bash
 
 UNAME=$(shell uname)
 
+PYTHON=python3
+
 PROTOC=protoc
 PROTO_SRCS=$(wildcard ./protos/*.proto)
-PROTO_SWIFT_TAG=1.18.0
 PROTO_DOCS_VERSION=latest
 PROTO_DOCS_FORMAT=markdown,README.md
+GRPC_SWIFT_VERSION=1.5.0
 
 RM_OPTS=-rf
 
@@ -25,8 +27,9 @@ proto-go: $(PROTO_SRCS)
 
 .PHONY: proto-python
 proto-python: $(PROTO_SRCS)
-	$(PROTOC) \
+	$(PYTHON) -m grpc_tools.protoc \
 	--python_out=./python/ \
+	--grpc_python_out=./python/ \
 	-I ./protos/ \
 	$^
 
@@ -34,6 +37,7 @@ proto-python: $(PROTO_SRCS)
 proto-swift: $(PROTO_SRCS)
 	$(PROTOC) \
 	--swift_out=./swift/ \
+	--grpc-swift_out=./swift/ \
 	-I ./protos/ \
 	$^
 
@@ -49,22 +53,20 @@ dep: dep-$(UNAME)
 	go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.26
 	go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.1
 	go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@$(PROTO_DOCS_VERSION)
-	pip3 install grpcio
+	pip3 install grpcio grpcio-tools
+	wget https://github.com/grpc/grpc-swift/releases/download/$(GRPC_SWIFT_VERSION)/protoc-grpc-swift-plugins-$(GRPC_SWIFT_VERSION).zip
+	unzip protoc-grpc-swift-plugins-$(GRPC_SWIFT_VERSION).zip
+	sudo cp bin/protoc-gen-swift /usr/local/bin/
+	sudo cp bin/protoc-gen-grpc-swift /usr/local/bin/
 
 .PHONY: dep-Darwin
 dep-Darwin:
 	brew install protobuf
-	brew install swift-protobuf
 
 .PHONY: dep-Linux
 dep-Linux:
 	sudo apt update
 	sudo apt install -y protobuf-compiler
-	git clone https://github.com/apple/swift-protobuf.git
-	cd swift-protobuf
-	git checkout tags/$(PROTO_SWIFT_TAG)
-	swift build -c release
-	sudo cp .build/release/protoc-gen-swift /usr/bin/
 
 .PHONY: clean
 clean:
