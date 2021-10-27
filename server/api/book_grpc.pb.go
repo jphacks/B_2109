@@ -20,6 +20,10 @@ const _ = grpc.SupportPackageIsVersion7
 type BookClient interface {
 	// Registering Book using ISBN and a book width[mm].
 	Register(ctx context.Context, in *BookRegisterRequest, opts ...grpc.CallOption) (*BookRegisterResponse, error)
+	GetByUserID(ctx context.Context, in *GetByUserIDRequest, opts ...grpc.CallOption) (*GetBookResponse, error)
+	GetByBookmarkID(ctx context.Context, in *GetByBookmarkIDRequest, opts ...grpc.CallOption) (*GetBookResponse, error)
+	UpdateBookmarkID(ctx context.Context, in *UpdateBookmarkIDRequest, opts ...grpc.CallOption) (*UpdateBookResponse, error)
+	UpdateReadStatus(ctx context.Context, in *UpdateReadStatusRequest, opts ...grpc.CallOption) (*UpdateBookResponse, error)
 }
 
 type bookClient struct {
@@ -39,12 +43,52 @@ func (c *bookClient) Register(ctx context.Context, in *BookRegisterRequest, opts
 	return out, nil
 }
 
+func (c *bookClient) GetByUserID(ctx context.Context, in *GetByUserIDRequest, opts ...grpc.CallOption) (*GetBookResponse, error) {
+	out := new(GetBookResponse)
+	err := c.cc.Invoke(ctx, "/bookowl.Book/GetByUserID", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *bookClient) GetByBookmarkID(ctx context.Context, in *GetByBookmarkIDRequest, opts ...grpc.CallOption) (*GetBookResponse, error) {
+	out := new(GetBookResponse)
+	err := c.cc.Invoke(ctx, "/bookowl.Book/GetByBookmarkID", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *bookClient) UpdateBookmarkID(ctx context.Context, in *UpdateBookmarkIDRequest, opts ...grpc.CallOption) (*UpdateBookResponse, error) {
+	out := new(UpdateBookResponse)
+	err := c.cc.Invoke(ctx, "/bookowl.Book/UpdateBookmarkID", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *bookClient) UpdateReadStatus(ctx context.Context, in *UpdateReadStatusRequest, opts ...grpc.CallOption) (*UpdateBookResponse, error) {
+	out := new(UpdateBookResponse)
+	err := c.cc.Invoke(ctx, "/bookowl.Book/UpdateReadStatus", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // BookServer is the server API for Book service.
 // All implementations must embed UnimplementedBookServer
 // for forward compatibility
 type BookServer interface {
 	// Registering Book using ISBN and a book width[mm].
 	Register(context.Context, *BookRegisterRequest) (*BookRegisterResponse, error)
+	GetByUserID(context.Context, *GetByUserIDRequest) (*GetBookResponse, error)
+	GetByBookmarkID(context.Context, *GetByBookmarkIDRequest) (*GetBookResponse, error)
+	UpdateBookmarkID(context.Context, *UpdateBookmarkIDRequest) (*UpdateBookResponse, error)
+	UpdateReadStatus(context.Context, *UpdateReadStatusRequest) (*UpdateBookResponse, error)
 	mustEmbedUnimplementedBookServer()
 }
 
@@ -54,6 +98,18 @@ type UnimplementedBookServer struct {
 
 func (UnimplementedBookServer) Register(context.Context, *BookRegisterRequest) (*BookRegisterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
+}
+func (UnimplementedBookServer) GetByUserID(context.Context, *GetByUserIDRequest) (*GetBookResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetByUserID not implemented")
+}
+func (UnimplementedBookServer) GetByBookmarkID(context.Context, *GetByBookmarkIDRequest) (*GetBookResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetByBookmarkID not implemented")
+}
+func (UnimplementedBookServer) UpdateBookmarkID(context.Context, *UpdateBookmarkIDRequest) (*UpdateBookResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateBookmarkID not implemented")
+}
+func (UnimplementedBookServer) UpdateReadStatus(context.Context, *UpdateReadStatusRequest) (*UpdateBookResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateReadStatus not implemented")
 }
 func (UnimplementedBookServer) mustEmbedUnimplementedBookServer() {}
 
@@ -86,6 +142,78 @@ func _Book_Register_Handler(srv interface{}, ctx context.Context, dec func(inter
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Book_GetByUserID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetByUserIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BookServer).GetByUserID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bookowl.Book/GetByUserID",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BookServer).GetByUserID(ctx, req.(*GetByUserIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Book_GetByBookmarkID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetByBookmarkIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BookServer).GetByBookmarkID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bookowl.Book/GetByBookmarkID",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BookServer).GetByBookmarkID(ctx, req.(*GetByBookmarkIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Book_UpdateBookmarkID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateBookmarkIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BookServer).UpdateBookmarkID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bookowl.Book/UpdateBookmarkID",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BookServer).UpdateBookmarkID(ctx, req.(*UpdateBookmarkIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Book_UpdateReadStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateReadStatusRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BookServer).UpdateReadStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bookowl.Book/UpdateReadStatus",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BookServer).UpdateReadStatus(ctx, req.(*UpdateReadStatusRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Book_ServiceDesc is the grpc.ServiceDesc for Book service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -96,6 +224,22 @@ var Book_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Register",
 			Handler:    _Book_Register_Handler,
+		},
+		{
+			MethodName: "GetByUserID",
+			Handler:    _Book_GetByUserID_Handler,
+		},
+		{
+			MethodName: "GetByBookmarkID",
+			Handler:    _Book_GetByBookmarkID_Handler,
+		},
+		{
+			MethodName: "UpdateBookmarkID",
+			Handler:    _Book_UpdateBookmarkID_Handler,
+		},
+		{
+			MethodName: "UpdateReadStatus",
+			Handler:    _Book_UpdateReadStatus_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
