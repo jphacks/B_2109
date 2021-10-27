@@ -10,9 +10,7 @@ import SwiftUI
 struct ISBNView: View {
     @ObservedObject private var isbnReader = ISBNReader()
     @ObservedObject var viewModel : ScannerViewModel
-
     var body: some View {
-        
         ZStack {
             ISBNScannerView()
                 .found(r: self.viewModel.onFoundQrCode)
@@ -21,12 +19,10 @@ struct ISBNView: View {
                 VStack {
                     Text("Keep scanning for QR-codes")
                         .font(.subheadline)
-
                     Text("QRコード読み取り結果 = [ " + self.viewModel.lastQrCode + " ]")
                         .bold()
                         .lineLimit(5)
                         .padding()
-
                     Button("Close") {
                         self.viewModel.isShowing = false
                     }

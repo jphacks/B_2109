@@ -1,21 +1,20 @@
 //
-//  TopView.swift
+//  BookListView.swift
 //  Bookowl
 //
-//  Created by ayano-ik on 2021/10/26.
+//  Created by ayano-ik on 2021/10/27.
 //
 
 import SwiftUI
 
-struct TopView: View {
+struct BookListView: View {
     var body: some View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
     }
 }
 
-struct TopView_Previews: PreviewProvider {
+struct BookListView_Previews: PreviewProvider {
     static var previews: some View {
-        TopView()
-            .previewDevice("iPhone 11 Pro")
+        BookListView()
     }
 }
