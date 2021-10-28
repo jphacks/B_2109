@@ -13,38 +13,40 @@ struct Book : Identifiable {
     var name: String
 }
 struct ShelfView: View {
+//    TODO: BookModelの渡し方
     let titles = ["読書中","積読中","読了本"]
         @State var selectedIndex: Int = 0
         var body: some View {
-            
-            PagerTabStripView() {
-                BookView().pagerTabItem {
-                    TitleNavBarItem(title: "Home")
-                }.onPageAppear {
-//                    homeModel.isLoading = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//                        homeModel.isLoading = false
+                    PagerTabStripView() {
+                        BookListView(books: [BookModel(id: "1", name: "owl", status: "Unread", progress: "64", imagePath: "owl")]).pagerTabItem {
+                            TitleNavBarItem(title: "読書中")
+                        }.onPageAppear {
+        //                    homeModel.isLoading = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        //                        homeModel.isLoading = false
+                            }
+                        }
+                        
+                        BookListView(books: [BookModel(id: "1", name: "owl", status: "Unread", progress: "64", imagePath: "owl")]).pagerTabItem {
+                            TitleNavBarItem(title: "積読中")
+                        }
+                        .onPageAppear {
+        //                    trendingModel.isLoading = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        //                        trendingModel.isLoading = false
+                            }
+                        }
+                        
+                       BookListView(books: [BookModel(id: "1", name: "owl", status: "Unread", progress: "64", imagePath: "owl")]).pagerTabItem {
+                        TitleNavBarItem(title: "読了本")
+                        }
                     }
-                }
-                
-                BookView().pagerTabItem {
-                    TitleNavBarItem(title: "Trending")
-                }
-                .onPageAppear {
-//                    trendingModel.isLoading = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//                        trendingModel.isLoading = false
-                    }
-                }
-                
-               BookView().pagerTabItem {
-                TitleNavBarItem(title: "Account")
-                }
-            }
-            .pagerTabStripViewStyle(.normal(indicatorBarHeight: 5, indicatorBarColor: selectedColor, tabItemHeight: 80))
-            .frame(alignment: .center)
+                    .pagerTabStripViewStyle(.normal(indicatorBarHeight: 5, indicatorBarColor: selectedColor, tabItemHeight: 80))
+                    .frame(alignment: .center)
+        
             
-        }
+    }
+
 }
           
 
