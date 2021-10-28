@@ -11,6 +11,6 @@ struct BookModel : Hashable, Codable, Identifiable{
     var id : String
     var name : String
     var status : String
-    var progress : String
+    var progress : Int
     var imagePath : String
 }

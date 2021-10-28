@@ -15,10 +15,11 @@ struct Book : Identifiable {
 struct ShelfView: View {
 //    TODO: BookModelの渡し方
     let titles = ["読書中","積読中","読了本"]
-        @State var selectedIndex: Int = 0
+    @State var selectedIndex: Int = 0
+    
         var body: some View {
                     PagerTabStripView() {
-                        BookListView(books: [BookModel(id: "1", name: "owl", status: "Unread", progress: "64", imagePath: "owl")]).pagerTabItem {
+                        BookListView(books: [BookModel(id: "1", name: "owl", status: "Unread", progress: 64, imagePath: "owl")]).pagerTabItem {
                             TitleNavBarItem(title: "読書中")
                         }.onPageAppear {
         //                    homeModel.isLoading = true
@@ -27,7 +28,7 @@ struct ShelfView: View {
                             }
                         }
                         
-                        BookListView(books: [BookModel(id: "1", name: "owl", status: "Unread", progress: "64", imagePath: "owl")]).pagerTabItem {
+                        BookListView(books: [BookModel(id: "1", name: "owl", status: "Unread", progress: 64, imagePath: "owl")]).pagerTabItem {
                             TitleNavBarItem(title: "積読中")
                         }
                         .onPageAppear {
@@ -37,11 +38,12 @@ struct ShelfView: View {
                             }
                         }
                         
-                       BookListView(books: [BookModel(id: "1", name: "owl", status: "Unread", progress: "64", imagePath: "owl")]).pagerTabItem {
+                       BookListView(books: [BookModel(id: "1", name: "owl", status: "Unread", progress: 64, imagePath: "owl")]).pagerTabItem {
                         TitleNavBarItem(title: "読了本")
                         }
                     }
                     .pagerTabStripViewStyle(.normal(indicatorBarHeight: 5, indicatorBarColor: selectedColor, tabItemHeight: 80))
+                    
                     .frame(alignment: .center)
         
             

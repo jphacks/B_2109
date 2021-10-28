@@ -10,12 +10,15 @@ import PagerTabStripView
 
 
 let redColor = Color(red: 221/255.0, green: 0/255.0, blue: 19/255.0, opacity: 1.0)
-let unselectedColor = Color(red: 73/255.0, green: 8/255.0, blue: 10/255.0, opacity: 1.0)
-let selectedColor = Color(red: 234/255.0, green: 234/255.0, blue: 234/255.0, opacity: 0.7)
+let unselectedColor = Color(red: 250/255.0, green: 187/255.0, blue: 118/255.0, opacity: 1.0)
+let selectedColor = Color(red: 169/255.0, green: 49/255.0, blue: 48/255.0, opacity: 0.7)
+let brownColor = Color(red: 105/255.0, green: 78/255.0, blue: 51/255.0, opacity: 1.0)
+
+let background = Color(red: 255/255, green: 241/255, blue: 179/255,opacity: 1.0)
 
 private class ButtonTheme: ObservableObject {
-    @Published var backgroundColor = redColor
-    @Published var textColor = unselectedColor
+    @Published var backgroundColor = background
+    @Published var textColor = Color.gray
 }
 
 struct TitleNavBarItem: View, PagerTabViewDelegate {
@@ -27,16 +30,16 @@ struct TitleNavBarItem: View, PagerTabViewDelegate {
         VStack {
             Text(title)
                 .foregroundColor(theme.textColor)
-                .font(.subheadline)
+                .font(.body)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.white)
+        .background(theme.backgroundColor)
     }
     
     func setState(state: PagerTabViewState) {
         switch state {
         case .selected:
-            self.theme.textColor = .blue
+            self.theme.textColor = brownColor
         default:
             self.theme.textColor = .gray
         }
