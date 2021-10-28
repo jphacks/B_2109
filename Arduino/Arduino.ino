@@ -5,7 +5,7 @@ const int PRESSURE_PIN = A2;  //圧力センサの信号線をA2に接続
 
 //時間関連の定数と変数
 const int LOOP_TIME = 50;  //ループの間隔[msec]
-const int SEND_DURATION = 500; //通信間隔[msec]
+const int SEND_DURATION = 200; //通信間隔[msec]
 const int DETECT_DELAY = 1000;  //厚み計測の遅延時間[msec]
 
 //センサ初期値の指定
@@ -52,7 +52,7 @@ void loop() {
   PRESSURE = analogRead(PRESSURE_PIN);  //圧力センサ（つかみ判定）の値を読み取り
 
   //止まり木と把持判定を事前にしておく
-  ON_BRANCH = MAGNET > 600 || MAGNET < 415; //止まり木に止まったらTrue
+  ON_BRANCH = MAGNET > 540 || MAGNET < 490; //止まり木に止まったらTrue
   ON_HAND = PRESSURE < 1000; //しおりを掴んだらTrue
 
   //現在のモードの判定
@@ -79,6 +79,14 @@ void loop() {
       if (COUNT >= DETECT_DELAY) {
         MODE = 3; //0.7秒以上経過したら収納中モードへ移行
         SEND_VOLUME = VOLUME; //値読み取り→収納中に移行した時のみ，RasPiに送信する可変抵抗値を更新
+        
+        //角度→厚さ変換とページ数計算をする
+        BOOK_WIDTH =  int(SEND_VOLUME * SEND_VOLUME * (-0.0003)  +  1.7043 * SEND_VOLUME + 13.014);  //角度→厚さ変換
+        if (BOOK_WIDTH < 0) {
+          BOOK_WIDTH = 0;  //厚みが負にならないようにする
+        }
+        NUM_PAGES = int(float(BOOK_WIDTH) / ALL_BOOK_WIDTH * ALL_PAGES);  //PAGE数の計算
+        
       } else if (ON_HAND) {
         MODE = 0; //圧力センサがONになったら保持中へ移行
       } else {
@@ -89,6 +97,8 @@ void loop() {
     case 3:
       if (ON_HAND) {
         MODE = 0; //しおりが掴まれたら保持中へ移行
+      } else if (ON_BRANCH) {
+        MODE = 1;  //止まり木にいる場合は読書中に移行
       } else {
         MODE = 3; //しおりが掴まれなかったら収納中を維持
       }
@@ -117,18 +127,11 @@ void loop() {
 
   //RaspberryPiとの通信
   if (SEND_COUNT >= SEND_DURATION) {
-    //角度→厚さ変換とページ数計算をする
-    BOOK_WIDTH =  int(SEND_VOLUME * SEND_VOLUME * (-0.0003)  +  1.7043 * SEND_VOLUME + 13.014);  //角度→厚さ変換
-    if (BOOK_WIDTH < 0) {
-      BOOK_WIDTH = 0;  //厚みが負にならないようにする
-    }
-    NUM_PAGES = int(float(BOOK_WIDTH) / ALL_BOOK_WIDTH * ALL_PAGES);  //PAGE数の計算
-
     // 本の厚さを送信したい場合はtrueに，本のページ数を送信したい場合はfalseにしてください．
     if (true) {
-      sprintf(string, "S,1,%d,%d,2,1,195,3,1,85,4,1,315",SEND_MODE,BOOK_WIDTH);  //文字列に変数を埋め込む
+      sprintf(string, ",S,1,%d,%d,2,1,195,3,1,85,4,1,315",SEND_MODE,BOOK_WIDTH);  //文字列に変数を埋め込む
     } else {
-      sprintf(string, "S,1,%d,%d,2,1,70,3,1,70,4,1,70",SEND_MODE,NUM_PAGES);  //文字列に変数を埋め込む
+      sprintf(string, ",S,1,%d,%d,2,1,70,3,1,70,4,1,70",SEND_MODE,NUM_PAGES);  //文字列に変数を埋め込む
     }
     
     Serial.println(string); //文字列をRasPaiにシリアル通信で送信
