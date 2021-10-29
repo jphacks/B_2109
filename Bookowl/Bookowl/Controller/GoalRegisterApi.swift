@@ -6,6 +6,8 @@
 //
 import Foundation
 import GRPC
+import Logging
+import NIO
 class GoalRegisterAPI : NSObject, ObservableObject{
 
     override init() {
@@ -42,8 +44,11 @@ class GoalRegisterAPI : NSObject, ObservableObject{
     
     func getGoalByUserId(){
         let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
+        defer{
+            try? group.syncShutdownGracefully()
+        }
         let connection = ClientConnection
-            .secure(group: group)
+            .insecure(group: group)
             .connect(host: "163.221.29.71", port: 8080)
 //        let client = Bookowl_GoalClient.init(channel:connection )
         var request = Bookowl_GetGoalByUserIDRequest()
@@ -52,14 +57,14 @@ class GoalRegisterAPI : NSObject, ObservableObject{
         let call = client.getByUserID(request)
         
         print("aaa")
-//        do {
-//            let response = try client.getByUserID(request, callOptions: CallOptions()).response.wait()
-//            print(response.time)
-//        }catch let e{
-//            print(e.localizedDescription)
-//        }
+        do {
+            let response = try client.getByUserID(request, callOptions: CallOptions()).response.wait()
+            print(response.time)
+        }catch let e{
+            print(e.localizedDescription)
+        }
 //        call.response.whenSuccess({res in print(res.time)})
-        
+//
 //        let response = try? call.response.wait()
 //        print(response)
 //        call.response.whenFailure({
