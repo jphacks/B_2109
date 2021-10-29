@@ -268,7 +268,7 @@ struct Bookowl_GetProgressByUserIDResponse {
   fileprivate var _time: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
 }
 
-struct Bookowl_GetProgressByUserIDWithDurationRequest {
+struct Bookowl_GetReadAmountPagesByUserIDWithDurationRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -301,12 +301,12 @@ struct Bookowl_GetProgressByUserIDWithDurationRequest {
   fileprivate var _end: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
 }
 
-struct Bookowl_GetProgressByUserIDWithDurationResponse {
+struct Bookowl_GetReadAmountPagesByUserIDWithDurationResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var progress: Float = 0
+  var pages: UInt64 = 0
 
   var time: SwiftProtobuf.Google_Protobuf_Timestamp {
     get {return _time ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
@@ -754,8 +754,8 @@ extension Bookowl_GetProgressByUserIDResponse: SwiftProtobuf.Message, SwiftProto
   }
 }
 
-extension Bookowl_GetProgressByUserIDWithDurationRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".GetProgressByUserIDWithDurationRequest"
+extension Bookowl_GetReadAmountPagesByUserIDWithDurationRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetReadAmountPagesByUserIDWithDurationRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "user_id"),
     2: .same(proto: "start"),
@@ -793,7 +793,7 @@ extension Bookowl_GetProgressByUserIDWithDurationRequest: SwiftProtobuf.Message,
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Bookowl_GetProgressByUserIDWithDurationRequest, rhs: Bookowl_GetProgressByUserIDWithDurationRequest) -> Bool {
+  static func ==(lhs: Bookowl_GetReadAmountPagesByUserIDWithDurationRequest, rhs: Bookowl_GetReadAmountPagesByUserIDWithDurationRequest) -> Bool {
     if lhs.userID != rhs.userID {return false}
     if lhs._start != rhs._start {return false}
     if lhs._end != rhs._end {return false}
@@ -802,10 +802,10 @@ extension Bookowl_GetProgressByUserIDWithDurationRequest: SwiftProtobuf.Message,
   }
 }
 
-extension Bookowl_GetProgressByUserIDWithDurationResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".GetProgressByUserIDWithDurationResponse"
+extension Bookowl_GetReadAmountPagesByUserIDWithDurationResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetReadAmountPagesByUserIDWithDurationResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "progress"),
+    1: .same(proto: "pages"),
     2: .same(proto: "time"),
   ]
 
@@ -815,7 +815,7 @@ extension Bookowl_GetProgressByUserIDWithDurationResponse: SwiftProtobuf.Message
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularFloatField(value: &self.progress) }()
+      case 1: try { try decoder.decodeSingularUInt64Field(value: &self.pages) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._time) }()
       default: break
       }
@@ -827,8 +827,8 @@ extension Bookowl_GetProgressByUserIDWithDurationResponse: SwiftProtobuf.Message
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    if self.progress != 0 {
-      try visitor.visitSingularFloatField(value: self.progress, fieldNumber: 1)
+    if self.pages != 0 {
+      try visitor.visitSingularUInt64Field(value: self.pages, fieldNumber: 1)
     }
     try { if let v = self._time {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
@@ -836,8 +836,8 @@ extension Bookowl_GetProgressByUserIDWithDurationResponse: SwiftProtobuf.Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Bookowl_GetProgressByUserIDWithDurationResponse, rhs: Bookowl_GetProgressByUserIDWithDurationResponse) -> Bool {
-    if lhs.progress != rhs.progress {return false}
+  static func ==(lhs: Bookowl_GetReadAmountPagesByUserIDWithDurationResponse, rhs: Bookowl_GetReadAmountPagesByUserIDWithDurationResponse) -> Bool {
+    if lhs.pages != rhs.pages {return false}
     if lhs._time != rhs._time {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

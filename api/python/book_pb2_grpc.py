@@ -44,10 +44,10 @@ class BookStub(object):
                 request_serializer=book__pb2.GetProgressByUserIDRequest.SerializeToString,
                 response_deserializer=book__pb2.GetProgressByUserIDResponse.FromString,
                 )
-        self.GetProgressByUserIDWithDuration = channel.unary_unary(
-                '/bookowl.Book/GetProgressByUserIDWithDuration',
-                request_serializer=book__pb2.GetProgressByUserIDWithDurationRequest.SerializeToString,
-                response_deserializer=book__pb2.GetProgressByUserIDWithDurationResponse.FromString,
+        self.GetReadAmountPagesByUserIDWithDuration = channel.unary_unary(
+                '/bookowl.Book/GetReadAmountPagesByUserIDWithDuration',
+                request_serializer=book__pb2.GetReadAmountPagesByUserIDWithDurationRequest.SerializeToString,
+                response_deserializer=book__pb2.GetReadAmountPagesByUserIDWithDurationResponse.FromString,
                 )
 
 
@@ -91,7 +91,7 @@ class BookServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetProgressByUserIDWithDuration(self, request, context):
+    def GetReadAmountPagesByUserIDWithDuration(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -130,10 +130,10 @@ def add_BookServicer_to_server(servicer, server):
                     request_deserializer=book__pb2.GetProgressByUserIDRequest.FromString,
                     response_serializer=book__pb2.GetProgressByUserIDResponse.SerializeToString,
             ),
-            'GetProgressByUserIDWithDuration': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetProgressByUserIDWithDuration,
-                    request_deserializer=book__pb2.GetProgressByUserIDWithDurationRequest.FromString,
-                    response_serializer=book__pb2.GetProgressByUserIDWithDurationResponse.SerializeToString,
+            'GetReadAmountPagesByUserIDWithDuration': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetReadAmountPagesByUserIDWithDuration,
+                    request_deserializer=book__pb2.GetReadAmountPagesByUserIDWithDurationRequest.FromString,
+                    response_serializer=book__pb2.GetReadAmountPagesByUserIDWithDurationResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -248,7 +248,7 @@ class Book(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def GetProgressByUserIDWithDuration(request,
+    def GetReadAmountPagesByUserIDWithDuration(request,
             target,
             options=(),
             channel_credentials=None,
@@ -258,8 +258,8 @@ class Book(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/bookowl.Book/GetProgressByUserIDWithDuration',
-            book__pb2.GetProgressByUserIDWithDurationRequest.SerializeToString,
-            book__pb2.GetProgressByUserIDWithDurationResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/bookowl.Book/GetReadAmountPagesByUserIDWithDuration',
+            book__pb2.GetReadAmountPagesByUserIDWithDurationRequest.SerializeToString,
+            book__pb2.GetReadAmountPagesByUserIDWithDurationResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

@@ -20,7 +20,7 @@ service Book{
 
   rpc GetProgressByUserID (GetProgressByUserIDRequest) returns (GetProgressByUserIDResponse);
 
-  rpc GetProgressByUserIDWithDuration (GetProgressByUserIDWithDurationRequest) returns (GetProgressByUserIDWithDurationResponse);
+  rpc GetReadAmountPagesByUserIDWithDuration (GetReadAmountPagesByUserIDWithDurationRequest) returns (GetReadAmountPagesByUserIDWithDurationResponse);
 }
 
 message RegisterBookRequest {
@@ -70,14 +70,14 @@ message GetProgressByUserIDResponse{
   google.protobuf.Timestamp time = 2;
 }
 
-message GetProgressByUserIDWithDurationRequest{
+message GetReadAmountPagesByUserIDWithDurationRequest{
   uint64 user_id = 1;
   google.protobuf.Timestamp start = 2;
   google.protobuf.Timestamp end = 3;
 }
 
-message GetProgressByUserIDWithDurationResponse{
-  float progress = 1;
+message GetReadAmountPagesByUserIDWithDurationResponse{
+  uint64 pages = 1;
   google.protobuf.Timestamp time = 2;
 }
 
