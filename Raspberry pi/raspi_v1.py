@@ -2,7 +2,9 @@ import tkinter as tk
 import threading
 import serial
 import time
+import re
 import datetime
+from google.protobuf.timestamp_pb2 import Timestamp
 import RPi.GPIO as GPIO
 from PIL import Image, ImageTk 
 
@@ -39,6 +41,7 @@ class GUI(tk.Frame):
         self.bookmark_flag=0#変化した栞IDの保管
         self.view_flag=0# 各種フラグから最終的に表示する画面の指定
         self.view_flag_old=0# 各種フラグから最終的に表示する画面の指定
+        self.flag=0
         #変数　内部用
         self.tag="normal"#現在表示中のタグを保存
         self.sp_time=0#現在表示中のタグを保存
@@ -58,8 +61,8 @@ class GUI(tk.Frame):
         self.ut="sec"
         
         #PILでjpgを使用
-        self.img1 = ImageTk.PhotoImage(file="goal.png")
-        self.img3 = ImageTk.PhotoImage(file="bokowl.png")
+        self.img1 = ImageTk.PhotoImage(file="tes.png")
+        self.img3 = ImageTk.PhotoImage(file="bowl2.png")
 
         self.ser = serial.Serial('/dev/ttyACM0', 9600)
         
@@ -74,39 +77,45 @@ class GUI(tk.Frame):
 
         #canvas.delete("oval")
     def create_normal(self):
-        self.canvas.create_image(0, 0, image=self.img1,anchor=tk.NW,tag="normal")
-        self.canvas.create_image(self.set_posi,580, image=self.img3,anchor=tk.NW,tag="normal")
-        self.canvas.create_text(self.set_posi,50,text=str(self.read)+"page",font=('Times',40), tag="normal")
-        self.canvas.create_text(self.set_posi,100,text=str(int(self.read_rate*100))+"%",font=('Times',40), tag="normal")
+        if(self.view_flag!=self.view_flag_old):
+            self.canvas.create_image(0, 0, image=self.img1,anchor=tk.NW,tag="normal")
+        if(self.flag==1):
+            self.canvas.create_image(0, 0, image=self.img1,anchor=tk.NW,tag="normal")
+            self.flag=0
+        self.canvas.create_image(self.set_posi,400, image=self.img3,anchor=tk.NW,tag="normal2")
+        self.canvas.create_text(self.set_posi,50,text=str(self.read)+"page",font=('',40), tag="normal2")
+        self.canvas.create_text(self.set_posi,100,text=str(int(self.read_rate*100))+"%",font=('',40), tag="normal2")
         self.tag="normal"
         self.canvas.pack()
 
     def create_initial(self):
-        self.canvas.create_text(int(1024/2),int(768/6),text="初期登録",font=('Times',40), tag="initial")
-        self.canvas.create_text(int(1024/3),int(768/6)*2,text="栞ID:1",font=('Times',40), tag="initial")
-        self.canvas.create_text(int(1024/3),int(768/6)*3,text="栞ID:2",font=('Times',40), tag="initial")
-        self.canvas.create_text(int(1024/3),int(768/6)*4,text="栞ID:3",font=('Times',40), tag="initial")
-        self.canvas.create_text(int(1024/3),int(768/6)*5,text="栞ID:4",font=('Times',40), tag="initial")
+        if(self.view_flag!=self.view_flag_old):
+            self.canvas.create_text(int(1024/2),int(768/6),text="初期登録",fill='#694E33',font=('',60), tag="initial")
+            self.canvas.create_text(int(1024/3),int(768/6)*2,text="しおり①",fill='#694E33',font=('',40), tag="initial")
+            self.canvas.create_text(int(1024/3),int(768/6)*3,text="しおり②",fill='#694E33',font=('',40), tag="initial")
+            self.canvas.create_text(int(1024/3),int(768/6)*4,text="しおり③",fill='#694E33',font=('',40), tag="initial")
+            self.canvas.create_text(int(1024/3),int(768/6)*5,text="しおり④",fill='#694E33',font=('',40), tag="initial")
 
-        self.canvas.create_text(int(1024/3)*2,int(768/6)*2,text=self.bk_open_now[0],font=('Times',40), tag="initial")
-        self.canvas.create_text(int(1024/3)*2,int(768/6)*3,text=self.bk_open_now[1],font=('Times',40), tag="initial")
-        self.canvas.create_text(int(1024/3)*2,int(768/6)*4,text=self.bk_open_now[2],font=('Times',40), tag="initial")
-        self.canvas.create_text(int(1024/3)*2,int(768/6)*5,text=self.bk_open_now[3],font=('Times',40), tag="initial")
+        self.canvas.create_text(int(1024/3)*2,int(768/6)*2,text=self.bk_open_now[0],fill='#694E33',font=('',40), tag="initial2")
+        self.canvas.create_text(int(1024/3)*2,int(768/6)*3,text=self.bk_open_now[1],fill='#694E33',font=('',40), tag="initial2")
+        self.canvas.create_text(int(1024/3)*2,int(768/6)*4,text=self.bk_open_now[2],fill='#694E33',font=('',40), tag="initial2")
+        self.canvas.create_text(int(1024/3)*2,int(768/6)*5,text=self.bk_open_now[3],fill='#694E33',font=('',40), tag="initial2")
         self.tag="initial"
 
         self.canvas.pack()
     def create_read_start(self):
-        self.canvas.create_text(int(1024/2),int(768/3),text="読書中",font=('Times',60), tag="read")
-        self.canvas.create_text(int(1024/2),int(768/3)*2,text=str(self.sp_time)+self.ut+"経過",font=('Times',60), tag="read")
+        if(self.view_flag_old!=2):
+            self.canvas.create_text(int(1024/2),int(768/3),text="読書中",fill='#694E33',font=('',60), tag="read")
+        self.canvas.create_text(int(1024/2),int(768/3)*2,text=str(self.sp_time)+self.ut+"経過",fill='#694E33',font=('',60), tag="read2")
         self.tag="read"
 
         self.canvas.pack()
     def create_read_finish(self):
-        self.canvas.create_text(int(1024/2),int(768/3),text="本日の読書時間:",font=('Times',60), tag="fin")
+        self.canvas.create_text(int(1024/2),int(768/3),text="今回の読書時間:",fill='#694E33',font=('',60), tag="fin")
         if(int(self.end_time-self.start_time)>60):
-            self.canvas.create_text(int(1024/2),int(768/3)*2,text=str(int((self.end_time-self.start_time)/60))+self.ut,font=('Times',60), tag="fin")
+            self.canvas.create_text(int(1024/2),int(768/3)*2,text=str(int((self.end_time-self.start_time)/60))+self.ut,fill='#694E33',font=('',60), tag="fin")
         else:
-            self.canvas.create_text(int(1024/2),int(768/3)*2,text=str(int(self.end_time-self.start_time))+self.ut,font=('Times',60), tag="fin")
+            self.canvas.create_text(int(1024/2),int(768/3)*2,text=str(int(self.end_time-self.start_time))+self.ut,fill='#694E33',font=('',60), tag="fin")
             
         self.tag="fin"
 
@@ -136,15 +145,15 @@ class GUI(tk.Frame):
         #raw_data="4,S,1,1,10,2,1,20,3,1,30,4,1,40,\r\n,5,3"
         #time.sleep(0.5)
         raw_data=self.ser.read_all()
-        print(raw_data)
-        print(type(raw_data))
+        #print(raw_data)
+        #print(type(raw_data))
         raw_data=raw_data.decode()
         data=raw_data.split(",")
         if("S" in data):
             if(len(data[data.index("S"):])>=((self.bk_num*3)+1)):
                 data = data[data.index("S"):]
-        print(data)
-        print(len(data))
+        #print(data)
+        #print(len(data))
         #print(data)
         #if(self.switch_flag1==0):
         #    data[2]="0"
@@ -158,8 +167,10 @@ class GUI(tk.Frame):
                 self.bk_mode_now[i]=data[(i*3)+2]
                 self.bk_open_now[i]=data[(i*3)+3]
                 
-                #print("test1")
                 
+                #print("test1")
+            self.bk_open_now[3]=re.sub(r'[^0-9]',"",str(self.bk_open_now[3]))
+            print(self.bk_open_now[3])
             for i in range(1):
                 if(self.bk_mode_now[i]!=self.bk_mode_old[i]):
                     print("test2")
@@ -167,13 +178,13 @@ class GUI(tk.Frame):
                     if(self.bk_mode_now[i]==str(0)):#読書開始
                         print("test3")
                         self.bookmark_flag=i
-                        self.read_start_data[i]=time.time()
+                        self.read_start_data[i]=datetime.datetime.now()
                         self.start_time=time.time()
                         self.read_start_mm[i]=self.bk_open_old[i]
                         self.view_flag=2
                     elif(self.bk_mode_now[i]==str(1)):#読書終了
                         print("test4")
-                        self.read_end_data[i]=time.time()
+                        self.read_end_data[i]=datetime.datetime.now()
                         self.end_time=time.time()
                         self.read_end_mm[i]=self.bk_open_now[i]
                         self.read=self.read_end_mm[i]
@@ -186,8 +197,9 @@ class GUI(tk.Frame):
             pass
     # スレッド処理実体
     def update(self):
-        self.bk_open_now[0]=self.count#デバッグ用
+
         now=time.time()
+        int()
         self.sp_time=int(now-self.start_time)
         if(self.sp_time>60):
             self.ut="分"
@@ -209,28 +221,37 @@ class GUI(tk.Frame):
             
         if(self.view_flag==0):#通常画面
             self.canvas.delete("initial")
+            self.canvas.delete("initial2")
             self.canvas.delete("read")
+            self.canvas.delete("read2")
             self.canvas.delete("fin")
             self.create_normal()
         elif(self.view_flag==1):#本の初期登録画面　
-            self.canvas.delete("initial")
+            self.canvas.delete("initial2")
             self.canvas.delete("normal")
+            self.canvas.delete("normal2")
             self.canvas.delete("read")
+            self.canvas.delete("read2")
             self.canvas.delete("fin")
             self.create_initial()
         elif(self.view_flag==2):#読書中
             self.canvas.delete("normal")
+            self.canvas.delete("normal2")
             self.canvas.delete("initial")
-            self.canvas.delete("read")
+            self.canvas.delete("initial2")
+            self.canvas.delete("read2")
             self.canvas.delete("fin")
             self.create_read_start()
         elif(self.view_flag==3):#
-            self.canvas.delete("normal")
-            self.canvas.delete("initial")
-            self.canvas.delete("read")
-            self.canvas.delete("fin")
-            self.create_read_finish()
             if(self.count_1==0):
+                self.canvas.delete("normal")
+                self.canvas.delete("normal2")
+                self.canvas.delete("initial")
+                self.canvas.delete("initial2")
+                self.canvas.delete("read")
+                self.canvas.delete("read2")
+                self.canvas.delete("fin")
+                self.create_read_finish()
                 self.connection()
                 self.read_rate=int(self.read)/int(self.goal)
                 self.set_posi=int(850*(self.read_rate))
@@ -239,11 +260,11 @@ class GUI(tk.Frame):
             if(self.count_1>5):
                 self.count_1=0
                 print("test")
-                self.flag=0
+                self.flag=1
                 self.view_flag=0
-            
-        self.count=self.count+1
+        print(self.view_flag)
         self.view_flag_old=self.view_flag
+        self.count=self.count+1
         self.switch_flag_old=self.switch_flag
 
     def get_server_data(self):
@@ -285,6 +306,7 @@ class GUI(tk.Frame):
 if __name__ == "__main__":
 
     gui = tk.Tk()
+    gui.attributes('-fullscreen', True)
     app = GUI(master = gui)
     app.mainloop()
 
