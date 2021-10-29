@@ -15,6 +15,7 @@ import Foundation
 
 import SwiftUI
 import SwiftProtobuf
+
 struct GoalRegisterView: View {
     let background = Color(red: 255/255, green: 241/255, blue: 179/255)
     let brown = Color(red: 105/255, green: 78/255, blue: 51/255)
@@ -32,25 +33,40 @@ struct GoalRegisterView: View {
                 Text("目標設定")
                 DatePicker("開始日時を選択", selection: $selectionStartDate, in: date1...date2,displayedComponents: .date)
                 DatePicker("終了日時を選択", selection: $selectionEndDate, in: date1...date2,displayedComponents: .date)
-                TextField("何時間読むかを入力", text: $hour, onEditingChanged: {_ in
-                print("change")
-                }, onCommit: {
-                  print("commit")
-                })
                 
                 TextField("何ページ読むかを入力", text: $page, onEditingChanged: {_ in print("change") }, onCommit: {print("commit") })
                 
                 Button(action: {
-//                    let model = GoalModel()
-//                    model.startDate = Google_Protobuf_Timestamp(date: selectionStartDate)
-//                    model.endDate = Google_Protobuf_Timestamp(date:selectionEndDate)
-//                    model.num_pages = Int(page)!
+                    var model = GoalModel()
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "yyyy/MM/dd"
+                    dateFormatter.timeZone =
+                    TimeZone(identifier: "Asia/Tokyo")
+                    model.startDate = dateFormatter.string(from: selectionStartDate)
+                      
+                    model.endDate = dateFormatter.string(from: selectionEndDate)
+                    model.num_pages = Int(page)!
+                    
+                    let json = JSONEncoder()
+                    guard let data = try? json.encode(model) else{
+                        return
+                    }
+                    
+                    UserDefaults.standard.set(data, forKey: "goalModel")
+                    guard let data = UserDefaults.standard.data(forKey: "goalModel"),
+                              let goalModel = try? JSONDecoder().decode(GoalModel.self, from: data) else {
+                            return 
+                        }
+                    print(goalModel.startDate)
 //                    model.time_amount_minutes = Int(hour)!
 //                    goalAPI.sendRegisterGoalrequest(model: model)
-                    goalAPI.getGoalByUserId()
+//                    goalAPI.getGoalByUserId()
+//                    UserDefaults.standard.set(model, forKey: "goalModel"
+//                    )
                 }
                     , label: {
                     Text("決定")
+                    
                 })
                     
             }
@@ -62,8 +78,7 @@ struct GoalRegisterView: View {
 
 struct GoalRegisterView_Previews: PreviewProvider {
     static var previews: some View {
-        
-        GoalRegisterView()
+            GoalRegisterView()
     }
 }
 
