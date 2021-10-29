@@ -10,8 +10,8 @@
     - [GetBooksResponse](#bookowl.GetBooksResponse)
     - [GetProgressByUserIDRequest](#bookowl.GetProgressByUserIDRequest)
     - [GetProgressByUserIDResponse](#bookowl.GetProgressByUserIDResponse)
-    - [GetProgressByUserIDWithDurationRequest](#bookowl.GetProgressByUserIDWithDurationRequest)
-    - [GetProgressByUserIDWithDurationResponse](#bookowl.GetProgressByUserIDWithDurationResponse)
+    - [GetReadAmountPagesByUserIDWithDurationRequest](#bookowl.GetReadAmountPagesByUserIDWithDurationRequest)
+    - [GetReadAmountPagesByUserIDWithDurationResponse](#bookowl.GetReadAmountPagesByUserIDWithDurationResponse)
     - [RegisterBookRequest](#bookowl.RegisterBookRequest)
     - [RegisterBookResponse](#bookowl.RegisterBookResponse)
     - [UpdateBookResponse](#bookowl.UpdateBookResponse)
@@ -158,9 +158,9 @@
 
 
 
-<a name="bookowl.GetProgressByUserIDWithDurationRequest"></a>
+<a name="bookowl.GetReadAmountPagesByUserIDWithDurationRequest"></a>
 
-### GetProgressByUserIDWithDurationRequest
+### GetReadAmountPagesByUserIDWithDurationRequest
 
 
 
@@ -175,15 +175,15 @@
 
 
 
-<a name="bookowl.GetProgressByUserIDWithDurationResponse"></a>
+<a name="bookowl.GetReadAmountPagesByUserIDWithDurationResponse"></a>
 
-### GetProgressByUserIDWithDurationResponse
+### GetReadAmountPagesByUserIDWithDurationResponse
 
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| progress | [float](#float) |  |  |
+| pages | [uint64](#uint64) |  |  |
 | time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
 
 
@@ -305,7 +305,7 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 | UpdateBookmarkID | [UpdateBookmarkIDRequest](#bookowl.UpdateBookmarkIDRequest) | [UpdateBookResponse](#bookowl.UpdateBookResponse) |  |
 | UpdateReadStatus | [UpdateReadStatusRequest](#bookowl.UpdateReadStatusRequest) | [UpdateBookResponse](#bookowl.UpdateBookResponse) |  |
 | GetProgressByUserID | [GetProgressByUserIDRequest](#bookowl.GetProgressByUserIDRequest) | [GetProgressByUserIDResponse](#bookowl.GetProgressByUserIDResponse) |  |
-| GetProgressByUserIDWithDuration | [GetProgressByUserIDWithDurationRequest](#bookowl.GetProgressByUserIDWithDurationRequest) | [GetProgressByUserIDWithDurationResponse](#bookowl.GetProgressByUserIDWithDurationResponse) |  |
+| GetReadAmountPagesByUserIDWithDuration | [GetReadAmountPagesByUserIDWithDurationRequest](#bookowl.GetReadAmountPagesByUserIDWithDurationRequest) | [GetReadAmountPagesByUserIDWithDurationResponse](#bookowl.GetReadAmountPagesByUserIDWithDurationResponse) |  |
 
  
 
