@@ -22,7 +22,9 @@ struct BookListView: View {
                             .frame(width: UIScreen.main.bounds.width - 50, height: 150, alignment: .center)
                         }
                     }
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height-80, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
             }
+            .navigationBarHidden(true)
         }.navigationViewStyle(StackNavigationViewStyle())
     }
 }
