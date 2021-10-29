@@ -14,29 +14,28 @@ class ReadEventStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.Register = channel.unary_unary(
-                '/bookowl.ReadEvent/Register',
-                request_serializer=read__event__pb2.ReadEventRegisterRequest.SerializeToString,
-                response_deserializer=read__event__pb2.ReadEventRegisterResponse.FromString,
+        self.CreateReadEvent = channel.unary_unary(
+                '/bookowl.ReadEvent/CreateReadEvent',
+                request_serializer=read__event__pb2.CreateReadEventRequest.SerializeToString,
+                response_deserializer=read__event__pb2.CreateReadEventResponse.FromString,
                 )
-        self.GetByBookID = channel.unary_unary(
-                '/bookowl.ReadEvent/GetByBookID',
-                request_serializer=read__event__pb2.GetByBookIDRequest.SerializeToString,
-                response_deserializer=read__event__pb2.GetReadEventResponse.FromString,
+        self.GetReadEventsByBookID = channel.unary_unary(
+                '/bookowl.ReadEvent/GetReadEventsByBookID',
+                request_serializer=read__event__pb2.GetReadEventsByBookIDRequest.SerializeToString,
+                response_deserializer=read__event__pb2.GetReadEventsResponse.FromString,
                 )
 
 
 class ReadEventServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def Register(self, request, context):
-        """Registering BookEvent with bookmark ID
-        """
+    def CreateReadEvent(self, request, context):
+        """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetByBookID(self, request, context):
+    def GetReadEventsByBookID(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -45,15 +44,15 @@ class ReadEventServicer(object):
 
 def add_ReadEventServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'Register': grpc.unary_unary_rpc_method_handler(
-                    servicer.Register,
-                    request_deserializer=read__event__pb2.ReadEventRegisterRequest.FromString,
-                    response_serializer=read__event__pb2.ReadEventRegisterResponse.SerializeToString,
+            'CreateReadEvent': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateReadEvent,
+                    request_deserializer=read__event__pb2.CreateReadEventRequest.FromString,
+                    response_serializer=read__event__pb2.CreateReadEventResponse.SerializeToString,
             ),
-            'GetByBookID': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetByBookID,
-                    request_deserializer=read__event__pb2.GetByBookIDRequest.FromString,
-                    response_serializer=read__event__pb2.GetReadEventResponse.SerializeToString,
+            'GetReadEventsByBookID': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetReadEventsByBookID,
+                    request_deserializer=read__event__pb2.GetReadEventsByBookIDRequest.FromString,
+                    response_serializer=read__event__pb2.GetReadEventsResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -66,7 +65,7 @@ class ReadEvent(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def Register(request,
+    def CreateReadEvent(request,
             target,
             options=(),
             channel_credentials=None,
@@ -76,14 +75,14 @@ class ReadEvent(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/bookowl.ReadEvent/Register',
-            read__event__pb2.ReadEventRegisterRequest.SerializeToString,
-            read__event__pb2.ReadEventRegisterResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/bookowl.ReadEvent/CreateReadEvent',
+            read__event__pb2.CreateReadEventRequest.SerializeToString,
+            read__event__pb2.CreateReadEventResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def GetByBookID(request,
+    def GetReadEventsByBookID(request,
             target,
             options=(),
             channel_credentials=None,
@@ -93,8 +92,8 @@ class ReadEvent(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/bookowl.ReadEvent/GetByBookID',
-            read__event__pb2.GetByBookIDRequest.SerializeToString,
-            read__event__pb2.GetReadEventResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/bookowl.ReadEvent/GetReadEventsByBookID',
+            read__event__pb2.GetReadEventsByBookIDRequest.SerializeToString,
+            read__event__pb2.GetReadEventsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

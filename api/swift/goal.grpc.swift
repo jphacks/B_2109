@@ -30,15 +30,15 @@ internal protocol Bookowl_GoalClientProtocol: GRPCClient {
   var serviceName: String { get }
   var interceptors: Bookowl_GoalClientInterceptorFactoryProtocol? { get }
 
-  func register(
-    _ request: Bookowl_RegisterGoalRequest,
+  func createGoal(
+    _ request: Bookowl_CreateGoalRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<Bookowl_RegisterGoalRequest, Bookowl_RegisterGoalResponse>
+  ) -> UnaryCall<Bookowl_CreateGoalRequest, Bookowl_CreateGoalResponse>
 
   func getByUserID(
     _ request: Bookowl_GetGoalByUserIDRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<Bookowl_GetGoalByUserIDRequest, Bookowl_GetGoalResponse>
+  ) -> UnaryCall<Bookowl_GetGoalByUserIDRequest, Bookowl_GetGoalsResponse>
 
   func updateGoalStatus(
     _ request: Bookowl_UpdateGoalStatusRequest,
@@ -51,21 +51,21 @@ extension Bookowl_GoalClientProtocol {
     return "bookowl.Goal"
   }
 
-  /// Unary call to Register
+  /// Unary call to CreateGoal
   ///
   /// - Parameters:
-  ///   - request: Request to send to Register.
+  ///   - request: Request to send to CreateGoal.
   ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func register(
-    _ request: Bookowl_RegisterGoalRequest,
+  internal func createGoal(
+    _ request: Bookowl_CreateGoalRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<Bookowl_RegisterGoalRequest, Bookowl_RegisterGoalResponse> {
+  ) -> UnaryCall<Bookowl_CreateGoalRequest, Bookowl_CreateGoalResponse> {
     return self.makeUnaryCall(
-      path: "/bookowl.Goal/Register",
+      path: "/bookowl.Goal/CreateGoal",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeRegisterInterceptors() ?? []
+      interceptors: self.interceptors?.makeCreateGoalInterceptors() ?? []
     )
   }
 
@@ -78,7 +78,7 @@ extension Bookowl_GoalClientProtocol {
   internal func getByUserID(
     _ request: Bookowl_GetGoalByUserIDRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<Bookowl_GetGoalByUserIDRequest, Bookowl_GetGoalResponse> {
+  ) -> UnaryCall<Bookowl_GetGoalByUserIDRequest, Bookowl_GetGoalsResponse> {
     return self.makeUnaryCall(
       path: "/bookowl.Goal/GetByUserID",
       request: request,
@@ -108,11 +108,11 @@ extension Bookowl_GoalClientProtocol {
 
 internal protocol Bookowl_GoalClientInterceptorFactoryProtocol {
 
-  /// - Returns: Interceptors to use when invoking 'register'.
-  func makeRegisterInterceptors() -> [ClientInterceptor<Bookowl_RegisterGoalRequest, Bookowl_RegisterGoalResponse>]
+  /// - Returns: Interceptors to use when invoking 'createGoal'.
+  func makeCreateGoalInterceptors() -> [ClientInterceptor<Bookowl_CreateGoalRequest, Bookowl_CreateGoalResponse>]
 
   /// - Returns: Interceptors to use when invoking 'getByUserID'.
-  func makeGetByUserIDInterceptors() -> [ClientInterceptor<Bookowl_GetGoalByUserIDRequest, Bookowl_GetGoalResponse>]
+  func makeGetByUserIDInterceptors() -> [ClientInterceptor<Bookowl_GetGoalByUserIDRequest, Bookowl_GetGoalsResponse>]
 
   /// - Returns: Interceptors to use when invoking 'updateGoalStatus'.
   func makeUpdateGoalStatusInterceptors() -> [ClientInterceptor<Bookowl_UpdateGoalStatusRequest, Bookowl_UpdateGoalResponse>]
@@ -144,9 +144,9 @@ internal final class Bookowl_GoalClient: Bookowl_GoalClientProtocol {
 internal protocol Bookowl_GoalProvider: CallHandlerProvider {
   var interceptors: Bookowl_GoalServerInterceptorFactoryProtocol? { get }
 
-  func register(request: Bookowl_RegisterGoalRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_RegisterGoalResponse>
+  func createGoal(request: Bookowl_CreateGoalRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_CreateGoalResponse>
 
-  func getByUserID(request: Bookowl_GetGoalByUserIDRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetGoalResponse>
+  func getByUserID(request: Bookowl_GetGoalByUserIDRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetGoalsResponse>
 
   func updateGoalStatus(request: Bookowl_UpdateGoalStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_UpdateGoalResponse>
 }
@@ -161,20 +161,20 @@ extension Bookowl_GoalProvider {
     context: CallHandlerContext
   ) -> GRPCServerHandlerProtocol? {
     switch name {
-    case "Register":
+    case "CreateGoal":
       return UnaryServerHandler(
         context: context,
-        requestDeserializer: ProtobufDeserializer<Bookowl_RegisterGoalRequest>(),
-        responseSerializer: ProtobufSerializer<Bookowl_RegisterGoalResponse>(),
-        interceptors: self.interceptors?.makeRegisterInterceptors() ?? [],
-        userFunction: self.register(request:context:)
+        requestDeserializer: ProtobufDeserializer<Bookowl_CreateGoalRequest>(),
+        responseSerializer: ProtobufSerializer<Bookowl_CreateGoalResponse>(),
+        interceptors: self.interceptors?.makeCreateGoalInterceptors() ?? [],
+        userFunction: self.createGoal(request:context:)
       )
 
     case "GetByUserID":
       return UnaryServerHandler(
         context: context,
         requestDeserializer: ProtobufDeserializer<Bookowl_GetGoalByUserIDRequest>(),
-        responseSerializer: ProtobufSerializer<Bookowl_GetGoalResponse>(),
+        responseSerializer: ProtobufSerializer<Bookowl_GetGoalsResponse>(),
         interceptors: self.interceptors?.makeGetByUserIDInterceptors() ?? [],
         userFunction: self.getByUserID(request:context:)
       )
@@ -196,13 +196,13 @@ extension Bookowl_GoalProvider {
 
 internal protocol Bookowl_GoalServerInterceptorFactoryProtocol {
 
-  /// - Returns: Interceptors to use when handling 'register'.
+  /// - Returns: Interceptors to use when handling 'createGoal'.
   ///   Defaults to calling `self.makeInterceptors()`.
-  func makeRegisterInterceptors() -> [ServerInterceptor<Bookowl_RegisterGoalRequest, Bookowl_RegisterGoalResponse>]
+  func makeCreateGoalInterceptors() -> [ServerInterceptor<Bookowl_CreateGoalRequest, Bookowl_CreateGoalResponse>]
 
   /// - Returns: Interceptors to use when handling 'getByUserID'.
   ///   Defaults to calling `self.makeInterceptors()`.
-  func makeGetByUserIDInterceptors() -> [ServerInterceptor<Bookowl_GetGoalByUserIDRequest, Bookowl_GetGoalResponse>]
+  func makeGetByUserIDInterceptors() -> [ServerInterceptor<Bookowl_GetGoalByUserIDRequest, Bookowl_GetGoalsResponse>]
 
   /// - Returns: Interceptors to use when handling 'updateGoalStatus'.
   ///   Defaults to calling `self.makeInterceptors()`.

@@ -18,9 +18,8 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ReadEventClient interface {
-	// Registering BookEvent with bookmark ID
-	Register(ctx context.Context, in *ReadEventRegisterRequest, opts ...grpc.CallOption) (*ReadEventRegisterResponse, error)
-	GetByBookID(ctx context.Context, in *GetByBookIDRequest, opts ...grpc.CallOption) (*GetReadEventResponse, error)
+	CreateReadEvent(ctx context.Context, in *CreateReadEventRequest, opts ...grpc.CallOption) (*CreateReadEventResponse, error)
+	GetReadEventsByBookID(ctx context.Context, in *GetReadEventsByBookIDRequest, opts ...grpc.CallOption) (*GetReadEventsResponse, error)
 }
 
 type readEventClient struct {
@@ -31,18 +30,18 @@ func NewReadEventClient(cc grpc.ClientConnInterface) ReadEventClient {
 	return &readEventClient{cc}
 }
 
-func (c *readEventClient) Register(ctx context.Context, in *ReadEventRegisterRequest, opts ...grpc.CallOption) (*ReadEventRegisterResponse, error) {
-	out := new(ReadEventRegisterResponse)
-	err := c.cc.Invoke(ctx, "/bookowl.ReadEvent/Register", in, out, opts...)
+func (c *readEventClient) CreateReadEvent(ctx context.Context, in *CreateReadEventRequest, opts ...grpc.CallOption) (*CreateReadEventResponse, error) {
+	out := new(CreateReadEventResponse)
+	err := c.cc.Invoke(ctx, "/bookowl.ReadEvent/CreateReadEvent", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *readEventClient) GetByBookID(ctx context.Context, in *GetByBookIDRequest, opts ...grpc.CallOption) (*GetReadEventResponse, error) {
-	out := new(GetReadEventResponse)
-	err := c.cc.Invoke(ctx, "/bookowl.ReadEvent/GetByBookID", in, out, opts...)
+func (c *readEventClient) GetReadEventsByBookID(ctx context.Context, in *GetReadEventsByBookIDRequest, opts ...grpc.CallOption) (*GetReadEventsResponse, error) {
+	out := new(GetReadEventsResponse)
+	err := c.cc.Invoke(ctx, "/bookowl.ReadEvent/GetReadEventsByBookID", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -53,9 +52,8 @@ func (c *readEventClient) GetByBookID(ctx context.Context, in *GetByBookIDReques
 // All implementations must embed UnimplementedReadEventServer
 // for forward compatibility
 type ReadEventServer interface {
-	// Registering BookEvent with bookmark ID
-	Register(context.Context, *ReadEventRegisterRequest) (*ReadEventRegisterResponse, error)
-	GetByBookID(context.Context, *GetByBookIDRequest) (*GetReadEventResponse, error)
+	CreateReadEvent(context.Context, *CreateReadEventRequest) (*CreateReadEventResponse, error)
+	GetReadEventsByBookID(context.Context, *GetReadEventsByBookIDRequest) (*GetReadEventsResponse, error)
 	mustEmbedUnimplementedReadEventServer()
 }
 
@@ -63,11 +61,11 @@ type ReadEventServer interface {
 type UnimplementedReadEventServer struct {
 }
 
-func (UnimplementedReadEventServer) Register(context.Context, *ReadEventRegisterRequest) (*ReadEventRegisterResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
+func (UnimplementedReadEventServer) CreateReadEvent(context.Context, *CreateReadEventRequest) (*CreateReadEventResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateReadEvent not implemented")
 }
-func (UnimplementedReadEventServer) GetByBookID(context.Context, *GetByBookIDRequest) (*GetReadEventResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetByBookID not implemented")
+func (UnimplementedReadEventServer) GetReadEventsByBookID(context.Context, *GetReadEventsByBookIDRequest) (*GetReadEventsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetReadEventsByBookID not implemented")
 }
 func (UnimplementedReadEventServer) mustEmbedUnimplementedReadEventServer() {}
 
@@ -82,38 +80,38 @@ func RegisterReadEventServer(s grpc.ServiceRegistrar, srv ReadEventServer) {
 	s.RegisterService(&ReadEvent_ServiceDesc, srv)
 }
 
-func _ReadEvent_Register_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ReadEventRegisterRequest)
+func _ReadEvent_CreateReadEvent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateReadEventRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ReadEventServer).Register(ctx, in)
+		return srv.(ReadEventServer).CreateReadEvent(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/bookowl.ReadEvent/Register",
+		FullMethod: "/bookowl.ReadEvent/CreateReadEvent",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ReadEventServer).Register(ctx, req.(*ReadEventRegisterRequest))
+		return srv.(ReadEventServer).CreateReadEvent(ctx, req.(*CreateReadEventRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ReadEvent_GetByBookID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetByBookIDRequest)
+func _ReadEvent_GetReadEventsByBookID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetReadEventsByBookIDRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ReadEventServer).GetByBookID(ctx, in)
+		return srv.(ReadEventServer).GetReadEventsByBookID(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/bookowl.ReadEvent/GetByBookID",
+		FullMethod: "/bookowl.ReadEvent/GetReadEventsByBookID",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ReadEventServer).GetByBookID(ctx, req.(*GetByBookIDRequest))
+		return srv.(ReadEventServer).GetReadEventsByBookID(ctx, req.(*GetReadEventsByBookIDRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -126,12 +124,12 @@ var ReadEvent_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*ReadEventServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Register",
-			Handler:    _ReadEvent_Register_Handler,
+			MethodName: "CreateReadEvent",
+			Handler:    _ReadEvent_CreateReadEvent_Handler,
 		},
 		{
-			MethodName: "GetByBookID",
-			Handler:    _ReadEvent_GetByBookID_Handler,
+			MethodName: "GetReadEventsByBookID",
+			Handler:    _ReadEvent_GetReadEventsByBookID_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

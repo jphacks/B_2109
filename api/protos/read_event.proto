@@ -7,28 +7,27 @@ option go_package = "github.com/jphacks/B_2109/server/api";
 import "google/protobuf/timestamp.proto";
 
 service ReadEvent{
-  // Registering BookEvent with bookmark ID
-  rpc Register(ReadEventRegisterRequest) returns (ReadEventRegisterResponse);
+  rpc CreateReadEvent(CreateReadEventRequest) returns (CreateReadEventResponse);
 
-  rpc GetByBookID(GetByBookIDRequest) returns (GetReadEventResponse);
+  rpc GetReadEventsByBookID(GetReadEventsByBookIDRequest) returns (GetReadEventsResponse);
 }
 
-message ReadEventRegisterRequest {
+message CreateReadEventRequest {
   ReadEventInfo read_event_info = 1;
   uint64 bookmark_id = 2;
 }
 
-message GetByBookIDRequest {
-  uint64 book_id = 1;
-}
-
-message GetReadEventResponse {
-  repeated ReadEventInfo read_event_info = 1;
+message CreateReadEventResponse {
+  uint64 read_event_id = 1;
   google.protobuf.Timestamp time = 2;
 }
 
-message ReadEventRegisterResponse {
-  uint64 read_event_id = 1;
+message GetReadEventsByBookIDRequest {
+  uint64 book_id = 1;
+}
+
+message  GetReadEventsResponse {
+  repeated ReadEventInfo read_events_info = 1;
   google.protobuf.Timestamp time = 2;
 }
 

@@ -14,15 +14,15 @@ class GoalStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.Register = channel.unary_unary(
-                '/bookowl.Goal/Register',
-                request_serializer=goal__pb2.RegisterGoalRequest.SerializeToString,
-                response_deserializer=goal__pb2.RegisterGoalResponse.FromString,
+        self.CreateGoal = channel.unary_unary(
+                '/bookowl.Goal/CreateGoal',
+                request_serializer=goal__pb2.CreateGoalRequest.SerializeToString,
+                response_deserializer=goal__pb2.CreateGoalResponse.FromString,
                 )
         self.GetByUserID = channel.unary_unary(
                 '/bookowl.Goal/GetByUserID',
                 request_serializer=goal__pb2.GetGoalByUserIDRequest.SerializeToString,
-                response_deserializer=goal__pb2.GetGoalResponse.FromString,
+                response_deserializer=goal__pb2.GetGoalsResponse.FromString,
                 )
         self.UpdateGoalStatus = channel.unary_unary(
                 '/bookowl.Goal/UpdateGoalStatus',
@@ -34,7 +34,7 @@ class GoalStub(object):
 class GoalServicer(object):
     """Missing associated documentation comment in .proto file."""
 
-    def Register(self, request, context):
+    def CreateGoal(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -55,15 +55,15 @@ class GoalServicer(object):
 
 def add_GoalServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'Register': grpc.unary_unary_rpc_method_handler(
-                    servicer.Register,
-                    request_deserializer=goal__pb2.RegisterGoalRequest.FromString,
-                    response_serializer=goal__pb2.RegisterGoalResponse.SerializeToString,
+            'CreateGoal': grpc.unary_unary_rpc_method_handler(
+                    servicer.CreateGoal,
+                    request_deserializer=goal__pb2.CreateGoalRequest.FromString,
+                    response_serializer=goal__pb2.CreateGoalResponse.SerializeToString,
             ),
             'GetByUserID': grpc.unary_unary_rpc_method_handler(
                     servicer.GetByUserID,
                     request_deserializer=goal__pb2.GetGoalByUserIDRequest.FromString,
-                    response_serializer=goal__pb2.GetGoalResponse.SerializeToString,
+                    response_serializer=goal__pb2.GetGoalsResponse.SerializeToString,
             ),
             'UpdateGoalStatus': grpc.unary_unary_rpc_method_handler(
                     servicer.UpdateGoalStatus,
@@ -81,7 +81,7 @@ class Goal(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def Register(request,
+    def CreateGoal(request,
             target,
             options=(),
             channel_credentials=None,
@@ -91,9 +91,9 @@ class Goal(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/bookowl.Goal/Register',
-            goal__pb2.RegisterGoalRequest.SerializeToString,
-            goal__pb2.RegisterGoalResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/bookowl.Goal/CreateGoal',
+            goal__pb2.CreateGoalRequest.SerializeToString,
+            goal__pb2.CreateGoalResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -110,7 +110,7 @@ class Goal(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/bookowl.Goal/GetByUserID',
             goal__pb2.GetGoalByUserIDRequest.SerializeToString,
-            goal__pb2.GetGoalResponse.FromString,
+            goal__pb2.GetGoalsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

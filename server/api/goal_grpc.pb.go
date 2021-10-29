@@ -18,8 +18,8 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type GoalClient interface {
-	Register(ctx context.Context, in *RegisterGoalRequest, opts ...grpc.CallOption) (*RegisterGoalResponse, error)
-	GetByUserID(ctx context.Context, in *GetGoalByUserIDRequest, opts ...grpc.CallOption) (*GetGoalResponse, error)
+	CreateGoal(ctx context.Context, in *CreateGoalRequest, opts ...grpc.CallOption) (*CreateGoalResponse, error)
+	GetByUserID(ctx context.Context, in *GetGoalByUserIDRequest, opts ...grpc.CallOption) (*GetGoalsResponse, error)
 	UpdateGoalStatus(ctx context.Context, in *UpdateGoalStatusRequest, opts ...grpc.CallOption) (*UpdateGoalResponse, error)
 }
 
@@ -31,17 +31,17 @@ func NewGoalClient(cc grpc.ClientConnInterface) GoalClient {
 	return &goalClient{cc}
 }
 
-func (c *goalClient) Register(ctx context.Context, in *RegisterGoalRequest, opts ...grpc.CallOption) (*RegisterGoalResponse, error) {
-	out := new(RegisterGoalResponse)
-	err := c.cc.Invoke(ctx, "/bookowl.Goal/Register", in, out, opts...)
+func (c *goalClient) CreateGoal(ctx context.Context, in *CreateGoalRequest, opts ...grpc.CallOption) (*CreateGoalResponse, error) {
+	out := new(CreateGoalResponse)
+	err := c.cc.Invoke(ctx, "/bookowl.Goal/CreateGoal", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *goalClient) GetByUserID(ctx context.Context, in *GetGoalByUserIDRequest, opts ...grpc.CallOption) (*GetGoalResponse, error) {
-	out := new(GetGoalResponse)
+func (c *goalClient) GetByUserID(ctx context.Context, in *GetGoalByUserIDRequest, opts ...grpc.CallOption) (*GetGoalsResponse, error) {
+	out := new(GetGoalsResponse)
 	err := c.cc.Invoke(ctx, "/bookowl.Goal/GetByUserID", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -62,8 +62,8 @@ func (c *goalClient) UpdateGoalStatus(ctx context.Context, in *UpdateGoalStatusR
 // All implementations must embed UnimplementedGoalServer
 // for forward compatibility
 type GoalServer interface {
-	Register(context.Context, *RegisterGoalRequest) (*RegisterGoalResponse, error)
-	GetByUserID(context.Context, *GetGoalByUserIDRequest) (*GetGoalResponse, error)
+	CreateGoal(context.Context, *CreateGoalRequest) (*CreateGoalResponse, error)
+	GetByUserID(context.Context, *GetGoalByUserIDRequest) (*GetGoalsResponse, error)
 	UpdateGoalStatus(context.Context, *UpdateGoalStatusRequest) (*UpdateGoalResponse, error)
 	mustEmbedUnimplementedGoalServer()
 }
@@ -72,10 +72,10 @@ type GoalServer interface {
 type UnimplementedGoalServer struct {
 }
 
-func (UnimplementedGoalServer) Register(context.Context, *RegisterGoalRequest) (*RegisterGoalResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Register not implemented")
+func (UnimplementedGoalServer) CreateGoal(context.Context, *CreateGoalRequest) (*CreateGoalResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateGoal not implemented")
 }
-func (UnimplementedGoalServer) GetByUserID(context.Context, *GetGoalByUserIDRequest) (*GetGoalResponse, error) {
+func (UnimplementedGoalServer) GetByUserID(context.Context, *GetGoalByUserIDRequest) (*GetGoalsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetByUserID not implemented")
 }
 func (UnimplementedGoalServer) UpdateGoalStatus(context.Context, *UpdateGoalStatusRequest) (*UpdateGoalResponse, error) {
@@ -94,20 +94,20 @@ func RegisterGoalServer(s grpc.ServiceRegistrar, srv GoalServer) {
 	s.RegisterService(&Goal_ServiceDesc, srv)
 }
 
-func _Goal_Register_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RegisterGoalRequest)
+func _Goal_CreateGoal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateGoalRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(GoalServer).Register(ctx, in)
+		return srv.(GoalServer).CreateGoal(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/bookowl.Goal/Register",
+		FullMethod: "/bookowl.Goal/CreateGoal",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GoalServer).Register(ctx, req.(*RegisterGoalRequest))
+		return srv.(GoalServer).CreateGoal(ctx, req.(*CreateGoalRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -156,8 +156,8 @@ var Goal_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*GoalServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Register",
-			Handler:    _Goal_Register_Handler,
+			MethodName: "CreateGoal",
+			Handler:    _Goal_CreateGoal_Handler,
 		},
 		{
 			MethodName: "GetByUserID",

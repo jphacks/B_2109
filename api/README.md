@@ -19,11 +19,11 @@
     - [Book](#bookowl.Book)
   
 - [protos/goal.proto](#protos/goal.proto)
+    - [CreateGoalRequest](#bookowl.CreateGoalRequest)
+    - [CreateGoalResponse](#bookowl.CreateGoalResponse)
     - [GetGoalByUserIDRequest](#bookowl.GetGoalByUserIDRequest)
-    - [GetGoalResponse](#bookowl.GetGoalResponse)
+    - [GetGoalsResponse](#bookowl.GetGoalsResponse)
     - [GoalInfo](#bookowl.GoalInfo)
-    - [RegisterGoalRequest](#bookowl.RegisterGoalRequest)
-    - [RegisterGoalResponse](#bookowl.RegisterGoalResponse)
     - [UpdateGoalResponse](#bookowl.UpdateGoalResponse)
     - [UpdateGoalStatusRequest](#bookowl.UpdateGoalStatusRequest)
   
@@ -32,11 +32,11 @@
     - [Goal](#bookowl.Goal)
   
 - [protos/read_event.proto](#protos/read_event.proto)
-    - [GetByBookIDRequest](#bookowl.GetByBookIDRequest)
-    - [GetReadEventResponse](#bookowl.GetReadEventResponse)
+    - [CreateReadEventRequest](#bookowl.CreateReadEventRequest)
+    - [CreateReadEventResponse](#bookowl.CreateReadEventResponse)
+    - [GetReadEventsByBookIDRequest](#bookowl.GetReadEventsByBookIDRequest)
+    - [GetReadEventsResponse](#bookowl.GetReadEventsResponse)
     - [ReadEventInfo](#bookowl.ReadEventInfo)
-    - [ReadEventRegisterRequest](#bookowl.ReadEventRegisterRequest)
-    - [ReadEventRegisterResponse](#bookowl.ReadEventRegisterResponse)
   
     - [ReadEvent](#bookowl.ReadEvent)
   
@@ -247,6 +247,37 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 
 
 
+<a name="bookowl.CreateGoalRequest"></a>
+
+### CreateGoalRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| goal_info | [GoalInfo](#bookowl.GoalInfo) |  |  |
+
+
+
+
+
+
+<a name="bookowl.CreateGoalResponse"></a>
+
+### CreateGoalResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| goal_id | [uint64](#uint64) |  |  |
+| time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
+
+
+
+
+
+
 <a name="bookowl.GetGoalByUserIDRequest"></a>
 
 ### GetGoalByUserIDRequest
@@ -262,15 +293,15 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 
 
 
-<a name="bookowl.GetGoalResponse"></a>
+<a name="bookowl.GetGoalsResponse"></a>
 
-### GetGoalResponse
+### GetGoalsResponse
 
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| goal_info | [GoalInfo](#bookowl.GoalInfo) | repeated |  |
+| goals_info | [GoalInfo](#bookowl.GoalInfo) | repeated |  |
 | time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
 
 
@@ -293,37 +324,6 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 | num_pages | [int64](#int64) |  |  |
 | goal_status | [GoalStatus](#bookowl.GoalStatus) |  |  |
 | user_id | [uint64](#uint64) |  |  |
-
-
-
-
-
-
-<a name="bookowl.RegisterGoalRequest"></a>
-
-### RegisterGoalRequest
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| goal_info | [GoalInfo](#bookowl.GoalInfo) |  |  |
-
-
-
-
-
-
-<a name="bookowl.RegisterGoalResponse"></a>
-
-### RegisterGoalResponse
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| goal_id | [uint64](#uint64) |  |  |
-| time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
 
 
 
@@ -390,8 +390,8 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| Register | [RegisterGoalRequest](#bookowl.RegisterGoalRequest) | [RegisterGoalResponse](#bookowl.RegisterGoalResponse) |  |
-| GetByUserID | [GetGoalByUserIDRequest](#bookowl.GetGoalByUserIDRequest) | [GetGoalResponse](#bookowl.GetGoalResponse) |  |
+| CreateGoal | [CreateGoalRequest](#bookowl.CreateGoalRequest) | [CreateGoalResponse](#bookowl.CreateGoalResponse) |  |
+| GetByUserID | [GetGoalByUserIDRequest](#bookowl.GetGoalByUserIDRequest) | [GetGoalsResponse](#bookowl.GetGoalsResponse) |  |
 | UpdateGoalStatus | [UpdateGoalStatusRequest](#bookowl.UpdateGoalStatusRequest) | [UpdateGoalResponse](#bookowl.UpdateGoalResponse) |  |
 
  
@@ -405,9 +405,41 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 
 
 
-<a name="bookowl.GetByBookIDRequest"></a>
+<a name="bookowl.CreateReadEventRequest"></a>
 
-### GetByBookIDRequest
+### CreateReadEventRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| read_event_info | [ReadEventInfo](#bookowl.ReadEventInfo) |  |  |
+| bookmark_id | [uint64](#uint64) |  |  |
+
+
+
+
+
+
+<a name="bookowl.CreateReadEventResponse"></a>
+
+### CreateReadEventResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| read_event_id | [uint64](#uint64) |  |  |
+| time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
+
+
+
+
+
+
+<a name="bookowl.GetReadEventsByBookIDRequest"></a>
+
+### GetReadEventsByBookIDRequest
 
 
 
@@ -420,15 +452,15 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 
 
 
-<a name="bookowl.GetReadEventResponse"></a>
+<a name="bookowl.GetReadEventsResponse"></a>
 
-### GetReadEventResponse
+### GetReadEventsResponse
 
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| read_event_info | [ReadEventInfo](#bookowl.ReadEventInfo) | repeated |  |
+| read_events_info | [ReadEventInfo](#bookowl.ReadEventInfo) | repeated |  |
 | time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
 
 
@@ -453,38 +485,6 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 
 
 
-
-<a name="bookowl.ReadEventRegisterRequest"></a>
-
-### ReadEventRegisterRequest
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| read_event_info | [ReadEventInfo](#bookowl.ReadEventInfo) |  |  |
-| bookmark_id | [uint64](#uint64) |  |  |
-
-
-
-
-
-
-<a name="bookowl.ReadEventRegisterResponse"></a>
-
-### ReadEventRegisterResponse
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| read_event_id | [uint64](#uint64) |  |  |
-| time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
-
-
-
-
-
  
 
  
@@ -499,8 +499,8 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| Register | [ReadEventRegisterRequest](#bookowl.ReadEventRegisterRequest) | [ReadEventRegisterResponse](#bookowl.ReadEventRegisterResponse) | Registering BookEvent with bookmark ID |
-| GetByBookID | [GetByBookIDRequest](#bookowl.GetByBookIDRequest) | [GetReadEventResponse](#bookowl.GetReadEventResponse) |  |
+| CreateReadEvent | [CreateReadEventRequest](#bookowl.CreateReadEventRequest) | [CreateReadEventResponse](#bookowl.CreateReadEventResponse) |  |
+| GetReadEventsByBookID | [GetReadEventsByBookIDRequest](#bookowl.GetReadEventsByBookIDRequest) | [GetReadEventsResponse](#bookowl.GetReadEventsResponse) |  |
 
  
 
