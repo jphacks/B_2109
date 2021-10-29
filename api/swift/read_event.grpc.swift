@@ -30,15 +30,15 @@ internal protocol Bookowl_ReadEventClientProtocol: GRPCClient {
   var serviceName: String { get }
   var interceptors: Bookowl_ReadEventClientInterceptorFactoryProtocol? { get }
 
-  func register(
-    _ request: Bookowl_ReadEventRegisterRequest,
+  func createReadEvent(
+    _ request: Bookowl_CreateReadEventRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<Bookowl_ReadEventRegisterRequest, Bookowl_ReadEventRegisterResponse>
+  ) -> UnaryCall<Bookowl_CreateReadEventRequest, Bookowl_CreateReadEventResponse>
 
-  func getByBookID(
-    _ request: Bookowl_GetByBookIDRequest,
+  func getReadEventsByBookID(
+    _ request: Bookowl_GetReadEventsByBookIDRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<Bookowl_GetByBookIDRequest, Bookowl_GetReadEventResponse>
+  ) -> UnaryCall<Bookowl_GetReadEventsByBookIDRequest, Bookowl_GetReadEventsResponse>
 }
 
 extension Bookowl_ReadEventClientProtocol {
@@ -46,50 +46,50 @@ extension Bookowl_ReadEventClientProtocol {
     return "bookowl.ReadEvent"
   }
 
-  /// Registering BookEvent with bookmark ID
+  /// Unary call to CreateReadEvent
   ///
   /// - Parameters:
-  ///   - request: Request to send to Register.
+  ///   - request: Request to send to CreateReadEvent.
   ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func register(
-    _ request: Bookowl_ReadEventRegisterRequest,
+  internal func createReadEvent(
+    _ request: Bookowl_CreateReadEventRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<Bookowl_ReadEventRegisterRequest, Bookowl_ReadEventRegisterResponse> {
+  ) -> UnaryCall<Bookowl_CreateReadEventRequest, Bookowl_CreateReadEventResponse> {
     return self.makeUnaryCall(
-      path: "/bookowl.ReadEvent/Register",
+      path: "/bookowl.ReadEvent/CreateReadEvent",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeRegisterInterceptors() ?? []
+      interceptors: self.interceptors?.makeCreateReadEventInterceptors() ?? []
     )
   }
 
-  /// Unary call to GetByBookID
+  /// Unary call to GetReadEventsByBookID
   ///
   /// - Parameters:
-  ///   - request: Request to send to GetByBookID.
+  ///   - request: Request to send to GetReadEventsByBookID.
   ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func getByBookID(
-    _ request: Bookowl_GetByBookIDRequest,
+  internal func getReadEventsByBookID(
+    _ request: Bookowl_GetReadEventsByBookIDRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<Bookowl_GetByBookIDRequest, Bookowl_GetReadEventResponse> {
+  ) -> UnaryCall<Bookowl_GetReadEventsByBookIDRequest, Bookowl_GetReadEventsResponse> {
     return self.makeUnaryCall(
-      path: "/bookowl.ReadEvent/GetByBookID",
+      path: "/bookowl.ReadEvent/GetReadEventsByBookID",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeGetByBookIDInterceptors() ?? []
+      interceptors: self.interceptors?.makeGetReadEventsByBookIDInterceptors() ?? []
     )
   }
 }
 
 internal protocol Bookowl_ReadEventClientInterceptorFactoryProtocol {
 
-  /// - Returns: Interceptors to use when invoking 'register'.
-  func makeRegisterInterceptors() -> [ClientInterceptor<Bookowl_ReadEventRegisterRequest, Bookowl_ReadEventRegisterResponse>]
+  /// - Returns: Interceptors to use when invoking 'createReadEvent'.
+  func makeCreateReadEventInterceptors() -> [ClientInterceptor<Bookowl_CreateReadEventRequest, Bookowl_CreateReadEventResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'getByBookID'.
-  func makeGetByBookIDInterceptors() -> [ClientInterceptor<Bookowl_GetByBookIDRequest, Bookowl_GetReadEventResponse>]
+  /// - Returns: Interceptors to use when invoking 'getReadEventsByBookID'.
+  func makeGetReadEventsByBookIDInterceptors() -> [ClientInterceptor<Bookowl_GetReadEventsByBookIDRequest, Bookowl_GetReadEventsResponse>]
 }
 
 internal final class Bookowl_ReadEventClient: Bookowl_ReadEventClientProtocol {
@@ -118,10 +118,9 @@ internal final class Bookowl_ReadEventClient: Bookowl_ReadEventClientProtocol {
 internal protocol Bookowl_ReadEventProvider: CallHandlerProvider {
   var interceptors: Bookowl_ReadEventServerInterceptorFactoryProtocol? { get }
 
-  /// Registering BookEvent with bookmark ID
-  func register(request: Bookowl_ReadEventRegisterRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_ReadEventRegisterResponse>
+  func createReadEvent(request: Bookowl_CreateReadEventRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_CreateReadEventResponse>
 
-  func getByBookID(request: Bookowl_GetByBookIDRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetReadEventResponse>
+  func getReadEventsByBookID(request: Bookowl_GetReadEventsByBookIDRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetReadEventsResponse>
 }
 
 extension Bookowl_ReadEventProvider {
@@ -134,22 +133,22 @@ extension Bookowl_ReadEventProvider {
     context: CallHandlerContext
   ) -> GRPCServerHandlerProtocol? {
     switch name {
-    case "Register":
+    case "CreateReadEvent":
       return UnaryServerHandler(
         context: context,
-        requestDeserializer: ProtobufDeserializer<Bookowl_ReadEventRegisterRequest>(),
-        responseSerializer: ProtobufSerializer<Bookowl_ReadEventRegisterResponse>(),
-        interceptors: self.interceptors?.makeRegisterInterceptors() ?? [],
-        userFunction: self.register(request:context:)
+        requestDeserializer: ProtobufDeserializer<Bookowl_CreateReadEventRequest>(),
+        responseSerializer: ProtobufSerializer<Bookowl_CreateReadEventResponse>(),
+        interceptors: self.interceptors?.makeCreateReadEventInterceptors() ?? [],
+        userFunction: self.createReadEvent(request:context:)
       )
 
-    case "GetByBookID":
+    case "GetReadEventsByBookID":
       return UnaryServerHandler(
         context: context,
-        requestDeserializer: ProtobufDeserializer<Bookowl_GetByBookIDRequest>(),
-        responseSerializer: ProtobufSerializer<Bookowl_GetReadEventResponse>(),
-        interceptors: self.interceptors?.makeGetByBookIDInterceptors() ?? [],
-        userFunction: self.getByBookID(request:context:)
+        requestDeserializer: ProtobufDeserializer<Bookowl_GetReadEventsByBookIDRequest>(),
+        responseSerializer: ProtobufSerializer<Bookowl_GetReadEventsResponse>(),
+        interceptors: self.interceptors?.makeGetReadEventsByBookIDInterceptors() ?? [],
+        userFunction: self.getReadEventsByBookID(request:context:)
       )
 
     default:
@@ -160,11 +159,11 @@ extension Bookowl_ReadEventProvider {
 
 internal protocol Bookowl_ReadEventServerInterceptorFactoryProtocol {
 
-  /// - Returns: Interceptors to use when handling 'register'.
+  /// - Returns: Interceptors to use when handling 'createReadEvent'.
   ///   Defaults to calling `self.makeInterceptors()`.
-  func makeRegisterInterceptors() -> [ServerInterceptor<Bookowl_ReadEventRegisterRequest, Bookowl_ReadEventRegisterResponse>]
+  func makeCreateReadEventInterceptors() -> [ServerInterceptor<Bookowl_CreateReadEventRequest, Bookowl_CreateReadEventResponse>]
 
-  /// - Returns: Interceptors to use when handling 'getByBookID'.
+  /// - Returns: Interceptors to use when handling 'getReadEventsByBookID'.
   ///   Defaults to calling `self.makeInterceptors()`.
-  func makeGetByBookIDInterceptors() -> [ServerInterceptor<Bookowl_GetByBookIDRequest, Bookowl_GetReadEventResponse>]
+  func makeGetReadEventsByBookIDInterceptors() -> [ServerInterceptor<Bookowl_GetReadEventsByBookIDRequest, Bookowl_GetReadEventsResponse>]
 }

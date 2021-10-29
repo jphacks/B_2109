@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z$github.com/jphacks/B_2109/server/api',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\ngoal.proto\x12\x07\x62ookowl\x1a\x1fgoogle/protobuf/timestamp.proto\";\n\x13RegisterGoalRequest\x12$\n\tgoal_info\x18\x01 \x01(\x0b\x32\x11.bookowl.GoalInfo\"Q\n\x14RegisterGoalResponse\x12\x0f\n\x07goal_id\x18\x01 \x01(\x04\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\")\n\x16GetGoalByUserIDRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"a\n\x0fGetGoalResponse\x12$\n\tgoal_info\x18\x01 \x03(\x0b\x32\x11.bookowl.GoalInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"T\n\x17UpdateGoalStatusRequest\x12\x0f\n\x07goal_id\x18\x01 \x01(\x04\x12(\n\x0bgoal_status\x18\x02 \x01(\x0e\x32\x13.bookowl.GoalStatus\"d\n\x12UpdateGoalResponse\x12$\n\tgoal_info\x18\x01 \x01(\x0b\x32\x11.bookowl.GoalInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xe4\x01\n\x08GoalInfo\x12\x0f\n\x07goal_id\x18\x01 \x01(\x04\x12.\n\nstart_date\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08\x65nd_date\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x1b\n\x13time_amount_minutes\x18\x04 \x01(\x03\x12\x11\n\tnum_pages\x18\x05 \x01(\x03\x12(\n\x0bgoal_status\x18\x06 \x01(\x0e\x32\x13.bookowl.GoalStatus\x12\x0f\n\x07user_id\x18\x07 \x01(\x04*d\n\nGoalStatus\x12\x10\n\x0cGOAL_UNKNOWN\x10\x00\x12\x10\n\x0cGOAL_PENDING\x10\x01\x12\x0e\n\nGOAL_DOING\x10\x02\x12\x11\n\rGOAL_COMPLETE\x10\x03\x12\x0f\n\x0bGOAL_FAILED\x10\x04\x32\xec\x01\n\x04Goal\x12G\n\x08Register\x12\x1c.bookowl.RegisterGoalRequest\x1a\x1d.bookowl.RegisterGoalResponse\x12H\n\x0bGetByUserID\x12\x1f.bookowl.GetGoalByUserIDRequest\x1a\x18.bookowl.GetGoalResponse\x12Q\n\x10UpdateGoalStatus\x12 .bookowl.UpdateGoalStatusRequest\x1a\x1b.bookowl.UpdateGoalResponseB&Z$github.com/jphacks/B_2109/server/apib\x06proto3'
+  serialized_pb=b'\n\ngoal.proto\x12\x07\x62ookowl\x1a\x1fgoogle/protobuf/timestamp.proto\"9\n\x11\x43reateGoalRequest\x12$\n\tgoal_info\x18\x01 \x01(\x0b\x32\x11.bookowl.GoalInfo\"O\n\x12\x43reateGoalResponse\x12\x0f\n\x07goal_id\x18\x01 \x01(\x04\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\")\n\x16GetGoalByUserIDRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"c\n\x10GetGoalsResponse\x12%\n\ngoals_info\x18\x01 \x03(\x0b\x32\x11.bookowl.GoalInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"T\n\x17UpdateGoalStatusRequest\x12\x0f\n\x07goal_id\x18\x01 \x01(\x04\x12(\n\x0bgoal_status\x18\x02 \x01(\x0e\x32\x13.bookowl.GoalStatus\"d\n\x12UpdateGoalResponse\x12$\n\tgoal_info\x18\x01 \x01(\x0b\x32\x11.bookowl.GoalInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xe4\x01\n\x08GoalInfo\x12\x0f\n\x07goal_id\x18\x01 \x01(\x04\x12.\n\nstart_date\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08\x65nd_date\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x1b\n\x13time_amount_minutes\x18\x04 \x01(\x03\x12\x11\n\tnum_pages\x18\x05 \x01(\x03\x12(\n\x0bgoal_status\x18\x06 \x01(\x0e\x32\x13.bookowl.GoalStatus\x12\x0f\n\x07user_id\x18\x07 \x01(\x04*d\n\nGoalStatus\x12\x10\n\x0cGOAL_UNKNOWN\x10\x00\x12\x10\n\x0cGOAL_PENDING\x10\x01\x12\x0e\n\nGOAL_DOING\x10\x02\x12\x11\n\rGOAL_COMPLETE\x10\x03\x12\x0f\n\x0bGOAL_FAILED\x10\x04\x32\xeb\x01\n\x04Goal\x12\x45\n\nCreateGoal\x12\x1a.bookowl.CreateGoalRequest\x1a\x1b.bookowl.CreateGoalResponse\x12I\n\x0bGetByUserID\x12\x1f.bookowl.GetGoalByUserIDRequest\x1a\x19.bookowl.GetGoalsResponse\x12Q\n\x10UpdateGoalStatus\x12 .bookowl.UpdateGoalStatusRequest\x1a\x1b.bookowl.UpdateGoalResponseB&Z$github.com/jphacks/B_2109/server/apib\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
@@ -60,8 +60,8 @@ _GOALSTATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=761,
-  serialized_end=861,
+  serialized_start=759,
+  serialized_end=859,
 )
 _sym_db.RegisterEnumDescriptor(_GOALSTATUS)
 
@@ -74,16 +74,16 @@ GOAL_FAILED = 4
 
 
 
-_REGISTERGOALREQUEST = _descriptor.Descriptor(
-  name='RegisterGoalRequest',
-  full_name='bookowl.RegisterGoalRequest',
+_CREATEGOALREQUEST = _descriptor.Descriptor(
+  name='CreateGoalRequest',
+  full_name='bookowl.CreateGoalRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='goal_info', full_name='bookowl.RegisterGoalRequest.goal_info', index=0,
+      name='goal_info', full_name='bookowl.CreateGoalRequest.goal_info', index=0,
       number=1, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -102,27 +102,27 @@ _REGISTERGOALREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=56,
-  serialized_end=115,
+  serialized_end=113,
 )
 
 
-_REGISTERGOALRESPONSE = _descriptor.Descriptor(
-  name='RegisterGoalResponse',
-  full_name='bookowl.RegisterGoalResponse',
+_CREATEGOALRESPONSE = _descriptor.Descriptor(
+  name='CreateGoalResponse',
+  full_name='bookowl.CreateGoalResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='goal_id', full_name='bookowl.RegisterGoalResponse.goal_id', index=0,
+      name='goal_id', full_name='bookowl.CreateGoalResponse.goal_id', index=0,
       number=1, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='time', full_name='bookowl.RegisterGoalResponse.time', index=1,
+      name='time', full_name='bookowl.CreateGoalResponse.time', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -140,8 +140,8 @@ _REGISTERGOALRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=117,
-  serialized_end=198,
+  serialized_start=115,
+  serialized_end=194,
 )
 
 
@@ -172,28 +172,28 @@ _GETGOALBYUSERIDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=200,
-  serialized_end=241,
+  serialized_start=196,
+  serialized_end=237,
 )
 
 
-_GETGOALRESPONSE = _descriptor.Descriptor(
-  name='GetGoalResponse',
-  full_name='bookowl.GetGoalResponse',
+_GETGOALSRESPONSE = _descriptor.Descriptor(
+  name='GetGoalsResponse',
+  full_name='bookowl.GetGoalsResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='goal_info', full_name='bookowl.GetGoalResponse.goal_info', index=0,
+      name='goals_info', full_name='bookowl.GetGoalsResponse.goals_info', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='time', full_name='bookowl.GetGoalResponse.time', index=1,
+      name='time', full_name='bookowl.GetGoalsResponse.time', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -211,8 +211,8 @@ _GETGOALRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=243,
-  serialized_end=340,
+  serialized_start=239,
+  serialized_end=338,
 )
 
 
@@ -250,8 +250,8 @@ _UPDATEGOALSTATUSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=342,
-  serialized_end=426,
+  serialized_start=340,
+  serialized_end=424,
 )
 
 
@@ -289,8 +289,8 @@ _UPDATEGOALRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=428,
-  serialized_end=528,
+  serialized_start=426,
+  serialized_end=526,
 )
 
 
@@ -363,43 +363,43 @@ _GOALINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=531,
-  serialized_end=759,
+  serialized_start=529,
+  serialized_end=757,
 )
 
-_REGISTERGOALREQUEST.fields_by_name['goal_info'].message_type = _GOALINFO
-_REGISTERGOALRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
-_GETGOALRESPONSE.fields_by_name['goal_info'].message_type = _GOALINFO
-_GETGOALRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_CREATEGOALREQUEST.fields_by_name['goal_info'].message_type = _GOALINFO
+_CREATEGOALRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_GETGOALSRESPONSE.fields_by_name['goals_info'].message_type = _GOALINFO
+_GETGOALSRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _UPDATEGOALSTATUSREQUEST.fields_by_name['goal_status'].enum_type = _GOALSTATUS
 _UPDATEGOALRESPONSE.fields_by_name['goal_info'].message_type = _GOALINFO
 _UPDATEGOALRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _GOALINFO.fields_by_name['start_date'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _GOALINFO.fields_by_name['end_date'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _GOALINFO.fields_by_name['goal_status'].enum_type = _GOALSTATUS
-DESCRIPTOR.message_types_by_name['RegisterGoalRequest'] = _REGISTERGOALREQUEST
-DESCRIPTOR.message_types_by_name['RegisterGoalResponse'] = _REGISTERGOALRESPONSE
+DESCRIPTOR.message_types_by_name['CreateGoalRequest'] = _CREATEGOALREQUEST
+DESCRIPTOR.message_types_by_name['CreateGoalResponse'] = _CREATEGOALRESPONSE
 DESCRIPTOR.message_types_by_name['GetGoalByUserIDRequest'] = _GETGOALBYUSERIDREQUEST
-DESCRIPTOR.message_types_by_name['GetGoalResponse'] = _GETGOALRESPONSE
+DESCRIPTOR.message_types_by_name['GetGoalsResponse'] = _GETGOALSRESPONSE
 DESCRIPTOR.message_types_by_name['UpdateGoalStatusRequest'] = _UPDATEGOALSTATUSREQUEST
 DESCRIPTOR.message_types_by_name['UpdateGoalResponse'] = _UPDATEGOALRESPONSE
 DESCRIPTOR.message_types_by_name['GoalInfo'] = _GOALINFO
 DESCRIPTOR.enum_types_by_name['GoalStatus'] = _GOALSTATUS
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-RegisterGoalRequest = _reflection.GeneratedProtocolMessageType('RegisterGoalRequest', (_message.Message,), {
-  'DESCRIPTOR' : _REGISTERGOALREQUEST,
+CreateGoalRequest = _reflection.GeneratedProtocolMessageType('CreateGoalRequest', (_message.Message,), {
+  'DESCRIPTOR' : _CREATEGOALREQUEST,
   '__module__' : 'goal_pb2'
-  # @@protoc_insertion_point(class_scope:bookowl.RegisterGoalRequest)
+  # @@protoc_insertion_point(class_scope:bookowl.CreateGoalRequest)
   })
-_sym_db.RegisterMessage(RegisterGoalRequest)
+_sym_db.RegisterMessage(CreateGoalRequest)
 
-RegisterGoalResponse = _reflection.GeneratedProtocolMessageType('RegisterGoalResponse', (_message.Message,), {
-  'DESCRIPTOR' : _REGISTERGOALRESPONSE,
+CreateGoalResponse = _reflection.GeneratedProtocolMessageType('CreateGoalResponse', (_message.Message,), {
+  'DESCRIPTOR' : _CREATEGOALRESPONSE,
   '__module__' : 'goal_pb2'
-  # @@protoc_insertion_point(class_scope:bookowl.RegisterGoalResponse)
+  # @@protoc_insertion_point(class_scope:bookowl.CreateGoalResponse)
   })
-_sym_db.RegisterMessage(RegisterGoalResponse)
+_sym_db.RegisterMessage(CreateGoalResponse)
 
 GetGoalByUserIDRequest = _reflection.GeneratedProtocolMessageType('GetGoalByUserIDRequest', (_message.Message,), {
   'DESCRIPTOR' : _GETGOALBYUSERIDREQUEST,
@@ -408,12 +408,12 @@ GetGoalByUserIDRequest = _reflection.GeneratedProtocolMessageType('GetGoalByUser
   })
 _sym_db.RegisterMessage(GetGoalByUserIDRequest)
 
-GetGoalResponse = _reflection.GeneratedProtocolMessageType('GetGoalResponse', (_message.Message,), {
-  'DESCRIPTOR' : _GETGOALRESPONSE,
+GetGoalsResponse = _reflection.GeneratedProtocolMessageType('GetGoalsResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETGOALSRESPONSE,
   '__module__' : 'goal_pb2'
-  # @@protoc_insertion_point(class_scope:bookowl.GetGoalResponse)
+  # @@protoc_insertion_point(class_scope:bookowl.GetGoalsResponse)
   })
-_sym_db.RegisterMessage(GetGoalResponse)
+_sym_db.RegisterMessage(GetGoalsResponse)
 
 UpdateGoalStatusRequest = _reflection.GeneratedProtocolMessageType('UpdateGoalStatusRequest', (_message.Message,), {
   'DESCRIPTOR' : _UPDATEGOALSTATUSREQUEST,
@@ -446,16 +446,16 @@ _GOAL = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=864,
-  serialized_end=1100,
+  serialized_start=862,
+  serialized_end=1097,
   methods=[
   _descriptor.MethodDescriptor(
-    name='Register',
-    full_name='bookowl.Goal.Register',
+    name='CreateGoal',
+    full_name='bookowl.Goal.CreateGoal',
     index=0,
     containing_service=None,
-    input_type=_REGISTERGOALREQUEST,
-    output_type=_REGISTERGOALRESPONSE,
+    input_type=_CREATEGOALREQUEST,
+    output_type=_CREATEGOALRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
@@ -465,7 +465,7 @@ _GOAL = _descriptor.ServiceDescriptor(
     index=1,
     containing_service=None,
     input_type=_GETGOALBYUSERIDREQUEST,
-    output_type=_GETGOALRESPONSE,
+    output_type=_GETGOALSRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

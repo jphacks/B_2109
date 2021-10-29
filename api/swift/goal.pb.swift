@@ -72,7 +72,7 @@ extension Bookowl_GoalStatus: CaseIterable {
 
 #endif  // swift(>=4.2)
 
-struct Bookowl_RegisterGoalRequest {
+struct Bookowl_CreateGoalRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -93,7 +93,7 @@ struct Bookowl_RegisterGoalRequest {
   fileprivate var _goalInfo: Bookowl_GoalInfo? = nil
 }
 
-struct Bookowl_RegisterGoalResponse {
+struct Bookowl_CreateGoalResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -128,12 +128,12 @@ struct Bookowl_GetGoalByUserIDRequest {
   init() {}
 }
 
-struct Bookowl_GetGoalResponse {
+struct Bookowl_GetGoalsResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var goalInfo: [Bookowl_GoalInfo] = []
+  var goalsInfo: [Bookowl_GoalInfo] = []
 
   var time: SwiftProtobuf.Google_Protobuf_Timestamp {
     get {return _time ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
@@ -251,8 +251,8 @@ extension Bookowl_GoalStatus: SwiftProtobuf._ProtoNameProviding {
   ]
 }
 
-extension Bookowl_RegisterGoalRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".RegisterGoalRequest"
+extension Bookowl_CreateGoalRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".CreateGoalRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "goal_info"),
   ]
@@ -280,15 +280,15 @@ extension Bookowl_RegisterGoalRequest: SwiftProtobuf.Message, SwiftProtobuf._Mes
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Bookowl_RegisterGoalRequest, rhs: Bookowl_RegisterGoalRequest) -> Bool {
+  static func ==(lhs: Bookowl_CreateGoalRequest, rhs: Bookowl_CreateGoalRequest) -> Bool {
     if lhs._goalInfo != rhs._goalInfo {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Bookowl_RegisterGoalResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".RegisterGoalResponse"
+extension Bookowl_CreateGoalResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".CreateGoalResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "goal_id"),
     2: .same(proto: "time"),
@@ -321,7 +321,7 @@ extension Bookowl_RegisterGoalResponse: SwiftProtobuf.Message, SwiftProtobuf._Me
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Bookowl_RegisterGoalResponse, rhs: Bookowl_RegisterGoalResponse) -> Bool {
+  static func ==(lhs: Bookowl_CreateGoalResponse, rhs: Bookowl_CreateGoalResponse) -> Bool {
     if lhs.goalID != rhs.goalID {return false}
     if lhs._time != rhs._time {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -361,10 +361,10 @@ extension Bookowl_GetGoalByUserIDRequest: SwiftProtobuf.Message, SwiftProtobuf._
   }
 }
 
-extension Bookowl_GetGoalResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".GetGoalResponse"
+extension Bookowl_GetGoalsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetGoalsResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "goal_info"),
+    1: .standard(proto: "goals_info"),
     2: .same(proto: "time"),
   ]
 
@@ -374,7 +374,7 @@ extension Bookowl_GetGoalResponse: SwiftProtobuf.Message, SwiftProtobuf._Message
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.goalInfo) }()
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.goalsInfo) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._time) }()
       default: break
       }
@@ -386,8 +386,8 @@ extension Bookowl_GetGoalResponse: SwiftProtobuf.Message, SwiftProtobuf._Message
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    if !self.goalInfo.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.goalInfo, fieldNumber: 1)
+    if !self.goalsInfo.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.goalsInfo, fieldNumber: 1)
     }
     try { if let v = self._time {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
@@ -395,8 +395,8 @@ extension Bookowl_GetGoalResponse: SwiftProtobuf.Message, SwiftProtobuf._Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Bookowl_GetGoalResponse, rhs: Bookowl_GetGoalResponse) -> Bool {
-    if lhs.goalInfo != rhs.goalInfo {return false}
+  static func ==(lhs: Bookowl_GetGoalsResponse, rhs: Bookowl_GetGoalsResponse) -> Bool {
+    if lhs.goalsInfo != rhs.goalsInfo {return false}
     if lhs._time != rhs._time {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
