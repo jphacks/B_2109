@@ -17,6 +17,10 @@ service Book{
   rpc UpdateBookmarkID(UpdateBookmarkIDRequest) returns (UpdateBookResponse);
 
   rpc UpdateReadStatus(UpdateReadStatusRequest) returns (UpdateBookResponse);
+
+  rpc GetProgressByUserID (GetProgressByUserIDRequest) returns (GetProgressByUserIDResponse);
+
+  rpc GetProgressByUserIDWithDuration (GetProgressByUserIDWithDurationRequest) returns (GetProgressByUserIDWithDurationResponse);
 }
 
 message RegisterBookRequest {
@@ -57,6 +61,26 @@ message UpdateBookResponse{
   google.protobuf.Timestamp time = 2;
 }
 
+message GetProgressByUserIDRequest{
+  uint64 user_id = 1;
+}
+
+message GetProgressByUserIDResponse{
+  float progress = 1;
+  google.protobuf.Timestamp time = 2;
+}
+
+message GetProgressByUserIDWithDurationRequest{
+  uint64 user_id = 1;
+  google.protobuf.Timestamp start = 2;
+  google.protobuf.Timestamp end = 3;
+}
+
+message GetProgressByUserIDWithDurationResponse{
+  float progress = 1;
+  google.protobuf.Timestamp time = 2;
+}
+
 // ReadStatus links to server/pkg/models/user_book.go ReadStatus
 enum ReadStatus{
   READ_UNSPECIFIED = 0;
@@ -78,5 +102,5 @@ message BookInfo {
   repeated string categories = 9;
   uint64 user_id = 10;
   uint64 bookmark_id = 11;
-  string book_thumbnail=12;
+  string book_thumbnail = 12;
 }
