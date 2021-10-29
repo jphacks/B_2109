@@ -9,10 +9,18 @@ import SwiftUI
 
 struct BookListView: View {
     let books : [BookModel]
+    let background =  Color(red: 255/255, green: 241/255, blue: 179/255)
+    
+    init(books:[BookModel]){
+            //List全体の背景色の設定
+        self.books = books
+            UITableView.appearance().backgroundColor = UIColor(background)
+        }
+    
     var body: some View {
         NavigationView{
             ZStack {
-                Color(red: 255/255, green: 241/255, blue: 179/255)
+               background
                     .edgesIgnoringSafeArea(.all)
                 List(books){
                     book in
@@ -22,7 +30,8 @@ struct BookListView: View {
                             .frame(width: UIScreen.main.bounds.width - 50, height: 150, alignment: .center)
                         }
                     }
-                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height-80, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+//                .position(x: 0, y: 80)
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height-250, alignment: .center)
             }
             .navigationBarHidden(true)
         }.navigationViewStyle(StackNavigationViewStyle())

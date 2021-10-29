@@ -6,9 +6,10 @@
 //
 
 import SwiftUI
-let brown = Color(red: 105/255, green: 78/255, blue: 51/255)
-let backgroundColor = Color(red: 255/255, green: 241/255, blue: 179/255)
+
 struct ISBNView: View {
+    let brown = Color(red: 105/255, green: 78/255, blue: 51/255)
+    let backgroundColor = Color(red: 255/255, green: 241/255, blue: 179/255)
     @ObservedObject private var isbnReader = ISBNReader()
     @ObservedObject var viewModel : ScannerViewModel
     @State var bookModel = BookModel(id: "", name: "", status: "", progress: 0, imagePath: "", bookMarkId: "")
