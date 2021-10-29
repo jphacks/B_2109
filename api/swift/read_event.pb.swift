@@ -124,9 +124,9 @@ struct Bookowl_ReadEventInfo {
   /// Clears the value of `readEndTime`. Subsequent reads from it will return its default value.
   mutating func clearReadEndTime() {self._readEndTime = nil}
 
-  var readStartPosition: Int64 = 0
+  var readStartWidthRevel: Int64 = 0
 
-  var readEndPosition: Int64 = 0
+  var readEndWidthLevel: Int64 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -303,8 +303,8 @@ extension Bookowl_ReadEventInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "read_start_time"),
     2: .standard(proto: "read_end_time"),
-    3: .standard(proto: "read_start_position"),
-    4: .standard(proto: "read_end_position"),
+    3: .standard(proto: "read_start_width_revel"),
+    4: .standard(proto: "read_end_width_level"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -315,8 +315,8 @@ extension Bookowl_ReadEventInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._readStartTime) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._readEndTime) }()
-      case 3: try { try decoder.decodeSingularInt64Field(value: &self.readStartPosition) }()
-      case 4: try { try decoder.decodeSingularInt64Field(value: &self.readEndPosition) }()
+      case 3: try { try decoder.decodeSingularInt64Field(value: &self.readStartWidthRevel) }()
+      case 4: try { try decoder.decodeSingularInt64Field(value: &self.readEndWidthLevel) }()
       default: break
       }
     }
@@ -333,11 +333,11 @@ extension Bookowl_ReadEventInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     try { if let v = self._readEndTime {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
     } }()
-    if self.readStartPosition != 0 {
-      try visitor.visitSingularInt64Field(value: self.readStartPosition, fieldNumber: 3)
+    if self.readStartWidthRevel != 0 {
+      try visitor.visitSingularInt64Field(value: self.readStartWidthRevel, fieldNumber: 3)
     }
-    if self.readEndPosition != 0 {
-      try visitor.visitSingularInt64Field(value: self.readEndPosition, fieldNumber: 4)
+    if self.readEndWidthLevel != 0 {
+      try visitor.visitSingularInt64Field(value: self.readEndWidthLevel, fieldNumber: 4)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -345,8 +345,8 @@ extension Bookowl_ReadEventInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
   static func ==(lhs: Bookowl_ReadEventInfo, rhs: Bookowl_ReadEventInfo) -> Bool {
     if lhs._readStartTime != rhs._readStartTime {return false}
     if lhs._readEndTime != rhs._readEndTime {return false}
-    if lhs.readStartPosition != rhs.readStartPosition {return false}
-    if lhs.readEndPosition != rhs.readEndPosition {return false}
+    if lhs.readStartWidthRevel != rhs.readStartWidthRevel {return false}
+    if lhs.readEndWidthLevel != rhs.readEndWidthLevel {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

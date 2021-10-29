@@ -44,10 +44,11 @@ message UpdateGoalResponse {
 }
 
 enum GoalStatus{
-  GOAL_PENDING = 0;
-  GOAL_DOING = 1;
-  GOAL_COMPLETE = 2;
-  GOAL_FAILED = 3;
+  GOAL_UNKNOWN = 0;
+  GOAL_PENDING = 1;
+  GOAL_DOING = 2;
+  GOAL_COMPLETE = 3;
+  GOAL_FAILED = 4;
 }
 
 message GoalInfo{
