@@ -101,7 +101,14 @@ struct Bookowl_RegisterBookResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var bookID: UInt64 = 0
+  var bookInfo: Bookowl_BookInfo {
+    get {return _bookInfo ?? Bookowl_BookInfo()}
+    set {_bookInfo = newValue}
+  }
+  /// Returns true if `bookInfo` has been explicitly set.
+  var hasBookInfo: Bool {return self._bookInfo != nil}
+  /// Clears the value of `bookInfo`. Subsequent reads from it will return its default value.
+  mutating func clearBookInfo() {self._bookInfo = nil}
 
   var time: SwiftProtobuf.Google_Protobuf_Timestamp {
     get {return _time ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
@@ -116,6 +123,7 @@ struct Bookowl_RegisterBookResponse {
 
   init() {}
 
+  fileprivate var _bookInfo: Bookowl_BookInfo? = nil
   fileprivate var _time: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
 }
 
@@ -252,6 +260,8 @@ struct Bookowl_BookInfo {
 
   var bookmarkID: UInt64 = 0
 
+  var bookThumbnail: String = String()
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -316,7 +326,7 @@ extension Bookowl_RegisterBookRequest: SwiftProtobuf.Message, SwiftProtobuf._Mes
 extension Bookowl_RegisterBookResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".RegisterBookResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "book_id"),
+    1: .standard(proto: "book_info"),
     2: .same(proto: "time"),
   ]
 
@@ -326,7 +336,7 @@ extension Bookowl_RegisterBookResponse: SwiftProtobuf.Message, SwiftProtobuf._Me
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularUInt64Field(value: &self.bookID) }()
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._bookInfo) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._time) }()
       default: break
       }
@@ -338,9 +348,9 @@ extension Bookowl_RegisterBookResponse: SwiftProtobuf.Message, SwiftProtobuf._Me
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    if self.bookID != 0 {
-      try visitor.visitSingularUInt64Field(value: self.bookID, fieldNumber: 1)
-    }
+    try { if let v = self._bookInfo {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
     try { if let v = self._time {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
     } }()
@@ -348,7 +358,7 @@ extension Bookowl_RegisterBookResponse: SwiftProtobuf.Message, SwiftProtobuf._Me
   }
 
   static func ==(lhs: Bookowl_RegisterBookResponse, rhs: Bookowl_RegisterBookResponse) -> Bool {
-    if lhs.bookID != rhs.bookID {return false}
+    if lhs._bookInfo != rhs._bookInfo {return false}
     if lhs._time != rhs._time {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -593,6 +603,7 @@ extension Bookowl_BookInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     9: .same(proto: "categories"),
     10: .standard(proto: "user_id"),
     11: .standard(proto: "bookmark_id"),
+    12: .standard(proto: "book_thumbnail"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -612,6 +623,7 @@ extension Bookowl_BookInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
       case 9: try { try decoder.decodeRepeatedStringField(value: &self.categories) }()
       case 10: try { try decoder.decodeSingularUInt64Field(value: &self.userID) }()
       case 11: try { try decoder.decodeSingularUInt64Field(value: &self.bookmarkID) }()
+      case 12: try { try decoder.decodeSingularStringField(value: &self.bookThumbnail) }()
       default: break
       }
     }
@@ -651,6 +663,9 @@ extension Bookowl_BookInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     if self.bookmarkID != 0 {
       try visitor.visitSingularUInt64Field(value: self.bookmarkID, fieldNumber: 11)
     }
+    if !self.bookThumbnail.isEmpty {
+      try visitor.visitSingularStringField(value: self.bookThumbnail, fieldNumber: 12)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -666,6 +681,7 @@ extension Bookowl_BookInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     if lhs.categories != rhs.categories {return false}
     if lhs.userID != rhs.userID {return false}
     if lhs.bookmarkID != rhs.bookmarkID {return false}
+    if lhs.bookThumbnail != rhs.bookThumbnail {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

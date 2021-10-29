@@ -25,7 +25,7 @@ message RegisterBookRequest {
 }
 
 message RegisterBookResponse {
-  uint64 book_id = 1;
+  BookInfo book_info = 1;
   google.protobuf.Timestamp time = 2;
 }
 
@@ -78,4 +78,5 @@ message BookInfo {
   repeated string categories = 9;
   uint64 user_id = 10;
   uint64 bookmark_id = 11;
+  string book_thumbnail=12;
 }

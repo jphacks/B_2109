@@ -70,6 +70,7 @@
 | categories | [string](#string) | repeated |  |
 | user_id | [uint64](#uint64) |  |  |
 | bookmark_id | [uint64](#uint64) |  |  |
+| book_thumbnail | [string](#string) |  |  |
 
 
 
@@ -146,7 +147,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| book_id | [uint64](#uint64) |  |  |
+| book_info | [BookInfo](#bookowl.BookInfo) |  |  |
 | time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
 
 
