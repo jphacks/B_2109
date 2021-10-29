@@ -24,6 +24,8 @@ type BookClient interface {
 	GetBooksByBookmarkID(ctx context.Context, in *GetBooksByBookmarkIDRequest, opts ...grpc.CallOption) (*GetBooksResponse, error)
 	UpdateBookmarkID(ctx context.Context, in *UpdateBookmarkIDRequest, opts ...grpc.CallOption) (*UpdateBookResponse, error)
 	UpdateReadStatus(ctx context.Context, in *UpdateReadStatusRequest, opts ...grpc.CallOption) (*UpdateBookResponse, error)
+	GetProgressByUserID(ctx context.Context, in *GetProgressByUserIDRequest, opts ...grpc.CallOption) (*GetProgressByUserIDResponse, error)
+	GetProgressByUserIDWithDuration(ctx context.Context, in *GetProgressByUserIDWithDurationRequest, opts ...grpc.CallOption) (*GetProgressByUserIDWithDurationResponse, error)
 }
 
 type bookClient struct {
@@ -79,6 +81,24 @@ func (c *bookClient) UpdateReadStatus(ctx context.Context, in *UpdateReadStatusR
 	return out, nil
 }
 
+func (c *bookClient) GetProgressByUserID(ctx context.Context, in *GetProgressByUserIDRequest, opts ...grpc.CallOption) (*GetProgressByUserIDResponse, error) {
+	out := new(GetProgressByUserIDResponse)
+	err := c.cc.Invoke(ctx, "/bookowl.Book/GetProgressByUserID", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *bookClient) GetProgressByUserIDWithDuration(ctx context.Context, in *GetProgressByUserIDWithDurationRequest, opts ...grpc.CallOption) (*GetProgressByUserIDWithDurationResponse, error) {
+	out := new(GetProgressByUserIDWithDurationResponse)
+	err := c.cc.Invoke(ctx, "/bookowl.Book/GetProgressByUserIDWithDuration", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // BookServer is the server API for Book service.
 // All implementations must embed UnimplementedBookServer
 // for forward compatibility
@@ -89,6 +109,8 @@ type BookServer interface {
 	GetBooksByBookmarkID(context.Context, *GetBooksByBookmarkIDRequest) (*GetBooksResponse, error)
 	UpdateBookmarkID(context.Context, *UpdateBookmarkIDRequest) (*UpdateBookResponse, error)
 	UpdateReadStatus(context.Context, *UpdateReadStatusRequest) (*UpdateBookResponse, error)
+	GetProgressByUserID(context.Context, *GetProgressByUserIDRequest) (*GetProgressByUserIDResponse, error)
+	GetProgressByUserIDWithDuration(context.Context, *GetProgressByUserIDWithDurationRequest) (*GetProgressByUserIDWithDurationResponse, error)
 	mustEmbedUnimplementedBookServer()
 }
 
@@ -110,6 +132,12 @@ func (UnimplementedBookServer) UpdateBookmarkID(context.Context, *UpdateBookmark
 }
 func (UnimplementedBookServer) UpdateReadStatus(context.Context, *UpdateReadStatusRequest) (*UpdateBookResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateReadStatus not implemented")
+}
+func (UnimplementedBookServer) GetProgressByUserID(context.Context, *GetProgressByUserIDRequest) (*GetProgressByUserIDResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetProgressByUserID not implemented")
+}
+func (UnimplementedBookServer) GetProgressByUserIDWithDuration(context.Context, *GetProgressByUserIDWithDurationRequest) (*GetProgressByUserIDWithDurationResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetProgressByUserIDWithDuration not implemented")
 }
 func (UnimplementedBookServer) mustEmbedUnimplementedBookServer() {}
 
@@ -214,6 +242,42 @@ func _Book_UpdateReadStatus_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Book_GetProgressByUserID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetProgressByUserIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BookServer).GetProgressByUserID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bookowl.Book/GetProgressByUserID",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BookServer).GetProgressByUserID(ctx, req.(*GetProgressByUserIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Book_GetProgressByUserIDWithDuration_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetProgressByUserIDWithDurationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BookServer).GetProgressByUserIDWithDuration(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bookowl.Book/GetProgressByUserIDWithDuration",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BookServer).GetProgressByUserIDWithDuration(ctx, req.(*GetProgressByUserIDWithDurationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Book_ServiceDesc is the grpc.ServiceDesc for Book service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -240,6 +304,14 @@ var Book_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateReadStatus",
 			Handler:    _Book_UpdateReadStatus_Handler,
+		},
+		{
+			MethodName: "GetProgressByUserID",
+			Handler:    _Book_GetProgressByUserID_Handler,
+		},
+		{
+			MethodName: "GetProgressByUserIDWithDuration",
+			Handler:    _Book_GetProgressByUserIDWithDuration_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

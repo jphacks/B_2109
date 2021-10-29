@@ -54,6 +54,16 @@ internal protocol Bookowl_BookClientProtocol: GRPCClient {
     _ request: Bookowl_UpdateReadStatusRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Bookowl_UpdateReadStatusRequest, Bookowl_UpdateBookResponse>
+
+  func getProgressByUserID(
+    _ request: Bookowl_GetProgressByUserIDRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Bookowl_GetProgressByUserIDRequest, Bookowl_GetProgressByUserIDResponse>
+
+  func getProgressByUserIDWithDuration(
+    _ request: Bookowl_GetProgressByUserIDWithDurationRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Bookowl_GetProgressByUserIDWithDurationRequest, Bookowl_GetProgressByUserIDWithDurationResponse>
 }
 
 extension Bookowl_BookClientProtocol {
@@ -150,6 +160,42 @@ extension Bookowl_BookClientProtocol {
       interceptors: self.interceptors?.makeUpdateReadStatusInterceptors() ?? []
     )
   }
+
+  /// Unary call to GetProgressByUserID
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetProgressByUserID.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getProgressByUserID(
+    _ request: Bookowl_GetProgressByUserIDRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Bookowl_GetProgressByUserIDRequest, Bookowl_GetProgressByUserIDResponse> {
+    return self.makeUnaryCall(
+      path: "/bookowl.Book/GetProgressByUserID",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetProgressByUserIDInterceptors() ?? []
+    )
+  }
+
+  /// Unary call to GetProgressByUserIDWithDuration
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetProgressByUserIDWithDuration.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getProgressByUserIDWithDuration(
+    _ request: Bookowl_GetProgressByUserIDWithDurationRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Bookowl_GetProgressByUserIDWithDurationRequest, Bookowl_GetProgressByUserIDWithDurationResponse> {
+    return self.makeUnaryCall(
+      path: "/bookowl.Book/GetProgressByUserIDWithDuration",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetProgressByUserIDWithDurationInterceptors() ?? []
+    )
+  }
 }
 
 internal protocol Bookowl_BookClientInterceptorFactoryProtocol {
@@ -168,6 +214,12 @@ internal protocol Bookowl_BookClientInterceptorFactoryProtocol {
 
   /// - Returns: Interceptors to use when invoking 'updateReadStatus'.
   func makeUpdateReadStatusInterceptors() -> [ClientInterceptor<Bookowl_UpdateReadStatusRequest, Bookowl_UpdateBookResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getProgressByUserID'.
+  func makeGetProgressByUserIDInterceptors() -> [ClientInterceptor<Bookowl_GetProgressByUserIDRequest, Bookowl_GetProgressByUserIDResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getProgressByUserIDWithDuration'.
+  func makeGetProgressByUserIDWithDurationInterceptors() -> [ClientInterceptor<Bookowl_GetProgressByUserIDWithDurationRequest, Bookowl_GetProgressByUserIDWithDurationResponse>]
 }
 
 internal final class Bookowl_BookClient: Bookowl_BookClientProtocol {
@@ -206,6 +258,10 @@ internal protocol Bookowl_BookProvider: CallHandlerProvider {
   func updateBookmarkID(request: Bookowl_UpdateBookmarkIDRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_UpdateBookResponse>
 
   func updateReadStatus(request: Bookowl_UpdateReadStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_UpdateBookResponse>
+
+  func getProgressByUserID(request: Bookowl_GetProgressByUserIDRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetProgressByUserIDResponse>
+
+  func getProgressByUserIDWithDuration(request: Bookowl_GetProgressByUserIDWithDurationRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetProgressByUserIDWithDurationResponse>
 }
 
 extension Bookowl_BookProvider {
@@ -263,6 +319,24 @@ extension Bookowl_BookProvider {
         userFunction: self.updateReadStatus(request:context:)
       )
 
+    case "GetProgressByUserID":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Bookowl_GetProgressByUserIDRequest>(),
+        responseSerializer: ProtobufSerializer<Bookowl_GetProgressByUserIDResponse>(),
+        interceptors: self.interceptors?.makeGetProgressByUserIDInterceptors() ?? [],
+        userFunction: self.getProgressByUserID(request:context:)
+      )
+
+    case "GetProgressByUserIDWithDuration":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Bookowl_GetProgressByUserIDWithDurationRequest>(),
+        responseSerializer: ProtobufSerializer<Bookowl_GetProgressByUserIDWithDurationResponse>(),
+        interceptors: self.interceptors?.makeGetProgressByUserIDWithDurationInterceptors() ?? [],
+        userFunction: self.getProgressByUserIDWithDuration(request:context:)
+      )
+
     default:
       return nil
     }
@@ -290,4 +364,12 @@ internal protocol Bookowl_BookServerInterceptorFactoryProtocol {
   /// - Returns: Interceptors to use when handling 'updateReadStatus'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeUpdateReadStatusInterceptors() -> [ServerInterceptor<Bookowl_UpdateReadStatusRequest, Bookowl_UpdateBookResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getProgressByUserID'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetProgressByUserIDInterceptors() -> [ServerInterceptor<Bookowl_GetProgressByUserIDRequest, Bookowl_GetProgressByUserIDResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getProgressByUserIDWithDuration'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetProgressByUserIDWithDurationInterceptors() -> [ServerInterceptor<Bookowl_GetProgressByUserIDWithDurationRequest, Bookowl_GetProgressByUserIDWithDurationResponse>]
 }

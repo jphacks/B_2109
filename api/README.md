@@ -8,6 +8,10 @@
     - [GetBooksByBookmarkIDRequest](#bookowl.GetBooksByBookmarkIDRequest)
     - [GetBooksByUserIDRequest](#bookowl.GetBooksByUserIDRequest)
     - [GetBooksResponse](#bookowl.GetBooksResponse)
+    - [GetProgressByUserIDRequest](#bookowl.GetProgressByUserIDRequest)
+    - [GetProgressByUserIDResponse](#bookowl.GetProgressByUserIDResponse)
+    - [GetProgressByUserIDWithDurationRequest](#bookowl.GetProgressByUserIDWithDurationRequest)
+    - [GetProgressByUserIDWithDurationResponse](#bookowl.GetProgressByUserIDWithDurationResponse)
     - [RegisterBookRequest](#bookowl.RegisterBookRequest)
     - [RegisterBookResponse](#bookowl.RegisterBookResponse)
     - [UpdateBookResponse](#bookowl.UpdateBookResponse)
@@ -116,6 +120,70 @@
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | books_info | [BookInfo](#bookowl.BookInfo) | repeated |  |
+| time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
+
+
+
+
+
+
+<a name="bookowl.GetProgressByUserIDRequest"></a>
+
+### GetProgressByUserIDRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_id | [uint64](#uint64) |  |  |
+
+
+
+
+
+
+<a name="bookowl.GetProgressByUserIDResponse"></a>
+
+### GetProgressByUserIDResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| progress | [float](#float) |  |  |
+| time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
+
+
+
+
+
+
+<a name="bookowl.GetProgressByUserIDWithDurationRequest"></a>
+
+### GetProgressByUserIDWithDurationRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_id | [uint64](#uint64) |  |  |
+| start | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
+| end | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
+
+
+
+
+
+
+<a name="bookowl.GetProgressByUserIDWithDurationResponse"></a>
+
+### GetProgressByUserIDWithDurationResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| progress | [float](#float) |  |  |
 | time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
 
 
@@ -236,6 +304,8 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 | GetBooksByBookmarkID | [GetBooksByBookmarkIDRequest](#bookowl.GetBooksByBookmarkIDRequest) | [GetBooksResponse](#bookowl.GetBooksResponse) |  |
 | UpdateBookmarkID | [UpdateBookmarkIDRequest](#bookowl.UpdateBookmarkIDRequest) | [UpdateBookResponse](#bookowl.UpdateBookResponse) |  |
 | UpdateReadStatus | [UpdateReadStatusRequest](#bookowl.UpdateReadStatusRequest) | [UpdateBookResponse](#bookowl.UpdateBookResponse) |  |
+| GetProgressByUserID | [GetProgressByUserIDRequest](#bookowl.GetProgressByUserIDRequest) | [GetProgressByUserIDResponse](#bookowl.GetProgressByUserIDResponse) |  |
+| GetProgressByUserIDWithDuration | [GetProgressByUserIDWithDurationRequest](#bookowl.GetProgressByUserIDWithDurationRequest) | [GetProgressByUserIDWithDurationResponse](#bookowl.GetProgressByUserIDWithDurationResponse) |  |
 
  
 
