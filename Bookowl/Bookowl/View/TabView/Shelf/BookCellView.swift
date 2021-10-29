@@ -29,6 +29,6 @@ struct BookCell : View {
 
 struct BookCell_Preview :  PreviewProvider {
     static var previews: some View {
-        BookCell(model: BookModel(id: "1", name: "owl", status: "Unread", progress: 64, imagePath: "owl"))
+        BookCell(model: BookModel(id: "1", name: "owl", status: "Unread", progress: 64, imagePath: "owl", bookMarkId: "0"))
     }
 }

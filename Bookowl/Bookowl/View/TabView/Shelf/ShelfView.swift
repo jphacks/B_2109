@@ -19,7 +19,7 @@ struct ShelfView: View {
     
         var body: some View {
                     PagerTabStripView() {
-                        BookListView(books: [BookModel(id: "1", name: "owl", status: "Unread", progress: 64, imagePath: "owl")]).pagerTabItem {
+                        BookListView(books: [BookModel(id: "1", name: "owl", status: "Unread", progress: 64, imagePath: "owl", bookMarkId: "0")]).pagerTabItem {
                             TitleNavBarItem(title: "読書中")
                         }.onPageAppear {
         //                    homeModel.isLoading = true
@@ -28,7 +28,7 @@ struct ShelfView: View {
                             }
                         }
                         
-                        BookListView(books: [BookModel(id: "1", name: "owl", status: "Unread", progress: 64, imagePath: "owl")]).pagerTabItem {
+                        BookListView(books: [BookModel(id: "1", name: "owl", status: "Unread", progress: 64, imagePath: "owl", bookMarkId: "0")]).pagerTabItem {
                             TitleNavBarItem(title: "積読中")
                         }
                         .onPageAppear {
@@ -38,7 +38,7 @@ struct ShelfView: View {
                             }
                         }
                         
-                       BookListView(books: [BookModel(id: "1", name: "owl", status: "Unread", progress: 64, imagePath: "owl")]).pagerTabItem {
+                       BookListView(books: [BookModel(id: "1", name: "owl", status: "Unread", progress: 64, imagePath: "owl",bookMarkId: "0")]).pagerTabItem {
                         TitleNavBarItem(title: "読了本")
                         }
                     }

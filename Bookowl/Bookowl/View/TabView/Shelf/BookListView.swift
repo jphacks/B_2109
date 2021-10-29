@@ -29,7 +29,7 @@ struct BookListView: View {
 
 struct BookListView_Previews: PreviewProvider {
     static var previews: some View {
-        let books = [BookModel(id: "1", name: "owl", status: "Unread", progress: 64, imagePath: "owl")]
+        let books = [BookModel(id: "1", name: "owl", status: "Unread", progress: 64, imagePath: "owl", bookMarkId: "0")]
         BookListView(books: books)
     }
 }

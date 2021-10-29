@@ -63,9 +63,9 @@ struct BookView: View {
 struct BookView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            BookView(model:BookModel(id: "1", name: "owl", status: "Unread", progress: 64, imagePath: "owl") )
+            BookView(model:BookModel(id: "1", name: "owl", status: "Unread", progress: 64, imagePath: "owl", bookMarkId: "0") )
                 .previewDevice("iPhone 11")
-            BookView(model:BookModel(id: "1", name: "owl", status: "Unread", progress: 64, imagePath: "owl") )
+            BookView(model:BookModel(id: "1", name: "owl", status: "Unread", progress: 64, imagePath: "owl",bookMarkId: "0") )
         }
     }
 }

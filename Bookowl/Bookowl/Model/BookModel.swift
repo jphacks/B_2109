@@ -7,10 +7,11 @@
 
 import Foundation
 
-struct BookModel : Hashable, Codable, Identifiable{
+struct BookModel : Hashable,  Identifiable{
     var id : String
     var name : String
     var status : String
     var progress : Int
     var imagePath : String
+    var bookMarkId : String
 }

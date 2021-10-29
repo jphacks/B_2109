@@ -56,7 +56,6 @@ struct ISBNScannerView:  UIViewRepresentable {
 
         func makeUIView(context: UIViewRepresentableContext<ISBNScannerView>) -> ISBNScannerView.UIViewType {
             let cameraView = CameraLayer(session: session)
-
             checkCameraAuthorizationStatus(cameraView)
 
             return cameraView

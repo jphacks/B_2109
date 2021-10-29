@@ -42,6 +42,7 @@
 		65C9F3E927299D4100F8B02B /* goal.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C9F3E327299D4100F8B02B /* goal.grpc.swift */; };
 		65C9F3EA27299D4100F8B02B /* goal.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C9F3E427299D4100F8B02B /* goal.pb.swift */; };
 		65C9F3FD272A859E00F8B02B /* BookCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C9F3FC272A859E00F8B02B /* BookCellView.swift */; };
+		65EB37B2272B3BF500EF1474 /* BookRegisterAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EB37B1272B3BF500EF1474 /* BookRegisterAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,7 @@
 		65C9F3E327299D4100F8B02B /* goal.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = goal.grpc.swift; sourceTree = "<group>"; };
 		65C9F3E427299D4100F8B02B /* goal.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = goal.pb.swift; sourceTree = "<group>"; };
 		65C9F3FC272A859E00F8B02B /* BookCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookCellView.swift; sourceTree = "<group>"; };
+		65EB37B1272B3BF500EF1474 /* BookRegisterAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookRegisterAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,6 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				65C9F3CB272953EF00F8B02B /* APITest.swift */,
+				65EB37B1272B3BF500EF1474 /* BookRegisterAPI.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 			files = (
 				65610CF827271E3C00549108 /* ISBNView.swift in Sources */,
 				65610CF327243D9500549108 /* ScannerViewModel.swift in Sources */,
+				65EB37B2272B3BF500EF1474 /* BookRegisterAPI.swift in Sources */,
 				65C9F3E827299D4100F8B02B /* read_event.grpc.swift in Sources */,
 				65C9F36C2729180B00F8B02B /* RegisterView.swift in Sources */,
 				65C9F35D2727F0C500F8B02B /* ShelfListView.swift in Sources */,
