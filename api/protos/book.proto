@@ -7,50 +7,49 @@ option go_package = "github.com/jphacks/B_2109/server/api";
 import "google/protobuf/timestamp.proto";
 
 service Book{
-  // Registering Book using ISBN and a book width[mm].
-  rpc Register(BookRegisterRequest) returns (BookRegisterResponse);
+  // Registering Book
+  rpc RegisterBook(RegisterBookRequest) returns (RegisterBookResponse);
 
-  rpc GetByUserID(GetByUserIDRequest) returns (GetBookResponse);
+  rpc GetBooksByUserID(GetBooksByUserIDRequest) returns (GetBooksResponse);
 
-  rpc GetByBookmarkID(GetByBookmarkIDRequest) returns (GetBookResponse);
+  rpc GetBooksByBookmarkID(GetBooksByBookmarkIDRequest) returns (GetBooksResponse);
 
   rpc UpdateBookmarkID(UpdateBookmarkIDRequest) returns (UpdateBookResponse);
 
   rpc UpdateReadStatus(UpdateReadStatusRequest) returns (UpdateBookResponse);
 }
 
-message BookRegisterRequest {
+message RegisterBookRequest {
   BookInfo book_info = 1;
-  uint64 bookmark_id = 2;
-  uint64 user_id = 3;
+  uint64 user_id = 2;
 }
 
-message BookRegisterResponse {
-  uint64 book_id = 1;
+message RegisterBookResponse {
+  BookInfo book_info = 1;
   google.protobuf.Timestamp time = 2;
 }
 
-message GetByUserIDRequest{
+message GetBooksByUserIDRequest{
   uint64 user_id = 1;
 }
 
-message GetByBookmarkIDRequest {
+message GetBooksByBookmarkIDRequest {
   uint64 bookmark_id = 1;
 }
 
-message GetBookResponse{
-  repeated BookInfo book_info = 1;
+message GetBooksResponse{
+  repeated BookInfo books_info = 1;
   google.protobuf.Timestamp time = 2;
 }
 
 message UpdateReadStatusRequest{
-  uint64 book_id=1;
-  ReadStatus read_status=2;
+  uint64 book_id = 1;
+  ReadStatus read_status = 2;
 }
 
 message UpdateBookmarkIDRequest{
-  uint64 book_id=1;
-  uint64 bookmark_id=2;
+  uint64 book_id = 1;
+  uint64 bookmark_id = 2;
 }
 
 message UpdateBookResponse{
@@ -60,22 +59,24 @@ message UpdateBookResponse{
 
 // ReadStatus links to server/pkg/models/user_book.go ReadStatus
 enum ReadStatus{
-  READ_UNREAD = 0;
-  READ_READING = 1;
-  READ_SUSPENDED = 2;
-  READ_COMPLETE = 3;
+  READ_UNSPECIFIED = 0;
+  READ_UNREAD = 1;
+  READ_READING = 2;
+  READ_SUSPENDED = 3;
+  READ_COMPLETE = 4;
 }
 
 message BookInfo {
-  uint64 book_id=1;
+  uint64 book_id = 1;
   string isbn = 2;
-  uint64 book_mili_width = 3;
-  string name = 4;
-  int64 pages = 5;
+  string name = 3;
+  int64 pages = 4;
+  int64 width_level = 5;
   int64 price = 6;
   repeated string authors = 7;
   ReadStatus read_status = 8;
   repeated string categories = 9;
-  repeated uint64 user_id = 10;
-  repeated uint64 bookmark_id = 11;
+  uint64 user_id = 10;
+  uint64 bookmark_id = 11;
+  string book_thumbnail=12;
 }

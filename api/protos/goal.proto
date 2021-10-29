@@ -8,18 +8,18 @@ import "google/protobuf/timestamp.proto";
 
 service Goal {
 
-  rpc Register(RegisterGoalRequest) returns (RegisterGoalResponse);
+  rpc CreateGoal(CreateGoalRequest) returns (CreateGoalResponse);
 
-  rpc GetByUserID(GetGoalByUserIDRequest) returns (GetGoalResponse);
+  rpc GetByUserID(GetGoalByUserIDRequest) returns (GetGoalsResponse);
 
   rpc UpdateGoalStatus(UpdateGoalStatusRequest) returns (UpdateGoalResponse);
 }
 
-message RegisterGoalRequest {
+message CreateGoalRequest {
   GoalInfo goal_info = 1;
 }
 
-message RegisterGoalResponse {
+message CreateGoalResponse {
   uint64 goal_id = 1;
   google.protobuf.Timestamp time = 2;
 }
@@ -28,8 +28,8 @@ message GetGoalByUserIDRequest {
   uint64 user_id = 1;
 }
 
-message GetGoalResponse{
-  repeated GoalInfo goal_info = 1;
+message GetGoalsResponse{
+  repeated GoalInfo goals_info = 1;
   google.protobuf.Timestamp time = 2;
 }
 
@@ -44,10 +44,11 @@ message UpdateGoalResponse {
 }
 
 enum GoalStatus{
-  GOAL_PENDING = 0;
-  GOAL_DOING = 1;
-  GOAL_COMPLETE = 2;
-  GOAL_FAILED = 3;
+  GOAL_UNKNOWN = 0;
+  GOAL_PENDING = 1;
+  GOAL_DOING = 2;
+  GOAL_COMPLETE = 3;
+  GOAL_FAILED = 4;
 }
 
 message GoalInfo{
