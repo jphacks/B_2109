@@ -35,6 +35,6 @@ message ReadEventRegisterResponse {
 message ReadEventInfo {
   google.protobuf.Timestamp read_start_time = 1;
   google.protobuf.Timestamp read_end_time = 2;
-  int64 read_start_position = 3;
-  int64 read_end_position = 4;
+  int64 read_start_width_revel = 3;
+  int64 read_end_width_level = 4;
 }

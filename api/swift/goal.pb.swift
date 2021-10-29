@@ -22,32 +22,35 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
 
 enum Bookowl_GoalStatus: SwiftProtobuf.Enum {
   typealias RawValue = Int
-  case goalPending // = 0
-  case goalDoing // = 1
-  case goalComplete // = 2
-  case goalFailed // = 3
+  case goalUnknown // = 0
+  case goalPending // = 1
+  case goalDoing // = 2
+  case goalComplete // = 3
+  case goalFailed // = 4
   case UNRECOGNIZED(Int)
 
   init() {
-    self = .goalPending
+    self = .goalUnknown
   }
 
   init?(rawValue: Int) {
     switch rawValue {
-    case 0: self = .goalPending
-    case 1: self = .goalDoing
-    case 2: self = .goalComplete
-    case 3: self = .goalFailed
+    case 0: self = .goalUnknown
+    case 1: self = .goalPending
+    case 2: self = .goalDoing
+    case 3: self = .goalComplete
+    case 4: self = .goalFailed
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
 
   var rawValue: Int {
     switch self {
-    case .goalPending: return 0
-    case .goalDoing: return 1
-    case .goalComplete: return 2
-    case .goalFailed: return 3
+    case .goalUnknown: return 0
+    case .goalPending: return 1
+    case .goalDoing: return 2
+    case .goalComplete: return 3
+    case .goalFailed: return 4
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -59,6 +62,7 @@ enum Bookowl_GoalStatus: SwiftProtobuf.Enum {
 extension Bookowl_GoalStatus: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   static var allCases: [Bookowl_GoalStatus] = [
+    .goalUnknown,
     .goalPending,
     .goalDoing,
     .goalComplete,
@@ -154,7 +158,7 @@ struct Bookowl_UpdateGoalStatusRequest {
 
   var goalID: UInt64 = 0
 
-  var goalStatus: Bookowl_GoalStatus = .goalPending
+  var goalStatus: Bookowl_GoalStatus = .goalUnknown
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -221,7 +225,7 @@ struct Bookowl_GoalInfo {
 
   var numPages: Int64 = 0
 
-  var goalStatus: Bookowl_GoalStatus = .goalPending
+  var goalStatus: Bookowl_GoalStatus = .goalUnknown
 
   var userID: UInt64 = 0
 
@@ -239,10 +243,11 @@ fileprivate let _protobuf_package = "bookowl"
 
 extension Bookowl_GoalStatus: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "GOAL_PENDING"),
-    1: .same(proto: "GOAL_DOING"),
-    2: .same(proto: "GOAL_COMPLETE"),
-    3: .same(proto: "GOAL_FAILED"),
+    0: .same(proto: "GOAL_UNKNOWN"),
+    1: .same(proto: "GOAL_PENDING"),
+    2: .same(proto: "GOAL_DOING"),
+    3: .same(proto: "GOAL_COMPLETE"),
+    4: .same(proto: "GOAL_FAILED"),
   ]
 }
 
@@ -422,7 +427,7 @@ extension Bookowl_UpdateGoalStatusRequest: SwiftProtobuf.Message, SwiftProtobuf.
     if self.goalID != 0 {
       try visitor.visitSingularUInt64Field(value: self.goalID, fieldNumber: 1)
     }
-    if self.goalStatus != .goalPending {
+    if self.goalStatus != .goalUnknown {
       try visitor.visitSingularEnumField(value: self.goalStatus, fieldNumber: 2)
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -528,7 +533,7 @@ extension Bookowl_GoalInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     if self.numPages != 0 {
       try visitor.visitSingularInt64Field(value: self.numPages, fieldNumber: 5)
     }
-    if self.goalStatus != .goalPending {
+    if self.goalStatus != .goalUnknown {
       try visitor.visitSingularEnumField(value: self.goalStatus, fieldNumber: 6)
     }
     if self.userID != 0 {

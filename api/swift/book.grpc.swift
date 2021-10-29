@@ -30,20 +30,20 @@ internal protocol Bookowl_BookClientProtocol: GRPCClient {
   var serviceName: String { get }
   var interceptors: Bookowl_BookClientInterceptorFactoryProtocol? { get }
 
-  func register(
-    _ request: Bookowl_BookRegisterRequest,
+  func registerBook(
+    _ request: Bookowl_RegisterBookRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<Bookowl_BookRegisterRequest, Bookowl_BookRegisterResponse>
+  ) -> UnaryCall<Bookowl_RegisterBookRequest, Bookowl_RegisterBookResponse>
 
-  func getByUserID(
-    _ request: Bookowl_GetByUserIDRequest,
+  func getBooksByUserID(
+    _ request: Bookowl_GetBooksByUserIDRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<Bookowl_GetByUserIDRequest, Bookowl_GetBookResponse>
+  ) -> UnaryCall<Bookowl_GetBooksByUserIDRequest, Bookowl_GetBooksResponse>
 
-  func getByBookmarkID(
-    _ request: Bookowl_GetByBookmarkIDRequest,
+  func getBooksByBookmarkID(
+    _ request: Bookowl_GetBooksByBookmarkIDRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<Bookowl_GetByBookmarkIDRequest, Bookowl_GetBookResponse>
+  ) -> UnaryCall<Bookowl_GetBooksByBookmarkIDRequest, Bookowl_GetBooksResponse>
 
   func updateBookmarkID(
     _ request: Bookowl_UpdateBookmarkIDRequest,
@@ -61,57 +61,57 @@ extension Bookowl_BookClientProtocol {
     return "bookowl.Book"
   }
 
-  /// Registering Book using ISBN and a book width[mm].
+  /// Registering Book
   ///
   /// - Parameters:
-  ///   - request: Request to send to Register.
+  ///   - request: Request to send to RegisterBook.
   ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func register(
-    _ request: Bookowl_BookRegisterRequest,
+  internal func registerBook(
+    _ request: Bookowl_RegisterBookRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<Bookowl_BookRegisterRequest, Bookowl_BookRegisterResponse> {
+  ) -> UnaryCall<Bookowl_RegisterBookRequest, Bookowl_RegisterBookResponse> {
     return self.makeUnaryCall(
-      path: "/bookowl.Book/Register",
+      path: "/bookowl.Book/RegisterBook",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeRegisterInterceptors() ?? []
+      interceptors: self.interceptors?.makeRegisterBookInterceptors() ?? []
     )
   }
 
-  /// Unary call to GetByUserID
+  /// Unary call to GetBooksByUserID
   ///
   /// - Parameters:
-  ///   - request: Request to send to GetByUserID.
+  ///   - request: Request to send to GetBooksByUserID.
   ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func getByUserID(
-    _ request: Bookowl_GetByUserIDRequest,
+  internal func getBooksByUserID(
+    _ request: Bookowl_GetBooksByUserIDRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<Bookowl_GetByUserIDRequest, Bookowl_GetBookResponse> {
+  ) -> UnaryCall<Bookowl_GetBooksByUserIDRequest, Bookowl_GetBooksResponse> {
     return self.makeUnaryCall(
-      path: "/bookowl.Book/GetByUserID",
+      path: "/bookowl.Book/GetBooksByUserID",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeGetByUserIDInterceptors() ?? []
+      interceptors: self.interceptors?.makeGetBooksByUserIDInterceptors() ?? []
     )
   }
 
-  /// Unary call to GetByBookmarkID
+  /// Unary call to GetBooksByBookmarkID
   ///
   /// - Parameters:
-  ///   - request: Request to send to GetByBookmarkID.
+  ///   - request: Request to send to GetBooksByBookmarkID.
   ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func getByBookmarkID(
-    _ request: Bookowl_GetByBookmarkIDRequest,
+  internal func getBooksByBookmarkID(
+    _ request: Bookowl_GetBooksByBookmarkIDRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<Bookowl_GetByBookmarkIDRequest, Bookowl_GetBookResponse> {
+  ) -> UnaryCall<Bookowl_GetBooksByBookmarkIDRequest, Bookowl_GetBooksResponse> {
     return self.makeUnaryCall(
-      path: "/bookowl.Book/GetByBookmarkID",
+      path: "/bookowl.Book/GetBooksByBookmarkID",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeGetByBookmarkIDInterceptors() ?? []
+      interceptors: self.interceptors?.makeGetBooksByBookmarkIDInterceptors() ?? []
     )
   }
 
@@ -154,14 +154,14 @@ extension Bookowl_BookClientProtocol {
 
 internal protocol Bookowl_BookClientInterceptorFactoryProtocol {
 
-  /// - Returns: Interceptors to use when invoking 'register'.
-  func makeRegisterInterceptors() -> [ClientInterceptor<Bookowl_BookRegisterRequest, Bookowl_BookRegisterResponse>]
+  /// - Returns: Interceptors to use when invoking 'registerBook'.
+  func makeRegisterBookInterceptors() -> [ClientInterceptor<Bookowl_RegisterBookRequest, Bookowl_RegisterBookResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'getByUserID'.
-  func makeGetByUserIDInterceptors() -> [ClientInterceptor<Bookowl_GetByUserIDRequest, Bookowl_GetBookResponse>]
+  /// - Returns: Interceptors to use when invoking 'getBooksByUserID'.
+  func makeGetBooksByUserIDInterceptors() -> [ClientInterceptor<Bookowl_GetBooksByUserIDRequest, Bookowl_GetBooksResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'getByBookmarkID'.
-  func makeGetByBookmarkIDInterceptors() -> [ClientInterceptor<Bookowl_GetByBookmarkIDRequest, Bookowl_GetBookResponse>]
+  /// - Returns: Interceptors to use when invoking 'getBooksByBookmarkID'.
+  func makeGetBooksByBookmarkIDInterceptors() -> [ClientInterceptor<Bookowl_GetBooksByBookmarkIDRequest, Bookowl_GetBooksResponse>]
 
   /// - Returns: Interceptors to use when invoking 'updateBookmarkID'.
   func makeUpdateBookmarkIDInterceptors() -> [ClientInterceptor<Bookowl_UpdateBookmarkIDRequest, Bookowl_UpdateBookResponse>]
@@ -196,12 +196,12 @@ internal final class Bookowl_BookClient: Bookowl_BookClientProtocol {
 internal protocol Bookowl_BookProvider: CallHandlerProvider {
   var interceptors: Bookowl_BookServerInterceptorFactoryProtocol? { get }
 
-  /// Registering Book using ISBN and a book width[mm].
-  func register(request: Bookowl_BookRegisterRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_BookRegisterResponse>
+  /// Registering Book
+  func registerBook(request: Bookowl_RegisterBookRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_RegisterBookResponse>
 
-  func getByUserID(request: Bookowl_GetByUserIDRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetBookResponse>
+  func getBooksByUserID(request: Bookowl_GetBooksByUserIDRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetBooksResponse>
 
-  func getByBookmarkID(request: Bookowl_GetByBookmarkIDRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetBookResponse>
+  func getBooksByBookmarkID(request: Bookowl_GetBooksByBookmarkIDRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetBooksResponse>
 
   func updateBookmarkID(request: Bookowl_UpdateBookmarkIDRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_UpdateBookResponse>
 
@@ -218,31 +218,31 @@ extension Bookowl_BookProvider {
     context: CallHandlerContext
   ) -> GRPCServerHandlerProtocol? {
     switch name {
-    case "Register":
+    case "RegisterBook":
       return UnaryServerHandler(
         context: context,
-        requestDeserializer: ProtobufDeserializer<Bookowl_BookRegisterRequest>(),
-        responseSerializer: ProtobufSerializer<Bookowl_BookRegisterResponse>(),
-        interceptors: self.interceptors?.makeRegisterInterceptors() ?? [],
-        userFunction: self.register(request:context:)
+        requestDeserializer: ProtobufDeserializer<Bookowl_RegisterBookRequest>(),
+        responseSerializer: ProtobufSerializer<Bookowl_RegisterBookResponse>(),
+        interceptors: self.interceptors?.makeRegisterBookInterceptors() ?? [],
+        userFunction: self.registerBook(request:context:)
       )
 
-    case "GetByUserID":
+    case "GetBooksByUserID":
       return UnaryServerHandler(
         context: context,
-        requestDeserializer: ProtobufDeserializer<Bookowl_GetByUserIDRequest>(),
-        responseSerializer: ProtobufSerializer<Bookowl_GetBookResponse>(),
-        interceptors: self.interceptors?.makeGetByUserIDInterceptors() ?? [],
-        userFunction: self.getByUserID(request:context:)
+        requestDeserializer: ProtobufDeserializer<Bookowl_GetBooksByUserIDRequest>(),
+        responseSerializer: ProtobufSerializer<Bookowl_GetBooksResponse>(),
+        interceptors: self.interceptors?.makeGetBooksByUserIDInterceptors() ?? [],
+        userFunction: self.getBooksByUserID(request:context:)
       )
 
-    case "GetByBookmarkID":
+    case "GetBooksByBookmarkID":
       return UnaryServerHandler(
         context: context,
-        requestDeserializer: ProtobufDeserializer<Bookowl_GetByBookmarkIDRequest>(),
-        responseSerializer: ProtobufSerializer<Bookowl_GetBookResponse>(),
-        interceptors: self.interceptors?.makeGetByBookmarkIDInterceptors() ?? [],
-        userFunction: self.getByBookmarkID(request:context:)
+        requestDeserializer: ProtobufDeserializer<Bookowl_GetBooksByBookmarkIDRequest>(),
+        responseSerializer: ProtobufSerializer<Bookowl_GetBooksResponse>(),
+        interceptors: self.interceptors?.makeGetBooksByBookmarkIDInterceptors() ?? [],
+        userFunction: self.getBooksByBookmarkID(request:context:)
       )
 
     case "UpdateBookmarkID":
@@ -271,17 +271,17 @@ extension Bookowl_BookProvider {
 
 internal protocol Bookowl_BookServerInterceptorFactoryProtocol {
 
-  /// - Returns: Interceptors to use when handling 'register'.
+  /// - Returns: Interceptors to use when handling 'registerBook'.
   ///   Defaults to calling `self.makeInterceptors()`.
-  func makeRegisterInterceptors() -> [ServerInterceptor<Bookowl_BookRegisterRequest, Bookowl_BookRegisterResponse>]
+  func makeRegisterBookInterceptors() -> [ServerInterceptor<Bookowl_RegisterBookRequest, Bookowl_RegisterBookResponse>]
 
-  /// - Returns: Interceptors to use when handling 'getByUserID'.
+  /// - Returns: Interceptors to use when handling 'getBooksByUserID'.
   ///   Defaults to calling `self.makeInterceptors()`.
-  func makeGetByUserIDInterceptors() -> [ServerInterceptor<Bookowl_GetByUserIDRequest, Bookowl_GetBookResponse>]
+  func makeGetBooksByUserIDInterceptors() -> [ServerInterceptor<Bookowl_GetBooksByUserIDRequest, Bookowl_GetBooksResponse>]
 
-  /// - Returns: Interceptors to use when handling 'getByBookmarkID'.
+  /// - Returns: Interceptors to use when handling 'getBooksByBookmarkID'.
   ///   Defaults to calling `self.makeInterceptors()`.
-  func makeGetByBookmarkIDInterceptors() -> [ServerInterceptor<Bookowl_GetByBookmarkIDRequest, Bookowl_GetBookResponse>]
+  func makeGetBooksByBookmarkIDInterceptors() -> [ServerInterceptor<Bookowl_GetBooksByBookmarkIDRequest, Bookowl_GetBooksResponse>]
 
   /// - Returns: Interceptors to use when handling 'updateBookmarkID'.
   ///   Defaults to calling `self.makeInterceptors()`.

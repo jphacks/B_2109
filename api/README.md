@@ -5,11 +5,11 @@
 
 - [protos/book.proto](#protos/book.proto)
     - [BookInfo](#bookowl.BookInfo)
-    - [BookRegisterRequest](#bookowl.BookRegisterRequest)
-    - [BookRegisterResponse](#bookowl.BookRegisterResponse)
-    - [GetBookResponse](#bookowl.GetBookResponse)
-    - [GetByBookmarkIDRequest](#bookowl.GetByBookmarkIDRequest)
-    - [GetByUserIDRequest](#bookowl.GetByUserIDRequest)
+    - [GetBooksByBookmarkIDRequest](#bookowl.GetBooksByBookmarkIDRequest)
+    - [GetBooksByUserIDRequest](#bookowl.GetBooksByUserIDRequest)
+    - [GetBooksResponse](#bookowl.GetBooksResponse)
+    - [RegisterBookRequest](#bookowl.RegisterBookRequest)
+    - [RegisterBookResponse](#bookowl.RegisterBookResponse)
     - [UpdateBookResponse](#bookowl.UpdateBookResponse)
     - [UpdateBookmarkIDRequest](#bookowl.UpdateBookmarkIDRequest)
     - [UpdateReadStatusRequest](#bookowl.UpdateReadStatusRequest)
@@ -61,31 +61,44 @@
 | ----- | ---- | ----- | ----------- |
 | book_id | [uint64](#uint64) |  |  |
 | isbn | [string](#string) |  |  |
-| book_mili_width | [uint64](#uint64) |  |  |
 | name | [string](#string) |  |  |
 | pages | [int64](#int64) |  |  |
+| width_level | [int64](#int64) |  |  |
 | price | [int64](#int64) |  |  |
 | authors | [string](#string) | repeated |  |
 | read_status | [ReadStatus](#bookowl.ReadStatus) |  |  |
 | categories | [string](#string) | repeated |  |
-| user_id | [uint64](#uint64) | repeated |  |
-| bookmark_id | [uint64](#uint64) | repeated |  |
+| user_id | [uint64](#uint64) |  |  |
+| bookmark_id | [uint64](#uint64) |  |  |
 
 
 
 
 
 
-<a name="bookowl.BookRegisterRequest"></a>
+<a name="bookowl.GetBooksByBookmarkIDRequest"></a>
 
-### BookRegisterRequest
+### GetBooksByBookmarkIDRequest
 
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| book_info | [BookInfo](#bookowl.BookInfo) |  |  |
 | bookmark_id | [uint64](#uint64) |  |  |
+
+
+
+
+
+
+<a name="bookowl.GetBooksByUserIDRequest"></a>
+
+### GetBooksByUserIDRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
 | user_id | [uint64](#uint64) |  |  |
 
 
@@ -93,9 +106,41 @@
 
 
 
-<a name="bookowl.BookRegisterResponse"></a>
+<a name="bookowl.GetBooksResponse"></a>
 
-### BookRegisterResponse
+### GetBooksResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| books_info | [BookInfo](#bookowl.BookInfo) | repeated |  |
+| time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
+
+
+
+
+
+
+<a name="bookowl.RegisterBookRequest"></a>
+
+### RegisterBookRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| book_info | [BookInfo](#bookowl.BookInfo) |  |  |
+| user_id | [uint64](#uint64) |  |  |
+
+
+
+
+
+
+<a name="bookowl.RegisterBookResponse"></a>
+
+### RegisterBookResponse
 
 
 
@@ -103,52 +148,6 @@
 | ----- | ---- | ----- | ----------- |
 | book_id | [uint64](#uint64) |  |  |
 | time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
-
-
-
-
-
-
-<a name="bookowl.GetBookResponse"></a>
-
-### GetBookResponse
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| book_info | [BookInfo](#bookowl.BookInfo) | repeated |  |
-| time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
-
-
-
-
-
-
-<a name="bookowl.GetByBookmarkIDRequest"></a>
-
-### GetByBookmarkIDRequest
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| bookmark_id | [uint64](#uint64) |  |  |
-
-
-
-
-
-
-<a name="bookowl.GetByUserIDRequest"></a>
-
-### GetByUserIDRequest
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| user_id | [uint64](#uint64) |  |  |
 
 
 
@@ -212,10 +211,11 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
-| READ_UNREAD | 0 |  |
-| READ_READING | 1 |  |
-| READ_SUSPENDED | 2 |  |
-| READ_COMPLETE | 3 |  |
+| READ_UNSPECIFIED | 0 |  |
+| READ_UNREAD | 1 |  |
+| READ_READING | 2 |  |
+| READ_SUSPENDED | 3 |  |
+| READ_COMPLETE | 4 |  |
 
 
  
@@ -230,9 +230,9 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| Register | [BookRegisterRequest](#bookowl.BookRegisterRequest) | [BookRegisterResponse](#bookowl.BookRegisterResponse) | Registering Book using ISBN and a book width[mm]. |
-| GetByUserID | [GetByUserIDRequest](#bookowl.GetByUserIDRequest) | [GetBookResponse](#bookowl.GetBookResponse) |  |
-| GetByBookmarkID | [GetByBookmarkIDRequest](#bookowl.GetByBookmarkIDRequest) | [GetBookResponse](#bookowl.GetBookResponse) |  |
+| RegisterBook | [RegisterBookRequest](#bookowl.RegisterBookRequest) | [RegisterBookResponse](#bookowl.RegisterBookResponse) | Registering Book |
+| GetBooksByUserID | [GetBooksByUserIDRequest](#bookowl.GetBooksByUserIDRequest) | [GetBooksResponse](#bookowl.GetBooksResponse) |  |
+| GetBooksByBookmarkID | [GetBooksByBookmarkIDRequest](#bookowl.GetBooksByBookmarkIDRequest) | [GetBooksResponse](#bookowl.GetBooksResponse) |  |
 | UpdateBookmarkID | [UpdateBookmarkIDRequest](#bookowl.UpdateBookmarkIDRequest) | [UpdateBookResponse](#bookowl.UpdateBookResponse) |  |
 | UpdateReadStatus | [UpdateReadStatusRequest](#bookowl.UpdateReadStatusRequest) | [UpdateBookResponse](#bookowl.UpdateBookResponse) |  |
 
@@ -371,10 +371,11 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 
 | Name | Number | Description |
 | ---- | ------ | ----------- |
-| GOAL_PENDING | 0 |  |
-| GOAL_DOING | 1 |  |
-| GOAL_COMPLETE | 2 |  |
-| GOAL_FAILED | 3 |  |
+| GOAL_UNKNOWN | 0 |  |
+| GOAL_PENDING | 1 |  |
+| GOAL_DOING | 2 |  |
+| GOAL_COMPLETE | 3 |  |
+| GOAL_FAILED | 4 |  |
 
 
  
@@ -445,8 +446,8 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 | ----- | ---- | ----- | ----------- |
 | read_start_time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
 | read_end_time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
-| read_start_position | [int64](#int64) |  |  |
-| read_end_position | [int64](#int64) |  |  |
+| read_start_width_revel | [int64](#int64) |  |  |
+| read_end_width_level | [int64](#int64) |  |  |
 
 
 

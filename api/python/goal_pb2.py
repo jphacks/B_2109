@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z$github.com/jphacks/B_2109/server/api',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\ngoal.proto\x12\x07\x62ookowl\x1a\x1fgoogle/protobuf/timestamp.proto\";\n\x13RegisterGoalRequest\x12$\n\tgoal_info\x18\x01 \x01(\x0b\x32\x11.bookowl.GoalInfo\"Q\n\x14RegisterGoalResponse\x12\x0f\n\x07goal_id\x18\x01 \x01(\x04\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\")\n\x16GetGoalByUserIDRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"a\n\x0fGetGoalResponse\x12$\n\tgoal_info\x18\x01 \x03(\x0b\x32\x11.bookowl.GoalInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"T\n\x17UpdateGoalStatusRequest\x12\x0f\n\x07goal_id\x18\x01 \x01(\x04\x12(\n\x0bgoal_status\x18\x02 \x01(\x0e\x32\x13.bookowl.GoalStatus\"d\n\x12UpdateGoalResponse\x12$\n\tgoal_info\x18\x01 \x01(\x0b\x32\x11.bookowl.GoalInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xe4\x01\n\x08GoalInfo\x12\x0f\n\x07goal_id\x18\x01 \x01(\x04\x12.\n\nstart_date\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08\x65nd_date\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x1b\n\x13time_amount_minutes\x18\x04 \x01(\x03\x12\x11\n\tnum_pages\x18\x05 \x01(\x03\x12(\n\x0bgoal_status\x18\x06 \x01(\x0e\x32\x13.bookowl.GoalStatus\x12\x0f\n\x07user_id\x18\x07 \x01(\x04*R\n\nGoalStatus\x12\x10\n\x0cGOAL_PENDING\x10\x00\x12\x0e\n\nGOAL_DOING\x10\x01\x12\x11\n\rGOAL_COMPLETE\x10\x02\x12\x0f\n\x0bGOAL_FAILED\x10\x03\x32\xec\x01\n\x04Goal\x12G\n\x08Register\x12\x1c.bookowl.RegisterGoalRequest\x1a\x1d.bookowl.RegisterGoalResponse\x12H\n\x0bGetByUserID\x12\x1f.bookowl.GetGoalByUserIDRequest\x1a\x18.bookowl.GetGoalResponse\x12Q\n\x10UpdateGoalStatus\x12 .bookowl.UpdateGoalStatusRequest\x1a\x1b.bookowl.UpdateGoalResponseB&Z$github.com/jphacks/B_2109/server/apib\x06proto3'
+  serialized_pb=b'\n\ngoal.proto\x12\x07\x62ookowl\x1a\x1fgoogle/protobuf/timestamp.proto\";\n\x13RegisterGoalRequest\x12$\n\tgoal_info\x18\x01 \x01(\x0b\x32\x11.bookowl.GoalInfo\"Q\n\x14RegisterGoalResponse\x12\x0f\n\x07goal_id\x18\x01 \x01(\x04\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\")\n\x16GetGoalByUserIDRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"a\n\x0fGetGoalResponse\x12$\n\tgoal_info\x18\x01 \x03(\x0b\x32\x11.bookowl.GoalInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"T\n\x17UpdateGoalStatusRequest\x12\x0f\n\x07goal_id\x18\x01 \x01(\x04\x12(\n\x0bgoal_status\x18\x02 \x01(\x0e\x32\x13.bookowl.GoalStatus\"d\n\x12UpdateGoalResponse\x12$\n\tgoal_info\x18\x01 \x01(\x0b\x32\x11.bookowl.GoalInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xe4\x01\n\x08GoalInfo\x12\x0f\n\x07goal_id\x18\x01 \x01(\x04\x12.\n\nstart_date\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08\x65nd_date\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x1b\n\x13time_amount_minutes\x18\x04 \x01(\x03\x12\x11\n\tnum_pages\x18\x05 \x01(\x03\x12(\n\x0bgoal_status\x18\x06 \x01(\x0e\x32\x13.bookowl.GoalStatus\x12\x0f\n\x07user_id\x18\x07 \x01(\x04*d\n\nGoalStatus\x12\x10\n\x0cGOAL_UNKNOWN\x10\x00\x12\x10\n\x0cGOAL_PENDING\x10\x01\x12\x0e\n\nGOAL_DOING\x10\x02\x12\x11\n\rGOAL_COMPLETE\x10\x03\x12\x0f\n\x0bGOAL_FAILED\x10\x04\x32\xec\x01\n\x04Goal\x12G\n\x08Register\x12\x1c.bookowl.RegisterGoalRequest\x1a\x1d.bookowl.RegisterGoalResponse\x12H\n\x0bGetByUserID\x12\x1f.bookowl.GetGoalByUserIDRequest\x1a\x18.bookowl.GetGoalResponse\x12Q\n\x10UpdateGoalStatus\x12 .bookowl.UpdateGoalStatusRequest\x1a\x1b.bookowl.UpdateGoalResponseB&Z$github.com/jphacks/B_2109/server/apib\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
@@ -33,22 +33,27 @@ _GOALSTATUS = _descriptor.EnumDescriptor(
   create_key=_descriptor._internal_create_key,
   values=[
     _descriptor.EnumValueDescriptor(
-      name='GOAL_PENDING', index=0, number=0,
+      name='GOAL_UNKNOWN', index=0, number=0,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='GOAL_DOING', index=1, number=1,
+      name='GOAL_PENDING', index=1, number=1,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='GOAL_COMPLETE', index=2, number=2,
+      name='GOAL_DOING', index=2, number=2,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
     _descriptor.EnumValueDescriptor(
-      name='GOAL_FAILED', index=3, number=3,
+      name='GOAL_COMPLETE', index=3, number=3,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='GOAL_FAILED', index=4, number=4,
       serialized_options=None,
       type=None,
       create_key=_descriptor._internal_create_key),
@@ -56,15 +61,16 @@ _GOALSTATUS = _descriptor.EnumDescriptor(
   containing_type=None,
   serialized_options=None,
   serialized_start=761,
-  serialized_end=843,
+  serialized_end=861,
 )
 _sym_db.RegisterEnumDescriptor(_GOALSTATUS)
 
 GoalStatus = enum_type_wrapper.EnumTypeWrapper(_GOALSTATUS)
-GOAL_PENDING = 0
-GOAL_DOING = 1
-GOAL_COMPLETE = 2
-GOAL_FAILED = 3
+GOAL_UNKNOWN = 0
+GOAL_PENDING = 1
+GOAL_DOING = 2
+GOAL_COMPLETE = 3
+GOAL_FAILED = 4
 
 
 
@@ -440,8 +446,8 @@ _GOAL = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=846,
-  serialized_end=1082,
+  serialized_start=864,
+  serialized_end=1100,
   methods=[
   _descriptor.MethodDescriptor(
     name='Register',
