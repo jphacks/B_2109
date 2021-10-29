@@ -30,14 +30,17 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/jphacks/B_2109/server/pkg/mock"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
 
 	"github.com/jphacks/B_2109/server/api"
 
 	"github.com/spf13/viper"
 
+	pkgapi "github.com/jphacks/B_2109/server/pkg/api"
 	"github.com/jphacks/B_2109/server/pkg/defaults"
 	"github.com/jphacks/B_2109/server/pkg/option"
+	"github.com/jphacks/B_2109/server/pkg/repos"
 
 	"golang.org/x/sync/errgroup"
 
@@ -97,11 +100,8 @@ func initEnv() {
 }
 
 func initDB() error {
-	return nil
-
-	//todo implement
-	//dsn := repos.ConstructDSN(option.Config.DBUser, option.Config.DBPass, option.Config.DBAddr, option.Config.DBName)
-	//return repos.InitDB(mysql.Open(dsn), &gorm.Config{})
+	dsn := repos.ConstructDSN(option.Config.DBUser, option.Config.DBPass, option.Config.DBAddr, option.Config.DBName)
+	return repos.InitDB(mysql.Open(dsn), &gorm.Config{})
 }
 
 func runDaemon() error {
@@ -125,14 +125,9 @@ func runServer(ctx context.Context) error {
 		return err
 	}
 
-	api.RegisterBookServer(s, mock.NewBookServer())
-	api.RegisterReadEventServer(s, mock.NewReadEventServer())
-	api.RegisterGoalServer(s, mock.NewGoalServer())
-
-	//todo imeplement
 	// note ここ美しくない
-	//api.RegisterBookServer(s, pkgapi.NewBookServer())
-	//api.RegisterReadEventServer(s, pkgapi.NewReadEventServer())
+	api.RegisterBookServer(s, pkgapi.NewBookServer())
+	api.RegisterReadEventServer(s, pkgapi.NewReadEventServer())
 	//api.RegisterGoalServer(s, pkgapi.NewGoalServer())
 
 	lis, err := net.Listen("tcp", option.Config.ServerAddr)
