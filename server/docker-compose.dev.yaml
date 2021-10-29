@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+    - mysql:/var/lib/mysql
+    - ./db/:/docker-entrypoint-initdb.d
+    ports:
+    - "3306:3306"
+    healthcheck:
+      test: "/etc/init.d/mysql status"
+      timeout: 20s
+      retries: 10
+
+  bookowl:
+    build:
+      dockerfile: ./docker/bookowl.Dockerfile
+      context: ./
+    depends_on:
+    - mysql
+    command:
+    - "/bookowl"
+    - "--addr"
+    - "0.0.0.0:8080"
+    - "--db-addr"
+    - "mysql:3306"
+    - "--db-name"
+    - "bookowl"
+    - "--db-user"
+    - "root"
+    - "--db-pass"
+    - "password"
+    ports:
+    - "8080:8080"
+
+volumes:
+  mysql:

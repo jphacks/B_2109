@@ -8,7 +8,7 @@ COPY . /go/src/${REPO_NAME}
 WORKDIR /go/src/${REPO_NAME}
 RUN go build -o /go/bin/${APP_NAME}
 
-FROM gcr.io/distroless/base
+FROM ubuntu:focal
 ARG APP_NAME
 COPY --from=build /go/bin/${APP_NAME} /${APP_NAME}
 CMD ["/app"]
