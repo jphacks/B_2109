@@ -62,8 +62,7 @@ struct GoalRegisterView: View {
 
 struct GoalRegisterView_Previews: PreviewProvider {
     static var previews: some View {
-        let isbn = ""
-        let bookModel = BookModel(id: "0", name: "a", status: "2", progress: 53, imagePath: "0", bookMarkId: "0")
+        
         GoalRegisterView()
     }
 }

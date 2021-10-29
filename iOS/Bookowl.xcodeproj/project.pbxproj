@@ -31,6 +31,8 @@
 		65610CFE2727235700549108 /* ShelfView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65610CFD2727235700549108 /* ShelfView.swift */; };
 		65610D062727237600549108 /* TopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65610D052727237600549108 /* TopView.swift */; };
 		65610D242727E84200549108 /* SegmentedPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 65610D232727E84200549108 /* SegmentedPicker */; };
+		65A66C91272C5EB9000026BD /* BookAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A66C90272C5EB9000026BD /* BookAPI.swift */; };
+		65A66C93272C5FCA000026BD /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A66C92272C5FCA000026BD /* Const.swift */; };
 		65C9F35D2727F0C500F8B02B /* ShelfListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C9F35C2727F0C500F8B02B /* ShelfListView.swift */; };
 		65C9F363272917E000F8B02B /* BookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C9F362272917E000F8B02B /* BookView.swift */; };
 		65C9F36C2729180B00F8B02B /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C9F36B2729180B00F8B02B /* RegisterView.swift */; };
@@ -94,6 +96,8 @@
 		65610CF727271E3C00549108 /* ISBNView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ISBNView.swift; sourceTree = "<group>"; };
 		65610CFD2727235700549108 /* ShelfView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfView.swift; sourceTree = "<group>"; };
 		65610D052727237600549108 /* TopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopView.swift; sourceTree = "<group>"; };
+		65A66C90272C5EB9000026BD /* BookAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookAPI.swift; sourceTree = "<group>"; };
+		65A66C92272C5FCA000026BD /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
 		65C9F35C2727F0C500F8B02B /* ShelfListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfListView.swift; sourceTree = "<group>"; };
 		65C9F362272917E000F8B02B /* BookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookView.swift; sourceTree = "<group>"; };
 		65C9F36B2729180B00F8B02B /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
@@ -139,7 +143,6 @@
 		65575A0C272C4AD400ACF5F9 /* ISBNReader */ = {
 			isa = PBXGroup;
 			children = (
-				65575A11272C4ADC00ACF5F9 /* GoalRegisterApi.swift */,
 				65575A0D272C4AD400ACF5F9 /* ISBNReader.swift */,
 				65575A0E272C4AD400ACF5F9 /* ScannerViewModel.swift */,
 			);
@@ -237,6 +240,7 @@
 		65610CFC2727219700549108 /* TabView */ = {
 			isa = PBXGroup;
 			children = (
+				65575A20272C4B7700ACF5F9 /* GoalRegisterView.swift */,
 				65C9F361272917CA00F8B02B /* Shelf */,
 				65C9F36A272917F500F8B02B /* ISBN */,
 				65610D052727237600549108 /* TopView.swift */,
@@ -260,7 +264,6 @@
 		65C9F36A272917F500F8B02B /* ISBN */ = {
 			isa = PBXGroup;
 			children = (
-				65575A20272C4B7700ACF5F9 /* GoalRegisterView.swift */,
 				65610CF727271E3C00549108 /* ISBNView.swift */,
 				65C9F36B2729180B00F8B02B /* RegisterView.swift */,
 			);
@@ -279,9 +282,12 @@
 		65C9F3CA272953E400F8B02B /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				65575A11272C4ADC00ACF5F9 /* GoalRegisterApi.swift */,
 				65575A0C272C4AD400ACF5F9 /* ISBNReader */,
 				65C9F3CB272953EF00F8B02B /* APITest.swift */,
 				65EB37B1272B3BF500EF1474 /* BookRegisterAPI.swift */,
+				65A66C90272C5EB9000026BD /* BookAPI.swift */,
+				65A66C92272C5FCA000026BD /* Const.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -428,8 +434,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				65610CF827271E3C00549108 /* ISBNView.swift in Sources */,
+				65A66C91272C5EB9000026BD /* BookAPI.swift in Sources */,
 				65EB37B2272B3BF500EF1474 /* BookRegisterAPI.swift in Sources */,
 				65C9F36C2729180B00F8B02B /* RegisterView.swift in Sources */,
+				65A66C93272C5FCA000026BD /* Const.swift in Sources */,
 				65C9F35D2727F0C500F8B02B /* ShelfListView.swift in Sources */,
 				65575A12272C4ADC00ACF5F9 /* GoalRegisterApi.swift in Sources */,
 				65C9F363272917E000F8B02B /* BookView.swift in Sources */,

@@ -13,7 +13,7 @@ struct BookCell : View {
     
     var body : some View{
         ZStack{
-            Color(red: 255/255, green: 241/255, blue: 179/255)
+            backgroundColor
                 .edgesIgnoringSafeArea(.all)
         HStack {
             Image(model.imagePath)
@@ -29,6 +29,6 @@ struct BookCell : View {
 
 struct BookCell_Preview :  PreviewProvider {
     static var previews: some View {
-        BookCell(model: BookModel(id: "1", name: "owl", status: "Unread", progress: 64, imagePath: "owl", bookMarkId: "0"))
+        BookCell(model: INIT_BOOK_MODEL)
     }
 }
