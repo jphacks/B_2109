@@ -47,4 +47,8 @@ class ISBNReader: NSObject, AVCaptureMetadataOutputObjectsDelegate ,  Observable
                 self.onResult(stringValue)
             }
         }
+    
+    func setIsISBNFind(bo : Bool){
+        isISBNFind = bo
+    }
 }

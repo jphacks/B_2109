@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct BookListView: View {
-    let books : [Bookowl_BookInfo]
+    @State var books : [Bookowl_BookInfo]
     let background =  Color(red: 255/255, green: 241/255, blue: 179/255)
     
     init(books:[Bookowl_BookInfo]){
@@ -26,7 +26,7 @@ struct BookListView: View {
                     ForEach(0 ..< books.count) { book in
                                     
                     ZStack{
-                        NavigationLink(destination: BookView(model: books[book])) {
+                        NavigationLink(destination: BookView(model: $books[book])) {
                                 background.edgesIgnoringSafeArea(.all)
                                     EmptyView()
                                     .foregroundColor(background)

@@ -57,7 +57,7 @@ class BookAPI :  ObservableObject{
 //
 //    }
     
-    func RegisterBookRequest(model : BookModel) -> Bookowl_BookInfo! {
+    func RegisterBookRequest(model : Bookowl_BookInfo) -> Bookowl_BookInfo! {
         print("registerAPI")
         let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
         defer{
@@ -68,6 +68,7 @@ class BookAPI :  ObservableObject{
         request.bookInfo.readStatus = .readUnread
         request.bookInfo.isbn = model.isbn
         request.bookInfo.widthLevel = Int64(model.widthLevel)
+        print(model.widthLevel)
         let connection = ClientConnection
             .insecure(group: group)
             .connect(host: "163.221.29.71", port: 8080)
@@ -85,14 +86,14 @@ class BookAPI :  ObservableObject{
         return nil
     }
     
-    func UpdateBookmarkIDRequest(model : BookModel) -> Bool{
+    func UpdateBookmarkIDRequest(model : Bookowl_BookInfo) -> Bool{
         let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
         defer{
             try? group.syncShutdownGracefully()
         }
         var request = Bookowl_UpdateBookmarkIDRequest()
-        request.bookID = model.id
-        request.bookmarkID = model.bookMarkId
+        request.bookID = model.bookID
+        request.bookmarkID = model.bookmarkID
         let connection = ClientConnection
             .insecure(group: group)
             .connect(host: "163.221.29.71", port: 8080)

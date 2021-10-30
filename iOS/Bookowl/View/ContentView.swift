@@ -29,6 +29,7 @@ struct ContentView: View {
                         Text("本棚")
                     }
                 }.tag(2)
+                    
             
             ISBNView(viewModel:scannerModel)
                 .tabItem{

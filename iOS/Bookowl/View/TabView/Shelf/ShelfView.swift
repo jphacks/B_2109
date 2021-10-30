@@ -26,8 +26,8 @@ struct ShelfView: View {
                         }.onPageAppear {
         //                    homeModel.isLoading = true
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                
-        //                        homeModel.isLoading = false
+                                bookAPI.divideByStatus(bookInfos: bookAPI.bookInfos)
+                                    
                             }
                         }
                         

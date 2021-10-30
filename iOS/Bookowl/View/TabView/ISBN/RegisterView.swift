@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RegisterView: View {
 //    var isbn : String
-    @State var model : BookModel
+    @State var model : Bookowl_BookInfo
     @State var isUpdated = false
     @Binding var isFindBarcode : Bool
     let brown = Color(red: 105/255, green: 78/255, blue: 51/255)
@@ -19,7 +19,7 @@ struct RegisterView: View {
             Bookowl.background.edgesIgnoringSafeArea(.all)
             
             VStack{
-                URLImageView(viewModel: .init(url: model.imagePath))
+                URLImageView(viewModel: .init(url: model.bookThumbnail))
                     .frame(width: 150, height: 200, alignment: .center)
                 Text(model.name)
                 .font(.title)
@@ -53,8 +53,8 @@ struct RegisterView: View {
                     Text("読む場合はしおりを登録してください。")
                     HStack{
                         Button( action: {
-                            model.bookMarkId = 1
-                            model.status = .readReading
+                            model.bookmarkID = 1
+                            model.readStatus = .readReading
                             bookAPI.UpdateBookmarkIDRequest(model: model)
                             isUpdated = true
                         }){
@@ -62,8 +62,8 @@ struct RegisterView: View {
                             .resizable()
                             .frame(width: 80, height: 80, alignment: .center)}
                         Button( action: {
-                            model.bookMarkId = 2
-                            model.status = .readReading
+                            model.bookmarkID = 2
+                            model.readStatus = .readReading
                             bookAPI.UpdateBookmarkIDRequest(model: model)
                             isUpdated = true
                         }){
@@ -71,8 +71,8 @@ struct RegisterView: View {
                             .resizable()
                             .frame(width: 80, height: 80,  alignment: .center)}
                         Button( action: {
-                            model.bookMarkId = 3
-                            model.status = .readReading
+                            model.bookmarkID = 3
+                            model.readStatus = .readReading
                             bookAPI.UpdateBookmarkIDRequest(model: model)
                             isUpdated = true
                         }){
@@ -80,8 +80,8 @@ struct RegisterView: View {
                             .resizable()
                             .frame(width: 80, height: 80, alignment: .center)}
                         Button( action: {
-                            model.bookMarkId = 4
-                            model.status = .readReading
+                            model.bookmarkID = 4
+                            model.readStatus = .readReading
                             bookAPI.UpdateBookmarkIDRequest(model: model)
                             isUpdated = true
                         }){
@@ -93,8 +93,8 @@ struct RegisterView: View {
                     }
                   
                   Button(action: {
-                      model.bookMarkId = 0
-                      model.status = .readUnread
+                      model.bookmarkID = 0
+                      model.readStatus = .readUnread
                       bookAPI.UpdateBookmarkIDRequest(model: model)
                      isUpdated = true
                   }){ Text("しおりを登録しない")

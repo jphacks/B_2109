@@ -71,11 +71,16 @@ struct ISBNView: View {
                         .padding(20)
                         
                         TextField("数値を入力してください。", text: $widthLevel, onCommit: {
-                            viewModel.bookModel.widthLevel = UInt64(widthLevel)!
-                            
+                            print("onCommit")
+                            viewModel.bookModel.widthLevel = Int64(widthLevel)!
+                            print(widthLevel)
                         })
                             .keyboardType(.numberPad)
+                            .padding(20)
+                            .frame(width: 200, height: 50, alignment: .center)
                         Button("決定"){
+                            viewModel.bookModel.widthLevel = Int64(widthLevel)!
+                            print(widthLevel)
                             isPutWidthLevel = true
                         }
                         Spacer()
@@ -91,7 +96,7 @@ struct ISBNView: View {
 //    }
         
         }.fullScreenCover(isPresented: $viewModel.isLoading){
-           
+//            isbnReader.setIsISBNFind(bo: false)
             RegisterView(model:  viewModel.bookModel, isFindBarcode: $viewModel.isLoading)
         }
 //        .navigationViewStyle(StackNavigationViewStyle())

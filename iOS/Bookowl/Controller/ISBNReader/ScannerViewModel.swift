@@ -13,8 +13,10 @@ class ScannerViewModel: ObservableObject {
     @Published var isShowing: Bool = false
     @Published var isLoading: Bool = false
     private var bookRegisterAPI = BookAPI(viewName: "scanner")
-    var bookModel = INIT_BOOK_MODEL
+    var bookModel = Bookowl_BookInfo()
     func onFoundQrCode(_ code: String) {
+        print("widthLevel")
+        print(bookModel.widthLevel)
         print(code)
         self.lastQrCode = code
         isShowing = true
@@ -27,16 +29,17 @@ class ScannerViewModel: ObservableObject {
             print(bookInfo!.pages)
             print(bookInfo!.authors)
             print(bookInfo!)
-            self.bookModel.id = bookInfo!.bookID
+            self.bookModel.bookID = bookInfo!.bookID
             self.bookModel.name = bookInfo!.name
-            self.bookModel.imagePath = bookInfo!.bookThumbnail
-            self.bookModel.authors = bookInfo!.authors
+            self.bookModel.bookThumbnail = bookInfo!.bookThumbnail
+//            self.bookModel.authors = bookInfo!.authors
             self.bookModel.price = bookInfo!.price
             self.bookModel.pages = bookInfo!.pages
             DispatchQueue.main.async{
                 self.isLoading = true
                 self.isShowing = false
-            print("finish")
+                print("finish")
+                self.lastQrCode = ""
             }
         }
         
