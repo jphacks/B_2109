@@ -17,3 +17,22 @@ struct GoalModel : Codable {
     var num_pages :Int =  0
     var goal_status : Int = Bookowl_GoalStatus.goalPending.rawValue
 }
+
+class GoalModelParser : NSObject, ObservableObject{
+    @Published var hasGoalModel : Bool = false
+    @Published var model : GoalModel!
+    override init() {
+        super.init()
+        self.model = decodeToGoalModel()
+    }
+    
+    func decodeToGoalModel() -> GoalModel?{
+        guard let data = UserDefaults.standard.data(forKey: "goalModel"),
+        let goalModel = try? JSONDecoder().decode(GoalModel.self, from: data) else {
+            return nil
+        }
+        hasGoalModel = true
+        return goalModel
+    }
+}
+

@@ -45,7 +45,11 @@ struct GoalRegisterView: View {
                     model.startDate = dateFormatter.string(from: selectionStartDate)
                       
                     model.endDate = dateFormatter.string(from: selectionEndDate)
-                    model.num_pages = Int(page)!
+                    if page == nil{
+                        model.num_pages = 10
+                    }else{
+                        model.num_pages = Int(page)!
+                    }
                     
                     let json = JSONEncoder()
                     guard let data = try? json.encode(model) else{
@@ -53,11 +57,13 @@ struct GoalRegisterView: View {
                     }
                     
                     UserDefaults.standard.set(data, forKey: "goalModel")
-                    guard let data = UserDefaults.standard.data(forKey: "goalModel"),
-                              let goalModel = try? JSONDecoder().decode(GoalModel.self, from: data) else {
-                            return 
-                        }
-                    print(goalModel.startDate)
+                    
+//                    guard let data = UserDefaults.standard.data(forKey: "goalModel"),
+//                          let goalModel = try? JSONDecoder().decode(GoalModel.self, from: data) else {
+//                        return
+//                    }
+                    
+//                    print(goalModel.startDate)
 //                    model.time_amount_minutes = Int(hour)!
 //                    goalAPI.sendRegisterGoalrequest(model: model)
 //                    goalAPI.getGoalByUserId()

@@ -10,12 +10,23 @@ import GRPC
 import Logging
 import NIO
 
-class BookAPI : NSObject, ObservableObject{
-   
+class BookAPI :  ObservableObject{
+    @Published var bookInfos : [Bookowl_BookInfo] = []
+    @Published var unReads : [Bookowl_BookInfo] = []
+    @Published var reading : [Bookowl_BookInfo] = []
+    @Published var completed : [Bookowl_BookInfo] = []
 //    var connection : ClientConnection?
 //    var client : Bookowl_BookClient?
-    override init() {
-        super.init()
+
+    
+    init(viewName : String){
+        switch viewName{
+        case "shelf":
+            let bookinfos = self.getBookByUserIdRequest()
+            self.divideByStatus(bookInfos: bookInfos)
+            break
+        default:break
+        }
     }
     
 //    func sendRegisterGoalrequest(model : GoalModel){
@@ -94,6 +105,46 @@ class BookAPI : NSObject, ObservableObject{
             print(error)
         }
         return false
+    }
+ 
+    func getBookByUserIdRequest() -> [Bookowl_BookInfo]!{
+        let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
+        defer{
+            try? group.syncShutdownGracefully()
+        }
+        var request = Bookowl_GetBooksByUserIDRequest()
+        request.userID = UInt64(USER_ID)
+        let connection = ClientConnection
+            .insecure(group: group)
+            .connect(host: "163.221.29.71", port: 8080)
+        do{
+            let client = Bookowl_BookClient.init(channel: connection, defaultCallOptions: CallOptions())
+            let response = try client.getBooksByUserID(request, callOptions: CallOptions()).response.wait()
+            print("response!!")
+            self.bookInfos = response.booksInfo
+            return response.booksInfo
+        }catch let error{
+            print(error)
+        }
+        return nil
+    }
+    
+    func divideByStatus(bookInfos : [Bookowl_BookInfo]){
+        print("aaa")
+        for bookInfo in bookInfos {
+            switch bookInfo.readStatus{
+            case .readComplete:
+                self.completed.append(bookInfo)
+                break
+            case .readUnread, .readSuspended, .readUnspecified:
+                self.unReads.append( bookInfo)
+                break
+            case .readReading:
+                self.reading.append( bookInfo)
+                break
+            default: break
+            }
+        }
     }
     
 }

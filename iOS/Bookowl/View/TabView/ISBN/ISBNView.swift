@@ -66,8 +66,9 @@ struct ISBNView: View {
                 }else{
                     VStack{
                     Text("ディスプレイのスイッチをオンにしてください。\n 次に，全ページをしおりで挟んでください。 \n ディスプレイに表示されている数値を入力してください。")
-                        .font(.caption2)
+                            .font(.headline)
                         .foregroundColor(brown)
+                        .padding(20)
                         
                         TextField("数値を入力してください。", text: $widthLevel, onCommit: {
                             viewModel.bookModel.widthLevel = UInt64(widthLevel)!
@@ -77,7 +78,9 @@ struct ISBNView: View {
                         Button("決定"){
                             isPutWidthLevel = true
                         }
+                        Spacer()
                     }
+                    
                 }
                 
             
@@ -89,7 +92,7 @@ struct ISBNView: View {
         
         }.fullScreenCover(isPresented: $viewModel.isLoading){
            
-            RegisterView(isbn: self.viewModel.lastQrCode, bookInfo:  viewModel.bookModel)
+            RegisterView(model:  viewModel.bookModel, isFindBarcode: $viewModel.isLoading)
         }
 //        .navigationViewStyle(StackNavigationViewStyle())
         

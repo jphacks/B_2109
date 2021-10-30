@@ -33,6 +33,7 @@
 		65610D242727E84200549108 /* SegmentedPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 65610D232727E84200549108 /* SegmentedPicker */; };
 		65A66C91272C5EB9000026BD /* BookAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A66C90272C5EB9000026BD /* BookAPI.swift */; };
 		65A66C93272C5FCA000026BD /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A66C92272C5FCA000026BD /* Const.swift */; };
+		65A66C95272CC413000026BD /* UrlImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65A66C94272CC413000026BD /* UrlImageView.swift */; };
 		65C9F35D2727F0C500F8B02B /* ShelfListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C9F35C2727F0C500F8B02B /* ShelfListView.swift */; };
 		65C9F363272917E000F8B02B /* BookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C9F362272917E000F8B02B /* BookView.swift */; };
 		65C9F36C2729180B00F8B02B /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65C9F36B2729180B00F8B02B /* RegisterView.swift */; };
@@ -98,6 +99,7 @@
 		65610D052727237600549108 /* TopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopView.swift; sourceTree = "<group>"; };
 		65A66C90272C5EB9000026BD /* BookAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookAPI.swift; sourceTree = "<group>"; };
 		65A66C92272C5FCA000026BD /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
+		65A66C94272CC413000026BD /* UrlImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlImageView.swift; sourceTree = "<group>"; };
 		65C9F35C2727F0C500F8B02B /* ShelfListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShelfListView.swift; sourceTree = "<group>"; };
 		65C9F362272917E000F8B02B /* BookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookView.swift; sourceTree = "<group>"; };
 		65C9F36B2729180B00F8B02B /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 				65610CFC2727219700549108 /* TabView */,
 				65610CE52724137C00549108 /* CameraLayer.swift */,
 				65610CED27243A7B00549108 /* ISBNScannerView.swift */,
+				65A66C94272CC413000026BD /* UrlImageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -463,6 +466,7 @@
 				65575A0F272C4AD400ACF5F9 /* ISBNReader.swift in Sources */,
 				65575A37272C52E400ACF5F9 /* read_event.grpc.swift in Sources */,
 				65C9F3B627294D6700F8B02B /* BookModel.swift in Sources */,
+				65A66C95272CC413000026BD /* UrlImageView.swift in Sources */,
 				65575A38272C52E400ACF5F9 /* goal.grpc.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -561,7 +565,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.7;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -616,7 +620,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.7;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

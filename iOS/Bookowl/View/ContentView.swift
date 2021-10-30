@@ -18,7 +18,7 @@ struct ContentView: View {
                         // タイトルと左右のアイコンを指定
                 .tabItem {
                     VStack{
-                       Text("Top")
+                       Text("目標")
                     }
                 }.tag(1)
         
@@ -26,14 +26,14 @@ struct ContentView: View {
                     // タイトルと左右のアイコンを指定
                 .tabItem{
                     VStack{
-                        Text("Shelf")
+                        Text("本棚")
                     }
                 }.tag(2)
             
             ISBNView(viewModel:scannerModel)
                 .tabItem{
                     VStack{
-                        Text("BarCode")
+                        Text("登録")
                     }
                 }.tag(3)
         }
