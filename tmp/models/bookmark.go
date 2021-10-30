@@ -6,6 +6,5 @@ import (
 
 type Bookmark struct {
 	gorm.Model
-	Name       string
-	UserBookID uint
+	Name string `gorm:"index:name_idx"`
 }

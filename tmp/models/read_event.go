@@ -8,17 +8,16 @@ import (
 
 type ReadEvent struct {
 	gorm.Model
-	UserBookID          uint
+	UserBook            *UserBook
 	ReadStartTime       time.Time
 	ReadEndTime         time.Time
 	ReadStartWidthLevel int64
 	ReadEndWidthLevel   int64
 }
 
-//todo fix
-func ConstructReadEvent(ub UserBook, start, end time.Time, startWidth, endWidth int64) *ReadEvent {
+func ConstructReadEvent(ub *UserBook, start, end time.Time, startWidth, endWidth int64) *ReadEvent {
 	return &ReadEvent{
-		UserBookID:          ub.ID,
+		UserBook:            ub,
 		ReadStartTime:       start,
 		ReadEndTime:         end,
 		ReadStartWidthLevel: startWidth,

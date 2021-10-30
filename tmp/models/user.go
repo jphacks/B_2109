@@ -4,7 +4,5 @@ import "gorm.io/gorm"
 
 type User struct {
 	gorm.Model
-	Name      string
-	UserBooks []UserBook
-	//Goal     Goal
+	Name string `gorm:"index:name_idx"`
 }

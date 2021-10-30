@@ -11,7 +11,7 @@ const (
 	READ_STATUS_SUSPENDED ReadStatus = "suspended"
 	READ_STATUS_COMPLETE  ReadStatus = "complete"
 
-	BOOKMARK_COLUMN   = "bookmark_id"
+	BOOKMARK_COLUMN   = "bookmark"
 	READSTATUS_COLUMN = "read_status"
 )
 
@@ -19,22 +19,20 @@ type ReadStatus string
 
 type UserBook struct {
 	gorm.Model
-	UserID     uint
-	BookID     uint
+	User       *User
+	Book       *Book
 	WidthLevel int64
-	ReadStatus ReadStatus
-	//Categories Categories `gorm:"many2many:userbook_categories;"`
-	Bookmark   Bookmark
-	ReadEvents []ReadEvent
+	ReadStatus ReadStatus `gorm:"type:enum('unread', 'reading', 'complete);default:'unread'"`
+	Categories Categories `gorm:"many2many:userbook_categories;"`
+	Bookmark   *Bookmark
 }
 
-//todo fix
-func ConstructUserBook(user User, book Book, bookWidth int64, status ReadStatus) *UserBook {
+func ConstructUserBook(user *User, book *Book, bookWidth int64, status ReadStatus) *UserBook {
 	return &UserBook{
-		UserID:     user.ID,
-		BookID:     book.ID,
+		User:       user,
+		Book:       book,
 		WidthLevel: bookWidth,
 		ReadStatus: status,
-		//Categories: nil,
+		Categories: nil,
 	}
 }

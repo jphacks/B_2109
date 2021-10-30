@@ -7,7 +7,7 @@ type Category struct {
 	Name string
 }
 
-type Categories []Category
+type Categories []*Category
 
 func (cs Categories) GetCategoryNameSlice() []string {
 	var names []string

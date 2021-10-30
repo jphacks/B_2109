@@ -2,6 +2,8 @@ package api
 
 import (
 	"context"
+	"errors"
+	"log"
 	"math"
 	"time"
 
@@ -25,6 +27,7 @@ func NewBookServer() *BookServer {
 }
 
 func (s BookServer) RegisterBook(ctx context.Context, r *api.RegisterBookRequest) (*api.RegisterBookResponse, error) {
+	log.Printf("[DEBUG] width %v", r.GetBookInfo().GetWidthLevel())
 	ub, err := s.registerBook(ctx, uint(r.GetUserId()), r.GetBookInfo().GetIsbn(), r.GetBookInfo().GetWidthLevel())
 	if err != nil {
 		return nil, err
@@ -109,25 +112,33 @@ func (s BookServer) registerBook(ctx context.Context, userID uint, isbn string, 
 
 	br := repos.NewBookRepository()
 	b, err := br.GetByISBN(ctx, isbn)
-	if err == gorm.ErrRecordNotFound {
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		log.Println("[DEBUG] get by isbn not found")
 		if b, err = createBookByISBN(ctx, br, isbn); err != nil {
+			log.Printf("[ERROR] %v", err)
 			return nil, err
 		}
 	} else if err != nil {
 		return nil, err
 	}
+
+	log.Println("[DEBUG] fetch book done")
 
 	ubr := repos.NewUserBookRepository()
 	ub, err := ubr.GetByBookID(ctx, b.ID)
-	if err == gorm.ErrRecordNotFound {
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		log.Println("[DEBUG] ubr.GetByBookID not found")
 		ub = models.ConstructUserBook(*u, *b, bookWidth, models.READ_STATUS_UNREAD)
 		if err = ubr.Create(ctx, ub); err != nil {
+			log.Printf("[ERROR] %v", err)
 			return nil, err
 		}
 	} else if err != nil {
+		log.Printf("[ERROR] %v", err)
 		return nil, err
 	}
 
+	log.Println("[DEBUG] Register Book success")
 	return ub, nil
 }
 
@@ -142,12 +153,32 @@ func (s BookServer) getUserBooksByBookmarkID(ctx context.Context, id uint64) ([]
 }
 
 func (s BookServer) updateUserBookBookmarkID(ctx context.Context, book uint64, bookmark uint64) (*models.UserBook, error) {
-	r := repos.NewUserBookRepository()
-	ub, err := r.GetByID(ctx, uint(book))
+
+	r := repos.NewBookmarkRepository()
+	bmk, err := r.GetByID(ctx, uint(bookmark))
 	if err != nil {
 		return nil, err
 	}
-	return r.UpdateBookmarkID(ctx, ub, uint(bookmark))
+	err = r.UpdateUserBookID(ctx, bmk, uint(book))
+
+	ubr := repos.NewUserBookRepository()
+
+	//ubs, err := ubr.GetByBookmarkID(ctx, uint(bookmark))
+	//for _, ub := range ubs {
+	//	if ub.ReadStatus == models.READ_STATUS_READING {
+	//		_, err = ubr.UpdateReadStatus(ctx, &ub, models.READ_STATUS_SUSPENDED)
+	//		if err != nil {
+	//			log.Printf("[ERROR] Readstatus %v", err)
+	//		}
+	//	}
+	//}
+
+	ub, err := ubr.GetByID(ctx, bmk.UserBookID)
+	if err != nil {
+		return nil, err
+	}
+	ub, err = ubr.UpdateReadStatus(ctx, ub, models.READ_STATUS_READING)
+	return ub, err
 }
 
 func (s BookServer) updateUserBookReadStatus(ctx context.Context, book uint64, status models.ReadStatus) (*models.UserBook, error) {
@@ -160,92 +191,141 @@ func (s BookServer) updateUserBookReadStatus(ctx context.Context, book uint64, s
 }
 
 func (s BookServer) getProgressByUserID(ctx context.Context, id uint) (float64, error) {
-	r := repos.NewReadEventRpository()
-	events, err := r.Get(ctx)
+	//r := repos.NewUserBookRepository()
+	//ubs, err := r.GetByUserID(ctx, id)
+	//if err != nil {
+	//	return 0, err
+	//}
+	//
+	//readTotal := 0
+	//total := 0
+	//for _, ub := range ubs {
+	//	maxLevel := 0
+	//	for _, e := range ub.ReadEvents {
+	//		maxLevel = int(math.Max(float64(maxLevel), float64(e.ReadEndWidthLevel)))
+	//	}
+	//	readTotal += int(float64(maxLevel) / float64(ub.WidthLevel))
+	//
+	//	br := repos.NewBookRepository()
+	//	book, _ := br.GetByID(context.Background(), ub.ID)
+	//	total += int(book.Pages)
+	//}
+	//
+	//return float64(readTotal) / float64(total), nil
+	r := repos.NewUserBookRepository()
+	ubs, err := r.GetByUserID(context.Background(), id)
 	if err != nil {
 		return 0, err
 	}
+	log.Println(ubs)
 
-	bookLevelMap := map[uint]int64{}
-	bookMaxLevelMap := map[uint]int64{}
-	for _, e := range events {
-		level, ok := bookLevelMap[e.UserBook.ID]
-		if ok {
-			bookLevelMap[e.UserBook.ID] = int64(math.Max(float64(e.ReadEndWidthLevel), float64(level)))
-		} else {
-			bookLevelMap[e.UserBook.ID] = e.ReadEndWidthLevel
-		}
-
-		_, ok = bookMaxLevelMap[e.UserBook.ID]
-		if !ok {
-			bookMaxLevelMap[e.UserBook.ID] = e.UserBook.WidthLevel
-		}
-	}
-
-	ubr := repos.NewUserBookRepository()
-	ubs, err := ubr.GetByUserID(ctx, id)
-	if err != nil {
-		return 0, err
-	}
-
-	readTotal := int64(0)
-	total := int64(0)
+	total := 0
+	readTotal := 0.0
 	for _, ub := range ubs {
-		readTotal += int64((float64(bookLevelMap[ub.ID]) / float64(bookMaxLevelMap[ub.ID])) * float64(ub.Book.Pages))
-		total += ub.Book.Pages
+		readTotalRatio := 0.0
+		maxLevel := 0
+		ub.ReadEvents = getReadEvents(ub.ID)
+		for _, e := range ub.ReadEvents {
+			maxLevel = int(math.Max(float64(maxLevel), float64(e.ReadEndWidthLevel)))
+		}
+		log.Printf("maxLevel %v", maxLevel)
+		log.Printf("WidthLevel %v", ub.WidthLevel)
+		readTotalRatio += float64(maxLevel) / float64(ub.WidthLevel)
+
+		br := repos.NewBookRepository()
+		book, _ := br.GetByID(context.Background(), ub.ID)
+		total += int(book.Pages)
+		readTotal += readTotalRatio * float64(book.Pages)
 	}
-	return float64(readTotal) / float64(total), nil
+	log.Printf("readTotal %v", readTotal)
+	log.Printf("total %v", total)
+
+	return readTotal / float64(total), nil
 }
 
 func (s BookServer) getReadAmountPagesByUserIDWithDuration(ctx context.Context, id uint, start, end time.Time) (uint64, error) {
-	r := repos.NewReadEventRpository()
-	events, err := r.Get(ctx)
+	//r := repos.NewUserBookRepository()
+	//ubs, err := r.GetByUserID(ctx, id)
+	//if err != nil {
+	//	return 0, err
+	//}
+	//
+	//readTotal := 0
+	//for _, ub := range ubs {
+	//	br := repos.NewBookRepository()
+	//	book, _ := br.GetByID(context.Background(), ub.ID)
+	//	readTotalLevel := 0
+	//	for _, e := range ub.ReadEvents {
+	//		if judgeInTerm(start, end, e.ReadStartTime, e.ReadEndTime) {
+	//			tmp := int(e.ReadEndWidthLevel - e.ReadStartWidthLevel)
+	//			if tmp > 0 {
+	//				readTotalLevel += tmp
+	//			}
+	//		}
+	//	}
+	//	readTotal += readTotalLevel * int(book.Pages)
+	//}
+
+	r := repos.NewUserBookRepository()
+	ubs, err := r.GetByUserID(context.Background(), id)
 	if err != nil {
 		return 0, err
 	}
+	log.Println(ubs)
 
-	bookReadLevelMap := map[uint]int64{}
-	bookMaxLevelMap := map[uint]int64{}
-	for _, e := range events {
-		_, ok := bookMaxLevelMap[e.UserBook.ID]
-		if !ok {
-			bookMaxLevelMap[e.UserBook.ID] = e.UserBook.WidthLevel
-		}
-
-		if judgeInTerm(start, end, e.ReadStartTime, e.ReadEndTime) {
-			diff := e.ReadEndWidthLevel - e.ReadStartWidthLevel
-			if diff > 0 {
-				bookReadLevelMap[e.UserBook.ID] += diff
+	readTotal := 0.0
+	for _, ub := range ubs {
+		readTotalLevel := 0
+		maxLevel := 0
+		ub.ReadEvents = getReadEvents(ub.ID)
+		for _, e := range ub.ReadEvents {
+			if !judgeInTerm(start, end, e.ReadStartTime, e.ReadEndTime) {
+				continue
+			}
+			tmp := int(e.ReadEndWidthLevel - e.ReadStartWidthLevel)
+			if tmp > 0 {
+				readTotalLevel += tmp
 			}
 		}
-	}
+		log.Printf("maxLevel %v", maxLevel)
+		log.Printf("WidthLevel %v", ub.WidthLevel)
 
-	ubr := repos.NewUserBookRepository()
-	ubs, err := ubr.GetByUserID(ctx, id)
-	if err != nil {
-		return 0, err
+		br := repos.NewBookRepository()
+		book, _ := br.GetByID(context.Background(), ub.ID)
+		readTotal += (float64(readTotalLevel) / float64(ub.WidthLevel)) * float64(book.Pages)
 	}
+	log.Printf("readTotal %v", readTotal)
 
-	readTotal := int64(0)
-	for _, ub := range ubs {
-		readTotal += int64((float64(bookReadLevelMap[ub.ID]) / float64(bookMaxLevelMap[ub.ID])) * float64(ub.Book.Pages))
-	}
 	return uint64(readTotal), nil
 }
 
+func getReadEvents(userBookID uint) []models.ReadEvent {
+	rer := repos.NewReadEventRpository()
+	res, err := rer.GetByUserBookID(context.Background(), userBookID)
+	log.Println(err)
+	return res
+}
+
 func constructBookInfo(b *models.UserBook) *api.BookInfo {
+	br := repos.NewBookRepository()
+	book, _ := br.GetByID(context.Background(), b.BookID)
+	ar := repos.NewAuthorRepository()
+	authors, err := ar.GetByBookID(context.Background(), book.ID)
+	if err != nil {
+		log.Printf("[ERROR] %v", err)
+	}
 	return &api.BookInfo{
 		BookId:        uint64(b.ID),
-		Isbn:          b.Book.ISBN,
-		Name:          b.Book.Name,
-		Pages:         b.Book.Pages,
-		Price:         b.Book.Price,
-		Authors:       b.Book.Authors.GetAuthorNameSlice(),
+		Isbn:          book.ISBN,
+		Name:          book.Name,
+		Pages:         book.Pages,
+		Price:         book.Price,
+		Authors:       models.GetAuthorNameSlice(authors),
 		ReadStatus:    translateModelReadStatus(b.ReadStatus),
-		Categories:    b.Categories.GetCategoryNameSlice(),
-		UserId:        uint64(b.User.ID),
+		Categories:    []string{""},
+		UserId:        uint64(b.UserID),
 		BookmarkId:    uint64(b.Bookmark.ID),
-		BookThumbnail: b.Book.ThumbnailPath,
+		BookThumbnail: book.ThumbnailPath,
 	}
 }
 
@@ -283,6 +363,7 @@ func createBookByISBN(ctx context.Context, br *repos.BookRpository, isbn string)
 		return nil, err
 	}
 
+	log.Println(b)
 	err = br.Create(ctx, b)
 	return b, err
 }

@@ -26,23 +26,23 @@ func (r UserBookRpository) GetByID(ctx context.Context, id uint) (*models.UserBo
 
 func (r UserBookRpository) GetByBookID(ctx context.Context, id uint) (*models.UserBook, error) {
 	ub := models.UserBook{}
-	if res := r.db.First(&ub, "book_id = ?", id); res.Error != nil {
+	if res := r.db.First(&ub, "book = ?", id); res.Error != nil {
 		return nil, res.Error
 	}
 	return &ub, nil
 }
 
-func (r UserBookRpository) GetByUserID(ctx context.Context, id uint) ([]models.UserBook, error) {
-	var ubs []models.UserBook
-	if res := r.db.Find(&ubs, "user_id = ?", id); res.Error != nil {
+func (r UserBookRpository) GetByUserID(ctx context.Context, id uint) ([]*models.UserBook, error) {
+	var ubs []*models.UserBook
+	if res := r.db.Find(&ubs, models.UserBook{User: &models.User{Model: gorm.Model{ID: id}}}); res.Error != nil {
 		return nil, res.Error
 	}
 	return ubs, nil
 }
 
-func (r UserBookRpository) GetByBookmarkID(ctx context.Context, id uint) ([]models.UserBook, error) {
-	var ubs []models.UserBook
-	result := r.db.Find(&ubs, "bookmark_id = ?", id)
+func (r UserBookRpository) GetByBookmarkID(ctx context.Context, id uint) ([]*models.UserBook, error) {
+	var ubs []*models.UserBook
+	result := r.db.Find(&ubs, "bookmark=?", id)
 	return ubs, result.Error
 }
 

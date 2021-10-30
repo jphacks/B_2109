@@ -22,5 +22,5 @@ type Goal struct {
 	TimeAmount time.Duration
 	NumPages   int64
 	GoalStatus GoalStatus `gorm:"type:enum('pending', 'doing', 'complete', 'failed');default:'pending'"`
-	User       User
+	User       *User
 }

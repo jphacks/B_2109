@@ -41,8 +41,8 @@ func getPrice(root *openbd.Root) (int64, error) {
 	return strconv.ParseInt(root.Onix.ProductSupply.SupplyDetail.Price[0].PriceAmount, 10, 64)
 }
 
-func getAuthors(root *openbd.Root) []models.Author {
-	var as []models.Author
+func getAuthors(root *openbd.Root) []*models.Author {
+	var as []*models.Author
 
 	for _, c := range root.Onix.DescriptiveDetail.Contributor {
 		as = append(as, models.ConstructAuthor(c.PersonName.Content))

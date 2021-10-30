@@ -18,14 +18,6 @@ func NewAuthorRepository() *AuthorRepository {
 	}
 }
 
-func (r AuthorRepository) GetByBookID(ctx context.Context, id uint) ([]models.Author, error) {
-	var as []models.Author
-	if res := r.db.Find(&as, "book_id = ?", id); res.Error != nil {
-		return nil, res.Error
-	}
-	return as, nil
-}
-
 func (r AuthorRepository) GetByName(ctx context.Context, name string) (*models.Author, error) {
 	a := models.Author{}
 	if res := r.db.First(&a, "name = ?", name); res.Error != nil {

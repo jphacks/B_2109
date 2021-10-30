@@ -27,8 +27,12 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"net/http"
 	"os"
 	"os/signal"
+	"time"
+
+	"github.com/jphacks/B_2109/server/pkg/models"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -39,6 +43,7 @@ import (
 
 	pkgapi "github.com/jphacks/B_2109/server/pkg/api"
 	"github.com/jphacks/B_2109/server/pkg/defaults"
+	myhttp "github.com/jphacks/B_2109/server/pkg/http"
 	"github.com/jphacks/B_2109/server/pkg/option"
 	"github.com/jphacks/B_2109/server/pkg/repos"
 
@@ -61,6 +66,7 @@ func init() {
 	flags.String(option.DBPass, defaults.DBPass, fmt.Sprintf("DB password (default is %s)", defaults.DBPass))
 	flags.String(option.DBAddr, defaults.DBAddr, fmt.Sprintf("DB Address (default is %s)", defaults.DBAddr))
 	flags.String(option.DBName, defaults.DBName, fmt.Sprintf("DB Name (default is %s)", defaults.DBName))
+	flags.String(option.HTTPServerAddr, defaults.HTTPServer, fmt.Sprintf("HTTP addr (default is %s)", defaults.HTTPServer))
 
 	viper.BindPFlags(flags)
 }
@@ -70,10 +76,19 @@ var rootCmd = &cobra.Command{
 	Use:   "bookowl",
 	Short: "bookowl",
 	Run: func(cmd *cobra.Command, args []string) {
+		// initiate to DB
+		time.Sleep(5 * time.Second)
+
 		// initialize
+		log.Println("Initialize Start")
 		initEnv()
 		if err := initDB(); err != nil {
 			//	todo logrus
+			log.Fatalln(err)
+		}
+
+		log.Println("Initialize Data")
+		if err := initData(); err != nil {
 			log.Fatalln(err)
 		}
 
@@ -101,7 +116,69 @@ func initEnv() {
 
 func initDB() error {
 	dsn := repos.ConstructDSN(option.Config.DBUser, option.Config.DBPass, option.Config.DBAddr, option.Config.DBName)
+	log.Printf("dsn: %s\n", dsn)
 	return repos.InitDB(mysql.Open(dsn), &gorm.Config{})
+}
+
+func initData() error {
+	ur := repos.NewUserRepository()
+	_, err := ur.Create(context.Background(), &models.User{
+		Name: "ユーザ1",
+	})
+	if err != nil {
+		return err
+	}
+	_, err = ur.Create(context.Background(), &models.User{
+		Name: "ユーザ2",
+	})
+	if err != nil {
+		return err
+	}
+
+	br := repos.NewBookRepository()
+	err = br.Create(context.Background(), &models.Book{
+		ISBN:          "1",
+		Name:          "dummy1",
+		Pages:         1,
+		Price:         1,
+		ThumbnailPath: "",
+	})
+	if err != nil {
+		return err
+	}
+
+	err = br.Create(context.Background(), &models.Book{
+		ISBN:          "2",
+		Name:          "dummy2",
+		Pages:         1,
+		Price:         1,
+		ThumbnailPath: "",
+	})
+	if err != nil {
+		return err
+	}
+
+	ubr := repos.NewUserBookRepository()
+	err = ubr.Create(context.Background(), &models.UserBook{
+		UserID:     2,
+		BookID:     1,
+		WidthLevel: 1,
+		ReadStatus: models.READ_STATUS_UNREAD,
+	})
+	if err != nil {
+		return err
+	}
+
+	bmr := repos.NewBookmarkRepository()
+	_, err = bmr.Create(context.Background(), &models.Bookmark{
+		Name:       "しおり1",
+		UserBookID: 1,
+	})
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func runDaemon() error {
@@ -113,8 +190,12 @@ func runDaemon() error {
 		return runServer(ctx)
 	})
 	eg.Go(func() error {
-		return runDailyGoalUpdate(ctx)
+		return runHTTPServer(ctx)
 	})
+	//todo implement
+	//eg.Go(func() error {
+	//	return runDailyGoalUpdate(ctx)
+	//})
 
 	return eg.Wait()
 }
@@ -137,6 +218,14 @@ func runServer(ctx context.Context) error {
 	return s.Serve(lis)
 }
 
+func runHTTPServer(ctx context.Context) error {
+	http.HandleFunc("/readevent", myhttp.CreateReadEventHander)
+	http.HandleFunc("/progress", myhttp.GetProgressByUserIDHandler)
+
+	log.Printf("[DEBUG] %v", option.Config.HTTPServerAddr)
+	return http.ListenAndServe(option.Config.HTTPServerAddr, nil)
+}
+
 func initServer() (*grpc.Server, error) {
 	var opts []grpc.ServerOption
 
@@ -150,7 +239,7 @@ func initServer() (*grpc.Server, error) {
 	return grpc.NewServer(opts...), nil
 }
 
-func runDailyGoalUpdate(ctx context.Context) error {
-	//todo implement
-	return nil
-}
+//func runDailyGoalUpdate(ctx context.Context) error {
+//	//todo implement
+//	return nil
+//}

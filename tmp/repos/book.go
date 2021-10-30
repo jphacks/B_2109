@@ -18,12 +18,6 @@ func NewBookRepository() *BookRpository {
 	}
 }
 
-func (r BookRpository) GetByID(ctx context.Context, id uint) (*models.Book, error) {
-	b := models.Book{}
-	res := db.First(&b, "id = ?", id)
-	return &b, res.Error
-}
-
 func (r BookRpository) GetByISBN(ctx context.Context, isbn string) (*models.Book, error) {
 	book := models.Book{}
 	if res := r.db.First(&book, "isbn = ?", isbn); res.Error != nil {

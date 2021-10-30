@@ -38,38 +38,38 @@ func (s ReadEventServer) GetReadEventsByBookID(ctx context.Context, r *api.GetRe
 		return nil, err
 	}
 	for _, re := range res {
-		ris = append(ris, constructReadEventInfo(&re))
+		ris = append(ris, constructReadEventInfo(re))
 	}
 
 	return &api.GetReadEventsResponse{ReadEventsInfo: ris, Time: timestamppb.Now()}, nil
 }
 
 func (s ReadEventServer) createReadEvent(ctx context.Context, bookmark uint, start, end time.Time, startWidth, endWidth int64) (*models.ReadEvent, error) {
-	ub, err := getReadingStatusUserBookByBookmarkID(ctx, bookmark)
+	ub, err := getReadingStatusUserBookByBookmarkID(ctx, r.GetBookmarkId())
 	if err != nil {
 		return nil, err
 	}
-	re := models.ConstructReadEvent(*ub, start, end, startWidth, endWidth)
+	re := models.ConstructReadEvent(ub, start, end, startWidth, endWidth)
 	rer := repos.NewReadEventRpository()
 	err = rer.Create(ctx, re)
 	return re, err
 }
 
-func (s ReadEventServer) getReadEventsByUserBookID(ctx context.Context, id uint) ([]models.ReadEvent, error) {
+func (s ReadEventServer) getReadEventsByUserBookID(ctx context.Context, id uint) ([]*models.ReadEvent, error) {
 	rer := repos.NewReadEventRpository()
 	return rer.GetByUserBookID(ctx, id)
 }
 
-func getReadingStatusUserBookByBookmarkID(ctx context.Context, id uint) (*models.UserBook, error) {
+func getReadingStatusUserBookByBookmarkID(ctx context.Context, id uint64) (*models.UserBook, error) {
 	ubr := repos.NewUserBookRepository()
-	ubs, err := ubr.GetByBookmarkID(ctx, id)
+	ubs, err := ubr.GetByBookmarkID(ctx, uint(id))
 	if err != nil {
 		return nil, err
 	}
 
 	for _, ub := range ubs {
 		if ub.ReadStatus == models.READ_STATUS_READING {
-			return &ub, nil
+			return ub, nil
 		}
 	}
 	return nil, ErrNoReadingUserBook
