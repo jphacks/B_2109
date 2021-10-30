@@ -24,4 +24,6 @@ const (
 
 	// DBName is a name of database
 	DBName = "bookowl"
+
+	HTTPServer = "127.0.0.1:8081"
 )

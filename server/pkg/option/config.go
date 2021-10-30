@@ -30,29 +30,33 @@ const (
 
 	// DBName is a option for name of database
 	DBName = "db-name"
+
+	HTTPServerAddr = "http-addr"
 )
 
 type DaemonConfig struct {
-	ServerAddr string
-	ServerTls  bool
-	CertFile   string
-	KeyFile    string
-	DBUser     string
-	DBPass     string
-	DBAddr     string
-	DBName     string
+	ServerAddr     string
+	ServerTls      bool
+	CertFile       string
+	KeyFile        string
+	DBUser         string
+	DBPass         string
+	DBAddr         string
+	DBName         string
+	HTTPServerAddr string
 }
 
 var (
 	Config = &DaemonConfig{
-		ServerAddr: defaults.ServerAddr,
-		ServerTls:  defaults.ServerTls,
-		CertFile:   defaults.CertFile,
-		KeyFile:    defaults.KeyFile,
-		DBUser:     defaults.DBUser,
-		DBPass:     defaults.DBPass,
-		DBAddr:     defaults.DBAddr,
-		DBName:     defaults.DBName,
+		ServerAddr:     defaults.ServerAddr,
+		ServerTls:      defaults.ServerTls,
+		CertFile:       defaults.CertFile,
+		KeyFile:        defaults.KeyFile,
+		DBUser:         defaults.DBUser,
+		DBPass:         defaults.DBPass,
+		DBAddr:         defaults.DBAddr,
+		DBName:         defaults.DBName,
+		HTTPServerAddr: defaults.HTTPServer,
 	}
 )
 
@@ -65,4 +69,5 @@ func (c *DaemonConfig) Populate() {
 	c.DBPass = viper.GetString(DBPass)
 	c.DBAddr = viper.GetString(DBAddr)
 	c.DBName = viper.GetString(DBName)
+	c.HTTPServerAddr = viper.GetString(HTTPServerAddr)
 }
