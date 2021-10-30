@@ -7,6 +7,9 @@ import time
 import datetime
 from google.protobuf.timestamp_pb2 import Timestamp
 import RPi.GPIO as GPIO
+import requests
+import pprint
+import json
 #import grpc
 #import read_event_pb2
 #import read_event_pb2_grpc
@@ -67,17 +70,20 @@ class GUI(tk.Frame):
         self.count_1=0
         
         self.ut="sec"
+
         
         #PILでjpgを使用
         self.img1 = ImageTk.PhotoImage(file="tes.png")
         self.img2 = ImageTk.PhotoImage(file="reowl.png")
         self.img3 = ImageTk.PhotoImage(file="bowl2.png")
+        self.img4 = ImageTk.PhotoImage(file="bokowl.png")
 
         self.ser = serial.Serial('/dev/ttyACM0', 9600)
+        self.url="163.221.29.71:9091"
 
         self.canvas.pack()
 
-        self.connection_get(self)
+        self.connection_get()
         self.timeEvent()# タイマー起動
         self.checkEvent()# タイマー起動
 
@@ -87,13 +93,17 @@ class GUI(tk.Frame):
     def create_normal(self):
         if(self.view_flag!=self.view_flag_old):
             self.canvas.create_image(0, 0, image=self.img1,anchor=tk.NW,tag="normal")
+            self.canvas.create_rectangle(0, 0, 510, 180, fill = '#694E33',tag="normal") 
+            self.canvas.create_text(250,60,text="最新のページ数:"+str(self.read),fill='#FFF1B3',font=('',40), tag="normal")
+            self.canvas.create_text(250,120,text="全体の進捗:"+str(int(self.read_rate*100))+"%",fill='#FFF1B3',font=('',40), tag="normal")
         if(self.flag==1):
             self.canvas.create_image(0, 0, image=self.img1,anchor=tk.NW,tag="normal")
+            self.canvas.create_rectangle(0, 0, 510, 180, fill = '#694E33',tag="normal") 
+            self.canvas.create_text(250,60,text="前回のページ:"+str(self.read),fill='#FFF1B3',font=('',40), tag="normal")
+            self.canvas.create_text(250,120,text="全体の進捗:"+str(int(self.goal))+"%",fill='#FFF1B3',font=('',40), tag="normal")
             self.flag=0
-        self.canvas.create_rectangle(874, 0, 1024, 100, fill = '#694E33',tag="normal2") 
+
         self.canvas.create_image(self.set_posi,400, image=self.img3,anchor=tk.NW,tag="normal2")
-        self.canvas.create_text(874,50,text=str(self.read)+"page",fill='#FFF1B3',font=('',20), tag="normal2")
-        self.canvas.create_text(874,80,text=str(int(self.read_rate*100))+"%",fill='#FFF1B3',font=('',20), tag="normal2")
         self.tag="normal"
         self.canvas.pack()
 
@@ -104,6 +114,7 @@ class GUI(tk.Frame):
             self.canvas.create_text(int(1024/3),int(768/6)*3,text="しおり②",fill='#694E33',font=('',40), tag="initial")
             self.canvas.create_text(int(1024/3),int(768/6)*4,text="しおり③",fill='#694E33',font=('',40), tag="initial")
             self.canvas.create_text(int(1024/3),int(768/6)*5,text="しおり④",fill='#694E33',font=('',40), tag="initial")
+            self.canvas.create_text(int(1024/2),int((768/6)*5.5)+10,text="測定終了後にスイッチを戻してください",fill='#A93130',font=('',30), tag="initial")
 
         self.canvas.create_text(int(1024/3)*2,int(768/6)*2,text=self.bk_open_now[0],fill='#694E33',font=('',40), tag="initial2")
         self.canvas.create_text(int(1024/3)*2,int(768/6)*3,text=self.bk_open_now[1],fill='#694E33',font=('',40), tag="initial2")
@@ -114,15 +125,15 @@ class GUI(tk.Frame):
         self.canvas.pack()
     def create_read_start(self):
         if(self.view_flag_old!=2):
-            self.canvas.create_image(0, 550, image=self.img1,anchor=tk.NW,tag="read")
             self.canvas.create_text(int(1024/2),int(768/3),text="読書中",fill='#694E33',font=('',60), tag="read")
+            self.canvas.create_image(60, 530, image=self.img4,anchor=tk.NW,tag="read")
         self.canvas.create_text(int(1024/2),int(768/3)*2,text=str(self.sp_time)+self.ut+"経過",fill='#694E33',font=('',60), tag="read2")
         self.tag="read"
 
         self.canvas.pack()
     def create_read_finish(self):
-        self.canvas.create_image(0, 550, image=self.img1,anchor=tk.NW,tag="fin")
         self.canvas.create_text(int(1024/2),int(768/3),text="今回の読書時間:",fill='#694E33',font=('',60), tag="fin")
+        self.canvas.create_image(0, 400, image=self.img2,anchor=tk.NW,tag="fin")
         if(int(self.end_time-self.start_time)>60):
             self.canvas.create_text(int(1024/2),int(768/3)*2,text=str(int((self.end_time-self.start_time)/60))+self.ut,fill='#694E33',font=('',60), tag="fin")
         else:
@@ -184,18 +195,15 @@ class GUI(tk.Frame):
             print(self.bk_open_now[3])
             for i in range(1):
                 if(self.bk_mode_now[i]!=self.bk_mode_old[i]):
-                    print("test2")
                     print(self.bk_mode_now[i])
                     if(self.bk_mode_now[i]==str(0)):#読書開始
-                        print("test3")
                         self.bookmark_flag=i
-                        self.read_start_data[i]=datetime.datetime.now()
+                        self.read_start_data[i]=time.time()
                         self.start_time=time.time()
                         self.read_start_mm[i]=self.bk_open_old[i]
                         self.view_flag=2
                     elif(self.bk_mode_now[i]==str(1)):#読書終了
-                        print("test4")
-                        self.read_end_data[i]=datetime.datetime.now()
+                        self.read_end_data[i]=time.time()
                         self.end_time=time.time()
                         self.read_end_mm[i]=self.bk_open_now[i]
                         self.read=self.read_end_mm[i]
@@ -219,8 +227,7 @@ class GUI(tk.Frame):
             self.ut="秒"
         #self.canvas.delete()
         #print(self.count) # デバッグメッセージ 
-
-        self.get_server_data()
+        self.connection_get()
         self.ras_sw()
         if(self.switch_flag==1):
             self.view_flag=1
@@ -238,8 +245,8 @@ class GUI(tk.Frame):
             self.canvas.delete("fin")
             self.create_normal()
         elif(self.view_flag==1):#本の初期登録画面　
-            self.canvas.delete("initial2")
             self.canvas.delete("normal")
+            self.canvas.delete("initial2")
             self.canvas.delete("normal2")
             self.canvas.delete("read")
             self.canvas.delete("read2")
@@ -267,7 +274,7 @@ class GUI(tk.Frame):
                 self.set_posi=int(850*(self.read_rate))
                 print(self.read)
             self.count_1=self.count_1+1
-            if(self.count_1>5):
+            if(self.count_1>3):
                 self.count_1=0
                 print("test")
                 self.flag=1
@@ -280,28 +287,29 @@ class GUI(tk.Frame):
         self.switch_flag_old=self.switch_flag
 
 
-    def connection_push(self):#サーバと通信    
-        #with grpc.insecure_channel('163.221.29.71:8080') as channel:
-        #    stub = read_event_pb2_grpc.ReadEventStub(channel)
-        #    seconds = int(self.read_start_data[self.bookmark_flag])
-        #    nanos = int(self.read_start_data[self.bookmark_flag] % 1 * 1e9)
-        #    proto_f= Timestamp(seconds=seconds, nanos=nanos)
-        #    seconds = int(self.read_end_data[self.bookmark_flag])
-        #    nanos = int(self.read_end_data[self.bookmark_flag] % 1 * 1e9)
-        #    proto_s= Timestamp(seconds=seconds, nanos=nanos)
-        #    start=int(self.read_start_mm[self.bookmark_flag])
-        #    end=int(self.read_end_mm[self.bookmark_flag])
-        #    info=read_event_pb2.ReadEventInfo(read_start_time=proto_f,read_end_time=proto_s,read_start_width_revel=start,read_end_width_level=end)
-        #    bk_id=1
-        #    test=read_event_pb2.CreateReadEventRequest(read_event_info=info,bookmark_id=bk_id)
-        #    res=stub.CreateReadEvent(test)
+    def connection_push(self):#サーバと通信
+        data = {"read_start_time":int(self.read_start_data[self.bookmark_flag]),
+        "read_end_time":int(self.read_end_data[self.bookmark_flag]),
+        "read_start_width_revel":int(self.read_start_mm[self.bookmark_flag]),
+        "read_end_width_level":int(self.read_end_mm[self.bookmark_flag]),
+        "bookmark_id":1}
+        js=json.dumps(data)
+        set_url=str(self.url)+"/readevent"
+        headers = {'Content-Type': 'application/json; charset=utf8'}
+        r = requests.post(set_url, headers=headers, json=js)
+        print(r)
+
 
 
     def connection_get(self):#サーバと通信   
-        #with grpc.insecure_channel('163.221.29.71:8080') as channel:
-        #    stub2 = goal_pb2_grpc.GoalStub(channel)
-        #    self.goal=stub2.GetByUserID(goal_pb2.GetGoalByUserIDRequest())
-        self.goal=770
+        set_url=str(self.url)+"/progress"
+        headers = {'Content-Type': 'application/json; charset=utf8'}
+        data={'user_id':int(1)}
+        js=json.dumps(data)
+        r = requests.post(set_url, headers=headers, json=js)
+        s=r.text
+        s=re.sub(r'[^0-9.]',"",s)
+        self.goal=float(s)
 
     def ras_sw(self):#物理スイッチ確認
         pin1 = 23 #39=GND
