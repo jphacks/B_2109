@@ -1,6 +1,6 @@
 # ブックロウ
 
-[![ブックロウ プロトタイプ](./docs/product_image.jpg)](https://youtu.be/S9MBtacrhz4)
+[![ブックロウ プロトタイプ](./docs/product_image.png)](https://youtu.be/S9MBtacrhz4)
 
 ## デモ動画
 [![ブックロウ プロトタイプ](./docs/demo_video.png)](https://youtu.be/S9MBtacrhz4)
