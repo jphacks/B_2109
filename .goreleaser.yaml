@@ -1,6 +1,6 @@
 builds:
 - id: "bookowl"
-  dir: ./
+  dir: server
   binary: bookowl
   goos:
   - linux
