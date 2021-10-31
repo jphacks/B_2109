@@ -3,7 +3,7 @@
 [![ブックロウ プロトタイプ](./docs/product_image.png)](https://youtu.be/S9MBtacrhz4)
 
 ## デモ動画
-[![ブックロウ プロトタイプ](./docs/demo_video.png)](https://youtu.be/S9MBtacrhz4)
+[![ブックロウ プロトタイプ](./docs/demovideo_samune.png)](https://youtu.be/S9MBtacrhz4)
 
 ## 製品概要
 ### 背景(製品開発のきっかけ、課題等）
