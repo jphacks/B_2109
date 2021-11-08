@@ -36,8 +36,8 @@ proto-python: $(PROTO_SRCS)
 .PHONY: proto-swift
 proto-swift: $(PROTO_SRCS)
 	$(PROTOC) \
-	--swift_out=./swift/ \
-	--grpc-swift_out=./swift/ \
+	--swift_out=../iOS/Bookowl/grpc \
+	--grpc-swift_out=../iOS/Bookowl/grpc \
 	-I ./protos/ \
 	$^
 
