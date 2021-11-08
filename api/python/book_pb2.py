@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z$github.com/jphacks/B_2109/server/api',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\nbook.proto\x12\x07\x62ookowl\x1a\x1fgoogle/protobuf/timestamp.proto\"L\n\x13RegisterBookRequest\x12$\n\tbook_info\x18\x01 \x01(\x0b\x32\x11.bookowl.BookInfo\x12\x0f\n\x07user_id\x18\x02 \x01(\x04\"f\n\x14RegisterBookResponse\x12$\n\tbook_info\x18\x01 \x01(\x0b\x32\x11.bookowl.BookInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"*\n\x17GetBooksByUserIDRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"2\n\x1bGetBooksByBookmarkIDRequest\x12\x13\n\x0b\x62ookmark_id\x18\x01 \x01(\x04\"c\n\x10GetBooksResponse\x12%\n\nbooks_info\x18\x01 \x03(\x0b\x32\x11.bookowl.BookInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"T\n\x17UpdateReadStatusRequest\x12\x0f\n\x07\x62ook_id\x18\x01 \x01(\x04\x12(\n\x0bread_status\x18\x02 \x01(\x0e\x32\x13.bookowl.ReadStatus\"?\n\x17UpdateBookmarkIDRequest\x12\x0f\n\x07\x62ook_id\x18\x01 \x01(\x04\x12\x13\n\x0b\x62ookmark_id\x18\x02 \x01(\x04\"d\n\x12UpdateBookResponse\x12$\n\tbook_info\x18\x01 \x01(\x0b\x32\x11.bookowl.BookInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"-\n\x1aGetProgressByUserIDRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"Y\n\x1bGetProgressByUserIDResponse\x12\x10\n\x08progress\x18\x01 \x01(\x02\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x94\x01\n-GetReadAmountPagesByUserIDWithDurationRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\x12)\n\x05start\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\'\n\x03\x65nd\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"i\n.GetReadAmountPagesByUserIDWithDurationResponse\x12\r\n\x05pages\x18\x01 \x01(\x04\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xf7\x01\n\x08\x42ookInfo\x12\x0f\n\x07\x62ook_id\x18\x01 \x01(\x04\x12\x0c\n\x04isbn\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\r\n\x05pages\x18\x04 \x01(\x03\x12\x13\n\x0bwidth_level\x18\x05 \x01(\x03\x12\r\n\x05price\x18\x06 \x01(\x03\x12\x0f\n\x07\x61uthors\x18\x07 \x03(\t\x12(\n\x0bread_status\x18\x08 \x01(\x0e\x32\x13.bookowl.ReadStatus\x12\x12\n\ncategories\x18\t \x03(\t\x12\x0f\n\x07user_id\x18\n \x01(\x04\x12\x13\n\x0b\x62ookmark_id\x18\x0b \x01(\x04\x12\x16\n\x0e\x62ook_thumbnail\x18\x0c \x01(\t*l\n\nReadStatus\x12\x14\n\x10READ_UNSPECIFIED\x10\x00\x12\x0f\n\x0bREAD_UNREAD\x10\x01\x12\x10\n\x0cREAD_READING\x10\x02\x12\x12\n\x0eREAD_SUSPENDED\x10\x03\x12\x11\n\rREAD_COMPLETE\x10\x04\x32\xa1\x05\n\x04\x42ook\x12K\n\x0cRegisterBook\x12\x1c.bookowl.RegisterBookRequest\x1a\x1d.bookowl.RegisterBookResponse\x12O\n\x10GetBooksByUserID\x12 .bookowl.GetBooksByUserIDRequest\x1a\x19.bookowl.GetBooksResponse\x12W\n\x14GetBooksByBookmarkID\x12$.bookowl.GetBooksByBookmarkIDRequest\x1a\x19.bookowl.GetBooksResponse\x12Q\n\x10UpdateBookmarkID\x12 .bookowl.UpdateBookmarkIDRequest\x1a\x1b.bookowl.UpdateBookResponse\x12Q\n\x10UpdateReadStatus\x12 .bookowl.UpdateReadStatusRequest\x1a\x1b.bookowl.UpdateBookResponse\x12`\n\x13GetProgressByUserID\x12#.bookowl.GetProgressByUserIDRequest\x1a$.bookowl.GetProgressByUserIDResponse\x12\x99\x01\n&GetReadAmountPagesByUserIDWithDuration\x12\x36.bookowl.GetReadAmountPagesByUserIDWithDurationRequest\x1a\x37.bookowl.GetReadAmountPagesByUserIDWithDurationResponseB&Z$github.com/jphacks/B_2109/server/apib\x06proto3'
+  serialized_pb=b'\n\nbook.proto\x12\x07\x62ookowl\x1a\x1fgoogle/protobuf/timestamp.proto\"4\n\x13RegisterBookRequest\x12\x0c\n\x04isbn\x18\x01 \x01(\t\x12\x0f\n\x07user_id\x18\x02 \x01(\x04\"f\n\x14RegisterBookResponse\x12$\n\tbook_info\x18\x01 \x01(\x0b\x32\x11.bookowl.BookInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"S\n\x17UpdateBookmarkIDRequest\x12\x0f\n\x07\x62ook_id\x18\x01 \x01(\x04\x12\x13\n\x0b\x62ookmark_id\x18\x02 \x01(\x04\x12\x12\n\nbook_width\x18\x03 \x01(\x04\"T\n\x17UpdateReadStatusRequest\x12\x0f\n\x07\x62ook_id\x18\x01 \x01(\x04\x12(\n\x0bread_status\x18\x02 \x01(\x0e\x32\x13.bookowl.ReadStatus\"d\n\x12UpdateBookResponse\x12$\n\tbook_info\x18\x01 \x01(\x0b\x32\x11.bookowl.BookInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\"\n\x0fGetBooksRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"c\n\x10GetBooksResponse\x12%\n\nbooks_info\x18\x01 \x03(\x0b\x32\x11.bookowl.BookInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"+\n\x18GetReadPercentageRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"^\n\x19GetReadPercentageResponse\x12\x17\n\x0fread_percentage\x18\x01 \x01(\x02\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"&\n\x13GetReadPagesRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"T\n\x14GetReadPagesResponse\x12\x12\n\nread_pages\x18\x01 \x01(\x04\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x90\x01\n\x1fGetReadPagesWithDurationRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\x12.\n\nstart_time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08\x65nd_time\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"?\n\x1bGetReadPagesByBookIDRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\x12\x0f\n\x07\x62ook_id\x18\x02 \x01(\x04\"/\n\x18GetBookmarkStatusRequest\x12\x13\n\x0b\x62ookmark_id\x18\x01 \x01(\x04\"w\n\x19GetBookmarkStatusResponse\x12\x30\n\x0f\x62ookmark_status\x18\x01 \x01(\x0e\x32\x17.bookowl.BookmarkStatus\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xe8\x01\n\x08\x42ookInfo\x12\x0f\n\x07\x62ook_id\x18\x01 \x01(\x04\x12\x0c\n\x04isbn\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\r\n\x05pages\x18\x04 \x01(\x03\x12\r\n\x05price\x18\x06 \x01(\x03\x12\x0f\n\x07\x61uthors\x18\x07 \x03(\t\x12(\n\x0bread_status\x18\x08 \x01(\x0e\x32\x13.bookowl.ReadStatus\x12\x12\n\ncategories\x18\t \x03(\t\x12\x0f\n\x07user_id\x18\n \x01(\x04\x12\x13\n\x0b\x62ookmark_id\x18\x0b \x01(\x04\x12\x16\n\x0e\x62ook_thumbnail\x18\x0c \x01(\tJ\x04\x08\x05\x10\x06*l\n\nReadStatus\x12\x14\n\x10READ_UNSPECIFIED\x10\x00\x12\x0f\n\x0bREAD_UNREAD\x10\x01\x12\x10\n\x0cREAD_READING\x10\x02\x12\x12\n\x0eREAD_SUSPENDED\x10\x03\x12\x11\n\rREAD_COMPLETE\x10\x04*e\n\x0e\x42ookmarkStatus\x12\x1f\n\x1b\x42OOKMARK_STATUS_UNSPECIFIED\x10\x00\x12\x19\n\x15\x42OOKMARK_STATUS_GREEN\x10\x01\x12\x17\n\x13\x42OOKMARK_STATUS_RED\x10\x02\x32\x81\x06\n\x04\x42ook\x12K\n\x0cRegisterBook\x12\x1c.bookowl.RegisterBookRequest\x1a\x1d.bookowl.RegisterBookResponse\x12Q\n\x10UpdateBookmarkID\x12 .bookowl.UpdateBookmarkIDRequest\x1a\x1b.bookowl.UpdateBookResponse\x12Q\n\x10UpdateReadStatus\x12 .bookowl.UpdateReadStatusRequest\x1a\x1b.bookowl.UpdateBookResponse\x12?\n\x08GetBooks\x12\x18.bookowl.GetBooksRequest\x1a\x19.bookowl.GetBooksResponse\x12Z\n\x11GetReadPercentage\x12!.bookowl.GetReadPercentageRequest\x1a\".bookowl.GetReadPercentageResponse\x12K\n\x0cGetReadPages\x12\x1c.bookowl.GetReadPagesRequest\x1a\x1d.bookowl.GetReadPagesResponse\x12\x63\n\x18GetReadPagesWithDuration\x12(.bookowl.GetReadPagesWithDurationRequest\x1a\x1d.bookowl.GetReadPagesResponse\x12[\n\x14GetReadPagesByBookID\x12$.bookowl.GetReadPagesByBookIDRequest\x1a\x1d.bookowl.GetReadPagesResponse\x12Z\n\x11GetBookmarkStatus\x12!.bookowl.GetBookmarkStatusRequest\x1a\".bookowl.GetBookmarkStatusResponseB&Z$github.com/jphacks/B_2109/server/apib\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
@@ -60,17 +60,51 @@ _READSTATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1334,
-  serialized_end=1442,
+  serialized_start=1508,
+  serialized_end=1616,
 )
 _sym_db.RegisterEnumDescriptor(_READSTATUS)
 
 ReadStatus = enum_type_wrapper.EnumTypeWrapper(_READSTATUS)
+_BOOKMARKSTATUS = _descriptor.EnumDescriptor(
+  name='BookmarkStatus',
+  full_name='bookowl.BookmarkStatus',
+  filename=None,
+  file=DESCRIPTOR,
+  create_key=_descriptor._internal_create_key,
+  values=[
+    _descriptor.EnumValueDescriptor(
+      name='BOOKMARK_STATUS_UNSPECIFIED', index=0, number=0,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='BOOKMARK_STATUS_GREEN', index=1, number=1,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+    _descriptor.EnumValueDescriptor(
+      name='BOOKMARK_STATUS_RED', index=2, number=2,
+      serialized_options=None,
+      type=None,
+      create_key=_descriptor._internal_create_key),
+  ],
+  containing_type=None,
+  serialized_options=None,
+  serialized_start=1618,
+  serialized_end=1719,
+)
+_sym_db.RegisterEnumDescriptor(_BOOKMARKSTATUS)
+
+BookmarkStatus = enum_type_wrapper.EnumTypeWrapper(_BOOKMARKSTATUS)
 READ_UNSPECIFIED = 0
 READ_UNREAD = 1
 READ_READING = 2
 READ_SUSPENDED = 3
 READ_COMPLETE = 4
+BOOKMARK_STATUS_UNSPECIFIED = 0
+BOOKMARK_STATUS_GREEN = 1
+BOOKMARK_STATUS_RED = 2
 
 
 
@@ -83,9 +117,9 @@ _REGISTERBOOKREQUEST = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='book_info', full_name='bookowl.RegisterBookRequest.book_info', index=0,
-      number=1, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      name='isbn', full_name='bookowl.RegisterBookRequest.isbn', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -109,7 +143,7 @@ _REGISTERBOOKREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=56,
-  serialized_end=132,
+  serialized_end=108,
 )
 
 
@@ -147,22 +181,36 @@ _REGISTERBOOKRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=134,
-  serialized_end=236,
+  serialized_start=110,
+  serialized_end=212,
 )
 
 
-_GETBOOKSBYUSERIDREQUEST = _descriptor.Descriptor(
-  name='GetBooksByUserIDRequest',
-  full_name='bookowl.GetBooksByUserIDRequest',
+_UPDATEBOOKMARKIDREQUEST = _descriptor.Descriptor(
+  name='UpdateBookmarkIDRequest',
+  full_name='bookowl.UpdateBookmarkIDRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='user_id', full_name='bookowl.GetBooksByUserIDRequest.user_id', index=0,
+      name='book_id', full_name='bookowl.UpdateBookmarkIDRequest.book_id', index=0,
       number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='bookmark_id', full_name='bookowl.UpdateBookmarkIDRequest.bookmark_id', index=1,
+      number=2, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='book_width', full_name='bookowl.UpdateBookmarkIDRequest.book_width', index=2,
+      number=3, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -179,79 +227,8 @@ _GETBOOKSBYUSERIDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=238,
-  serialized_end=280,
-)
-
-
-_GETBOOKSBYBOOKMARKIDREQUEST = _descriptor.Descriptor(
-  name='GetBooksByBookmarkIDRequest',
-  full_name='bookowl.GetBooksByBookmarkIDRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='bookmark_id', full_name='bookowl.GetBooksByBookmarkIDRequest.bookmark_id', index=0,
-      number=1, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=282,
-  serialized_end=332,
-)
-
-
-_GETBOOKSRESPONSE = _descriptor.Descriptor(
-  name='GetBooksResponse',
-  full_name='bookowl.GetBooksResponse',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='books_info', full_name='bookowl.GetBooksResponse.books_info', index=0,
-      number=1, type=11, cpp_type=10, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='time', full_name='bookowl.GetBooksResponse.time', index=1,
-      number=2, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=334,
-  serialized_end=433,
+  serialized_start=214,
+  serialized_end=297,
 )
 
 
@@ -289,47 +266,8 @@ _UPDATEREADSTATUSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=435,
-  serialized_end=519,
-)
-
-
-_UPDATEBOOKMARKIDREQUEST = _descriptor.Descriptor(
-  name='UpdateBookmarkIDRequest',
-  full_name='bookowl.UpdateBookmarkIDRequest',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  create_key=_descriptor._internal_create_key,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='book_id', full_name='bookowl.UpdateBookmarkIDRequest.book_id', index=0,
-      number=1, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='bookmark_id', full_name='bookowl.UpdateBookmarkIDRequest.bookmark_id', index=1,
-      number=2, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=521,
-  serialized_end=584,
+  serialized_start=299,
+  serialized_end=383,
 )
 
 
@@ -367,21 +305,21 @@ _UPDATEBOOKRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=586,
-  serialized_end=686,
+  serialized_start=385,
+  serialized_end=485,
 )
 
 
-_GETPROGRESSBYUSERIDREQUEST = _descriptor.Descriptor(
-  name='GetProgressByUserIDRequest',
-  full_name='bookowl.GetProgressByUserIDRequest',
+_GETBOOKSREQUEST = _descriptor.Descriptor(
+  name='GetBooksRequest',
+  full_name='bookowl.GetBooksRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='user_id', full_name='bookowl.GetProgressByUserIDRequest.user_id', index=0,
+      name='user_id', full_name='bookowl.GetBooksRequest.user_id', index=0,
       number=1, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -399,28 +337,99 @@ _GETPROGRESSBYUSERIDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=688,
-  serialized_end=733,
+  serialized_start=487,
+  serialized_end=521,
 )
 
 
-_GETPROGRESSBYUSERIDRESPONSE = _descriptor.Descriptor(
-  name='GetProgressByUserIDResponse',
-  full_name='bookowl.GetProgressByUserIDResponse',
+_GETBOOKSRESPONSE = _descriptor.Descriptor(
+  name='GetBooksResponse',
+  full_name='bookowl.GetBooksResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='progress', full_name='bookowl.GetProgressByUserIDResponse.progress', index=0,
+      name='books_info', full_name='bookowl.GetBooksResponse.books_info', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='time', full_name='bookowl.GetBooksResponse.time', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=523,
+  serialized_end=622,
+)
+
+
+_GETREADPERCENTAGEREQUEST = _descriptor.Descriptor(
+  name='GetReadPercentageRequest',
+  full_name='bookowl.GetReadPercentageRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='user_id', full_name='bookowl.GetReadPercentageRequest.user_id', index=0,
+      number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=624,
+  serialized_end=667,
+)
+
+
+_GETREADPERCENTAGERESPONSE = _descriptor.Descriptor(
+  name='GetReadPercentageResponse',
+  full_name='bookowl.GetReadPercentageResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='read_percentage', full_name='bookowl.GetReadPercentageResponse.read_percentage', index=0,
       number=1, type=2, cpp_type=6, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='time', full_name='bookowl.GetProgressByUserIDResponse.time', index=1,
+      name='time', full_name='bookowl.GetReadPercentageResponse.time', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -438,35 +447,106 @@ _GETPROGRESSBYUSERIDRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=735,
-  serialized_end=824,
+  serialized_start=669,
+  serialized_end=763,
 )
 
 
-_GETREADAMOUNTPAGESBYUSERIDWITHDURATIONREQUEST = _descriptor.Descriptor(
-  name='GetReadAmountPagesByUserIDWithDurationRequest',
-  full_name='bookowl.GetReadAmountPagesByUserIDWithDurationRequest',
+_GETREADPAGESREQUEST = _descriptor.Descriptor(
+  name='GetReadPagesRequest',
+  full_name='bookowl.GetReadPagesRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='user_id', full_name='bookowl.GetReadAmountPagesByUserIDWithDurationRequest.user_id', index=0,
+      name='user_id', full_name='bookowl.GetReadPagesRequest.user_id', index=0,
+      number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=765,
+  serialized_end=803,
+)
+
+
+_GETREADPAGESRESPONSE = _descriptor.Descriptor(
+  name='GetReadPagesResponse',
+  full_name='bookowl.GetReadPagesResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='read_pages', full_name='bookowl.GetReadPagesResponse.read_pages', index=0,
       number=1, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='start', full_name='bookowl.GetReadAmountPagesByUserIDWithDurationRequest.start', index=1,
+      name='time', full_name='bookowl.GetReadPagesResponse.time', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=805,
+  serialized_end=889,
+)
+
+
+_GETREADPAGESWITHDURATIONREQUEST = _descriptor.Descriptor(
+  name='GetReadPagesWithDurationRequest',
+  full_name='bookowl.GetReadPagesWithDurationRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='user_id', full_name='bookowl.GetReadPagesWithDurationRequest.user_id', index=0,
+      number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='start_time', full_name='bookowl.GetReadPagesWithDurationRequest.start_time', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='end', full_name='bookowl.GetReadAmountPagesByUserIDWithDurationRequest.end', index=2,
+      name='end_time', full_name='bookowl.GetReadPagesWithDurationRequest.end_time', index=2,
       number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -484,28 +564,99 @@ _GETREADAMOUNTPAGESBYUSERIDWITHDURATIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=827,
-  serialized_end=975,
+  serialized_start=892,
+  serialized_end=1036,
 )
 
 
-_GETREADAMOUNTPAGESBYUSERIDWITHDURATIONRESPONSE = _descriptor.Descriptor(
-  name='GetReadAmountPagesByUserIDWithDurationResponse',
-  full_name='bookowl.GetReadAmountPagesByUserIDWithDurationResponse',
+_GETREADPAGESBYBOOKIDREQUEST = _descriptor.Descriptor(
+  name='GetReadPagesByBookIDRequest',
+  full_name='bookowl.GetReadPagesByBookIDRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='pages', full_name='bookowl.GetReadAmountPagesByUserIDWithDurationResponse.pages', index=0,
+      name='user_id', full_name='bookowl.GetReadPagesByBookIDRequest.user_id', index=0,
       number=1, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='time', full_name='bookowl.GetReadAmountPagesByUserIDWithDurationResponse.time', index=1,
+      name='book_id', full_name='bookowl.GetReadPagesByBookIDRequest.book_id', index=1,
+      number=2, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1038,
+  serialized_end=1101,
+)
+
+
+_GETBOOKMARKSTATUSREQUEST = _descriptor.Descriptor(
+  name='GetBookmarkStatusRequest',
+  full_name='bookowl.GetBookmarkStatusRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='bookmark_id', full_name='bookowl.GetBookmarkStatusRequest.bookmark_id', index=0,
+      number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1103,
+  serialized_end=1150,
+)
+
+
+_GETBOOKMARKSTATUSRESPONSE = _descriptor.Descriptor(
+  name='GetBookmarkStatusResponse',
+  full_name='bookowl.GetBookmarkStatusResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='bookmark_status', full_name='bookowl.GetBookmarkStatusResponse.bookmark_status', index=0,
+      number=1, type=14, cpp_type=8, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='time', full_name='bookowl.GetBookmarkStatusResponse.time', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -523,8 +674,8 @@ _GETREADAMOUNTPAGESBYUSERIDWITHDURATIONRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=977,
-  serialized_end=1082,
+  serialized_start=1152,
+  serialized_end=1271,
 )
 
 
@@ -565,56 +716,49 @@ _BOOKINFO = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='width_level', full_name='bookowl.BookInfo.width_level', index=4,
-      number=5, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='price', full_name='bookowl.BookInfo.price', index=5,
+      name='price', full_name='bookowl.BookInfo.price', index=4,
       number=6, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='authors', full_name='bookowl.BookInfo.authors', index=6,
+      name='authors', full_name='bookowl.BookInfo.authors', index=5,
       number=7, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='read_status', full_name='bookowl.BookInfo.read_status', index=7,
+      name='read_status', full_name='bookowl.BookInfo.read_status', index=6,
       number=8, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='categories', full_name='bookowl.BookInfo.categories', index=8,
+      name='categories', full_name='bookowl.BookInfo.categories', index=7,
       number=9, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='user_id', full_name='bookowl.BookInfo.user_id', index=9,
+      name='user_id', full_name='bookowl.BookInfo.user_id', index=8,
       number=10, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='bookmark_id', full_name='bookowl.BookInfo.bookmark_id', index=10,
+      name='bookmark_id', full_name='bookowl.BookInfo.bookmark_id', index=9,
       number=11, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='book_thumbnail', full_name='bookowl.BookInfo.book_thumbnail', index=11,
+      name='book_thumbnail', full_name='bookowl.BookInfo.book_thumbnail', index=10,
       number=12, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=b"".decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -632,37 +776,42 @@ _BOOKINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1085,
-  serialized_end=1332,
+  serialized_start=1274,
+  serialized_end=1506,
 )
 
-_REGISTERBOOKREQUEST.fields_by_name['book_info'].message_type = _BOOKINFO
 _REGISTERBOOKRESPONSE.fields_by_name['book_info'].message_type = _BOOKINFO
 _REGISTERBOOKRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
-_GETBOOKSRESPONSE.fields_by_name['books_info'].message_type = _BOOKINFO
-_GETBOOKSRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _UPDATEREADSTATUSREQUEST.fields_by_name['read_status'].enum_type = _READSTATUS
 _UPDATEBOOKRESPONSE.fields_by_name['book_info'].message_type = _BOOKINFO
 _UPDATEBOOKRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
-_GETPROGRESSBYUSERIDRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
-_GETREADAMOUNTPAGESBYUSERIDWITHDURATIONREQUEST.fields_by_name['start'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
-_GETREADAMOUNTPAGESBYUSERIDWITHDURATIONREQUEST.fields_by_name['end'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
-_GETREADAMOUNTPAGESBYUSERIDWITHDURATIONRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_GETBOOKSRESPONSE.fields_by_name['books_info'].message_type = _BOOKINFO
+_GETBOOKSRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_GETREADPERCENTAGERESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_GETREADPAGESRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_GETREADPAGESWITHDURATIONREQUEST.fields_by_name['start_time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_GETREADPAGESWITHDURATIONREQUEST.fields_by_name['end_time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_GETBOOKMARKSTATUSRESPONSE.fields_by_name['bookmark_status'].enum_type = _BOOKMARKSTATUS
+_GETBOOKMARKSTATUSRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _BOOKINFO.fields_by_name['read_status'].enum_type = _READSTATUS
 DESCRIPTOR.message_types_by_name['RegisterBookRequest'] = _REGISTERBOOKREQUEST
 DESCRIPTOR.message_types_by_name['RegisterBookResponse'] = _REGISTERBOOKRESPONSE
-DESCRIPTOR.message_types_by_name['GetBooksByUserIDRequest'] = _GETBOOKSBYUSERIDREQUEST
-DESCRIPTOR.message_types_by_name['GetBooksByBookmarkIDRequest'] = _GETBOOKSBYBOOKMARKIDREQUEST
-DESCRIPTOR.message_types_by_name['GetBooksResponse'] = _GETBOOKSRESPONSE
-DESCRIPTOR.message_types_by_name['UpdateReadStatusRequest'] = _UPDATEREADSTATUSREQUEST
 DESCRIPTOR.message_types_by_name['UpdateBookmarkIDRequest'] = _UPDATEBOOKMARKIDREQUEST
+DESCRIPTOR.message_types_by_name['UpdateReadStatusRequest'] = _UPDATEREADSTATUSREQUEST
 DESCRIPTOR.message_types_by_name['UpdateBookResponse'] = _UPDATEBOOKRESPONSE
-DESCRIPTOR.message_types_by_name['GetProgressByUserIDRequest'] = _GETPROGRESSBYUSERIDREQUEST
-DESCRIPTOR.message_types_by_name['GetProgressByUserIDResponse'] = _GETPROGRESSBYUSERIDRESPONSE
-DESCRIPTOR.message_types_by_name['GetReadAmountPagesByUserIDWithDurationRequest'] = _GETREADAMOUNTPAGESBYUSERIDWITHDURATIONREQUEST
-DESCRIPTOR.message_types_by_name['GetReadAmountPagesByUserIDWithDurationResponse'] = _GETREADAMOUNTPAGESBYUSERIDWITHDURATIONRESPONSE
+DESCRIPTOR.message_types_by_name['GetBooksRequest'] = _GETBOOKSREQUEST
+DESCRIPTOR.message_types_by_name['GetBooksResponse'] = _GETBOOKSRESPONSE
+DESCRIPTOR.message_types_by_name['GetReadPercentageRequest'] = _GETREADPERCENTAGEREQUEST
+DESCRIPTOR.message_types_by_name['GetReadPercentageResponse'] = _GETREADPERCENTAGERESPONSE
+DESCRIPTOR.message_types_by_name['GetReadPagesRequest'] = _GETREADPAGESREQUEST
+DESCRIPTOR.message_types_by_name['GetReadPagesResponse'] = _GETREADPAGESRESPONSE
+DESCRIPTOR.message_types_by_name['GetReadPagesWithDurationRequest'] = _GETREADPAGESWITHDURATIONREQUEST
+DESCRIPTOR.message_types_by_name['GetReadPagesByBookIDRequest'] = _GETREADPAGESBYBOOKIDREQUEST
+DESCRIPTOR.message_types_by_name['GetBookmarkStatusRequest'] = _GETBOOKMARKSTATUSREQUEST
+DESCRIPTOR.message_types_by_name['GetBookmarkStatusResponse'] = _GETBOOKMARKSTATUSRESPONSE
 DESCRIPTOR.message_types_by_name['BookInfo'] = _BOOKINFO
 DESCRIPTOR.enum_types_by_name['ReadStatus'] = _READSTATUS
+DESCRIPTOR.enum_types_by_name['BookmarkStatus'] = _BOOKMARKSTATUS
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 RegisterBookRequest = _reflection.GeneratedProtocolMessageType('RegisterBookRequest', (_message.Message,), {
@@ -679,26 +828,12 @@ RegisterBookResponse = _reflection.GeneratedProtocolMessageType('RegisterBookRes
   })
 _sym_db.RegisterMessage(RegisterBookResponse)
 
-GetBooksByUserIDRequest = _reflection.GeneratedProtocolMessageType('GetBooksByUserIDRequest', (_message.Message,), {
-  'DESCRIPTOR' : _GETBOOKSBYUSERIDREQUEST,
+UpdateBookmarkIDRequest = _reflection.GeneratedProtocolMessageType('UpdateBookmarkIDRequest', (_message.Message,), {
+  'DESCRIPTOR' : _UPDATEBOOKMARKIDREQUEST,
   '__module__' : 'book_pb2'
-  # @@protoc_insertion_point(class_scope:bookowl.GetBooksByUserIDRequest)
+  # @@protoc_insertion_point(class_scope:bookowl.UpdateBookmarkIDRequest)
   })
-_sym_db.RegisterMessage(GetBooksByUserIDRequest)
-
-GetBooksByBookmarkIDRequest = _reflection.GeneratedProtocolMessageType('GetBooksByBookmarkIDRequest', (_message.Message,), {
-  'DESCRIPTOR' : _GETBOOKSBYBOOKMARKIDREQUEST,
-  '__module__' : 'book_pb2'
-  # @@protoc_insertion_point(class_scope:bookowl.GetBooksByBookmarkIDRequest)
-  })
-_sym_db.RegisterMessage(GetBooksByBookmarkIDRequest)
-
-GetBooksResponse = _reflection.GeneratedProtocolMessageType('GetBooksResponse', (_message.Message,), {
-  'DESCRIPTOR' : _GETBOOKSRESPONSE,
-  '__module__' : 'book_pb2'
-  # @@protoc_insertion_point(class_scope:bookowl.GetBooksResponse)
-  })
-_sym_db.RegisterMessage(GetBooksResponse)
+_sym_db.RegisterMessage(UpdateBookmarkIDRequest)
 
 UpdateReadStatusRequest = _reflection.GeneratedProtocolMessageType('UpdateReadStatusRequest', (_message.Message,), {
   'DESCRIPTOR' : _UPDATEREADSTATUSREQUEST,
@@ -707,13 +842,6 @@ UpdateReadStatusRequest = _reflection.GeneratedProtocolMessageType('UpdateReadSt
   })
 _sym_db.RegisterMessage(UpdateReadStatusRequest)
 
-UpdateBookmarkIDRequest = _reflection.GeneratedProtocolMessageType('UpdateBookmarkIDRequest', (_message.Message,), {
-  'DESCRIPTOR' : _UPDATEBOOKMARKIDREQUEST,
-  '__module__' : 'book_pb2'
-  # @@protoc_insertion_point(class_scope:bookowl.UpdateBookmarkIDRequest)
-  })
-_sym_db.RegisterMessage(UpdateBookmarkIDRequest)
-
 UpdateBookResponse = _reflection.GeneratedProtocolMessageType('UpdateBookResponse', (_message.Message,), {
   'DESCRIPTOR' : _UPDATEBOOKRESPONSE,
   '__module__' : 'book_pb2'
@@ -721,33 +849,75 @@ UpdateBookResponse = _reflection.GeneratedProtocolMessageType('UpdateBookRespons
   })
 _sym_db.RegisterMessage(UpdateBookResponse)
 
-GetProgressByUserIDRequest = _reflection.GeneratedProtocolMessageType('GetProgressByUserIDRequest', (_message.Message,), {
-  'DESCRIPTOR' : _GETPROGRESSBYUSERIDREQUEST,
+GetBooksRequest = _reflection.GeneratedProtocolMessageType('GetBooksRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETBOOKSREQUEST,
   '__module__' : 'book_pb2'
-  # @@protoc_insertion_point(class_scope:bookowl.GetProgressByUserIDRequest)
+  # @@protoc_insertion_point(class_scope:bookowl.GetBooksRequest)
   })
-_sym_db.RegisterMessage(GetProgressByUserIDRequest)
+_sym_db.RegisterMessage(GetBooksRequest)
 
-GetProgressByUserIDResponse = _reflection.GeneratedProtocolMessageType('GetProgressByUserIDResponse', (_message.Message,), {
-  'DESCRIPTOR' : _GETPROGRESSBYUSERIDRESPONSE,
+GetBooksResponse = _reflection.GeneratedProtocolMessageType('GetBooksResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETBOOKSRESPONSE,
   '__module__' : 'book_pb2'
-  # @@protoc_insertion_point(class_scope:bookowl.GetProgressByUserIDResponse)
+  # @@protoc_insertion_point(class_scope:bookowl.GetBooksResponse)
   })
-_sym_db.RegisterMessage(GetProgressByUserIDResponse)
+_sym_db.RegisterMessage(GetBooksResponse)
 
-GetReadAmountPagesByUserIDWithDurationRequest = _reflection.GeneratedProtocolMessageType('GetReadAmountPagesByUserIDWithDurationRequest', (_message.Message,), {
-  'DESCRIPTOR' : _GETREADAMOUNTPAGESBYUSERIDWITHDURATIONREQUEST,
+GetReadPercentageRequest = _reflection.GeneratedProtocolMessageType('GetReadPercentageRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETREADPERCENTAGEREQUEST,
   '__module__' : 'book_pb2'
-  # @@protoc_insertion_point(class_scope:bookowl.GetReadAmountPagesByUserIDWithDurationRequest)
+  # @@protoc_insertion_point(class_scope:bookowl.GetReadPercentageRequest)
   })
-_sym_db.RegisterMessage(GetReadAmountPagesByUserIDWithDurationRequest)
+_sym_db.RegisterMessage(GetReadPercentageRequest)
 
-GetReadAmountPagesByUserIDWithDurationResponse = _reflection.GeneratedProtocolMessageType('GetReadAmountPagesByUserIDWithDurationResponse', (_message.Message,), {
-  'DESCRIPTOR' : _GETREADAMOUNTPAGESBYUSERIDWITHDURATIONRESPONSE,
+GetReadPercentageResponse = _reflection.GeneratedProtocolMessageType('GetReadPercentageResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETREADPERCENTAGERESPONSE,
   '__module__' : 'book_pb2'
-  # @@protoc_insertion_point(class_scope:bookowl.GetReadAmountPagesByUserIDWithDurationResponse)
+  # @@protoc_insertion_point(class_scope:bookowl.GetReadPercentageResponse)
   })
-_sym_db.RegisterMessage(GetReadAmountPagesByUserIDWithDurationResponse)
+_sym_db.RegisterMessage(GetReadPercentageResponse)
+
+GetReadPagesRequest = _reflection.GeneratedProtocolMessageType('GetReadPagesRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETREADPAGESREQUEST,
+  '__module__' : 'book_pb2'
+  # @@protoc_insertion_point(class_scope:bookowl.GetReadPagesRequest)
+  })
+_sym_db.RegisterMessage(GetReadPagesRequest)
+
+GetReadPagesResponse = _reflection.GeneratedProtocolMessageType('GetReadPagesResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETREADPAGESRESPONSE,
+  '__module__' : 'book_pb2'
+  # @@protoc_insertion_point(class_scope:bookowl.GetReadPagesResponse)
+  })
+_sym_db.RegisterMessage(GetReadPagesResponse)
+
+GetReadPagesWithDurationRequest = _reflection.GeneratedProtocolMessageType('GetReadPagesWithDurationRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETREADPAGESWITHDURATIONREQUEST,
+  '__module__' : 'book_pb2'
+  # @@protoc_insertion_point(class_scope:bookowl.GetReadPagesWithDurationRequest)
+  })
+_sym_db.RegisterMessage(GetReadPagesWithDurationRequest)
+
+GetReadPagesByBookIDRequest = _reflection.GeneratedProtocolMessageType('GetReadPagesByBookIDRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETREADPAGESBYBOOKIDREQUEST,
+  '__module__' : 'book_pb2'
+  # @@protoc_insertion_point(class_scope:bookowl.GetReadPagesByBookIDRequest)
+  })
+_sym_db.RegisterMessage(GetReadPagesByBookIDRequest)
+
+GetBookmarkStatusRequest = _reflection.GeneratedProtocolMessageType('GetBookmarkStatusRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETBOOKMARKSTATUSREQUEST,
+  '__module__' : 'book_pb2'
+  # @@protoc_insertion_point(class_scope:bookowl.GetBookmarkStatusRequest)
+  })
+_sym_db.RegisterMessage(GetBookmarkStatusRequest)
+
+GetBookmarkStatusResponse = _reflection.GeneratedProtocolMessageType('GetBookmarkStatusResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETBOOKMARKSTATUSRESPONSE,
+  '__module__' : 'book_pb2'
+  # @@protoc_insertion_point(class_scope:bookowl.GetBookmarkStatusResponse)
+  })
+_sym_db.RegisterMessage(GetBookmarkStatusResponse)
 
 BookInfo = _reflection.GeneratedProtocolMessageType('BookInfo', (_message.Message,), {
   'DESCRIPTOR' : _BOOKINFO,
@@ -766,8 +936,8 @@ _BOOK = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=1445,
-  serialized_end=2118,
+  serialized_start=1722,
+  serialized_end=2491,
   methods=[
   _descriptor.MethodDescriptor(
     name='RegisterBook',
@@ -780,29 +950,9 @@ _BOOK = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='GetBooksByUserID',
-    full_name='bookowl.Book.GetBooksByUserID',
-    index=1,
-    containing_service=None,
-    input_type=_GETBOOKSBYUSERIDREQUEST,
-    output_type=_GETBOOKSRESPONSE,
-    serialized_options=None,
-    create_key=_descriptor._internal_create_key,
-  ),
-  _descriptor.MethodDescriptor(
-    name='GetBooksByBookmarkID',
-    full_name='bookowl.Book.GetBooksByBookmarkID',
-    index=2,
-    containing_service=None,
-    input_type=_GETBOOKSBYBOOKMARKIDREQUEST,
-    output_type=_GETBOOKSRESPONSE,
-    serialized_options=None,
-    create_key=_descriptor._internal_create_key,
-  ),
-  _descriptor.MethodDescriptor(
     name='UpdateBookmarkID',
     full_name='bookowl.Book.UpdateBookmarkID',
-    index=3,
+    index=1,
     containing_service=None,
     input_type=_UPDATEBOOKMARKIDREQUEST,
     output_type=_UPDATEBOOKRESPONSE,
@@ -812,7 +962,7 @@ _BOOK = _descriptor.ServiceDescriptor(
   _descriptor.MethodDescriptor(
     name='UpdateReadStatus',
     full_name='bookowl.Book.UpdateReadStatus',
-    index=4,
+    index=2,
     containing_service=None,
     input_type=_UPDATEREADSTATUSREQUEST,
     output_type=_UPDATEBOOKRESPONSE,
@@ -820,22 +970,62 @@ _BOOK = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='GetProgressByUserID',
-    full_name='bookowl.Book.GetProgressByUserID',
-    index=5,
+    name='GetBooks',
+    full_name='bookowl.Book.GetBooks',
+    index=3,
     containing_service=None,
-    input_type=_GETPROGRESSBYUSERIDREQUEST,
-    output_type=_GETPROGRESSBYUSERIDRESPONSE,
+    input_type=_GETBOOKSREQUEST,
+    output_type=_GETBOOKSRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='GetReadAmountPagesByUserIDWithDuration',
-    full_name='bookowl.Book.GetReadAmountPagesByUserIDWithDuration',
+    name='GetReadPercentage',
+    full_name='bookowl.Book.GetReadPercentage',
+    index=4,
+    containing_service=None,
+    input_type=_GETREADPERCENTAGEREQUEST,
+    output_type=_GETREADPERCENTAGERESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetReadPages',
+    full_name='bookowl.Book.GetReadPages',
+    index=5,
+    containing_service=None,
+    input_type=_GETREADPAGESREQUEST,
+    output_type=_GETREADPAGESRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetReadPagesWithDuration',
+    full_name='bookowl.Book.GetReadPagesWithDuration',
     index=6,
     containing_service=None,
-    input_type=_GETREADAMOUNTPAGESBYUSERIDWITHDURATIONREQUEST,
-    output_type=_GETREADAMOUNTPAGESBYUSERIDWITHDURATIONRESPONSE,
+    input_type=_GETREADPAGESWITHDURATIONREQUEST,
+    output_type=_GETREADPAGESRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetReadPagesByBookID',
+    full_name='bookowl.Book.GetReadPagesByBookID',
+    index=7,
+    containing_service=None,
+    input_type=_GETREADPAGESBYBOOKIDREQUEST,
+    output_type=_GETREADPAGESRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetBookmarkStatus',
+    full_name='bookowl.Book.GetBookmarkStatus',
+    index=8,
+    containing_service=None,
+    input_type=_GETBOOKMARKSTATUSREQUEST,
+    output_type=_GETBOOKMARKSTATUSRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

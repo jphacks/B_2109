@@ -35,16 +35,6 @@ internal protocol Bookowl_BookClientProtocol: GRPCClient {
     callOptions: CallOptions?
   ) -> UnaryCall<Bookowl_RegisterBookRequest, Bookowl_RegisterBookResponse>
 
-  func getBooksByUserID(
-    _ request: Bookowl_GetBooksByUserIDRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Bookowl_GetBooksByUserIDRequest, Bookowl_GetBooksResponse>
-
-  func getBooksByBookmarkID(
-    _ request: Bookowl_GetBooksByBookmarkIDRequest,
-    callOptions: CallOptions?
-  ) -> UnaryCall<Bookowl_GetBooksByBookmarkIDRequest, Bookowl_GetBooksResponse>
-
   func updateBookmarkID(
     _ request: Bookowl_UpdateBookmarkIDRequest,
     callOptions: CallOptions?
@@ -55,15 +45,35 @@ internal protocol Bookowl_BookClientProtocol: GRPCClient {
     callOptions: CallOptions?
   ) -> UnaryCall<Bookowl_UpdateReadStatusRequest, Bookowl_UpdateBookResponse>
 
-  func getProgressByUserID(
-    _ request: Bookowl_GetProgressByUserIDRequest,
+  func getBooks(
+    _ request: Bookowl_GetBooksRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<Bookowl_GetProgressByUserIDRequest, Bookowl_GetProgressByUserIDResponse>
+  ) -> UnaryCall<Bookowl_GetBooksRequest, Bookowl_GetBooksResponse>
 
-  func getReadAmountPagesByUserIDWithDuration(
-    _ request: Bookowl_GetReadAmountPagesByUserIDWithDurationRequest,
+  func getReadPercentage(
+    _ request: Bookowl_GetReadPercentageRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<Bookowl_GetReadAmountPagesByUserIDWithDurationRequest, Bookowl_GetReadAmountPagesByUserIDWithDurationResponse>
+  ) -> UnaryCall<Bookowl_GetReadPercentageRequest, Bookowl_GetReadPercentageResponse>
+
+  func getReadPages(
+    _ request: Bookowl_GetReadPagesRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Bookowl_GetReadPagesRequest, Bookowl_GetReadPagesResponse>
+
+  func getReadPagesWithDuration(
+    _ request: Bookowl_GetReadPagesWithDurationRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Bookowl_GetReadPagesWithDurationRequest, Bookowl_GetReadPagesResponse>
+
+  func getReadPagesByBookID(
+    _ request: Bookowl_GetReadPagesByBookIDRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Bookowl_GetReadPagesByBookIDRequest, Bookowl_GetReadPagesResponse>
+
+  func getBookmarkStatus(
+    _ request: Bookowl_GetBookmarkStatusRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Bookowl_GetBookmarkStatusRequest, Bookowl_GetBookmarkStatusResponse>
 }
 
 extension Bookowl_BookClientProtocol {
@@ -71,7 +81,7 @@ extension Bookowl_BookClientProtocol {
     return "bookowl.Book"
   }
 
-  /// Registering Book
+  /// Unary call to RegisterBook
   ///
   /// - Parameters:
   ///   - request: Request to send to RegisterBook.
@@ -86,42 +96,6 @@ extension Bookowl_BookClientProtocol {
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeRegisterBookInterceptors() ?? []
-    )
-  }
-
-  /// Unary call to GetBooksByUserID
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to GetBooksByUserID.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func getBooksByUserID(
-    _ request: Bookowl_GetBooksByUserIDRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Bookowl_GetBooksByUserIDRequest, Bookowl_GetBooksResponse> {
-    return self.makeUnaryCall(
-      path: "/bookowl.Book/GetBooksByUserID",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeGetBooksByUserIDInterceptors() ?? []
-    )
-  }
-
-  /// Unary call to GetBooksByBookmarkID
-  ///
-  /// - Parameters:
-  ///   - request: Request to send to GetBooksByBookmarkID.
-  ///   - callOptions: Call options.
-  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func getBooksByBookmarkID(
-    _ request: Bookowl_GetBooksByBookmarkIDRequest,
-    callOptions: CallOptions? = nil
-  ) -> UnaryCall<Bookowl_GetBooksByBookmarkIDRequest, Bookowl_GetBooksResponse> {
-    return self.makeUnaryCall(
-      path: "/bookowl.Book/GetBooksByBookmarkID",
-      request: request,
-      callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeGetBooksByBookmarkIDInterceptors() ?? []
     )
   }
 
@@ -161,39 +135,111 @@ extension Bookowl_BookClientProtocol {
     )
   }
 
-  /// Unary call to GetProgressByUserID
+  /// Unary call to GetBooks
   ///
   /// - Parameters:
-  ///   - request: Request to send to GetProgressByUserID.
+  ///   - request: Request to send to GetBooks.
   ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func getProgressByUserID(
-    _ request: Bookowl_GetProgressByUserIDRequest,
+  internal func getBooks(
+    _ request: Bookowl_GetBooksRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<Bookowl_GetProgressByUserIDRequest, Bookowl_GetProgressByUserIDResponse> {
+  ) -> UnaryCall<Bookowl_GetBooksRequest, Bookowl_GetBooksResponse> {
     return self.makeUnaryCall(
-      path: "/bookowl.Book/GetProgressByUserID",
+      path: "/bookowl.Book/GetBooks",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeGetProgressByUserIDInterceptors() ?? []
+      interceptors: self.interceptors?.makeGetBooksInterceptors() ?? []
     )
   }
 
-  /// Unary call to GetReadAmountPagesByUserIDWithDuration
+  /// Unary call to GetReadPercentage
   ///
   /// - Parameters:
-  ///   - request: Request to send to GetReadAmountPagesByUserIDWithDuration.
+  ///   - request: Request to send to GetReadPercentage.
   ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func getReadAmountPagesByUserIDWithDuration(
-    _ request: Bookowl_GetReadAmountPagesByUserIDWithDurationRequest,
+  internal func getReadPercentage(
+    _ request: Bookowl_GetReadPercentageRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<Bookowl_GetReadAmountPagesByUserIDWithDurationRequest, Bookowl_GetReadAmountPagesByUserIDWithDurationResponse> {
+  ) -> UnaryCall<Bookowl_GetReadPercentageRequest, Bookowl_GetReadPercentageResponse> {
     return self.makeUnaryCall(
-      path: "/bookowl.Book/GetReadAmountPagesByUserIDWithDuration",
+      path: "/bookowl.Book/GetReadPercentage",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeGetReadAmountPagesByUserIDWithDurationInterceptors() ?? []
+      interceptors: self.interceptors?.makeGetReadPercentageInterceptors() ?? []
+    )
+  }
+
+  /// Unary call to GetReadPages
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetReadPages.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getReadPages(
+    _ request: Bookowl_GetReadPagesRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Bookowl_GetReadPagesRequest, Bookowl_GetReadPagesResponse> {
+    return self.makeUnaryCall(
+      path: "/bookowl.Book/GetReadPages",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetReadPagesInterceptors() ?? []
+    )
+  }
+
+  /// Unary call to GetReadPagesWithDuration
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetReadPagesWithDuration.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getReadPagesWithDuration(
+    _ request: Bookowl_GetReadPagesWithDurationRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Bookowl_GetReadPagesWithDurationRequest, Bookowl_GetReadPagesResponse> {
+    return self.makeUnaryCall(
+      path: "/bookowl.Book/GetReadPagesWithDuration",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetReadPagesWithDurationInterceptors() ?? []
+    )
+  }
+
+  /// Unary call to GetReadPagesByBookID
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetReadPagesByBookID.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getReadPagesByBookID(
+    _ request: Bookowl_GetReadPagesByBookIDRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Bookowl_GetReadPagesByBookIDRequest, Bookowl_GetReadPagesResponse> {
+    return self.makeUnaryCall(
+      path: "/bookowl.Book/GetReadPagesByBookID",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetReadPagesByBookIDInterceptors() ?? []
+    )
+  }
+
+  /// Unary call to GetBookmarkStatus
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetBookmarkStatus.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getBookmarkStatus(
+    _ request: Bookowl_GetBookmarkStatusRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Bookowl_GetBookmarkStatusRequest, Bookowl_GetBookmarkStatusResponse> {
+    return self.makeUnaryCall(
+      path: "/bookowl.Book/GetBookmarkStatus",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetBookmarkStatusInterceptors() ?? []
     )
   }
 }
@@ -203,23 +249,29 @@ internal protocol Bookowl_BookClientInterceptorFactoryProtocol {
   /// - Returns: Interceptors to use when invoking 'registerBook'.
   func makeRegisterBookInterceptors() -> [ClientInterceptor<Bookowl_RegisterBookRequest, Bookowl_RegisterBookResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'getBooksByUserID'.
-  func makeGetBooksByUserIDInterceptors() -> [ClientInterceptor<Bookowl_GetBooksByUserIDRequest, Bookowl_GetBooksResponse>]
-
-  /// - Returns: Interceptors to use when invoking 'getBooksByBookmarkID'.
-  func makeGetBooksByBookmarkIDInterceptors() -> [ClientInterceptor<Bookowl_GetBooksByBookmarkIDRequest, Bookowl_GetBooksResponse>]
-
   /// - Returns: Interceptors to use when invoking 'updateBookmarkID'.
   func makeUpdateBookmarkIDInterceptors() -> [ClientInterceptor<Bookowl_UpdateBookmarkIDRequest, Bookowl_UpdateBookResponse>]
 
   /// - Returns: Interceptors to use when invoking 'updateReadStatus'.
   func makeUpdateReadStatusInterceptors() -> [ClientInterceptor<Bookowl_UpdateReadStatusRequest, Bookowl_UpdateBookResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'getProgressByUserID'.
-  func makeGetProgressByUserIDInterceptors() -> [ClientInterceptor<Bookowl_GetProgressByUserIDRequest, Bookowl_GetProgressByUserIDResponse>]
+  /// - Returns: Interceptors to use when invoking 'getBooks'.
+  func makeGetBooksInterceptors() -> [ClientInterceptor<Bookowl_GetBooksRequest, Bookowl_GetBooksResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'getReadAmountPagesByUserIDWithDuration'.
-  func makeGetReadAmountPagesByUserIDWithDurationInterceptors() -> [ClientInterceptor<Bookowl_GetReadAmountPagesByUserIDWithDurationRequest, Bookowl_GetReadAmountPagesByUserIDWithDurationResponse>]
+  /// - Returns: Interceptors to use when invoking 'getReadPercentage'.
+  func makeGetReadPercentageInterceptors() -> [ClientInterceptor<Bookowl_GetReadPercentageRequest, Bookowl_GetReadPercentageResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getReadPages'.
+  func makeGetReadPagesInterceptors() -> [ClientInterceptor<Bookowl_GetReadPagesRequest, Bookowl_GetReadPagesResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getReadPagesWithDuration'.
+  func makeGetReadPagesWithDurationInterceptors() -> [ClientInterceptor<Bookowl_GetReadPagesWithDurationRequest, Bookowl_GetReadPagesResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getReadPagesByBookID'.
+  func makeGetReadPagesByBookIDInterceptors() -> [ClientInterceptor<Bookowl_GetReadPagesByBookIDRequest, Bookowl_GetReadPagesResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getBookmarkStatus'.
+  func makeGetBookmarkStatusInterceptors() -> [ClientInterceptor<Bookowl_GetBookmarkStatusRequest, Bookowl_GetBookmarkStatusResponse>]
 }
 
 internal final class Bookowl_BookClient: Bookowl_BookClientProtocol {
@@ -248,20 +300,23 @@ internal final class Bookowl_BookClient: Bookowl_BookClientProtocol {
 internal protocol Bookowl_BookProvider: CallHandlerProvider {
   var interceptors: Bookowl_BookServerInterceptorFactoryProtocol? { get }
 
-  /// Registering Book
   func registerBook(request: Bookowl_RegisterBookRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_RegisterBookResponse>
-
-  func getBooksByUserID(request: Bookowl_GetBooksByUserIDRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetBooksResponse>
-
-  func getBooksByBookmarkID(request: Bookowl_GetBooksByBookmarkIDRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetBooksResponse>
 
   func updateBookmarkID(request: Bookowl_UpdateBookmarkIDRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_UpdateBookResponse>
 
   func updateReadStatus(request: Bookowl_UpdateReadStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_UpdateBookResponse>
 
-  func getProgressByUserID(request: Bookowl_GetProgressByUserIDRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetProgressByUserIDResponse>
+  func getBooks(request: Bookowl_GetBooksRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetBooksResponse>
 
-  func getReadAmountPagesByUserIDWithDuration(request: Bookowl_GetReadAmountPagesByUserIDWithDurationRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetReadAmountPagesByUserIDWithDurationResponse>
+  func getReadPercentage(request: Bookowl_GetReadPercentageRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetReadPercentageResponse>
+
+  func getReadPages(request: Bookowl_GetReadPagesRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetReadPagesResponse>
+
+  func getReadPagesWithDuration(request: Bookowl_GetReadPagesWithDurationRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetReadPagesResponse>
+
+  func getReadPagesByBookID(request: Bookowl_GetReadPagesByBookIDRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetReadPagesResponse>
+
+  func getBookmarkStatus(request: Bookowl_GetBookmarkStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetBookmarkStatusResponse>
 }
 
 extension Bookowl_BookProvider {
@@ -283,24 +338,6 @@ extension Bookowl_BookProvider {
         userFunction: self.registerBook(request:context:)
       )
 
-    case "GetBooksByUserID":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Bookowl_GetBooksByUserIDRequest>(),
-        responseSerializer: ProtobufSerializer<Bookowl_GetBooksResponse>(),
-        interceptors: self.interceptors?.makeGetBooksByUserIDInterceptors() ?? [],
-        userFunction: self.getBooksByUserID(request:context:)
-      )
-
-    case "GetBooksByBookmarkID":
-      return UnaryServerHandler(
-        context: context,
-        requestDeserializer: ProtobufDeserializer<Bookowl_GetBooksByBookmarkIDRequest>(),
-        responseSerializer: ProtobufSerializer<Bookowl_GetBooksResponse>(),
-        interceptors: self.interceptors?.makeGetBooksByBookmarkIDInterceptors() ?? [],
-        userFunction: self.getBooksByBookmarkID(request:context:)
-      )
-
     case "UpdateBookmarkID":
       return UnaryServerHandler(
         context: context,
@@ -319,22 +356,58 @@ extension Bookowl_BookProvider {
         userFunction: self.updateReadStatus(request:context:)
       )
 
-    case "GetProgressByUserID":
+    case "GetBooks":
       return UnaryServerHandler(
         context: context,
-        requestDeserializer: ProtobufDeserializer<Bookowl_GetProgressByUserIDRequest>(),
-        responseSerializer: ProtobufSerializer<Bookowl_GetProgressByUserIDResponse>(),
-        interceptors: self.interceptors?.makeGetProgressByUserIDInterceptors() ?? [],
-        userFunction: self.getProgressByUserID(request:context:)
+        requestDeserializer: ProtobufDeserializer<Bookowl_GetBooksRequest>(),
+        responseSerializer: ProtobufSerializer<Bookowl_GetBooksResponse>(),
+        interceptors: self.interceptors?.makeGetBooksInterceptors() ?? [],
+        userFunction: self.getBooks(request:context:)
       )
 
-    case "GetReadAmountPagesByUserIDWithDuration":
+    case "GetReadPercentage":
       return UnaryServerHandler(
         context: context,
-        requestDeserializer: ProtobufDeserializer<Bookowl_GetReadAmountPagesByUserIDWithDurationRequest>(),
-        responseSerializer: ProtobufSerializer<Bookowl_GetReadAmountPagesByUserIDWithDurationResponse>(),
-        interceptors: self.interceptors?.makeGetReadAmountPagesByUserIDWithDurationInterceptors() ?? [],
-        userFunction: self.getReadAmountPagesByUserIDWithDuration(request:context:)
+        requestDeserializer: ProtobufDeserializer<Bookowl_GetReadPercentageRequest>(),
+        responseSerializer: ProtobufSerializer<Bookowl_GetReadPercentageResponse>(),
+        interceptors: self.interceptors?.makeGetReadPercentageInterceptors() ?? [],
+        userFunction: self.getReadPercentage(request:context:)
+      )
+
+    case "GetReadPages":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Bookowl_GetReadPagesRequest>(),
+        responseSerializer: ProtobufSerializer<Bookowl_GetReadPagesResponse>(),
+        interceptors: self.interceptors?.makeGetReadPagesInterceptors() ?? [],
+        userFunction: self.getReadPages(request:context:)
+      )
+
+    case "GetReadPagesWithDuration":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Bookowl_GetReadPagesWithDurationRequest>(),
+        responseSerializer: ProtobufSerializer<Bookowl_GetReadPagesResponse>(),
+        interceptors: self.interceptors?.makeGetReadPagesWithDurationInterceptors() ?? [],
+        userFunction: self.getReadPagesWithDuration(request:context:)
+      )
+
+    case "GetReadPagesByBookID":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Bookowl_GetReadPagesByBookIDRequest>(),
+        responseSerializer: ProtobufSerializer<Bookowl_GetReadPagesResponse>(),
+        interceptors: self.interceptors?.makeGetReadPagesByBookIDInterceptors() ?? [],
+        userFunction: self.getReadPagesByBookID(request:context:)
+      )
+
+    case "GetBookmarkStatus":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Bookowl_GetBookmarkStatusRequest>(),
+        responseSerializer: ProtobufSerializer<Bookowl_GetBookmarkStatusResponse>(),
+        interceptors: self.interceptors?.makeGetBookmarkStatusInterceptors() ?? [],
+        userFunction: self.getBookmarkStatus(request:context:)
       )
 
     default:
@@ -349,14 +422,6 @@ internal protocol Bookowl_BookServerInterceptorFactoryProtocol {
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeRegisterBookInterceptors() -> [ServerInterceptor<Bookowl_RegisterBookRequest, Bookowl_RegisterBookResponse>]
 
-  /// - Returns: Interceptors to use when handling 'getBooksByUserID'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeGetBooksByUserIDInterceptors() -> [ServerInterceptor<Bookowl_GetBooksByUserIDRequest, Bookowl_GetBooksResponse>]
-
-  /// - Returns: Interceptors to use when handling 'getBooksByBookmarkID'.
-  ///   Defaults to calling `self.makeInterceptors()`.
-  func makeGetBooksByBookmarkIDInterceptors() -> [ServerInterceptor<Bookowl_GetBooksByBookmarkIDRequest, Bookowl_GetBooksResponse>]
-
   /// - Returns: Interceptors to use when handling 'updateBookmarkID'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeUpdateBookmarkIDInterceptors() -> [ServerInterceptor<Bookowl_UpdateBookmarkIDRequest, Bookowl_UpdateBookResponse>]
@@ -365,11 +430,27 @@ internal protocol Bookowl_BookServerInterceptorFactoryProtocol {
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeUpdateReadStatusInterceptors() -> [ServerInterceptor<Bookowl_UpdateReadStatusRequest, Bookowl_UpdateBookResponse>]
 
-  /// - Returns: Interceptors to use when handling 'getProgressByUserID'.
+  /// - Returns: Interceptors to use when handling 'getBooks'.
   ///   Defaults to calling `self.makeInterceptors()`.
-  func makeGetProgressByUserIDInterceptors() -> [ServerInterceptor<Bookowl_GetProgressByUserIDRequest, Bookowl_GetProgressByUserIDResponse>]
+  func makeGetBooksInterceptors() -> [ServerInterceptor<Bookowl_GetBooksRequest, Bookowl_GetBooksResponse>]
 
-  /// - Returns: Interceptors to use when handling 'getReadAmountPagesByUserIDWithDuration'.
+  /// - Returns: Interceptors to use when handling 'getReadPercentage'.
   ///   Defaults to calling `self.makeInterceptors()`.
-  func makeGetReadAmountPagesByUserIDWithDurationInterceptors() -> [ServerInterceptor<Bookowl_GetReadAmountPagesByUserIDWithDurationRequest, Bookowl_GetReadAmountPagesByUserIDWithDurationResponse>]
+  func makeGetReadPercentageInterceptors() -> [ServerInterceptor<Bookowl_GetReadPercentageRequest, Bookowl_GetReadPercentageResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getReadPages'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetReadPagesInterceptors() -> [ServerInterceptor<Bookowl_GetReadPagesRequest, Bookowl_GetReadPagesResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getReadPagesWithDuration'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetReadPagesWithDurationInterceptors() -> [ServerInterceptor<Bookowl_GetReadPagesWithDurationRequest, Bookowl_GetReadPagesResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getReadPagesByBookID'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetReadPagesByBookIDInterceptors() -> [ServerInterceptor<Bookowl_GetReadPagesByBookIDRequest, Bookowl_GetReadPagesResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getBookmarkStatus'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetBookmarkStatusInterceptors() -> [ServerInterceptor<Bookowl_GetBookmarkStatusRequest, Bookowl_GetBookmarkStatusResponse>]
 }

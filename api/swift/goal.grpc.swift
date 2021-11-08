@@ -35,15 +35,25 @@ internal protocol Bookowl_GoalClientProtocol: GRPCClient {
     callOptions: CallOptions?
   ) -> UnaryCall<Bookowl_CreateGoalRequest, Bookowl_CreateGoalResponse>
 
-  func getByUserID(
-    _ request: Bookowl_GetGoalByUserIDRequest,
+  func registerOpponents(
+    _ request: Bookowl_RegisterOpponentsRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<Bookowl_GetGoalByUserIDRequest, Bookowl_GetGoalsResponse>
+  ) -> UnaryCall<Bookowl_RegisterOpponentsRequest, Bookowl_RegisterOpponentsResponse>
 
-  func updateGoalStatus(
-    _ request: Bookowl_UpdateGoalStatusRequest,
+  func getGoals(
+    _ request: Bookowl_GetGoalsRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<Bookowl_UpdateGoalStatusRequest, Bookowl_UpdateGoalResponse>
+  ) -> UnaryCall<Bookowl_GetGoalsRequest, Bookowl_GetGoalsResponse>
+
+  func getOpponents(
+    _ request: Bookowl_GetOpponentsRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Bookowl_GetOpponentsRequest, Bookowl_GetOpponentsResponse>
+
+  func getRanking(
+    _ request: Bookowl_GetRankingRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Bookowl_GetRankingRequest, Bookowl_GetRankingResponse>
 }
 
 extension Bookowl_GoalClientProtocol {
@@ -69,39 +79,75 @@ extension Bookowl_GoalClientProtocol {
     )
   }
 
-  /// Unary call to GetByUserID
+  /// Unary call to RegisterOpponents
   ///
   /// - Parameters:
-  ///   - request: Request to send to GetByUserID.
+  ///   - request: Request to send to RegisterOpponents.
   ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func getByUserID(
-    _ request: Bookowl_GetGoalByUserIDRequest,
+  internal func registerOpponents(
+    _ request: Bookowl_RegisterOpponentsRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<Bookowl_GetGoalByUserIDRequest, Bookowl_GetGoalsResponse> {
+  ) -> UnaryCall<Bookowl_RegisterOpponentsRequest, Bookowl_RegisterOpponentsResponse> {
     return self.makeUnaryCall(
-      path: "/bookowl.Goal/GetByUserID",
+      path: "/bookowl.Goal/RegisterOpponents",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeGetByUserIDInterceptors() ?? []
+      interceptors: self.interceptors?.makeRegisterOpponentsInterceptors() ?? []
     )
   }
 
-  /// Unary call to UpdateGoalStatus
+  /// Unary call to GetGoals
   ///
   /// - Parameters:
-  ///   - request: Request to send to UpdateGoalStatus.
+  ///   - request: Request to send to GetGoals.
   ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func updateGoalStatus(
-    _ request: Bookowl_UpdateGoalStatusRequest,
+  internal func getGoals(
+    _ request: Bookowl_GetGoalsRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<Bookowl_UpdateGoalStatusRequest, Bookowl_UpdateGoalResponse> {
+  ) -> UnaryCall<Bookowl_GetGoalsRequest, Bookowl_GetGoalsResponse> {
     return self.makeUnaryCall(
-      path: "/bookowl.Goal/UpdateGoalStatus",
+      path: "/bookowl.Goal/GetGoals",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeUpdateGoalStatusInterceptors() ?? []
+      interceptors: self.interceptors?.makeGetGoalsInterceptors() ?? []
+    )
+  }
+
+  /// Unary call to GetOpponents
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetOpponents.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getOpponents(
+    _ request: Bookowl_GetOpponentsRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Bookowl_GetOpponentsRequest, Bookowl_GetOpponentsResponse> {
+    return self.makeUnaryCall(
+      path: "/bookowl.Goal/GetOpponents",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetOpponentsInterceptors() ?? []
+    )
+  }
+
+  /// Unary call to GetRanking
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetRanking.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getRanking(
+    _ request: Bookowl_GetRankingRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Bookowl_GetRankingRequest, Bookowl_GetRankingResponse> {
+    return self.makeUnaryCall(
+      path: "/bookowl.Goal/GetRanking",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetRankingInterceptors() ?? []
     )
   }
 }
@@ -111,11 +157,17 @@ internal protocol Bookowl_GoalClientInterceptorFactoryProtocol {
   /// - Returns: Interceptors to use when invoking 'createGoal'.
   func makeCreateGoalInterceptors() -> [ClientInterceptor<Bookowl_CreateGoalRequest, Bookowl_CreateGoalResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'getByUserID'.
-  func makeGetByUserIDInterceptors() -> [ClientInterceptor<Bookowl_GetGoalByUserIDRequest, Bookowl_GetGoalsResponse>]
+  /// - Returns: Interceptors to use when invoking 'registerOpponents'.
+  func makeRegisterOpponentsInterceptors() -> [ClientInterceptor<Bookowl_RegisterOpponentsRequest, Bookowl_RegisterOpponentsResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'updateGoalStatus'.
-  func makeUpdateGoalStatusInterceptors() -> [ClientInterceptor<Bookowl_UpdateGoalStatusRequest, Bookowl_UpdateGoalResponse>]
+  /// - Returns: Interceptors to use when invoking 'getGoals'.
+  func makeGetGoalsInterceptors() -> [ClientInterceptor<Bookowl_GetGoalsRequest, Bookowl_GetGoalsResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getOpponents'.
+  func makeGetOpponentsInterceptors() -> [ClientInterceptor<Bookowl_GetOpponentsRequest, Bookowl_GetOpponentsResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getRanking'.
+  func makeGetRankingInterceptors() -> [ClientInterceptor<Bookowl_GetRankingRequest, Bookowl_GetRankingResponse>]
 }
 
 internal final class Bookowl_GoalClient: Bookowl_GoalClientProtocol {
@@ -146,9 +198,13 @@ internal protocol Bookowl_GoalProvider: CallHandlerProvider {
 
   func createGoal(request: Bookowl_CreateGoalRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_CreateGoalResponse>
 
-  func getByUserID(request: Bookowl_GetGoalByUserIDRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetGoalsResponse>
+  func registerOpponents(request: Bookowl_RegisterOpponentsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_RegisterOpponentsResponse>
 
-  func updateGoalStatus(request: Bookowl_UpdateGoalStatusRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_UpdateGoalResponse>
+  func getGoals(request: Bookowl_GetGoalsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetGoalsResponse>
+
+  func getOpponents(request: Bookowl_GetOpponentsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetOpponentsResponse>
+
+  func getRanking(request: Bookowl_GetRankingRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetRankingResponse>
 }
 
 extension Bookowl_GoalProvider {
@@ -170,22 +226,40 @@ extension Bookowl_GoalProvider {
         userFunction: self.createGoal(request:context:)
       )
 
-    case "GetByUserID":
+    case "RegisterOpponents":
       return UnaryServerHandler(
         context: context,
-        requestDeserializer: ProtobufDeserializer<Bookowl_GetGoalByUserIDRequest>(),
-        responseSerializer: ProtobufSerializer<Bookowl_GetGoalsResponse>(),
-        interceptors: self.interceptors?.makeGetByUserIDInterceptors() ?? [],
-        userFunction: self.getByUserID(request:context:)
+        requestDeserializer: ProtobufDeserializer<Bookowl_RegisterOpponentsRequest>(),
+        responseSerializer: ProtobufSerializer<Bookowl_RegisterOpponentsResponse>(),
+        interceptors: self.interceptors?.makeRegisterOpponentsInterceptors() ?? [],
+        userFunction: self.registerOpponents(request:context:)
       )
 
-    case "UpdateGoalStatus":
+    case "GetGoals":
       return UnaryServerHandler(
         context: context,
-        requestDeserializer: ProtobufDeserializer<Bookowl_UpdateGoalStatusRequest>(),
-        responseSerializer: ProtobufSerializer<Bookowl_UpdateGoalResponse>(),
-        interceptors: self.interceptors?.makeUpdateGoalStatusInterceptors() ?? [],
-        userFunction: self.updateGoalStatus(request:context:)
+        requestDeserializer: ProtobufDeserializer<Bookowl_GetGoalsRequest>(),
+        responseSerializer: ProtobufSerializer<Bookowl_GetGoalsResponse>(),
+        interceptors: self.interceptors?.makeGetGoalsInterceptors() ?? [],
+        userFunction: self.getGoals(request:context:)
+      )
+
+    case "GetOpponents":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Bookowl_GetOpponentsRequest>(),
+        responseSerializer: ProtobufSerializer<Bookowl_GetOpponentsResponse>(),
+        interceptors: self.interceptors?.makeGetOpponentsInterceptors() ?? [],
+        userFunction: self.getOpponents(request:context:)
+      )
+
+    case "GetRanking":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Bookowl_GetRankingRequest>(),
+        responseSerializer: ProtobufSerializer<Bookowl_GetRankingResponse>(),
+        interceptors: self.interceptors?.makeGetRankingInterceptors() ?? [],
+        userFunction: self.getRanking(request:context:)
       )
 
     default:
@@ -200,11 +274,19 @@ internal protocol Bookowl_GoalServerInterceptorFactoryProtocol {
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeCreateGoalInterceptors() -> [ServerInterceptor<Bookowl_CreateGoalRequest, Bookowl_CreateGoalResponse>]
 
-  /// - Returns: Interceptors to use when handling 'getByUserID'.
+  /// - Returns: Interceptors to use when handling 'registerOpponents'.
   ///   Defaults to calling `self.makeInterceptors()`.
-  func makeGetByUserIDInterceptors() -> [ServerInterceptor<Bookowl_GetGoalByUserIDRequest, Bookowl_GetGoalsResponse>]
+  func makeRegisterOpponentsInterceptors() -> [ServerInterceptor<Bookowl_RegisterOpponentsRequest, Bookowl_RegisterOpponentsResponse>]
 
-  /// - Returns: Interceptors to use when handling 'updateGoalStatus'.
+  /// - Returns: Interceptors to use when handling 'getGoals'.
   ///   Defaults to calling `self.makeInterceptors()`.
-  func makeUpdateGoalStatusInterceptors() -> [ServerInterceptor<Bookowl_UpdateGoalStatusRequest, Bookowl_UpdateGoalResponse>]
+  func makeGetGoalsInterceptors() -> [ServerInterceptor<Bookowl_GetGoalsRequest, Bookowl_GetGoalsResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getOpponents'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetOpponentsInterceptors() -> [ServerInterceptor<Bookowl_GetOpponentsRequest, Bookowl_GetOpponentsResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getRanking'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetRankingInterceptors() -> [ServerInterceptor<Bookowl_GetRankingRequest, Bookowl_GetRankingResponse>]
 }

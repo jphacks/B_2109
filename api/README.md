@@ -5,19 +5,23 @@
 
 - [protos/book.proto](#protos/book.proto)
     - [BookInfo](#bookowl.BookInfo)
-    - [GetBooksByBookmarkIDRequest](#bookowl.GetBooksByBookmarkIDRequest)
-    - [GetBooksByUserIDRequest](#bookowl.GetBooksByUserIDRequest)
+    - [GetBookmarkStatusRequest](#bookowl.GetBookmarkStatusRequest)
+    - [GetBookmarkStatusResponse](#bookowl.GetBookmarkStatusResponse)
+    - [GetBooksRequest](#bookowl.GetBooksRequest)
     - [GetBooksResponse](#bookowl.GetBooksResponse)
-    - [GetProgressByUserIDRequest](#bookowl.GetProgressByUserIDRequest)
-    - [GetProgressByUserIDResponse](#bookowl.GetProgressByUserIDResponse)
-    - [GetReadAmountPagesByUserIDWithDurationRequest](#bookowl.GetReadAmountPagesByUserIDWithDurationRequest)
-    - [GetReadAmountPagesByUserIDWithDurationResponse](#bookowl.GetReadAmountPagesByUserIDWithDurationResponse)
+    - [GetReadPagesByBookIDRequest](#bookowl.GetReadPagesByBookIDRequest)
+    - [GetReadPagesRequest](#bookowl.GetReadPagesRequest)
+    - [GetReadPagesResponse](#bookowl.GetReadPagesResponse)
+    - [GetReadPagesWithDurationRequest](#bookowl.GetReadPagesWithDurationRequest)
+    - [GetReadPercentageRequest](#bookowl.GetReadPercentageRequest)
+    - [GetReadPercentageResponse](#bookowl.GetReadPercentageResponse)
     - [RegisterBookRequest](#bookowl.RegisterBookRequest)
     - [RegisterBookResponse](#bookowl.RegisterBookResponse)
     - [UpdateBookResponse](#bookowl.UpdateBookResponse)
     - [UpdateBookmarkIDRequest](#bookowl.UpdateBookmarkIDRequest)
     - [UpdateReadStatusRequest](#bookowl.UpdateReadStatusRequest)
   
+    - [BookmarkStatus](#bookowl.BookmarkStatus)
     - [ReadStatus](#bookowl.ReadStatus)
   
     - [Book](#bookowl.Book)
@@ -25,11 +29,17 @@
 - [protos/goal.proto](#protos/goal.proto)
     - [CreateGoalRequest](#bookowl.CreateGoalRequest)
     - [CreateGoalResponse](#bookowl.CreateGoalResponse)
-    - [GetGoalByUserIDRequest](#bookowl.GetGoalByUserIDRequest)
+    - [GetGoalsRequest](#bookowl.GetGoalsRequest)
     - [GetGoalsResponse](#bookowl.GetGoalsResponse)
+    - [GetOpponentsRequest](#bookowl.GetOpponentsRequest)
+    - [GetOpponentsResponse](#bookowl.GetOpponentsResponse)
+    - [GetRankingRequest](#bookowl.GetRankingRequest)
+    - [GetRankingResponse](#bookowl.GetRankingResponse)
     - [GoalInfo](#bookowl.GoalInfo)
-    - [UpdateGoalResponse](#bookowl.UpdateGoalResponse)
-    - [UpdateGoalStatusRequest](#bookowl.UpdateGoalStatusRequest)
+    - [OpponentsInfo](#bookowl.OpponentsInfo)
+    - [RankingInfo](#bookowl.RankingInfo)
+    - [RegisterOpponentsRequest](#bookowl.RegisterOpponentsRequest)
+    - [RegisterOpponentsResponse](#bookowl.RegisterOpponentsResponse)
   
     - [GoalStatus](#bookowl.GoalStatus)
   
@@ -67,8 +77,7 @@
 | isbn | [string](#string) |  |  |
 | name | [string](#string) |  |  |
 | pages | [int64](#int64) |  |  |
-| width_level | [int64](#int64) |  |  |
-| price | [int64](#int64) |  |  |
+| price | [int64](#int64) |  | int64 width_level = 5; |
 | authors | [string](#string) | repeated |  |
 | read_status | [ReadStatus](#bookowl.ReadStatus) |  |  |
 | categories | [string](#string) | repeated |  |
@@ -81,9 +90,9 @@
 
 
 
-<a name="bookowl.GetBooksByBookmarkIDRequest"></a>
+<a name="bookowl.GetBookmarkStatusRequest"></a>
 
-### GetBooksByBookmarkIDRequest
+### GetBookmarkStatusRequest
 
 
 
@@ -96,9 +105,25 @@
 
 
 
-<a name="bookowl.GetBooksByUserIDRequest"></a>
+<a name="bookowl.GetBookmarkStatusResponse"></a>
 
-### GetBooksByUserIDRequest
+### GetBookmarkStatusResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| bookmark_status | [BookmarkStatus](#bookowl.BookmarkStatus) |  |  |
+| time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
+
+
+
+
+
+
+<a name="bookowl.GetBooksRequest"></a>
+
+### GetBooksRequest
 
 
 
@@ -127,9 +152,25 @@
 
 
 
-<a name="bookowl.GetProgressByUserIDRequest"></a>
+<a name="bookowl.GetReadPagesByBookIDRequest"></a>
 
-### GetProgressByUserIDRequest
+### GetReadPagesByBookIDRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_id | [uint64](#uint64) |  |  |
+| book_id | [uint64](#uint64) |  |  |
+
+
+
+
+
+
+<a name="bookowl.GetReadPagesRequest"></a>
+
+### GetReadPagesRequest
 
 
 
@@ -142,15 +183,15 @@
 
 
 
-<a name="bookowl.GetProgressByUserIDResponse"></a>
+<a name="bookowl.GetReadPagesResponse"></a>
 
-### GetProgressByUserIDResponse
+### GetReadPagesResponse
 
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| progress | [float](#float) |  |  |
+| read_pages | [uint64](#uint64) |  |  |
 | time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
 
 
@@ -158,32 +199,47 @@
 
 
 
-<a name="bookowl.GetReadAmountPagesByUserIDWithDurationRequest"></a>
+<a name="bookowl.GetReadPagesWithDurationRequest"></a>
 
-### GetReadAmountPagesByUserIDWithDurationRequest
+### GetReadPagesWithDurationRequest
 
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | user_id | [uint64](#uint64) |  |  |
-| start | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
-| end | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
+| start_time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
+| end_time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
 
 
 
 
 
 
-<a name="bookowl.GetReadAmountPagesByUserIDWithDurationResponse"></a>
+<a name="bookowl.GetReadPercentageRequest"></a>
 
-### GetReadAmountPagesByUserIDWithDurationResponse
+### GetReadPercentageRequest
 
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| pages | [uint64](#uint64) |  |  |
+| user_id | [uint64](#uint64) |  |  |
+
+
+
+
+
+
+<a name="bookowl.GetReadPercentageResponse"></a>
+
+### GetReadPercentageResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| read_percentage | [float](#float) |  |  |
 | time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
 
 
@@ -199,7 +255,7 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| book_info | [BookInfo](#bookowl.BookInfo) |  |  |
+| isbn | [string](#string) |  |  |
 | user_id | [uint64](#uint64) |  |  |
 
 
@@ -249,6 +305,7 @@
 | ----- | ---- | ----- | ----------- |
 | book_id | [uint64](#uint64) |  |  |
 | bookmark_id | [uint64](#uint64) |  |  |
+| book_width | [uint64](#uint64) |  |  |
 
 
 
@@ -271,6 +328,19 @@
 
 
  
+
+
+<a name="bookowl.BookmarkStatus"></a>
+
+### BookmarkStatus
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| BOOKMARK_STATUS_UNSPECIFIED | 0 |  |
+| BOOKMARK_STATUS_GREEN | 1 |  |
+| BOOKMARK_STATUS_RED | 2 |  |
+
 
 
 <a name="bookowl.ReadStatus"></a>
@@ -299,13 +369,15 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| RegisterBook | [RegisterBookRequest](#bookowl.RegisterBookRequest) | [RegisterBookResponse](#bookowl.RegisterBookResponse) | Registering Book |
-| GetBooksByUserID | [GetBooksByUserIDRequest](#bookowl.GetBooksByUserIDRequest) | [GetBooksResponse](#bookowl.GetBooksResponse) |  |
-| GetBooksByBookmarkID | [GetBooksByBookmarkIDRequest](#bookowl.GetBooksByBookmarkIDRequest) | [GetBooksResponse](#bookowl.GetBooksResponse) |  |
+| RegisterBook | [RegisterBookRequest](#bookowl.RegisterBookRequest) | [RegisterBookResponse](#bookowl.RegisterBookResponse) |  |
 | UpdateBookmarkID | [UpdateBookmarkIDRequest](#bookowl.UpdateBookmarkIDRequest) | [UpdateBookResponse](#bookowl.UpdateBookResponse) |  |
 | UpdateReadStatus | [UpdateReadStatusRequest](#bookowl.UpdateReadStatusRequest) | [UpdateBookResponse](#bookowl.UpdateBookResponse) |  |
-| GetProgressByUserID | [GetProgressByUserIDRequest](#bookowl.GetProgressByUserIDRequest) | [GetProgressByUserIDResponse](#bookowl.GetProgressByUserIDResponse) |  |
-| GetReadAmountPagesByUserIDWithDuration | [GetReadAmountPagesByUserIDWithDurationRequest](#bookowl.GetReadAmountPagesByUserIDWithDurationRequest) | [GetReadAmountPagesByUserIDWithDurationResponse](#bookowl.GetReadAmountPagesByUserIDWithDurationResponse) |  |
+| GetBooks | [GetBooksRequest](#bookowl.GetBooksRequest) | [GetBooksResponse](#bookowl.GetBooksResponse) |  |
+| GetReadPercentage | [GetReadPercentageRequest](#bookowl.GetReadPercentageRequest) | [GetReadPercentageResponse](#bookowl.GetReadPercentageResponse) |  |
+| GetReadPages | [GetReadPagesRequest](#bookowl.GetReadPagesRequest) | [GetReadPagesResponse](#bookowl.GetReadPagesResponse) |  |
+| GetReadPagesWithDuration | [GetReadPagesWithDurationRequest](#bookowl.GetReadPagesWithDurationRequest) | [GetReadPagesResponse](#bookowl.GetReadPagesResponse) |  |
+| GetReadPagesByBookID | [GetReadPagesByBookIDRequest](#bookowl.GetReadPagesByBookIDRequest) | [GetReadPagesResponse](#bookowl.GetReadPagesResponse) |  |
+| GetBookmarkStatus | [GetBookmarkStatusRequest](#bookowl.GetBookmarkStatusRequest) | [GetBookmarkStatusResponse](#bookowl.GetBookmarkStatusResponse) |  |
 
  
 
@@ -326,7 +398,9 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| goal_info | [GoalInfo](#bookowl.GoalInfo) |  |  |
+| num_pages | [int64](#int64) |  |  |
+| user_id | [uint64](#uint64) |  |  |
+| time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
 
 
 
@@ -341,7 +415,7 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| goal_id | [uint64](#uint64) |  |  |
+| goal_info | [GoalInfo](#bookowl.GoalInfo) |  |  |
 | time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
 
 
@@ -349,9 +423,9 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 
 
 
-<a name="bookowl.GetGoalByUserIDRequest"></a>
+<a name="bookowl.GetGoalsRequest"></a>
 
-### GetGoalByUserIDRequest
+### GetGoalsRequest
 
 
 
@@ -380,6 +454,68 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 
 
 
+<a name="bookowl.GetOpponentsRequest"></a>
+
+### GetOpponentsRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_id | [uint64](#uint64) |  |  |
+
+
+
+
+
+
+<a name="bookowl.GetOpponentsResponse"></a>
+
+### GetOpponentsResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| opponents | [OpponentsInfo](#bookowl.OpponentsInfo) | repeated |  |
+| time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
+
+
+
+
+
+
+<a name="bookowl.GetRankingRequest"></a>
+
+### GetRankingRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_id | [uint64](#uint64) |  |  |
+
+
+
+
+
+
+<a name="bookowl.GetRankingResponse"></a>
+
+### GetRankingResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| ranking_infos | [RankingInfo](#bookowl.RankingInfo) | repeated |  |
+| time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
+
+
+
+
+
+
 <a name="bookowl.GoalInfo"></a>
 
 ### GoalInfo
@@ -391,8 +527,7 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 | goal_id | [uint64](#uint64) |  |  |
 | start_date | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
 | end_date | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
-| time_amount_minutes | [int64](#int64) |  |  |
-| num_pages | [int64](#int64) |  |  |
+| num_pages | [int64](#int64) |  | int64 time_amount_minutes = 4; |
 | goal_status | [GoalStatus](#bookowl.GoalStatus) |  |  |
 | user_id | [uint64](#uint64) |  |  |
 
@@ -401,32 +536,65 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 
 
 
-<a name="bookowl.UpdateGoalResponse"></a>
+<a name="bookowl.OpponentsInfo"></a>
 
-### UpdateGoalResponse
+### OpponentsInfo
 
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| goal_info | [GoalInfo](#bookowl.GoalInfo) |  |  |
+| id | [uint64](#uint64) |  |  |
+| name | [string](#string) |  |  |
+| read_pages | [uint64](#uint64) |  |  |
+
+
+
+
+
+
+<a name="bookowl.RankingInfo"></a>
+
+### RankingInfo
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [uint64](#uint64) |  |  |
+| name | [string](#string) |  |  |
+| ranking | [uint64](#uint64) |  |  |
+
+
+
+
+
+
+<a name="bookowl.RegisterOpponentsRequest"></a>
+
+### RegisterOpponentsRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_id | [uint64](#uint64) |  |  |
+| opponent_ids | [uint64](#uint64) | repeated |  |
+
+
+
+
+
+
+<a name="bookowl.RegisterOpponentsResponse"></a>
+
+### RegisterOpponentsResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
 | time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
-
-
-
-
-
-
-<a name="bookowl.UpdateGoalStatusRequest"></a>
-
-### UpdateGoalStatusRequest
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| goal_id | [uint64](#uint64) |  |  |
-| goal_status | [GoalStatus](#bookowl.GoalStatus) |  |  |
 
 
 
@@ -462,8 +630,10 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
 | CreateGoal | [CreateGoalRequest](#bookowl.CreateGoalRequest) | [CreateGoalResponse](#bookowl.CreateGoalResponse) |  |
-| GetByUserID | [GetGoalByUserIDRequest](#bookowl.GetGoalByUserIDRequest) | [GetGoalsResponse](#bookowl.GetGoalsResponse) |  |
-| UpdateGoalStatus | [UpdateGoalStatusRequest](#bookowl.UpdateGoalStatusRequest) | [UpdateGoalResponse](#bookowl.UpdateGoalResponse) |  |
+| RegisterOpponents | [RegisterOpponentsRequest](#bookowl.RegisterOpponentsRequest) | [RegisterOpponentsResponse](#bookowl.RegisterOpponentsResponse) |  |
+| GetGoals | [GetGoalsRequest](#bookowl.GetGoalsRequest) | [GetGoalsResponse](#bookowl.GetGoalsResponse) |  |
+| GetOpponents | [GetOpponentsRequest](#bookowl.GetOpponentsRequest) | [GetOpponentsResponse](#bookowl.GetOpponentsResponse) |  |
+| GetRanking | [GetRankingRequest](#bookowl.GetRankingRequest) | [GetRankingResponse](#bookowl.GetRankingResponse) |  |
 
  
 
