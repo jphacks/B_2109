@@ -18,14 +18,15 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type BookClient interface {
-	// Registering Book
 	RegisterBook(ctx context.Context, in *RegisterBookRequest, opts ...grpc.CallOption) (*RegisterBookResponse, error)
-	GetBooksByUserID(ctx context.Context, in *GetBooksByUserIDRequest, opts ...grpc.CallOption) (*GetBooksResponse, error)
-	GetBooksByBookmarkID(ctx context.Context, in *GetBooksByBookmarkIDRequest, opts ...grpc.CallOption) (*GetBooksResponse, error)
 	UpdateBookmarkID(ctx context.Context, in *UpdateBookmarkIDRequest, opts ...grpc.CallOption) (*UpdateBookResponse, error)
 	UpdateReadStatus(ctx context.Context, in *UpdateReadStatusRequest, opts ...grpc.CallOption) (*UpdateBookResponse, error)
-	GetProgressByUserID(ctx context.Context, in *GetProgressByUserIDRequest, opts ...grpc.CallOption) (*GetProgressByUserIDResponse, error)
-	GetReadAmountPagesByUserIDWithDuration(ctx context.Context, in *GetReadAmountPagesByUserIDWithDurationRequest, opts ...grpc.CallOption) (*GetReadAmountPagesByUserIDWithDurationResponse, error)
+	GetBooks(ctx context.Context, in *GetBooksRequest, opts ...grpc.CallOption) (*GetBooksResponse, error)
+	GetReadPercentage(ctx context.Context, in *GetReadPercentageRequest, opts ...grpc.CallOption) (*GetReadPercentageResponse, error)
+	GetReadPages(ctx context.Context, in *GetReadPagesRequest, opts ...grpc.CallOption) (*GetReadPagesResponse, error)
+	GetReadPagesWithDuration(ctx context.Context, in *GetReadPagesWithDurationRequest, opts ...grpc.CallOption) (*GetReadPagesResponse, error)
+	GetReadPagesByBookID(ctx context.Context, in *GetReadPagesByBookIDRequest, opts ...grpc.CallOption) (*GetReadPagesResponse, error)
+	GetBookmarkStatus(ctx context.Context, in *GetBookmarkStatusRequest, opts ...grpc.CallOption) (*GetBookmarkStatusResponse, error)
 }
 
 type bookClient struct {
@@ -39,24 +40,6 @@ func NewBookClient(cc grpc.ClientConnInterface) BookClient {
 func (c *bookClient) RegisterBook(ctx context.Context, in *RegisterBookRequest, opts ...grpc.CallOption) (*RegisterBookResponse, error) {
 	out := new(RegisterBookResponse)
 	err := c.cc.Invoke(ctx, "/bookowl.Book/RegisterBook", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *bookClient) GetBooksByUserID(ctx context.Context, in *GetBooksByUserIDRequest, opts ...grpc.CallOption) (*GetBooksResponse, error) {
-	out := new(GetBooksResponse)
-	err := c.cc.Invoke(ctx, "/bookowl.Book/GetBooksByUserID", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *bookClient) GetBooksByBookmarkID(ctx context.Context, in *GetBooksByBookmarkIDRequest, opts ...grpc.CallOption) (*GetBooksResponse, error) {
-	out := new(GetBooksResponse)
-	err := c.cc.Invoke(ctx, "/bookowl.Book/GetBooksByBookmarkID", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -81,18 +64,54 @@ func (c *bookClient) UpdateReadStatus(ctx context.Context, in *UpdateReadStatusR
 	return out, nil
 }
 
-func (c *bookClient) GetProgressByUserID(ctx context.Context, in *GetProgressByUserIDRequest, opts ...grpc.CallOption) (*GetProgressByUserIDResponse, error) {
-	out := new(GetProgressByUserIDResponse)
-	err := c.cc.Invoke(ctx, "/bookowl.Book/GetProgressByUserID", in, out, opts...)
+func (c *bookClient) GetBooks(ctx context.Context, in *GetBooksRequest, opts ...grpc.CallOption) (*GetBooksResponse, error) {
+	out := new(GetBooksResponse)
+	err := c.cc.Invoke(ctx, "/bookowl.Book/GetBooks", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *bookClient) GetReadAmountPagesByUserIDWithDuration(ctx context.Context, in *GetReadAmountPagesByUserIDWithDurationRequest, opts ...grpc.CallOption) (*GetReadAmountPagesByUserIDWithDurationResponse, error) {
-	out := new(GetReadAmountPagesByUserIDWithDurationResponse)
-	err := c.cc.Invoke(ctx, "/bookowl.Book/GetReadAmountPagesByUserIDWithDuration", in, out, opts...)
+func (c *bookClient) GetReadPercentage(ctx context.Context, in *GetReadPercentageRequest, opts ...grpc.CallOption) (*GetReadPercentageResponse, error) {
+	out := new(GetReadPercentageResponse)
+	err := c.cc.Invoke(ctx, "/bookowl.Book/GetReadPercentage", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *bookClient) GetReadPages(ctx context.Context, in *GetReadPagesRequest, opts ...grpc.CallOption) (*GetReadPagesResponse, error) {
+	out := new(GetReadPagesResponse)
+	err := c.cc.Invoke(ctx, "/bookowl.Book/GetReadPages", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *bookClient) GetReadPagesWithDuration(ctx context.Context, in *GetReadPagesWithDurationRequest, opts ...grpc.CallOption) (*GetReadPagesResponse, error) {
+	out := new(GetReadPagesResponse)
+	err := c.cc.Invoke(ctx, "/bookowl.Book/GetReadPagesWithDuration", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *bookClient) GetReadPagesByBookID(ctx context.Context, in *GetReadPagesByBookIDRequest, opts ...grpc.CallOption) (*GetReadPagesResponse, error) {
+	out := new(GetReadPagesResponse)
+	err := c.cc.Invoke(ctx, "/bookowl.Book/GetReadPagesByBookID", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *bookClient) GetBookmarkStatus(ctx context.Context, in *GetBookmarkStatusRequest, opts ...grpc.CallOption) (*GetBookmarkStatusResponse, error) {
+	out := new(GetBookmarkStatusResponse)
+	err := c.cc.Invoke(ctx, "/bookowl.Book/GetBookmarkStatus", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -103,14 +122,15 @@ func (c *bookClient) GetReadAmountPagesByUserIDWithDuration(ctx context.Context,
 // All implementations must embed UnimplementedBookServer
 // for forward compatibility
 type BookServer interface {
-	// Registering Book
 	RegisterBook(context.Context, *RegisterBookRequest) (*RegisterBookResponse, error)
-	GetBooksByUserID(context.Context, *GetBooksByUserIDRequest) (*GetBooksResponse, error)
-	GetBooksByBookmarkID(context.Context, *GetBooksByBookmarkIDRequest) (*GetBooksResponse, error)
 	UpdateBookmarkID(context.Context, *UpdateBookmarkIDRequest) (*UpdateBookResponse, error)
 	UpdateReadStatus(context.Context, *UpdateReadStatusRequest) (*UpdateBookResponse, error)
-	GetProgressByUserID(context.Context, *GetProgressByUserIDRequest) (*GetProgressByUserIDResponse, error)
-	GetReadAmountPagesByUserIDWithDuration(context.Context, *GetReadAmountPagesByUserIDWithDurationRequest) (*GetReadAmountPagesByUserIDWithDurationResponse, error)
+	GetBooks(context.Context, *GetBooksRequest) (*GetBooksResponse, error)
+	GetReadPercentage(context.Context, *GetReadPercentageRequest) (*GetReadPercentageResponse, error)
+	GetReadPages(context.Context, *GetReadPagesRequest) (*GetReadPagesResponse, error)
+	GetReadPagesWithDuration(context.Context, *GetReadPagesWithDurationRequest) (*GetReadPagesResponse, error)
+	GetReadPagesByBookID(context.Context, *GetReadPagesByBookIDRequest) (*GetReadPagesResponse, error)
+	GetBookmarkStatus(context.Context, *GetBookmarkStatusRequest) (*GetBookmarkStatusResponse, error)
 	mustEmbedUnimplementedBookServer()
 }
 
@@ -121,23 +141,29 @@ type UnimplementedBookServer struct {
 func (UnimplementedBookServer) RegisterBook(context.Context, *RegisterBookRequest) (*RegisterBookResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RegisterBook not implemented")
 }
-func (UnimplementedBookServer) GetBooksByUserID(context.Context, *GetBooksByUserIDRequest) (*GetBooksResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetBooksByUserID not implemented")
-}
-func (UnimplementedBookServer) GetBooksByBookmarkID(context.Context, *GetBooksByBookmarkIDRequest) (*GetBooksResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetBooksByBookmarkID not implemented")
-}
 func (UnimplementedBookServer) UpdateBookmarkID(context.Context, *UpdateBookmarkIDRequest) (*UpdateBookResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateBookmarkID not implemented")
 }
 func (UnimplementedBookServer) UpdateReadStatus(context.Context, *UpdateReadStatusRequest) (*UpdateBookResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateReadStatus not implemented")
 }
-func (UnimplementedBookServer) GetProgressByUserID(context.Context, *GetProgressByUserIDRequest) (*GetProgressByUserIDResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetProgressByUserID not implemented")
+func (UnimplementedBookServer) GetBooks(context.Context, *GetBooksRequest) (*GetBooksResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetBooks not implemented")
 }
-func (UnimplementedBookServer) GetReadAmountPagesByUserIDWithDuration(context.Context, *GetReadAmountPagesByUserIDWithDurationRequest) (*GetReadAmountPagesByUserIDWithDurationResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetReadAmountPagesByUserIDWithDuration not implemented")
+func (UnimplementedBookServer) GetReadPercentage(context.Context, *GetReadPercentageRequest) (*GetReadPercentageResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetReadPercentage not implemented")
+}
+func (UnimplementedBookServer) GetReadPages(context.Context, *GetReadPagesRequest) (*GetReadPagesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetReadPages not implemented")
+}
+func (UnimplementedBookServer) GetReadPagesWithDuration(context.Context, *GetReadPagesWithDurationRequest) (*GetReadPagesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetReadPagesWithDuration not implemented")
+}
+func (UnimplementedBookServer) GetReadPagesByBookID(context.Context, *GetReadPagesByBookIDRequest) (*GetReadPagesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetReadPagesByBookID not implemented")
+}
+func (UnimplementedBookServer) GetBookmarkStatus(context.Context, *GetBookmarkStatusRequest) (*GetBookmarkStatusResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetBookmarkStatus not implemented")
 }
 func (UnimplementedBookServer) mustEmbedUnimplementedBookServer() {}
 
@@ -166,42 +192,6 @@ func _Book_RegisterBook_Handler(srv interface{}, ctx context.Context, dec func(i
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BookServer).RegisterBook(ctx, req.(*RegisterBookRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Book_GetBooksByUserID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetBooksByUserIDRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(BookServer).GetBooksByUserID(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/bookowl.Book/GetBooksByUserID",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BookServer).GetBooksByUserID(ctx, req.(*GetBooksByUserIDRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Book_GetBooksByBookmarkID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetBooksByBookmarkIDRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(BookServer).GetBooksByBookmarkID(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/bookowl.Book/GetBooksByBookmarkID",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BookServer).GetBooksByBookmarkID(ctx, req.(*GetBooksByBookmarkIDRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -242,38 +232,110 @@ func _Book_UpdateReadStatus_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Book_GetProgressByUserID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetProgressByUserIDRequest)
+func _Book_GetBooks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetBooksRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(BookServer).GetProgressByUserID(ctx, in)
+		return srv.(BookServer).GetBooks(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/bookowl.Book/GetProgressByUserID",
+		FullMethod: "/bookowl.Book/GetBooks",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BookServer).GetProgressByUserID(ctx, req.(*GetProgressByUserIDRequest))
+		return srv.(BookServer).GetBooks(ctx, req.(*GetBooksRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Book_GetReadAmountPagesByUserIDWithDuration_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetReadAmountPagesByUserIDWithDurationRequest)
+func _Book_GetReadPercentage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetReadPercentageRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(BookServer).GetReadAmountPagesByUserIDWithDuration(ctx, in)
+		return srv.(BookServer).GetReadPercentage(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/bookowl.Book/GetReadAmountPagesByUserIDWithDuration",
+		FullMethod: "/bookowl.Book/GetReadPercentage",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BookServer).GetReadAmountPagesByUserIDWithDuration(ctx, req.(*GetReadAmountPagesByUserIDWithDurationRequest))
+		return srv.(BookServer).GetReadPercentage(ctx, req.(*GetReadPercentageRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Book_GetReadPages_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetReadPagesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BookServer).GetReadPages(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bookowl.Book/GetReadPages",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BookServer).GetReadPages(ctx, req.(*GetReadPagesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Book_GetReadPagesWithDuration_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetReadPagesWithDurationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BookServer).GetReadPagesWithDuration(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bookowl.Book/GetReadPagesWithDuration",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BookServer).GetReadPagesWithDuration(ctx, req.(*GetReadPagesWithDurationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Book_GetReadPagesByBookID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetReadPagesByBookIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BookServer).GetReadPagesByBookID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bookowl.Book/GetReadPagesByBookID",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BookServer).GetReadPagesByBookID(ctx, req.(*GetReadPagesByBookIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Book_GetBookmarkStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetBookmarkStatusRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BookServer).GetBookmarkStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bookowl.Book/GetBookmarkStatus",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BookServer).GetBookmarkStatus(ctx, req.(*GetBookmarkStatusRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -290,14 +352,6 @@ var Book_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Book_RegisterBook_Handler,
 		},
 		{
-			MethodName: "GetBooksByUserID",
-			Handler:    _Book_GetBooksByUserID_Handler,
-		},
-		{
-			MethodName: "GetBooksByBookmarkID",
-			Handler:    _Book_GetBooksByBookmarkID_Handler,
-		},
-		{
 			MethodName: "UpdateBookmarkID",
 			Handler:    _Book_UpdateBookmarkID_Handler,
 		},
@@ -306,12 +360,28 @@ var Book_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Book_UpdateReadStatus_Handler,
 		},
 		{
-			MethodName: "GetProgressByUserID",
-			Handler:    _Book_GetProgressByUserID_Handler,
+			MethodName: "GetBooks",
+			Handler:    _Book_GetBooks_Handler,
 		},
 		{
-			MethodName: "GetReadAmountPagesByUserIDWithDuration",
-			Handler:    _Book_GetReadAmountPagesByUserIDWithDuration_Handler,
+			MethodName: "GetReadPercentage",
+			Handler:    _Book_GetReadPercentage_Handler,
+		},
+		{
+			MethodName: "GetReadPages",
+			Handler:    _Book_GetReadPages_Handler,
+		},
+		{
+			MethodName: "GetReadPagesWithDuration",
+			Handler:    _Book_GetReadPagesWithDuration_Handler,
+		},
+		{
+			MethodName: "GetReadPagesByBookID",
+			Handler:    _Book_GetReadPagesByBookID_Handler,
+		},
+		{
+			MethodName: "GetBookmarkStatus",
+			Handler:    _Book_GetBookmarkStatus_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

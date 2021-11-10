@@ -19,15 +19,25 @@ class GoalStub(object):
                 request_serializer=goal__pb2.CreateGoalRequest.SerializeToString,
                 response_deserializer=goal__pb2.CreateGoalResponse.FromString,
                 )
-        self.GetByUserID = channel.unary_unary(
-                '/bookowl.Goal/GetByUserID',
-                request_serializer=goal__pb2.GetGoalByUserIDRequest.SerializeToString,
+        self.RegisterOpponents = channel.unary_unary(
+                '/bookowl.Goal/RegisterOpponents',
+                request_serializer=goal__pb2.RegisterOpponentsRequest.SerializeToString,
+                response_deserializer=goal__pb2.RegisterOpponentsResponse.FromString,
+                )
+        self.GetGoals = channel.unary_unary(
+                '/bookowl.Goal/GetGoals',
+                request_serializer=goal__pb2.GetGoalsRequest.SerializeToString,
                 response_deserializer=goal__pb2.GetGoalsResponse.FromString,
                 )
-        self.UpdateGoalStatus = channel.unary_unary(
-                '/bookowl.Goal/UpdateGoalStatus',
-                request_serializer=goal__pb2.UpdateGoalStatusRequest.SerializeToString,
-                response_deserializer=goal__pb2.UpdateGoalResponse.FromString,
+        self.GetOpponents = channel.unary_unary(
+                '/bookowl.Goal/GetOpponents',
+                request_serializer=goal__pb2.GetOpponentsRequest.SerializeToString,
+                response_deserializer=goal__pb2.GetOpponentsResponse.FromString,
+                )
+        self.GetRanking = channel.unary_unary(
+                '/bookowl.Goal/GetRanking',
+                request_serializer=goal__pb2.GetRankingRequest.SerializeToString,
+                response_deserializer=goal__pb2.GetRankingResponse.FromString,
                 )
 
 
@@ -40,13 +50,25 @@ class GoalServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetByUserID(self, request, context):
+    def RegisterOpponents(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def UpdateGoalStatus(self, request, context):
+    def GetGoals(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetOpponents(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetRanking(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -60,15 +82,25 @@ def add_GoalServicer_to_server(servicer, server):
                     request_deserializer=goal__pb2.CreateGoalRequest.FromString,
                     response_serializer=goal__pb2.CreateGoalResponse.SerializeToString,
             ),
-            'GetByUserID': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetByUserID,
-                    request_deserializer=goal__pb2.GetGoalByUserIDRequest.FromString,
+            'RegisterOpponents': grpc.unary_unary_rpc_method_handler(
+                    servicer.RegisterOpponents,
+                    request_deserializer=goal__pb2.RegisterOpponentsRequest.FromString,
+                    response_serializer=goal__pb2.RegisterOpponentsResponse.SerializeToString,
+            ),
+            'GetGoals': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetGoals,
+                    request_deserializer=goal__pb2.GetGoalsRequest.FromString,
                     response_serializer=goal__pb2.GetGoalsResponse.SerializeToString,
             ),
-            'UpdateGoalStatus': grpc.unary_unary_rpc_method_handler(
-                    servicer.UpdateGoalStatus,
-                    request_deserializer=goal__pb2.UpdateGoalStatusRequest.FromString,
-                    response_serializer=goal__pb2.UpdateGoalResponse.SerializeToString,
+            'GetOpponents': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetOpponents,
+                    request_deserializer=goal__pb2.GetOpponentsRequest.FromString,
+                    response_serializer=goal__pb2.GetOpponentsResponse.SerializeToString,
+            ),
+            'GetRanking': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetRanking,
+                    request_deserializer=goal__pb2.GetRankingRequest.FromString,
+                    response_serializer=goal__pb2.GetRankingResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -98,7 +130,7 @@ class Goal(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def GetByUserID(request,
+    def RegisterOpponents(request,
             target,
             options=(),
             channel_credentials=None,
@@ -108,14 +140,31 @@ class Goal(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/bookowl.Goal/GetByUserID',
-            goal__pb2.GetGoalByUserIDRequest.SerializeToString,
+        return grpc.experimental.unary_unary(request, target, '/bookowl.Goal/RegisterOpponents',
+            goal__pb2.RegisterOpponentsRequest.SerializeToString,
+            goal__pb2.RegisterOpponentsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetGoals(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/bookowl.Goal/GetGoals',
+            goal__pb2.GetGoalsRequest.SerializeToString,
             goal__pb2.GetGoalsResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def UpdateGoalStatus(request,
+    def GetOpponents(request,
             target,
             options=(),
             channel_credentials=None,
@@ -125,8 +174,25 @@ class Goal(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/bookowl.Goal/UpdateGoalStatus',
-            goal__pb2.UpdateGoalStatusRequest.SerializeToString,
-            goal__pb2.UpdateGoalResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/bookowl.Goal/GetOpponents',
+            goal__pb2.GetOpponentsRequest.SerializeToString,
+            goal__pb2.GetOpponentsResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetRanking(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/bookowl.Goal/GetRanking',
+            goal__pb2.GetRankingRequest.SerializeToString,
+            goal__pb2.GetRankingResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

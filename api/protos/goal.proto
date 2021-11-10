@@ -10,21 +10,36 @@ service Goal {
 
   rpc CreateGoal(CreateGoalRequest) returns (CreateGoalResponse);
 
-  rpc GetByUserID(GetGoalByUserIDRequest) returns (GetGoalsResponse);
+  rpc RegisterOpponents(RegisterOpponentsRequest) returns (RegisterOpponentsResponse);
 
-  rpc UpdateGoalStatus(UpdateGoalStatusRequest) returns (UpdateGoalResponse);
+  rpc GetGoals(GetGoalsRequest) returns (GetGoalsResponse);
+
+  rpc GetOpponents(GetOpponentsRequest) returns (GetOpponentsResponse);
+
+  rpc GetRanking(GetRankingRequest) returns (GetRankingResponse);
 }
 
 message CreateGoalRequest {
-  GoalInfo goal_info = 1;
+  int64 num_pages = 1;
+  uint64 user_id = 2;
+  google.protobuf.Timestamp time = 3;
 }
 
 message CreateGoalResponse {
-  uint64 goal_id = 1;
+  GoalInfo goal_info = 1;
   google.protobuf.Timestamp time = 2;
 }
 
-message GetGoalByUserIDRequest {
+message RegisterOpponentsRequest {
+  uint64 user_id = 1;
+  repeated uint64 opponent_ids = 2;
+}
+
+message RegisterOpponentsResponse {
+  google.protobuf.Timestamp time = 1;
+}
+
+message GetGoalsRequest {
   uint64 user_id = 1;
 }
 
@@ -33,14 +48,23 @@ message GetGoalsResponse{
   google.protobuf.Timestamp time = 2;
 }
 
-message UpdateGoalStatusRequest{
-  uint64 goal_id = 1;
-  GoalStatus goal_status = 2;
+message GetOpponentsRequest {
+  uint64 user_id = 1;
 }
 
-message UpdateGoalResponse {
-  GoalInfo goal_info = 1;
+message GetOpponentsResponse {
+  repeated OpponentsInfo opponents = 1;
   google.protobuf.Timestamp time = 2;
+}
+
+message GetRankingRequest {
+  uint64 user_id = 1;
+}
+
+message GetRankingResponse {
+  repeated RankingInfo ranking_infos = 1;
+  google.protobuf.Timestamp time = 2;
+
 }
 
 enum GoalStatus{
@@ -52,11 +76,25 @@ enum GoalStatus{
 }
 
 message GoalInfo{
+  reserved 4;
+
   uint64 goal_id = 1;
   google.protobuf.Timestamp start_date = 2;
   google.protobuf.Timestamp end_date = 3;
-  int64 time_amount_minutes = 4;
+  //  int64 time_amount_minutes = 4;
   int64 num_pages = 5;
   GoalStatus goal_status = 6;
   uint64 user_id = 7;
+}
+
+message OpponentsInfo {
+  uint64 id = 1;
+  string name = 2;
+  uint64 read_pages = 3;
+}
+
+message RankingInfo {
+  uint64 id = 1;
+  string name = 2;
+  uint64 ranking = 3;
 }

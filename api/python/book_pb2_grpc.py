@@ -19,16 +19,6 @@ class BookStub(object):
                 request_serializer=book__pb2.RegisterBookRequest.SerializeToString,
                 response_deserializer=book__pb2.RegisterBookResponse.FromString,
                 )
-        self.GetBooksByUserID = channel.unary_unary(
-                '/bookowl.Book/GetBooksByUserID',
-                request_serializer=book__pb2.GetBooksByUserIDRequest.SerializeToString,
-                response_deserializer=book__pb2.GetBooksResponse.FromString,
-                )
-        self.GetBooksByBookmarkID = channel.unary_unary(
-                '/bookowl.Book/GetBooksByBookmarkID',
-                request_serializer=book__pb2.GetBooksByBookmarkIDRequest.SerializeToString,
-                response_deserializer=book__pb2.GetBooksResponse.FromString,
-                )
         self.UpdateBookmarkID = channel.unary_unary(
                 '/bookowl.Book/UpdateBookmarkID',
                 request_serializer=book__pb2.UpdateBookmarkIDRequest.SerializeToString,
@@ -39,15 +29,35 @@ class BookStub(object):
                 request_serializer=book__pb2.UpdateReadStatusRequest.SerializeToString,
                 response_deserializer=book__pb2.UpdateBookResponse.FromString,
                 )
-        self.GetProgressByUserID = channel.unary_unary(
-                '/bookowl.Book/GetProgressByUserID',
-                request_serializer=book__pb2.GetProgressByUserIDRequest.SerializeToString,
-                response_deserializer=book__pb2.GetProgressByUserIDResponse.FromString,
+        self.GetBooks = channel.unary_unary(
+                '/bookowl.Book/GetBooks',
+                request_serializer=book__pb2.GetBooksRequest.SerializeToString,
+                response_deserializer=book__pb2.GetBooksResponse.FromString,
                 )
-        self.GetReadAmountPagesByUserIDWithDuration = channel.unary_unary(
-                '/bookowl.Book/GetReadAmountPagesByUserIDWithDuration',
-                request_serializer=book__pb2.GetReadAmountPagesByUserIDWithDurationRequest.SerializeToString,
-                response_deserializer=book__pb2.GetReadAmountPagesByUserIDWithDurationResponse.FromString,
+        self.GetReadPercentage = channel.unary_unary(
+                '/bookowl.Book/GetReadPercentage',
+                request_serializer=book__pb2.GetReadPercentageRequest.SerializeToString,
+                response_deserializer=book__pb2.GetReadPercentageResponse.FromString,
+                )
+        self.GetReadPages = channel.unary_unary(
+                '/bookowl.Book/GetReadPages',
+                request_serializer=book__pb2.GetReadPagesRequest.SerializeToString,
+                response_deserializer=book__pb2.GetReadPagesResponse.FromString,
+                )
+        self.GetReadPagesWithDuration = channel.unary_unary(
+                '/bookowl.Book/GetReadPagesWithDuration',
+                request_serializer=book__pb2.GetReadPagesWithDurationRequest.SerializeToString,
+                response_deserializer=book__pb2.GetReadPagesResponse.FromString,
+                )
+        self.GetReadPagesByBookID = channel.unary_unary(
+                '/bookowl.Book/GetReadPagesByBookID',
+                request_serializer=book__pb2.GetReadPagesByBookIDRequest.SerializeToString,
+                response_deserializer=book__pb2.GetReadPagesResponse.FromString,
+                )
+        self.GetBookmarkStatus = channel.unary_unary(
+                '/bookowl.Book/GetBookmarkStatus',
+                request_serializer=book__pb2.GetBookmarkStatusRequest.SerializeToString,
+                response_deserializer=book__pb2.GetBookmarkStatusResponse.FromString,
                 )
 
 
@@ -55,19 +65,6 @@ class BookServicer(object):
     """Missing associated documentation comment in .proto file."""
 
     def RegisterBook(self, request, context):
-        """Registering Book
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def GetBooksByUserID(self, request, context):
-        """Missing associated documentation comment in .proto file."""
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
-    def GetBooksByBookmarkID(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -85,13 +82,37 @@ class BookServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetProgressByUserID(self, request, context):
+    def GetBooks(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetReadAmountPagesByUserIDWithDuration(self, request, context):
+    def GetReadPercentage(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetReadPages(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetReadPagesWithDuration(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetReadPagesByBookID(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetBookmarkStatus(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -105,16 +126,6 @@ def add_BookServicer_to_server(servicer, server):
                     request_deserializer=book__pb2.RegisterBookRequest.FromString,
                     response_serializer=book__pb2.RegisterBookResponse.SerializeToString,
             ),
-            'GetBooksByUserID': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetBooksByUserID,
-                    request_deserializer=book__pb2.GetBooksByUserIDRequest.FromString,
-                    response_serializer=book__pb2.GetBooksResponse.SerializeToString,
-            ),
-            'GetBooksByBookmarkID': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetBooksByBookmarkID,
-                    request_deserializer=book__pb2.GetBooksByBookmarkIDRequest.FromString,
-                    response_serializer=book__pb2.GetBooksResponse.SerializeToString,
-            ),
             'UpdateBookmarkID': grpc.unary_unary_rpc_method_handler(
                     servicer.UpdateBookmarkID,
                     request_deserializer=book__pb2.UpdateBookmarkIDRequest.FromString,
@@ -125,15 +136,35 @@ def add_BookServicer_to_server(servicer, server):
                     request_deserializer=book__pb2.UpdateReadStatusRequest.FromString,
                     response_serializer=book__pb2.UpdateBookResponse.SerializeToString,
             ),
-            'GetProgressByUserID': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetProgressByUserID,
-                    request_deserializer=book__pb2.GetProgressByUserIDRequest.FromString,
-                    response_serializer=book__pb2.GetProgressByUserIDResponse.SerializeToString,
+            'GetBooks': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetBooks,
+                    request_deserializer=book__pb2.GetBooksRequest.FromString,
+                    response_serializer=book__pb2.GetBooksResponse.SerializeToString,
             ),
-            'GetReadAmountPagesByUserIDWithDuration': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetReadAmountPagesByUserIDWithDuration,
-                    request_deserializer=book__pb2.GetReadAmountPagesByUserIDWithDurationRequest.FromString,
-                    response_serializer=book__pb2.GetReadAmountPagesByUserIDWithDurationResponse.SerializeToString,
+            'GetReadPercentage': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetReadPercentage,
+                    request_deserializer=book__pb2.GetReadPercentageRequest.FromString,
+                    response_serializer=book__pb2.GetReadPercentageResponse.SerializeToString,
+            ),
+            'GetReadPages': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetReadPages,
+                    request_deserializer=book__pb2.GetReadPagesRequest.FromString,
+                    response_serializer=book__pb2.GetReadPagesResponse.SerializeToString,
+            ),
+            'GetReadPagesWithDuration': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetReadPagesWithDuration,
+                    request_deserializer=book__pb2.GetReadPagesWithDurationRequest.FromString,
+                    response_serializer=book__pb2.GetReadPagesResponse.SerializeToString,
+            ),
+            'GetReadPagesByBookID': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetReadPagesByBookID,
+                    request_deserializer=book__pb2.GetReadPagesByBookIDRequest.FromString,
+                    response_serializer=book__pb2.GetReadPagesResponse.SerializeToString,
+            ),
+            'GetBookmarkStatus': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetBookmarkStatus,
+                    request_deserializer=book__pb2.GetBookmarkStatusRequest.FromString,
+                    response_serializer=book__pb2.GetBookmarkStatusResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -159,40 +190,6 @@ class Book(object):
         return grpc.experimental.unary_unary(request, target, '/bookowl.Book/RegisterBook',
             book__pb2.RegisterBookRequest.SerializeToString,
             book__pb2.RegisterBookResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def GetBooksByUserID(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/bookowl.Book/GetBooksByUserID',
-            book__pb2.GetBooksByUserIDRequest.SerializeToString,
-            book__pb2.GetBooksResponse.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
-    def GetBooksByBookmarkID(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/bookowl.Book/GetBooksByBookmarkID',
-            book__pb2.GetBooksByBookmarkIDRequest.SerializeToString,
-            book__pb2.GetBooksResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -231,7 +228,7 @@ class Book(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def GetProgressByUserID(request,
+    def GetBooks(request,
             target,
             options=(),
             channel_credentials=None,
@@ -241,14 +238,14 @@ class Book(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/bookowl.Book/GetProgressByUserID',
-            book__pb2.GetProgressByUserIDRequest.SerializeToString,
-            book__pb2.GetProgressByUserIDResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/bookowl.Book/GetBooks',
+            book__pb2.GetBooksRequest.SerializeToString,
+            book__pb2.GetBooksResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def GetReadAmountPagesByUserIDWithDuration(request,
+    def GetReadPercentage(request,
             target,
             options=(),
             channel_credentials=None,
@@ -258,8 +255,76 @@ class Book(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/bookowl.Book/GetReadAmountPagesByUserIDWithDuration',
-            book__pb2.GetReadAmountPagesByUserIDWithDurationRequest.SerializeToString,
-            book__pb2.GetReadAmountPagesByUserIDWithDurationResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/bookowl.Book/GetReadPercentage',
+            book__pb2.GetReadPercentageRequest.SerializeToString,
+            book__pb2.GetReadPercentageResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetReadPages(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/bookowl.Book/GetReadPages',
+            book__pb2.GetReadPagesRequest.SerializeToString,
+            book__pb2.GetReadPagesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetReadPagesWithDuration(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/bookowl.Book/GetReadPagesWithDuration',
+            book__pb2.GetReadPagesWithDurationRequest.SerializeToString,
+            book__pb2.GetReadPagesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetReadPagesByBookID(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/bookowl.Book/GetReadPagesByBookID',
+            book__pb2.GetReadPagesByBookIDRequest.SerializeToString,
+            book__pb2.GetReadPagesResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetBookmarkStatus(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/bookowl.Book/GetBookmarkStatus',
+            book__pb2.GetBookmarkStatusRequest.SerializeToString,
+            book__pb2.GetBookmarkStatusResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

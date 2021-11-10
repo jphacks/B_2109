@@ -73,27 +73,62 @@ extension Bookowl_ReadStatus: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+enum Bookowl_BookmarkStatus: SwiftProtobuf.Enum {
+  typealias RawValue = Int
+  case unspecified // = 0
+  case green // = 1
+  case red // = 2
+  case UNRECOGNIZED(Int)
+
+  init() {
+    self = .unspecified
+  }
+
+  init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .unspecified
+    case 1: self = .green
+    case 2: self = .red
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  var rawValue: Int {
+    switch self {
+    case .unspecified: return 0
+    case .green: return 1
+    case .red: return 2
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension Bookowl_BookmarkStatus: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [Bookowl_BookmarkStatus] = [
+    .unspecified,
+    .green,
+    .red,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 struct Bookowl_RegisterBookRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var bookInfo: Bookowl_BookInfo {
-    get {return _bookInfo ?? Bookowl_BookInfo()}
-    set {_bookInfo = newValue}
-  }
-  /// Returns true if `bookInfo` has been explicitly set.
-  var hasBookInfo: Bool {return self._bookInfo != nil}
-  /// Clears the value of `bookInfo`. Subsequent reads from it will return its default value.
-  mutating func clearBookInfo() {self._bookInfo = nil}
+  var isbn: String = String()
 
   var userID: UInt64 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
-
-  fileprivate var _bookInfo: Bookowl_BookInfo? = nil
 }
 
 struct Bookowl_RegisterBookResponse {
@@ -127,51 +162,20 @@ struct Bookowl_RegisterBookResponse {
   fileprivate var _time: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
 }
 
-struct Bookowl_GetBooksByUserIDRequest {
+struct Bookowl_UpdateBookmarkIDRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var userID: UInt64 = 0
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-}
-
-struct Bookowl_GetBooksByBookmarkIDRequest {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
+  var bookID: UInt64 = 0
 
   var bookmarkID: UInt64 = 0
 
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-}
-
-struct Bookowl_GetBooksResponse {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  var booksInfo: [Bookowl_BookInfo] = []
-
-  var time: SwiftProtobuf.Google_Protobuf_Timestamp {
-    get {return _time ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
-    set {_time = newValue}
-  }
-  /// Returns true if `time` has been explicitly set.
-  var hasTime: Bool {return self._time != nil}
-  /// Clears the value of `time`. Subsequent reads from it will return its default value.
-  mutating func clearTime() {self._time = nil}
+  var bookWidth: UInt64 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
-
-  fileprivate var _time: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
 }
 
 struct Bookowl_UpdateReadStatusRequest {
@@ -182,20 +186,6 @@ struct Bookowl_UpdateReadStatusRequest {
   var bookID: UInt64 = 0
 
   var readStatus: Bookowl_ReadStatus = .readUnspecified
-
-  var unknownFields = SwiftProtobuf.UnknownStorage()
-
-  init() {}
-}
-
-struct Bookowl_UpdateBookmarkIDRequest {
-  // SwiftProtobuf.Message conformance is added in an extension below. See the
-  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-  // methods supported on all messages.
-
-  var bookID: UInt64 = 0
-
-  var bookmarkID: UInt64 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -233,7 +223,7 @@ struct Bookowl_UpdateBookResponse {
   fileprivate var _time: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
 }
 
-struct Bookowl_GetProgressByUserIDRequest {
+struct Bookowl_GetBooksRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -245,12 +235,12 @@ struct Bookowl_GetProgressByUserIDRequest {
   init() {}
 }
 
-struct Bookowl_GetProgressByUserIDResponse {
+struct Bookowl_GetBooksResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var progress: Float = 0
+  var booksInfo: [Bookowl_BookInfo] = []
 
   var time: SwiftProtobuf.Google_Protobuf_Timestamp {
     get {return _time ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
@@ -268,45 +258,141 @@ struct Bookowl_GetProgressByUserIDResponse {
   fileprivate var _time: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
 }
 
-struct Bookowl_GetReadAmountPagesByUserIDWithDurationRequest {
+struct Bookowl_GetReadPercentageRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
   var userID: UInt64 = 0
 
-  var start: SwiftProtobuf.Google_Protobuf_Timestamp {
-    get {return _start ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
-    set {_start = newValue}
-  }
-  /// Returns true if `start` has been explicitly set.
-  var hasStart: Bool {return self._start != nil}
-  /// Clears the value of `start`. Subsequent reads from it will return its default value.
-  mutating func clearStart() {self._start = nil}
+  var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  var end: SwiftProtobuf.Google_Protobuf_Timestamp {
-    get {return _end ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
-    set {_end = newValue}
+  init() {}
+}
+
+struct Bookowl_GetReadPercentageResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var readPercentage: Float = 0
+
+  var time: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _time ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_time = newValue}
   }
-  /// Returns true if `end` has been explicitly set.
-  var hasEnd: Bool {return self._end != nil}
-  /// Clears the value of `end`. Subsequent reads from it will return its default value.
-  mutating func clearEnd() {self._end = nil}
+  /// Returns true if `time` has been explicitly set.
+  var hasTime: Bool {return self._time != nil}
+  /// Clears the value of `time`. Subsequent reads from it will return its default value.
+  mutating func clearTime() {self._time = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
 
-  fileprivate var _start: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
-  fileprivate var _end: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+  fileprivate var _time: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
 }
 
-struct Bookowl_GetReadAmountPagesByUserIDWithDurationResponse {
+struct Bookowl_GetReadPagesRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var pages: UInt64 = 0
+  var userID: UInt64 = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Bookowl_GetReadPagesResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var readPages: UInt64 = 0
+
+  var time: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _time ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_time = newValue}
+  }
+  /// Returns true if `time` has been explicitly set.
+  var hasTime: Bool {return self._time != nil}
+  /// Clears the value of `time`. Subsequent reads from it will return its default value.
+  mutating func clearTime() {self._time = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _time: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
+struct Bookowl_GetReadPagesWithDurationRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var userID: UInt64 = 0
+
+  var startTime: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _startTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_startTime = newValue}
+  }
+  /// Returns true if `startTime` has been explicitly set.
+  var hasStartTime: Bool {return self._startTime != nil}
+  /// Clears the value of `startTime`. Subsequent reads from it will return its default value.
+  mutating func clearStartTime() {self._startTime = nil}
+
+  var endTime: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get {return _endTime ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
+    set {_endTime = newValue}
+  }
+  /// Returns true if `endTime` has been explicitly set.
+  var hasEndTime: Bool {return self._endTime != nil}
+  /// Clears the value of `endTime`. Subsequent reads from it will return its default value.
+  mutating func clearEndTime() {self._endTime = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _startTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+  fileprivate var _endTime: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
+}
+
+struct Bookowl_GetReadPagesByBookIDRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var userID: UInt64 = 0
+
+  var bookID: UInt64 = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Bookowl_GetBookmarkStatusRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var bookmarkID: UInt64 = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct Bookowl_GetBookmarkStatusResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var bookmarkStatus: Bookowl_BookmarkStatus = .unspecified
 
   var time: SwiftProtobuf.Google_Protobuf_Timestamp {
     get {return _time ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
@@ -337,8 +423,7 @@ struct Bookowl_BookInfo {
 
   var pages: Int64 = 0
 
-  var widthLevel: Int64 = 0
-
+  ///  int64 width_level = 5;
   var price: Int64 = 0
 
   var authors: [String] = []
@@ -372,10 +457,18 @@ extension Bookowl_ReadStatus: SwiftProtobuf._ProtoNameProviding {
   ]
 }
 
+extension Bookowl_BookmarkStatus: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "BOOKMARK_STATUS_UNSPECIFIED"),
+    1: .same(proto: "BOOKMARK_STATUS_GREEN"),
+    2: .same(proto: "BOOKMARK_STATUS_RED"),
+  ]
+}
+
 extension Bookowl_RegisterBookRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".RegisterBookRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "book_info"),
+    1: .same(proto: "isbn"),
     2: .standard(proto: "user_id"),
   ]
 
@@ -385,7 +478,7 @@ extension Bookowl_RegisterBookRequest: SwiftProtobuf.Message, SwiftProtobuf._Mes
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularMessageField(value: &self._bookInfo) }()
+      case 1: try { try decoder.decodeSingularStringField(value: &self.isbn) }()
       case 2: try { try decoder.decodeSingularUInt64Field(value: &self.userID) }()
       default: break
       }
@@ -393,13 +486,9 @@ extension Bookowl_RegisterBookRequest: SwiftProtobuf.Message, SwiftProtobuf._Mes
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    try { if let v = self._bookInfo {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-    } }()
+    if !self.isbn.isEmpty {
+      try visitor.visitSingularStringField(value: self.isbn, fieldNumber: 1)
+    }
     if self.userID != 0 {
       try visitor.visitSingularUInt64Field(value: self.userID, fieldNumber: 2)
     }
@@ -407,7 +496,7 @@ extension Bookowl_RegisterBookRequest: SwiftProtobuf.Message, SwiftProtobuf._Mes
   }
 
   static func ==(lhs: Bookowl_RegisterBookRequest, rhs: Bookowl_RegisterBookRequest) -> Bool {
-    if lhs._bookInfo != rhs._bookInfo {return false}
+    if lhs.isbn != rhs.isbn {return false}
     if lhs.userID != rhs.userID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -456,10 +545,12 @@ extension Bookowl_RegisterBookResponse: SwiftProtobuf.Message, SwiftProtobuf._Me
   }
 }
 
-extension Bookowl_GetBooksByUserIDRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".GetBooksByUserIDRequest"
+extension Bookowl_UpdateBookmarkIDRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".UpdateBookmarkIDRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "user_id"),
+    1: .standard(proto: "book_id"),
+    2: .standard(proto: "bookmark_id"),
+    3: .standard(proto: "book_width"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -468,95 +559,31 @@ extension Bookowl_GetBooksByUserIDRequest: SwiftProtobuf.Message, SwiftProtobuf.
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularUInt64Field(value: &self.userID) }()
+      case 1: try { try decoder.decodeSingularUInt64Field(value: &self.bookID) }()
+      case 2: try { try decoder.decodeSingularUInt64Field(value: &self.bookmarkID) }()
+      case 3: try { try decoder.decodeSingularUInt64Field(value: &self.bookWidth) }()
       default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.userID != 0 {
-      try visitor.visitSingularUInt64Field(value: self.userID, fieldNumber: 1)
+    if self.bookID != 0 {
+      try visitor.visitSingularUInt64Field(value: self.bookID, fieldNumber: 1)
     }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Bookowl_GetBooksByUserIDRequest, rhs: Bookowl_GetBooksByUserIDRequest) -> Bool {
-    if lhs.userID != rhs.userID {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Bookowl_GetBooksByBookmarkIDRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".GetBooksByBookmarkIDRequest"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "bookmark_id"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularUInt64Field(value: &self.bookmarkID) }()
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     if self.bookmarkID != 0 {
-      try visitor.visitSingularUInt64Field(value: self.bookmarkID, fieldNumber: 1)
+      try visitor.visitSingularUInt64Field(value: self.bookmarkID, fieldNumber: 2)
+    }
+    if self.bookWidth != 0 {
+      try visitor.visitSingularUInt64Field(value: self.bookWidth, fieldNumber: 3)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Bookowl_GetBooksByBookmarkIDRequest, rhs: Bookowl_GetBooksByBookmarkIDRequest) -> Bool {
+  static func ==(lhs: Bookowl_UpdateBookmarkIDRequest, rhs: Bookowl_UpdateBookmarkIDRequest) -> Bool {
+    if lhs.bookID != rhs.bookID {return false}
     if lhs.bookmarkID != rhs.bookmarkID {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Bookowl_GetBooksResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".GetBooksResponse"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "books_info"),
-    2: .same(proto: "time"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.booksInfo) }()
-      case 2: try { try decoder.decodeSingularMessageField(value: &self._time) }()
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    if !self.booksInfo.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.booksInfo, fieldNumber: 1)
-    }
-    try { if let v = self._time {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-    } }()
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Bookowl_GetBooksResponse, rhs: Bookowl_GetBooksResponse) -> Bool {
-    if lhs.booksInfo != rhs.booksInfo {return false}
-    if lhs._time != rhs._time {return false}
+    if lhs.bookWidth != rhs.bookWidth {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -595,44 +622,6 @@ extension Bookowl_UpdateReadStatusRequest: SwiftProtobuf.Message, SwiftProtobuf.
   static func ==(lhs: Bookowl_UpdateReadStatusRequest, rhs: Bookowl_UpdateReadStatusRequest) -> Bool {
     if lhs.bookID != rhs.bookID {return false}
     if lhs.readStatus != rhs.readStatus {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Bookowl_UpdateBookmarkIDRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".UpdateBookmarkIDRequest"
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "book_id"),
-    2: .standard(proto: "bookmark_id"),
-  ]
-
-  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularUInt64Field(value: &self.bookID) }()
-      case 2: try { try decoder.decodeSingularUInt64Field(value: &self.bookmarkID) }()
-      default: break
-      }
-    }
-  }
-
-  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.bookID != 0 {
-      try visitor.visitSingularUInt64Field(value: self.bookID, fieldNumber: 1)
-    }
-    if self.bookmarkID != 0 {
-      try visitor.visitSingularUInt64Field(value: self.bookmarkID, fieldNumber: 2)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  static func ==(lhs: Bookowl_UpdateBookmarkIDRequest, rhs: Bookowl_UpdateBookmarkIDRequest) -> Bool {
-    if lhs.bookID != rhs.bookID {return false}
-    if lhs.bookmarkID != rhs.bookmarkID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -680,8 +669,8 @@ extension Bookowl_UpdateBookResponse: SwiftProtobuf.Message, SwiftProtobuf._Mess
   }
 }
 
-extension Bookowl_GetProgressByUserIDRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".GetProgressByUserIDRequest"
+extension Bookowl_GetBooksRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetBooksRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "user_id"),
   ]
@@ -705,17 +694,17 @@ extension Bookowl_GetProgressByUserIDRequest: SwiftProtobuf.Message, SwiftProtob
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Bookowl_GetProgressByUserIDRequest, rhs: Bookowl_GetProgressByUserIDRequest) -> Bool {
+  static func ==(lhs: Bookowl_GetBooksRequest, rhs: Bookowl_GetBooksRequest) -> Bool {
     if lhs.userID != rhs.userID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Bookowl_GetProgressByUserIDResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".GetProgressByUserIDResponse"
+extension Bookowl_GetBooksResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetBooksResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "progress"),
+    1: .standard(proto: "books_info"),
     2: .same(proto: "time"),
   ]
 
@@ -725,7 +714,7 @@ extension Bookowl_GetProgressByUserIDResponse: SwiftProtobuf.Message, SwiftProto
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularFloatField(value: &self.progress) }()
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.booksInfo) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._time) }()
       default: break
       }
@@ -737,8 +726,8 @@ extension Bookowl_GetProgressByUserIDResponse: SwiftProtobuf.Message, SwiftProto
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    if self.progress != 0 {
-      try visitor.visitSingularFloatField(value: self.progress, fieldNumber: 1)
+    if !self.booksInfo.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.booksInfo, fieldNumber: 1)
     }
     try { if let v = self._time {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
@@ -746,20 +735,18 @@ extension Bookowl_GetProgressByUserIDResponse: SwiftProtobuf.Message, SwiftProto
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Bookowl_GetProgressByUserIDResponse, rhs: Bookowl_GetProgressByUserIDResponse) -> Bool {
-    if lhs.progress != rhs.progress {return false}
+  static func ==(lhs: Bookowl_GetBooksResponse, rhs: Bookowl_GetBooksResponse) -> Bool {
+    if lhs.booksInfo != rhs.booksInfo {return false}
     if lhs._time != rhs._time {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Bookowl_GetReadAmountPagesByUserIDWithDurationRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".GetReadAmountPagesByUserIDWithDurationRequest"
+extension Bookowl_GetReadPercentageRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetReadPercentageRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "user_id"),
-    2: .same(proto: "start"),
-    3: .same(proto: "end"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -769,8 +756,158 @@ extension Bookowl_GetReadAmountPagesByUserIDWithDurationRequest: SwiftProtobuf.M
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularUInt64Field(value: &self.userID) }()
-      case 2: try { try decoder.decodeSingularMessageField(value: &self._start) }()
-      case 3: try { try decoder.decodeSingularMessageField(value: &self._end) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.userID != 0 {
+      try visitor.visitSingularUInt64Field(value: self.userID, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Bookowl_GetReadPercentageRequest, rhs: Bookowl_GetReadPercentageRequest) -> Bool {
+    if lhs.userID != rhs.userID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Bookowl_GetReadPercentageResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetReadPercentageResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "read_percentage"),
+    2: .same(proto: "time"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularFloatField(value: &self.readPercentage) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._time) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.readPercentage != 0 {
+      try visitor.visitSingularFloatField(value: self.readPercentage, fieldNumber: 1)
+    }
+    try { if let v = self._time {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Bookowl_GetReadPercentageResponse, rhs: Bookowl_GetReadPercentageResponse) -> Bool {
+    if lhs.readPercentage != rhs.readPercentage {return false}
+    if lhs._time != rhs._time {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Bookowl_GetReadPagesRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetReadPagesRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "user_id"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularUInt64Field(value: &self.userID) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.userID != 0 {
+      try visitor.visitSingularUInt64Field(value: self.userID, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Bookowl_GetReadPagesRequest, rhs: Bookowl_GetReadPagesRequest) -> Bool {
+    if lhs.userID != rhs.userID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Bookowl_GetReadPagesResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetReadPagesResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "read_pages"),
+    2: .same(proto: "time"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularUInt64Field(value: &self.readPages) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._time) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.readPages != 0 {
+      try visitor.visitSingularUInt64Field(value: self.readPages, fieldNumber: 1)
+    }
+    try { if let v = self._time {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Bookowl_GetReadPagesResponse, rhs: Bookowl_GetReadPagesResponse) -> Bool {
+    if lhs.readPages != rhs.readPages {return false}
+    if lhs._time != rhs._time {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Bookowl_GetReadPagesWithDurationRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetReadPagesWithDurationRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "user_id"),
+    2: .standard(proto: "start_time"),
+    3: .standard(proto: "end_time"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularUInt64Field(value: &self.userID) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._startTime) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._endTime) }()
       default: break
       }
     }
@@ -784,28 +921,98 @@ extension Bookowl_GetReadAmountPagesByUserIDWithDurationRequest: SwiftProtobuf.M
     if self.userID != 0 {
       try visitor.visitSingularUInt64Field(value: self.userID, fieldNumber: 1)
     }
-    try { if let v = self._start {
+    try { if let v = self._startTime {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
     } }()
-    try { if let v = self._end {
+    try { if let v = self._endTime {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
     } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Bookowl_GetReadAmountPagesByUserIDWithDurationRequest, rhs: Bookowl_GetReadAmountPagesByUserIDWithDurationRequest) -> Bool {
+  static func ==(lhs: Bookowl_GetReadPagesWithDurationRequest, rhs: Bookowl_GetReadPagesWithDurationRequest) -> Bool {
     if lhs.userID != rhs.userID {return false}
-    if lhs._start != rhs._start {return false}
-    if lhs._end != rhs._end {return false}
+    if lhs._startTime != rhs._startTime {return false}
+    if lhs._endTime != rhs._endTime {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Bookowl_GetReadAmountPagesByUserIDWithDurationResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".GetReadAmountPagesByUserIDWithDurationResponse"
+extension Bookowl_GetReadPagesByBookIDRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetReadPagesByBookIDRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "pages"),
+    1: .standard(proto: "user_id"),
+    2: .standard(proto: "book_id"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularUInt64Field(value: &self.userID) }()
+      case 2: try { try decoder.decodeSingularUInt64Field(value: &self.bookID) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.userID != 0 {
+      try visitor.visitSingularUInt64Field(value: self.userID, fieldNumber: 1)
+    }
+    if self.bookID != 0 {
+      try visitor.visitSingularUInt64Field(value: self.bookID, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Bookowl_GetReadPagesByBookIDRequest, rhs: Bookowl_GetReadPagesByBookIDRequest) -> Bool {
+    if lhs.userID != rhs.userID {return false}
+    if lhs.bookID != rhs.bookID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Bookowl_GetBookmarkStatusRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetBookmarkStatusRequest"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "bookmark_id"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularUInt64Field(value: &self.bookmarkID) }()
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.bookmarkID != 0 {
+      try visitor.visitSingularUInt64Field(value: self.bookmarkID, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: Bookowl_GetBookmarkStatusRequest, rhs: Bookowl_GetBookmarkStatusRequest) -> Bool {
+    if lhs.bookmarkID != rhs.bookmarkID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Bookowl_GetBookmarkStatusResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetBookmarkStatusResponse"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "bookmark_status"),
     2: .same(proto: "time"),
   ]
 
@@ -815,7 +1022,7 @@ extension Bookowl_GetReadAmountPagesByUserIDWithDurationResponse: SwiftProtobuf.
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularUInt64Field(value: &self.pages) }()
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.bookmarkStatus) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._time) }()
       default: break
       }
@@ -827,8 +1034,8 @@ extension Bookowl_GetReadAmountPagesByUserIDWithDurationResponse: SwiftProtobuf.
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    if self.pages != 0 {
-      try visitor.visitSingularUInt64Field(value: self.pages, fieldNumber: 1)
+    if self.bookmarkStatus != .unspecified {
+      try visitor.visitSingularEnumField(value: self.bookmarkStatus, fieldNumber: 1)
     }
     try { if let v = self._time {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
@@ -836,8 +1043,8 @@ extension Bookowl_GetReadAmountPagesByUserIDWithDurationResponse: SwiftProtobuf.
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Bookowl_GetReadAmountPagesByUserIDWithDurationResponse, rhs: Bookowl_GetReadAmountPagesByUserIDWithDurationResponse) -> Bool {
-    if lhs.pages != rhs.pages {return false}
+  static func ==(lhs: Bookowl_GetBookmarkStatusResponse, rhs: Bookowl_GetBookmarkStatusResponse) -> Bool {
+    if lhs.bookmarkStatus != rhs.bookmarkStatus {return false}
     if lhs._time != rhs._time {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -851,7 +1058,6 @@ extension Bookowl_BookInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     2: .same(proto: "isbn"),
     3: .same(proto: "name"),
     4: .same(proto: "pages"),
-    5: .standard(proto: "width_level"),
     6: .same(proto: "price"),
     7: .same(proto: "authors"),
     8: .standard(proto: "read_status"),
@@ -871,7 +1077,6 @@ extension Bookowl_BookInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
       case 2: try { try decoder.decodeSingularStringField(value: &self.isbn) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.name) }()
       case 4: try { try decoder.decodeSingularInt64Field(value: &self.pages) }()
-      case 5: try { try decoder.decodeSingularInt64Field(value: &self.widthLevel) }()
       case 6: try { try decoder.decodeSingularInt64Field(value: &self.price) }()
       case 7: try { try decoder.decodeRepeatedStringField(value: &self.authors) }()
       case 8: try { try decoder.decodeSingularEnumField(value: &self.readStatus) }()
@@ -896,9 +1101,6 @@ extension Bookowl_BookInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     }
     if self.pages != 0 {
       try visitor.visitSingularInt64Field(value: self.pages, fieldNumber: 4)
-    }
-    if self.widthLevel != 0 {
-      try visitor.visitSingularInt64Field(value: self.widthLevel, fieldNumber: 5)
     }
     if self.price != 0 {
       try visitor.visitSingularInt64Field(value: self.price, fieldNumber: 6)
@@ -929,7 +1131,6 @@ extension Bookowl_BookInfo: SwiftProtobuf.Message, SwiftProtobuf._MessageImpleme
     if lhs.isbn != rhs.isbn {return false}
     if lhs.name != rhs.name {return false}
     if lhs.pages != rhs.pages {return false}
-    if lhs.widthLevel != rhs.widthLevel {return false}
     if lhs.price != rhs.price {return false}
     if lhs.authors != rhs.authors {return false}
     if lhs.readStatus != rhs.readStatus {return false}

@@ -7,24 +7,28 @@ option go_package = "github.com/jphacks/B_2109/server/api";
 import "google/protobuf/timestamp.proto";
 
 service Book{
-  // Registering Book
+
   rpc RegisterBook(RegisterBookRequest) returns (RegisterBookResponse);
-
-  rpc GetBooksByUserID(GetBooksByUserIDRequest) returns (GetBooksResponse);
-
-  rpc GetBooksByBookmarkID(GetBooksByBookmarkIDRequest) returns (GetBooksResponse);
 
   rpc UpdateBookmarkID(UpdateBookmarkIDRequest) returns (UpdateBookResponse);
 
   rpc UpdateReadStatus(UpdateReadStatusRequest) returns (UpdateBookResponse);
 
-  rpc GetProgressByUserID (GetProgressByUserIDRequest) returns (GetProgressByUserIDResponse);
+  rpc GetBooks(GetBooksRequest) returns (GetBooksResponse);
 
-  rpc GetReadAmountPagesByUserIDWithDuration (GetReadAmountPagesByUserIDWithDurationRequest) returns (GetReadAmountPagesByUserIDWithDurationResponse);
+  rpc GetReadPercentage (GetReadPercentageRequest) returns (GetReadPercentageResponse);
+
+  rpc GetReadPages (GetReadPagesRequest) returns (GetReadPagesResponse);
+
+  rpc GetReadPagesWithDuration (GetReadPagesWithDurationRequest) returns (GetReadPagesResponse);
+
+  rpc GetReadPagesByBookID (GetReadPagesByBookIDRequest) returns (GetReadPagesResponse);
+
+  rpc GetBookmarkStatus (GetBookmarkStatusRequest) returns (GetBookmarkStatusResponse);
 }
 
 message RegisterBookRequest {
-  BookInfo book_info = 1;
+  string isbn = 1;
   uint64 user_id = 2;
 }
 
@@ -33,51 +37,66 @@ message RegisterBookResponse {
   google.protobuf.Timestamp time = 2;
 }
 
-message GetBooksByUserIDRequest{
-  uint64 user_id = 1;
+message UpdateBookmarkIDRequest {
+  uint64 book_id = 1;
+  uint64 bookmark_id = 2;
+  uint64 book_width = 3;
 }
 
-message GetBooksByBookmarkIDRequest {
-  uint64 bookmark_id = 1;
-}
-
-message GetBooksResponse{
-  repeated BookInfo books_info = 1;
-  google.protobuf.Timestamp time = 2;
-}
-
-message UpdateReadStatusRequest{
+message UpdateReadStatusRequest {
   uint64 book_id = 1;
   ReadStatus read_status = 2;
 }
 
-message UpdateBookmarkIDRequest{
-  uint64 book_id = 1;
-  uint64 bookmark_id = 2;
-}
-
-message UpdateBookResponse{
+message UpdateBookResponse {
   BookInfo book_info = 1;
   google.protobuf.Timestamp time = 2;
 }
 
-message GetProgressByUserIDRequest{
+message GetBooksRequest {
   uint64 user_id = 1;
 }
 
-message GetProgressByUserIDResponse{
-  float progress = 1;
+message GetBooksResponse {
+  repeated BookInfo books_info = 1;
   google.protobuf.Timestamp time = 2;
 }
 
-message GetReadAmountPagesByUserIDWithDurationRequest{
+message GetReadPercentageRequest {
   uint64 user_id = 1;
-  google.protobuf.Timestamp start = 2;
-  google.protobuf.Timestamp end = 3;
 }
 
-message GetReadAmountPagesByUserIDWithDurationResponse{
-  uint64 pages = 1;
+message GetReadPercentageResponse {
+  float read_percentage = 1;
+  google.protobuf.Timestamp time = 2;
+}
+
+message GetReadPagesRequest {
+  uint64 user_id = 1;
+}
+
+message GetReadPagesResponse {
+  uint64 read_pages = 1;
+  google.protobuf.Timestamp time = 2;
+}
+
+message GetReadPagesWithDurationRequest {
+  uint64 user_id = 1;
+  google.protobuf.Timestamp start_time = 2;
+  google.protobuf.Timestamp end_time = 3;
+}
+
+message GetReadPagesByBookIDRequest {
+  uint64 user_id = 1;
+  uint64 book_id = 2;
+}
+
+message GetBookmarkStatusRequest {
+  uint64 bookmark_id = 1;
+}
+
+message GetBookmarkStatusResponse {
+  BookmarkStatus bookmark_status=1;
   google.protobuf.Timestamp time = 2;
 }
 
@@ -90,12 +109,20 @@ enum ReadStatus{
   READ_COMPLETE = 4;
 }
 
+enum BookmarkStatus{
+  BOOKMARK_STATUS_UNSPECIFIED = 0;
+  BOOKMARK_STATUS_GREEN = 1;
+  BOOKMARK_STATUS_RED = 2;
+}
+
 message BookInfo {
+  reserved 5;
+
   uint64 book_id = 1;
   string isbn = 2;
   string name = 3;
   int64 pages = 4;
-  int64 width_level = 5;
+  //  int64 width_level = 5;
   int64 price = 6;
   repeated string authors = 7;
   ReadStatus read_status = 8;

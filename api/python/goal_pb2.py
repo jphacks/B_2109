@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z$github.com/jphacks/B_2109/server/api',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\ngoal.proto\x12\x07\x62ookowl\x1a\x1fgoogle/protobuf/timestamp.proto\"9\n\x11\x43reateGoalRequest\x12$\n\tgoal_info\x18\x01 \x01(\x0b\x32\x11.bookowl.GoalInfo\"O\n\x12\x43reateGoalResponse\x12\x0f\n\x07goal_id\x18\x01 \x01(\x04\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\")\n\x16GetGoalByUserIDRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"c\n\x10GetGoalsResponse\x12%\n\ngoals_info\x18\x01 \x03(\x0b\x32\x11.bookowl.GoalInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"T\n\x17UpdateGoalStatusRequest\x12\x0f\n\x07goal_id\x18\x01 \x01(\x04\x12(\n\x0bgoal_status\x18\x02 \x01(\x0e\x32\x13.bookowl.GoalStatus\"d\n\x12UpdateGoalResponse\x12$\n\tgoal_info\x18\x01 \x01(\x0b\x32\x11.bookowl.GoalInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xe4\x01\n\x08GoalInfo\x12\x0f\n\x07goal_id\x18\x01 \x01(\x04\x12.\n\nstart_date\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08\x65nd_date\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x1b\n\x13time_amount_minutes\x18\x04 \x01(\x03\x12\x11\n\tnum_pages\x18\x05 \x01(\x03\x12(\n\x0bgoal_status\x18\x06 \x01(\x0e\x32\x13.bookowl.GoalStatus\x12\x0f\n\x07user_id\x18\x07 \x01(\x04*d\n\nGoalStatus\x12\x10\n\x0cGOAL_UNKNOWN\x10\x00\x12\x10\n\x0cGOAL_PENDING\x10\x01\x12\x0e\n\nGOAL_DOING\x10\x02\x12\x11\n\rGOAL_COMPLETE\x10\x03\x12\x0f\n\x0bGOAL_FAILED\x10\x04\x32\xeb\x01\n\x04Goal\x12\x45\n\nCreateGoal\x12\x1a.bookowl.CreateGoalRequest\x1a\x1b.bookowl.CreateGoalResponse\x12I\n\x0bGetByUserID\x12\x1f.bookowl.GetGoalByUserIDRequest\x1a\x19.bookowl.GetGoalsResponse\x12Q\n\x10UpdateGoalStatus\x12 .bookowl.UpdateGoalStatusRequest\x1a\x1b.bookowl.UpdateGoalResponseB&Z$github.com/jphacks/B_2109/server/apib\x06proto3'
+  serialized_pb=b'\n\ngoal.proto\x12\x07\x62ookowl\x1a\x1fgoogle/protobuf/timestamp.proto\"a\n\x11\x43reateGoalRequest\x12\x11\n\tnum_pages\x18\x01 \x01(\x03\x12\x0f\n\x07user_id\x18\x02 \x01(\x04\x12(\n\x04time\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"d\n\x12\x43reateGoalResponse\x12$\n\tgoal_info\x18\x01 \x01(\x0b\x32\x11.bookowl.GoalInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"A\n\x18RegisterOpponentsRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\x12\x14\n\x0copponent_ids\x18\x02 \x03(\x04\"E\n\x19RegisterOpponentsResponse\x12(\n\x04time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\"\n\x0fGetGoalsRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"c\n\x10GetGoalsResponse\x12%\n\ngoals_info\x18\x01 \x03(\x0b\x32\x11.bookowl.GoalInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"&\n\x13GetOpponentsRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"k\n\x14GetOpponentsResponse\x12)\n\topponents\x18\x01 \x03(\x0b\x32\x16.bookowl.OpponentsInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"$\n\x11GetRankingRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"k\n\x12GetRankingResponse\x12+\n\rranking_infos\x18\x01 \x03(\x0b\x32\x14.bookowl.RankingInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xcd\x01\n\x08GoalInfo\x12\x0f\n\x07goal_id\x18\x01 \x01(\x04\x12.\n\nstart_date\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08\x65nd_date\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x11\n\tnum_pages\x18\x05 \x01(\x03\x12(\n\x0bgoal_status\x18\x06 \x01(\x0e\x32\x13.bookowl.GoalStatus\x12\x0f\n\x07user_id\x18\x07 \x01(\x04J\x04\x08\x04\x10\x05\"=\n\rOpponentsInfo\x12\n\n\x02id\x18\x01 \x01(\x04\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x12\n\nread_pages\x18\x03 \x01(\x04\"8\n\x0bRankingInfo\x12\n\n\x02id\x18\x01 \x01(\x04\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0f\n\x07ranking\x18\x03 \x01(\x04*d\n\nGoalStatus\x12\x10\n\x0cGOAL_UNKNOWN\x10\x00\x12\x10\n\x0cGOAL_PENDING\x10\x01\x12\x0e\n\nGOAL_DOING\x10\x02\x12\x11\n\rGOAL_COMPLETE\x10\x03\x12\x0f\n\x0bGOAL_FAILED\x10\x04\x32\xfe\x02\n\x04Goal\x12\x45\n\nCreateGoal\x12\x1a.bookowl.CreateGoalRequest\x1a\x1b.bookowl.CreateGoalResponse\x12Z\n\x11RegisterOpponents\x12!.bookowl.RegisterOpponentsRequest\x1a\".bookowl.RegisterOpponentsResponse\x12?\n\x08GetGoals\x12\x18.bookowl.GetGoalsRequest\x1a\x19.bookowl.GetGoalsResponse\x12K\n\x0cGetOpponents\x12\x1c.bookowl.GetOpponentsRequest\x1a\x1d.bookowl.GetOpponentsResponse\x12\x45\n\nGetRanking\x12\x1a.bookowl.GetRankingRequest\x1a\x1b.bookowl.GetRankingResponseB&Z$github.com/jphacks/B_2109/server/apib\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
@@ -60,8 +60,8 @@ _GOALSTATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=759,
-  serialized_end=859,
+  serialized_start=1157,
+  serialized_end=1257,
 )
 _sym_db.RegisterEnumDescriptor(_GOALSTATUS)
 
@@ -83,8 +83,22 @@ _CREATEGOALREQUEST = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='goal_info', full_name='bookowl.CreateGoalRequest.goal_info', index=0,
-      number=1, type=11, cpp_type=10, label=1,
+      name='num_pages', full_name='bookowl.CreateGoalRequest.num_pages', index=0,
+      number=1, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='user_id', full_name='bookowl.CreateGoalRequest.user_id', index=1,
+      number=2, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='time', full_name='bookowl.CreateGoalRequest.time', index=2,
+      number=3, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -102,7 +116,7 @@ _CREATEGOALREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=56,
-  serialized_end=113,
+  serialized_end=153,
 )
 
 
@@ -115,9 +129,9 @@ _CREATEGOALRESPONSE = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='goal_id', full_name='bookowl.CreateGoalResponse.goal_id', index=0,
-      number=1, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
+      name='goal_info', full_name='bookowl.CreateGoalResponse.goal_info', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
@@ -140,21 +154,92 @@ _CREATEGOALRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=115,
-  serialized_end=194,
+  serialized_start=155,
+  serialized_end=255,
 )
 
 
-_GETGOALBYUSERIDREQUEST = _descriptor.Descriptor(
-  name='GetGoalByUserIDRequest',
-  full_name='bookowl.GetGoalByUserIDRequest',
+_REGISTEROPPONENTSREQUEST = _descriptor.Descriptor(
+  name='RegisterOpponentsRequest',
+  full_name='bookowl.RegisterOpponentsRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='user_id', full_name='bookowl.GetGoalByUserIDRequest.user_id', index=0,
+      name='user_id', full_name='bookowl.RegisterOpponentsRequest.user_id', index=0,
+      number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='opponent_ids', full_name='bookowl.RegisterOpponentsRequest.opponent_ids', index=1,
+      number=2, type=4, cpp_type=4, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=257,
+  serialized_end=322,
+)
+
+
+_REGISTEROPPONENTSRESPONSE = _descriptor.Descriptor(
+  name='RegisterOpponentsResponse',
+  full_name='bookowl.RegisterOpponentsResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='time', full_name='bookowl.RegisterOpponentsResponse.time', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=324,
+  serialized_end=393,
+)
+
+
+_GETGOALSREQUEST = _descriptor.Descriptor(
+  name='GetGoalsRequest',
+  full_name='bookowl.GetGoalsRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='user_id', full_name='bookowl.GetGoalsRequest.user_id', index=0,
       number=1, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -172,8 +257,8 @@ _GETGOALBYUSERIDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=196,
-  serialized_end=237,
+  serialized_start=395,
+  serialized_end=429,
 )
 
 
@@ -211,29 +296,22 @@ _GETGOALSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=239,
-  serialized_end=338,
+  serialized_start=431,
+  serialized_end=530,
 )
 
 
-_UPDATEGOALSTATUSREQUEST = _descriptor.Descriptor(
-  name='UpdateGoalStatusRequest',
-  full_name='bookowl.UpdateGoalStatusRequest',
+_GETOPPONENTSREQUEST = _descriptor.Descriptor(
+  name='GetOpponentsRequest',
+  full_name='bookowl.GetOpponentsRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='goal_id', full_name='bookowl.UpdateGoalStatusRequest.goal_id', index=0,
+      name='user_id', full_name='bookowl.GetOpponentsRequest.user_id', index=0,
       number=1, type=4, cpp_type=4, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='goal_status', full_name='bookowl.UpdateGoalStatusRequest.goal_status', index=1,
-      number=2, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -250,28 +328,28 @@ _UPDATEGOALSTATUSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=340,
-  serialized_end=424,
+  serialized_start=532,
+  serialized_end=570,
 )
 
 
-_UPDATEGOALRESPONSE = _descriptor.Descriptor(
-  name='UpdateGoalResponse',
-  full_name='bookowl.UpdateGoalResponse',
+_GETOPPONENTSRESPONSE = _descriptor.Descriptor(
+  name='GetOpponentsResponse',
+  full_name='bookowl.GetOpponentsResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='goal_info', full_name='bookowl.UpdateGoalResponse.goal_info', index=0,
-      number=1, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
+      name='opponents', full_name='bookowl.GetOpponentsResponse.opponents', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='time', full_name='bookowl.UpdateGoalResponse.time', index=1,
+      name='time', full_name='bookowl.GetOpponentsResponse.time', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -289,8 +367,79 @@ _UPDATEGOALRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=426,
-  serialized_end=526,
+  serialized_start=572,
+  serialized_end=679,
+)
+
+
+_GETRANKINGREQUEST = _descriptor.Descriptor(
+  name='GetRankingRequest',
+  full_name='bookowl.GetRankingRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='user_id', full_name='bookowl.GetRankingRequest.user_id', index=0,
+      number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=681,
+  serialized_end=717,
+)
+
+
+_GETRANKINGRESPONSE = _descriptor.Descriptor(
+  name='GetRankingResponse',
+  full_name='bookowl.GetRankingResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='ranking_infos', full_name='bookowl.GetRankingResponse.ranking_infos', index=0,
+      number=1, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='time', full_name='bookowl.GetRankingResponse.time', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=719,
+  serialized_end=826,
 )
 
 
@@ -324,28 +473,21 @@ _GOALINFO = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='time_amount_minutes', full_name='bookowl.GoalInfo.time_amount_minutes', index=3,
-      number=4, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
-    _descriptor.FieldDescriptor(
-      name='num_pages', full_name='bookowl.GoalInfo.num_pages', index=4,
+      name='num_pages', full_name='bookowl.GoalInfo.num_pages', index=3,
       number=5, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='goal_status', full_name='bookowl.GoalInfo.goal_status', index=5,
+      name='goal_status', full_name='bookowl.GoalInfo.goal_status', index=4,
       number=6, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='user_id', full_name='bookowl.GoalInfo.user_id', index=6,
+      name='user_id', full_name='bookowl.GoalInfo.user_id', index=5,
       number=7, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -363,27 +505,128 @@ _GOALINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=529,
-  serialized_end=757,
+  serialized_start=829,
+  serialized_end=1034,
 )
 
-_CREATEGOALREQUEST.fields_by_name['goal_info'].message_type = _GOALINFO
+
+_OPPONENTSINFO = _descriptor.Descriptor(
+  name='OpponentsInfo',
+  full_name='bookowl.OpponentsInfo',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='id', full_name='bookowl.OpponentsInfo.id', index=0,
+      number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='bookowl.OpponentsInfo.name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='read_pages', full_name='bookowl.OpponentsInfo.read_pages', index=2,
+      number=3, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1036,
+  serialized_end=1097,
+)
+
+
+_RANKINGINFO = _descriptor.Descriptor(
+  name='RankingInfo',
+  full_name='bookowl.RankingInfo',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  create_key=_descriptor._internal_create_key,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='id', full_name='bookowl.RankingInfo.id', index=0,
+      number=1, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='name', full_name='bookowl.RankingInfo.name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=b"".decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+    _descriptor.FieldDescriptor(
+      name='ranking', full_name='bookowl.RankingInfo.ranking', index=2,
+      number=3, type=4, cpp_type=4, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=1099,
+  serialized_end=1155,
+)
+
+_CREATEGOALREQUEST.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_CREATEGOALRESPONSE.fields_by_name['goal_info'].message_type = _GOALINFO
 _CREATEGOALRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_REGISTEROPPONENTSRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _GETGOALSRESPONSE.fields_by_name['goals_info'].message_type = _GOALINFO
 _GETGOALSRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
-_UPDATEGOALSTATUSREQUEST.fields_by_name['goal_status'].enum_type = _GOALSTATUS
-_UPDATEGOALRESPONSE.fields_by_name['goal_info'].message_type = _GOALINFO
-_UPDATEGOALRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_GETOPPONENTSRESPONSE.fields_by_name['opponents'].message_type = _OPPONENTSINFO
+_GETOPPONENTSRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_GETRANKINGRESPONSE.fields_by_name['ranking_infos'].message_type = _RANKINGINFO
+_GETRANKINGRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _GOALINFO.fields_by_name['start_date'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _GOALINFO.fields_by_name['end_date'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _GOALINFO.fields_by_name['goal_status'].enum_type = _GOALSTATUS
 DESCRIPTOR.message_types_by_name['CreateGoalRequest'] = _CREATEGOALREQUEST
 DESCRIPTOR.message_types_by_name['CreateGoalResponse'] = _CREATEGOALRESPONSE
-DESCRIPTOR.message_types_by_name['GetGoalByUserIDRequest'] = _GETGOALBYUSERIDREQUEST
+DESCRIPTOR.message_types_by_name['RegisterOpponentsRequest'] = _REGISTEROPPONENTSREQUEST
+DESCRIPTOR.message_types_by_name['RegisterOpponentsResponse'] = _REGISTEROPPONENTSRESPONSE
+DESCRIPTOR.message_types_by_name['GetGoalsRequest'] = _GETGOALSREQUEST
 DESCRIPTOR.message_types_by_name['GetGoalsResponse'] = _GETGOALSRESPONSE
-DESCRIPTOR.message_types_by_name['UpdateGoalStatusRequest'] = _UPDATEGOALSTATUSREQUEST
-DESCRIPTOR.message_types_by_name['UpdateGoalResponse'] = _UPDATEGOALRESPONSE
+DESCRIPTOR.message_types_by_name['GetOpponentsRequest'] = _GETOPPONENTSREQUEST
+DESCRIPTOR.message_types_by_name['GetOpponentsResponse'] = _GETOPPONENTSRESPONSE
+DESCRIPTOR.message_types_by_name['GetRankingRequest'] = _GETRANKINGREQUEST
+DESCRIPTOR.message_types_by_name['GetRankingResponse'] = _GETRANKINGRESPONSE
 DESCRIPTOR.message_types_by_name['GoalInfo'] = _GOALINFO
+DESCRIPTOR.message_types_by_name['OpponentsInfo'] = _OPPONENTSINFO
+DESCRIPTOR.message_types_by_name['RankingInfo'] = _RANKINGINFO
 DESCRIPTOR.enum_types_by_name['GoalStatus'] = _GOALSTATUS
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -401,12 +644,26 @@ CreateGoalResponse = _reflection.GeneratedProtocolMessageType('CreateGoalRespons
   })
 _sym_db.RegisterMessage(CreateGoalResponse)
 
-GetGoalByUserIDRequest = _reflection.GeneratedProtocolMessageType('GetGoalByUserIDRequest', (_message.Message,), {
-  'DESCRIPTOR' : _GETGOALBYUSERIDREQUEST,
+RegisterOpponentsRequest = _reflection.GeneratedProtocolMessageType('RegisterOpponentsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _REGISTEROPPONENTSREQUEST,
   '__module__' : 'goal_pb2'
-  # @@protoc_insertion_point(class_scope:bookowl.GetGoalByUserIDRequest)
+  # @@protoc_insertion_point(class_scope:bookowl.RegisterOpponentsRequest)
   })
-_sym_db.RegisterMessage(GetGoalByUserIDRequest)
+_sym_db.RegisterMessage(RegisterOpponentsRequest)
+
+RegisterOpponentsResponse = _reflection.GeneratedProtocolMessageType('RegisterOpponentsResponse', (_message.Message,), {
+  'DESCRIPTOR' : _REGISTEROPPONENTSRESPONSE,
+  '__module__' : 'goal_pb2'
+  # @@protoc_insertion_point(class_scope:bookowl.RegisterOpponentsResponse)
+  })
+_sym_db.RegisterMessage(RegisterOpponentsResponse)
+
+GetGoalsRequest = _reflection.GeneratedProtocolMessageType('GetGoalsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETGOALSREQUEST,
+  '__module__' : 'goal_pb2'
+  # @@protoc_insertion_point(class_scope:bookowl.GetGoalsRequest)
+  })
+_sym_db.RegisterMessage(GetGoalsRequest)
 
 GetGoalsResponse = _reflection.GeneratedProtocolMessageType('GetGoalsResponse', (_message.Message,), {
   'DESCRIPTOR' : _GETGOALSRESPONSE,
@@ -415,19 +672,33 @@ GetGoalsResponse = _reflection.GeneratedProtocolMessageType('GetGoalsResponse', 
   })
 _sym_db.RegisterMessage(GetGoalsResponse)
 
-UpdateGoalStatusRequest = _reflection.GeneratedProtocolMessageType('UpdateGoalStatusRequest', (_message.Message,), {
-  'DESCRIPTOR' : _UPDATEGOALSTATUSREQUEST,
+GetOpponentsRequest = _reflection.GeneratedProtocolMessageType('GetOpponentsRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETOPPONENTSREQUEST,
   '__module__' : 'goal_pb2'
-  # @@protoc_insertion_point(class_scope:bookowl.UpdateGoalStatusRequest)
+  # @@protoc_insertion_point(class_scope:bookowl.GetOpponentsRequest)
   })
-_sym_db.RegisterMessage(UpdateGoalStatusRequest)
+_sym_db.RegisterMessage(GetOpponentsRequest)
 
-UpdateGoalResponse = _reflection.GeneratedProtocolMessageType('UpdateGoalResponse', (_message.Message,), {
-  'DESCRIPTOR' : _UPDATEGOALRESPONSE,
+GetOpponentsResponse = _reflection.GeneratedProtocolMessageType('GetOpponentsResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETOPPONENTSRESPONSE,
   '__module__' : 'goal_pb2'
-  # @@protoc_insertion_point(class_scope:bookowl.UpdateGoalResponse)
+  # @@protoc_insertion_point(class_scope:bookowl.GetOpponentsResponse)
   })
-_sym_db.RegisterMessage(UpdateGoalResponse)
+_sym_db.RegisterMessage(GetOpponentsResponse)
+
+GetRankingRequest = _reflection.GeneratedProtocolMessageType('GetRankingRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETRANKINGREQUEST,
+  '__module__' : 'goal_pb2'
+  # @@protoc_insertion_point(class_scope:bookowl.GetRankingRequest)
+  })
+_sym_db.RegisterMessage(GetRankingRequest)
+
+GetRankingResponse = _reflection.GeneratedProtocolMessageType('GetRankingResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETRANKINGRESPONSE,
+  '__module__' : 'goal_pb2'
+  # @@protoc_insertion_point(class_scope:bookowl.GetRankingResponse)
+  })
+_sym_db.RegisterMessage(GetRankingResponse)
 
 GoalInfo = _reflection.GeneratedProtocolMessageType('GoalInfo', (_message.Message,), {
   'DESCRIPTOR' : _GOALINFO,
@@ -435,6 +706,20 @@ GoalInfo = _reflection.GeneratedProtocolMessageType('GoalInfo', (_message.Messag
   # @@protoc_insertion_point(class_scope:bookowl.GoalInfo)
   })
 _sym_db.RegisterMessage(GoalInfo)
+
+OpponentsInfo = _reflection.GeneratedProtocolMessageType('OpponentsInfo', (_message.Message,), {
+  'DESCRIPTOR' : _OPPONENTSINFO,
+  '__module__' : 'goal_pb2'
+  # @@protoc_insertion_point(class_scope:bookowl.OpponentsInfo)
+  })
+_sym_db.RegisterMessage(OpponentsInfo)
+
+RankingInfo = _reflection.GeneratedProtocolMessageType('RankingInfo', (_message.Message,), {
+  'DESCRIPTOR' : _RANKINGINFO,
+  '__module__' : 'goal_pb2'
+  # @@protoc_insertion_point(class_scope:bookowl.RankingInfo)
+  })
+_sym_db.RegisterMessage(RankingInfo)
 
 
 DESCRIPTOR._options = None
@@ -446,8 +731,8 @@ _GOAL = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=862,
-  serialized_end=1097,
+  serialized_start=1260,
+  serialized_end=1642,
   methods=[
   _descriptor.MethodDescriptor(
     name='CreateGoal',
@@ -460,22 +745,42 @@ _GOAL = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='GetByUserID',
-    full_name='bookowl.Goal.GetByUserID',
+    name='RegisterOpponents',
+    full_name='bookowl.Goal.RegisterOpponents',
     index=1,
     containing_service=None,
-    input_type=_GETGOALBYUSERIDREQUEST,
+    input_type=_REGISTEROPPONENTSREQUEST,
+    output_type=_REGISTEROPPONENTSRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetGoals',
+    full_name='bookowl.Goal.GetGoals',
+    index=2,
+    containing_service=None,
+    input_type=_GETGOALSREQUEST,
     output_type=_GETGOALSRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='UpdateGoalStatus',
-    full_name='bookowl.Goal.UpdateGoalStatus',
-    index=2,
+    name='GetOpponents',
+    full_name='bookowl.Goal.GetOpponents',
+    index=3,
     containing_service=None,
-    input_type=_UPDATEGOALSTATUSREQUEST,
-    output_type=_UPDATEGOALRESPONSE,
+    input_type=_GETOPPONENTSREQUEST,
+    output_type=_GETOPPONENTSRESPONSE,
+    serialized_options=None,
+    create_key=_descriptor._internal_create_key,
+  ),
+  _descriptor.MethodDescriptor(
+    name='GetRanking',
+    full_name='bookowl.Goal.GetRanking',
+    index=4,
+    containing_service=None,
+    input_type=_GETRANKINGREQUEST,
+    output_type=_GETRANKINGRESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),
