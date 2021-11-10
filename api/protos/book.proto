@@ -20,7 +20,11 @@ service Book{
 
   rpc GetReadPages (GetReadPagesRequest) returns (GetReadPagesResponse);
 
+  rpc GetReadSeconds (GetReadSecondsRequest) returns (GetReadSecondsResponse);
+
   rpc GetReadPagesWithDuration (GetReadPagesWithDurationRequest) returns (GetReadPagesResponse);
+
+  rpc GetReadSecondsWithDuration (GetReadSecondsWithDurationRequest) returns (GetReadSecondsResponse);
 
   rpc GetReadPagesByBookID (GetReadPagesByBookIDRequest) returns (GetReadPagesResponse);
 
@@ -81,6 +85,21 @@ message GetReadPagesResponse {
 }
 
 message GetReadPagesWithDurationRequest {
+  uint64 user_id = 1;
+  google.protobuf.Timestamp start_time = 2;
+  google.protobuf.Timestamp end_time = 3;
+}
+
+message GetReadSecondsRequest {
+  uint64 user_id = 1;
+}
+
+message GetReadSecondsResponse {
+  uint64 read_seconds = 1;
+  google.protobuf.Timestamp time = 2;
+}
+
+message GetReadSecondsWithDurationRequest {
   uint64 user_id = 1;
   google.protobuf.Timestamp start_time = 2;
   google.protobuf.Timestamp end_time = 3;
