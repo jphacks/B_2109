@@ -1,4 +1,4 @@
-package tmp
+package models
 
 import (
 	"time"
@@ -19,7 +19,6 @@ type Goal struct {
 	gorm.Model
 	StartDate  time.Time
 	EndDate    time.Time
-	TimeAmount time.Duration
 	NumPages   int64
 	GoalStatus GoalStatus `gorm:"type:enum('pending', 'doing', 'complete', 'failed');default:'pending'"`
 	UserID     uint
