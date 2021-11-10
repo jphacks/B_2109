@@ -24,7 +24,9 @@ type BookClient interface {
 	GetBooks(ctx context.Context, in *GetBooksRequest, opts ...grpc.CallOption) (*GetBooksResponse, error)
 	GetReadPercentage(ctx context.Context, in *GetReadPercentageRequest, opts ...grpc.CallOption) (*GetReadPercentageResponse, error)
 	GetReadPages(ctx context.Context, in *GetReadPagesRequest, opts ...grpc.CallOption) (*GetReadPagesResponse, error)
+	GetReadSeconds(ctx context.Context, in *GetReadSecondsRequest, opts ...grpc.CallOption) (*GetReadSecondsResponse, error)
 	GetReadPagesWithDuration(ctx context.Context, in *GetReadPagesWithDurationRequest, opts ...grpc.CallOption) (*GetReadPagesResponse, error)
+	GetReadSecondsWithDuration(ctx context.Context, in *GetReadSecondsWithDurationRequest, opts ...grpc.CallOption) (*GetReadSecondsResponse, error)
 	GetReadPagesByBookID(ctx context.Context, in *GetReadPagesByBookIDRequest, opts ...grpc.CallOption) (*GetReadPagesResponse, error)
 	GetBookmarkStatus(ctx context.Context, in *GetBookmarkStatusRequest, opts ...grpc.CallOption) (*GetBookmarkStatusResponse, error)
 }
@@ -91,9 +93,27 @@ func (c *bookClient) GetReadPages(ctx context.Context, in *GetReadPagesRequest, 
 	return out, nil
 }
 
+func (c *bookClient) GetReadSeconds(ctx context.Context, in *GetReadSecondsRequest, opts ...grpc.CallOption) (*GetReadSecondsResponse, error) {
+	out := new(GetReadSecondsResponse)
+	err := c.cc.Invoke(ctx, "/bookowl.Book/GetReadSeconds", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *bookClient) GetReadPagesWithDuration(ctx context.Context, in *GetReadPagesWithDurationRequest, opts ...grpc.CallOption) (*GetReadPagesResponse, error) {
 	out := new(GetReadPagesResponse)
 	err := c.cc.Invoke(ctx, "/bookowl.Book/GetReadPagesWithDuration", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *bookClient) GetReadSecondsWithDuration(ctx context.Context, in *GetReadSecondsWithDurationRequest, opts ...grpc.CallOption) (*GetReadSecondsResponse, error) {
+	out := new(GetReadSecondsResponse)
+	err := c.cc.Invoke(ctx, "/bookowl.Book/GetReadSecondsWithDuration", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -128,7 +148,9 @@ type BookServer interface {
 	GetBooks(context.Context, *GetBooksRequest) (*GetBooksResponse, error)
 	GetReadPercentage(context.Context, *GetReadPercentageRequest) (*GetReadPercentageResponse, error)
 	GetReadPages(context.Context, *GetReadPagesRequest) (*GetReadPagesResponse, error)
+	GetReadSeconds(context.Context, *GetReadSecondsRequest) (*GetReadSecondsResponse, error)
 	GetReadPagesWithDuration(context.Context, *GetReadPagesWithDurationRequest) (*GetReadPagesResponse, error)
+	GetReadSecondsWithDuration(context.Context, *GetReadSecondsWithDurationRequest) (*GetReadSecondsResponse, error)
 	GetReadPagesByBookID(context.Context, *GetReadPagesByBookIDRequest) (*GetReadPagesResponse, error)
 	GetBookmarkStatus(context.Context, *GetBookmarkStatusRequest) (*GetBookmarkStatusResponse, error)
 	mustEmbedUnimplementedBookServer()
@@ -156,8 +178,14 @@ func (UnimplementedBookServer) GetReadPercentage(context.Context, *GetReadPercen
 func (UnimplementedBookServer) GetReadPages(context.Context, *GetReadPagesRequest) (*GetReadPagesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetReadPages not implemented")
 }
+func (UnimplementedBookServer) GetReadSeconds(context.Context, *GetReadSecondsRequest) (*GetReadSecondsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetReadSeconds not implemented")
+}
 func (UnimplementedBookServer) GetReadPagesWithDuration(context.Context, *GetReadPagesWithDurationRequest) (*GetReadPagesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetReadPagesWithDuration not implemented")
+}
+func (UnimplementedBookServer) GetReadSecondsWithDuration(context.Context, *GetReadSecondsWithDurationRequest) (*GetReadSecondsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetReadSecondsWithDuration not implemented")
 }
 func (UnimplementedBookServer) GetReadPagesByBookID(context.Context, *GetReadPagesByBookIDRequest) (*GetReadPagesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetReadPagesByBookID not implemented")
@@ -286,6 +314,24 @@ func _Book_GetReadPages_Handler(srv interface{}, ctx context.Context, dec func(i
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Book_GetReadSeconds_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetReadSecondsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BookServer).GetReadSeconds(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bookowl.Book/GetReadSeconds",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BookServer).GetReadSeconds(ctx, req.(*GetReadSecondsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Book_GetReadPagesWithDuration_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetReadPagesWithDurationRequest)
 	if err := dec(in); err != nil {
@@ -300,6 +346,24 @@ func _Book_GetReadPagesWithDuration_Handler(srv interface{}, ctx context.Context
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(BookServer).GetReadPagesWithDuration(ctx, req.(*GetReadPagesWithDurationRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Book_GetReadSecondsWithDuration_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetReadSecondsWithDurationRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BookServer).GetReadSecondsWithDuration(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bookowl.Book/GetReadSecondsWithDuration",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BookServer).GetReadSecondsWithDuration(ctx, req.(*GetReadSecondsWithDurationRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -372,8 +436,16 @@ var Book_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Book_GetReadPages_Handler,
 		},
 		{
+			MethodName: "GetReadSeconds",
+			Handler:    _Book_GetReadSeconds_Handler,
+		},
+		{
 			MethodName: "GetReadPagesWithDuration",
 			Handler:    _Book_GetReadPagesWithDuration_Handler,
+		},
+		{
+			MethodName: "GetReadSecondsWithDuration",
+			Handler:    _Book_GetReadSecondsWithDuration_Handler,
 		},
 		{
 			MethodName: "GetReadPagesByBookID",

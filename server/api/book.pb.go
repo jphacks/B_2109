@@ -778,6 +778,171 @@ func (x *GetReadPagesWithDurationRequest) GetEndTime() *timestamppb.Timestamp {
 	return nil
 }
 
+type GetReadSecondsRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	UserId uint64 `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+}
+
+func (x *GetReadSecondsRequest) Reset() {
+	*x = GetReadSecondsRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_book_proto_msgTypes[12]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetReadSecondsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetReadSecondsRequest) ProtoMessage() {}
+
+func (x *GetReadSecondsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_book_proto_msgTypes[12]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetReadSecondsRequest.ProtoReflect.Descriptor instead.
+func (*GetReadSecondsRequest) Descriptor() ([]byte, []int) {
+	return file_book_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *GetReadSecondsRequest) GetUserId() uint64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+type GetReadSecondsResponse struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ReadSeconds uint64                 `protobuf:"varint,1,opt,name=read_seconds,json=readSeconds,proto3" json:"read_seconds,omitempty"`
+	Time        *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=time,proto3" json:"time,omitempty"`
+}
+
+func (x *GetReadSecondsResponse) Reset() {
+	*x = GetReadSecondsResponse{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_book_proto_msgTypes[13]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetReadSecondsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetReadSecondsResponse) ProtoMessage() {}
+
+func (x *GetReadSecondsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_book_proto_msgTypes[13]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetReadSecondsResponse.ProtoReflect.Descriptor instead.
+func (*GetReadSecondsResponse) Descriptor() ([]byte, []int) {
+	return file_book_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *GetReadSecondsResponse) GetReadSeconds() uint64 {
+	if x != nil {
+		return x.ReadSeconds
+	}
+	return 0
+}
+
+func (x *GetReadSecondsResponse) GetTime() *timestamppb.Timestamp {
+	if x != nil {
+		return x.Time
+	}
+	return nil
+}
+
+type GetReadSecondsWithDurationRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	UserId    uint64                 `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	StartTime *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=start_time,json=startTime,proto3" json:"start_time,omitempty"`
+	EndTime   *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=end_time,json=endTime,proto3" json:"end_time,omitempty"`
+}
+
+func (x *GetReadSecondsWithDurationRequest) Reset() {
+	*x = GetReadSecondsWithDurationRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_book_proto_msgTypes[14]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *GetReadSecondsWithDurationRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetReadSecondsWithDurationRequest) ProtoMessage() {}
+
+func (x *GetReadSecondsWithDurationRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_book_proto_msgTypes[14]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetReadSecondsWithDurationRequest.ProtoReflect.Descriptor instead.
+func (*GetReadSecondsWithDurationRequest) Descriptor() ([]byte, []int) {
+	return file_book_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *GetReadSecondsWithDurationRequest) GetUserId() uint64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+func (x *GetReadSecondsWithDurationRequest) GetStartTime() *timestamppb.Timestamp {
+	if x != nil {
+		return x.StartTime
+	}
+	return nil
+}
+
+func (x *GetReadSecondsWithDurationRequest) GetEndTime() *timestamppb.Timestamp {
+	if x != nil {
+		return x.EndTime
+	}
+	return nil
+}
+
 type GetReadPagesByBookIDRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -790,7 +955,7 @@ type GetReadPagesByBookIDRequest struct {
 func (x *GetReadPagesByBookIDRequest) Reset() {
 	*x = GetReadPagesByBookIDRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_book_proto_msgTypes[12]
+		mi := &file_book_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -803,7 +968,7 @@ func (x *GetReadPagesByBookIDRequest) String() string {
 func (*GetReadPagesByBookIDRequest) ProtoMessage() {}
 
 func (x *GetReadPagesByBookIDRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_book_proto_msgTypes[12]
+	mi := &file_book_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -816,7 +981,7 @@ func (x *GetReadPagesByBookIDRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetReadPagesByBookIDRequest.ProtoReflect.Descriptor instead.
 func (*GetReadPagesByBookIDRequest) Descriptor() ([]byte, []int) {
-	return file_book_proto_rawDescGZIP(), []int{12}
+	return file_book_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *GetReadPagesByBookIDRequest) GetUserId() uint64 {
@@ -844,7 +1009,7 @@ type GetBookmarkStatusRequest struct {
 func (x *GetBookmarkStatusRequest) Reset() {
 	*x = GetBookmarkStatusRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_book_proto_msgTypes[13]
+		mi := &file_book_proto_msgTypes[16]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -857,7 +1022,7 @@ func (x *GetBookmarkStatusRequest) String() string {
 func (*GetBookmarkStatusRequest) ProtoMessage() {}
 
 func (x *GetBookmarkStatusRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_book_proto_msgTypes[13]
+	mi := &file_book_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -870,7 +1035,7 @@ func (x *GetBookmarkStatusRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetBookmarkStatusRequest.ProtoReflect.Descriptor instead.
 func (*GetBookmarkStatusRequest) Descriptor() ([]byte, []int) {
-	return file_book_proto_rawDescGZIP(), []int{13}
+	return file_book_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *GetBookmarkStatusRequest) GetBookmarkId() uint64 {
@@ -892,7 +1057,7 @@ type GetBookmarkStatusResponse struct {
 func (x *GetBookmarkStatusResponse) Reset() {
 	*x = GetBookmarkStatusResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_book_proto_msgTypes[14]
+		mi := &file_book_proto_msgTypes[17]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -905,7 +1070,7 @@ func (x *GetBookmarkStatusResponse) String() string {
 func (*GetBookmarkStatusResponse) ProtoMessage() {}
 
 func (x *GetBookmarkStatusResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_book_proto_msgTypes[14]
+	mi := &file_book_proto_msgTypes[17]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -918,7 +1083,7 @@ func (x *GetBookmarkStatusResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetBookmarkStatusResponse.ProtoReflect.Descriptor instead.
 func (*GetBookmarkStatusResponse) Descriptor() ([]byte, []int) {
-	return file_book_proto_rawDescGZIP(), []int{14}
+	return file_book_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *GetBookmarkStatusResponse) GetBookmarkStatus() BookmarkStatus {
@@ -957,7 +1122,7 @@ type BookInfo struct {
 func (x *BookInfo) Reset() {
 	*x = BookInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_book_proto_msgTypes[15]
+		mi := &file_book_proto_msgTypes[18]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -970,7 +1135,7 @@ func (x *BookInfo) String() string {
 func (*BookInfo) ProtoMessage() {}
 
 func (x *BookInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_book_proto_msgTypes[15]
+	mi := &file_book_proto_msgTypes[18]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -983,7 +1148,7 @@ func (x *BookInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BookInfo.ProtoReflect.Descriptor instead.
 func (*BookInfo) Descriptor() ([]byte, []int) {
-	return file_book_proto_rawDescGZIP(), []int{15}
+	return file_book_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *BookInfo) GetBookId() uint64 {
@@ -1143,6 +1308,27 @@ var file_book_proto_rawDesc = []byte{
 	0x6d, 0x65, 0x12, 0x35, 0x0a, 0x08, 0x65, 0x6e, 0x64, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x03,
 	0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72,
 	0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70,
+	0x52, 0x07, 0x65, 0x6e, 0x64, 0x54, 0x69, 0x6d, 0x65, 0x22, 0x30, 0x0a, 0x15, 0x47, 0x65, 0x74,
+	0x52, 0x65, 0x61, 0x64, 0x53, 0x65, 0x63, 0x6f, 0x6e, 0x64, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x12, 0x17, 0x0a, 0x07, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x04, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x22, 0x6b, 0x0a, 0x16, 0x47,
+	0x65, 0x74, 0x52, 0x65, 0x61, 0x64, 0x53, 0x65, 0x63, 0x6f, 0x6e, 0x64, 0x73, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x21, 0x0a, 0x0c, 0x72, 0x65, 0x61, 0x64, 0x5f, 0x73, 0x65,
+	0x63, 0x6f, 0x6e, 0x64, 0x73, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x0b, 0x72, 0x65, 0x61,
+	0x64, 0x53, 0x65, 0x63, 0x6f, 0x6e, 0x64, 0x73, 0x12, 0x2e, 0x0a, 0x04, 0x74, 0x69, 0x6d, 0x65,
+	0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61,
+	0x6d, 0x70, 0x52, 0x04, 0x74, 0x69, 0x6d, 0x65, 0x22, 0xae, 0x01, 0x0a, 0x21, 0x47, 0x65, 0x74,
+	0x52, 0x65, 0x61, 0x64, 0x53, 0x65, 0x63, 0x6f, 0x6e, 0x64, 0x73, 0x57, 0x69, 0x74, 0x68, 0x44,
+	0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x17,
+	0x0a, 0x07, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52,
+	0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x12, 0x39, 0x0a, 0x0a, 0x73, 0x74, 0x61, 0x72, 0x74,
+	0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f,
+	0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69,
+	0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x52, 0x09, 0x73, 0x74, 0x61, 0x72, 0x74, 0x54, 0x69,
+	0x6d, 0x65, 0x12, 0x35, 0x0a, 0x08, 0x65, 0x6e, 0x64, 0x5f, 0x74, 0x69, 0x6d, 0x65, 0x18, 0x03,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70,
 	0x52, 0x07, 0x65, 0x6e, 0x64, 0x54, 0x69, 0x6d, 0x65, 0x22, 0x4f, 0x0a, 0x1b, 0x47, 0x65, 0x74,
 	0x52, 0x65, 0x61, 0x64, 0x50, 0x61, 0x67, 0x65, 0x73, 0x42, 0x79, 0x42, 0x6f, 0x6f, 0x6b, 0x49,
 	0x44, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x17, 0x0a, 0x07, 0x75, 0x73, 0x65, 0x72,
@@ -1195,7 +1381,7 @@ var file_book_proto_rawDesc = []byte{
 	0x45, 0x43, 0x49, 0x46, 0x49, 0x45, 0x44, 0x10, 0x00, 0x12, 0x19, 0x0a, 0x15, 0x42, 0x4f, 0x4f,
 	0x4b, 0x4d, 0x41, 0x52, 0x4b, 0x5f, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x47, 0x52, 0x45,
 	0x45, 0x4e, 0x10, 0x01, 0x12, 0x17, 0x0a, 0x13, 0x42, 0x4f, 0x4f, 0x4b, 0x4d, 0x41, 0x52, 0x4b,
-	0x5f, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x52, 0x45, 0x44, 0x10, 0x02, 0x32, 0x81, 0x06,
+	0x5f, 0x53, 0x54, 0x41, 0x54, 0x55, 0x53, 0x5f, 0x52, 0x45, 0x44, 0x10, 0x02, 0x32, 0xbf, 0x07,
 	0x0a, 0x04, 0x42, 0x6f, 0x6f, 0x6b, 0x12, 0x4b, 0x0a, 0x0c, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74,
 	0x65, 0x72, 0x42, 0x6f, 0x6f, 0x6b, 0x12, 0x1c, 0x2e, 0x62, 0x6f, 0x6f, 0x6b, 0x6f, 0x77, 0x6c,
 	0x2e, 0x52, 0x65, 0x67, 0x69, 0x73, 0x74, 0x65, 0x72, 0x42, 0x6f, 0x6f, 0x6b, 0x52, 0x65, 0x71,
@@ -1226,28 +1412,39 @@ var file_book_proto_rawDesc = []byte{
 	0x2e, 0x47, 0x65, 0x74, 0x52, 0x65, 0x61, 0x64, 0x50, 0x61, 0x67, 0x65, 0x73, 0x52, 0x65, 0x71,
 	0x75, 0x65, 0x73, 0x74, 0x1a, 0x1d, 0x2e, 0x62, 0x6f, 0x6f, 0x6b, 0x6f, 0x77, 0x6c, 0x2e, 0x47,
 	0x65, 0x74, 0x52, 0x65, 0x61, 0x64, 0x50, 0x61, 0x67, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x12, 0x63, 0x0a, 0x18, 0x47, 0x65, 0x74, 0x52, 0x65, 0x61, 0x64, 0x50, 0x61,
-	0x67, 0x65, 0x73, 0x57, 0x69, 0x74, 0x68, 0x44, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12,
-	0x28, 0x2e, 0x62, 0x6f, 0x6f, 0x6b, 0x6f, 0x77, 0x6c, 0x2e, 0x47, 0x65, 0x74, 0x52, 0x65, 0x61,
+	0x6e, 0x73, 0x65, 0x12, 0x51, 0x0a, 0x0e, 0x47, 0x65, 0x74, 0x52, 0x65, 0x61, 0x64, 0x53, 0x65,
+	0x63, 0x6f, 0x6e, 0x64, 0x73, 0x12, 0x1e, 0x2e, 0x62, 0x6f, 0x6f, 0x6b, 0x6f, 0x77, 0x6c, 0x2e,
+	0x47, 0x65, 0x74, 0x52, 0x65, 0x61, 0x64, 0x53, 0x65, 0x63, 0x6f, 0x6e, 0x64, 0x73, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1f, 0x2e, 0x62, 0x6f, 0x6f, 0x6b, 0x6f, 0x77, 0x6c, 0x2e,
+	0x47, 0x65, 0x74, 0x52, 0x65, 0x61, 0x64, 0x53, 0x65, 0x63, 0x6f, 0x6e, 0x64, 0x73, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x63, 0x0a, 0x18, 0x47, 0x65, 0x74, 0x52, 0x65, 0x61,
 	0x64, 0x50, 0x61, 0x67, 0x65, 0x73, 0x57, 0x69, 0x74, 0x68, 0x44, 0x75, 0x72, 0x61, 0x74, 0x69,
-	0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1d, 0x2e, 0x62, 0x6f, 0x6f, 0x6b,
-	0x6f, 0x77, 0x6c, 0x2e, 0x47, 0x65, 0x74, 0x52, 0x65, 0x61, 0x64, 0x50, 0x61, 0x67, 0x65, 0x73,
-	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x5b, 0x0a, 0x14, 0x47, 0x65, 0x74, 0x52,
-	0x65, 0x61, 0x64, 0x50, 0x61, 0x67, 0x65, 0x73, 0x42, 0x79, 0x42, 0x6f, 0x6f, 0x6b, 0x49, 0x44,
-	0x12, 0x24, 0x2e, 0x62, 0x6f, 0x6f, 0x6b, 0x6f, 0x77, 0x6c, 0x2e, 0x47, 0x65, 0x74, 0x52, 0x65,
-	0x61, 0x64, 0x50, 0x61, 0x67, 0x65, 0x73, 0x42, 0x79, 0x42, 0x6f, 0x6f, 0x6b, 0x49, 0x44, 0x52,
-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1d, 0x2e, 0x62, 0x6f, 0x6f, 0x6b, 0x6f, 0x77, 0x6c,
-	0x2e, 0x47, 0x65, 0x74, 0x52, 0x65, 0x61, 0x64, 0x50, 0x61, 0x67, 0x65, 0x73, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x5a, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x42, 0x6f, 0x6f, 0x6b,
-	0x6d, 0x61, 0x72, 0x6b, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x21, 0x2e, 0x62, 0x6f, 0x6f,
-	0x6b, 0x6f, 0x77, 0x6c, 0x2e, 0x47, 0x65, 0x74, 0x42, 0x6f, 0x6f, 0x6b, 0x6d, 0x61, 0x72, 0x6b,
-	0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x22, 0x2e,
-	0x62, 0x6f, 0x6f, 0x6b, 0x6f, 0x77, 0x6c, 0x2e, 0x47, 0x65, 0x74, 0x42, 0x6f, 0x6f, 0x6b, 0x6d,
-	0x61, 0x72, 0x6b, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x42, 0x26, 0x5a, 0x24, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f,
-	0x6a, 0x70, 0x68, 0x61, 0x63, 0x6b, 0x73, 0x2f, 0x42, 0x5f, 0x32, 0x31, 0x30, 0x39, 0x2f, 0x73,
-	0x65, 0x72, 0x76, 0x65, 0x72, 0x2f, 0x61, 0x70, 0x69, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x33,
+	0x6f, 0x6e, 0x12, 0x28, 0x2e, 0x62, 0x6f, 0x6f, 0x6b, 0x6f, 0x77, 0x6c, 0x2e, 0x47, 0x65, 0x74,
+	0x52, 0x65, 0x61, 0x64, 0x50, 0x61, 0x67, 0x65, 0x73, 0x57, 0x69, 0x74, 0x68, 0x44, 0x75, 0x72,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1d, 0x2e, 0x62,
+	0x6f, 0x6f, 0x6b, 0x6f, 0x77, 0x6c, 0x2e, 0x47, 0x65, 0x74, 0x52, 0x65, 0x61, 0x64, 0x50, 0x61,
+	0x67, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x69, 0x0a, 0x1a, 0x47,
+	0x65, 0x74, 0x52, 0x65, 0x61, 0x64, 0x53, 0x65, 0x63, 0x6f, 0x6e, 0x64, 0x73, 0x57, 0x69, 0x74,
+	0x68, 0x44, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x2a, 0x2e, 0x62, 0x6f, 0x6f, 0x6b,
+	0x6f, 0x77, 0x6c, 0x2e, 0x47, 0x65, 0x74, 0x52, 0x65, 0x61, 0x64, 0x53, 0x65, 0x63, 0x6f, 0x6e,
+	0x64, 0x73, 0x57, 0x69, 0x74, 0x68, 0x44, 0x75, 0x72, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1f, 0x2e, 0x62, 0x6f, 0x6f, 0x6b, 0x6f, 0x77, 0x6c, 0x2e,
+	0x47, 0x65, 0x74, 0x52, 0x65, 0x61, 0x64, 0x53, 0x65, 0x63, 0x6f, 0x6e, 0x64, 0x73, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x5b, 0x0a, 0x14, 0x47, 0x65, 0x74, 0x52, 0x65, 0x61,
+	0x64, 0x50, 0x61, 0x67, 0x65, 0x73, 0x42, 0x79, 0x42, 0x6f, 0x6f, 0x6b, 0x49, 0x44, 0x12, 0x24,
+	0x2e, 0x62, 0x6f, 0x6f, 0x6b, 0x6f, 0x77, 0x6c, 0x2e, 0x47, 0x65, 0x74, 0x52, 0x65, 0x61, 0x64,
+	0x50, 0x61, 0x67, 0x65, 0x73, 0x42, 0x79, 0x42, 0x6f, 0x6f, 0x6b, 0x49, 0x44, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x1a, 0x1d, 0x2e, 0x62, 0x6f, 0x6f, 0x6b, 0x6f, 0x77, 0x6c, 0x2e, 0x47,
+	0x65, 0x74, 0x52, 0x65, 0x61, 0x64, 0x50, 0x61, 0x67, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f,
+	0x6e, 0x73, 0x65, 0x12, 0x5a, 0x0a, 0x11, 0x47, 0x65, 0x74, 0x42, 0x6f, 0x6f, 0x6b, 0x6d, 0x61,
+	0x72, 0x6b, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x12, 0x21, 0x2e, 0x62, 0x6f, 0x6f, 0x6b, 0x6f,
+	0x77, 0x6c, 0x2e, 0x47, 0x65, 0x74, 0x42, 0x6f, 0x6f, 0x6b, 0x6d, 0x61, 0x72, 0x6b, 0x53, 0x74,
+	0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x22, 0x2e, 0x62, 0x6f,
+	0x6f, 0x6b, 0x6f, 0x77, 0x6c, 0x2e, 0x47, 0x65, 0x74, 0x42, 0x6f, 0x6f, 0x6b, 0x6d, 0x61, 0x72,
+	0x6b, 0x53, 0x74, 0x61, 0x74, 0x75, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42,
+	0x26, 0x5a, 0x24, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x6a, 0x70,
+	0x68, 0x61, 0x63, 0x6b, 0x73, 0x2f, 0x42, 0x5f, 0x32, 0x31, 0x30, 0x39, 0x2f, 0x73, 0x65, 0x72,
+	0x76, 0x65, 0x72, 0x2f, 0x61, 0x70, 0x69, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -1263,66 +1460,76 @@ func file_book_proto_rawDescGZIP() []byte {
 }
 
 var file_book_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
-var file_book_proto_msgTypes = make([]protoimpl.MessageInfo, 16)
+var file_book_proto_msgTypes = make([]protoimpl.MessageInfo, 19)
 var file_book_proto_goTypes = []interface{}{
-	(ReadStatus)(0),                         // 0: bookowl.ReadStatus
-	(BookmarkStatus)(0),                     // 1: bookowl.BookmarkStatus
-	(*RegisterBookRequest)(nil),             // 2: bookowl.RegisterBookRequest
-	(*RegisterBookResponse)(nil),            // 3: bookowl.RegisterBookResponse
-	(*UpdateBookmarkIDRequest)(nil),         // 4: bookowl.UpdateBookmarkIDRequest
-	(*UpdateReadStatusRequest)(nil),         // 5: bookowl.UpdateReadStatusRequest
-	(*UpdateBookResponse)(nil),              // 6: bookowl.UpdateBookResponse
-	(*GetBooksRequest)(nil),                 // 7: bookowl.GetBooksRequest
-	(*GetBooksResponse)(nil),                // 8: bookowl.GetBooksResponse
-	(*GetReadPercentageRequest)(nil),        // 9: bookowl.GetReadPercentageRequest
-	(*GetReadPercentageResponse)(nil),       // 10: bookowl.GetReadPercentageResponse
-	(*GetReadPagesRequest)(nil),             // 11: bookowl.GetReadPagesRequest
-	(*GetReadPagesResponse)(nil),            // 12: bookowl.GetReadPagesResponse
-	(*GetReadPagesWithDurationRequest)(nil), // 13: bookowl.GetReadPagesWithDurationRequest
-	(*GetReadPagesByBookIDRequest)(nil),     // 14: bookowl.GetReadPagesByBookIDRequest
-	(*GetBookmarkStatusRequest)(nil),        // 15: bookowl.GetBookmarkStatusRequest
-	(*GetBookmarkStatusResponse)(nil),       // 16: bookowl.GetBookmarkStatusResponse
-	(*BookInfo)(nil),                        // 17: bookowl.BookInfo
-	(*timestamppb.Timestamp)(nil),           // 18: google.protobuf.Timestamp
+	(ReadStatus)(0),                           // 0: bookowl.ReadStatus
+	(BookmarkStatus)(0),                       // 1: bookowl.BookmarkStatus
+	(*RegisterBookRequest)(nil),               // 2: bookowl.RegisterBookRequest
+	(*RegisterBookResponse)(nil),              // 3: bookowl.RegisterBookResponse
+	(*UpdateBookmarkIDRequest)(nil),           // 4: bookowl.UpdateBookmarkIDRequest
+	(*UpdateReadStatusRequest)(nil),           // 5: bookowl.UpdateReadStatusRequest
+	(*UpdateBookResponse)(nil),                // 6: bookowl.UpdateBookResponse
+	(*GetBooksRequest)(nil),                   // 7: bookowl.GetBooksRequest
+	(*GetBooksResponse)(nil),                  // 8: bookowl.GetBooksResponse
+	(*GetReadPercentageRequest)(nil),          // 9: bookowl.GetReadPercentageRequest
+	(*GetReadPercentageResponse)(nil),         // 10: bookowl.GetReadPercentageResponse
+	(*GetReadPagesRequest)(nil),               // 11: bookowl.GetReadPagesRequest
+	(*GetReadPagesResponse)(nil),              // 12: bookowl.GetReadPagesResponse
+	(*GetReadPagesWithDurationRequest)(nil),   // 13: bookowl.GetReadPagesWithDurationRequest
+	(*GetReadSecondsRequest)(nil),             // 14: bookowl.GetReadSecondsRequest
+	(*GetReadSecondsResponse)(nil),            // 15: bookowl.GetReadSecondsResponse
+	(*GetReadSecondsWithDurationRequest)(nil), // 16: bookowl.GetReadSecondsWithDurationRequest
+	(*GetReadPagesByBookIDRequest)(nil),       // 17: bookowl.GetReadPagesByBookIDRequest
+	(*GetBookmarkStatusRequest)(nil),          // 18: bookowl.GetBookmarkStatusRequest
+	(*GetBookmarkStatusResponse)(nil),         // 19: bookowl.GetBookmarkStatusResponse
+	(*BookInfo)(nil),                          // 20: bookowl.BookInfo
+	(*timestamppb.Timestamp)(nil),             // 21: google.protobuf.Timestamp
 }
 var file_book_proto_depIdxs = []int32{
-	17, // 0: bookowl.RegisterBookResponse.book_info:type_name -> bookowl.BookInfo
-	18, // 1: bookowl.RegisterBookResponse.time:type_name -> google.protobuf.Timestamp
+	20, // 0: bookowl.RegisterBookResponse.book_info:type_name -> bookowl.BookInfo
+	21, // 1: bookowl.RegisterBookResponse.time:type_name -> google.protobuf.Timestamp
 	0,  // 2: bookowl.UpdateReadStatusRequest.read_status:type_name -> bookowl.ReadStatus
-	17, // 3: bookowl.UpdateBookResponse.book_info:type_name -> bookowl.BookInfo
-	18, // 4: bookowl.UpdateBookResponse.time:type_name -> google.protobuf.Timestamp
-	17, // 5: bookowl.GetBooksResponse.books_info:type_name -> bookowl.BookInfo
-	18, // 6: bookowl.GetBooksResponse.time:type_name -> google.protobuf.Timestamp
-	18, // 7: bookowl.GetReadPercentageResponse.time:type_name -> google.protobuf.Timestamp
-	18, // 8: bookowl.GetReadPagesResponse.time:type_name -> google.protobuf.Timestamp
-	18, // 9: bookowl.GetReadPagesWithDurationRequest.start_time:type_name -> google.protobuf.Timestamp
-	18, // 10: bookowl.GetReadPagesWithDurationRequest.end_time:type_name -> google.protobuf.Timestamp
-	1,  // 11: bookowl.GetBookmarkStatusResponse.bookmark_status:type_name -> bookowl.BookmarkStatus
-	18, // 12: bookowl.GetBookmarkStatusResponse.time:type_name -> google.protobuf.Timestamp
-	0,  // 13: bookowl.BookInfo.read_status:type_name -> bookowl.ReadStatus
-	2,  // 14: bookowl.Book.RegisterBook:input_type -> bookowl.RegisterBookRequest
-	4,  // 15: bookowl.Book.UpdateBookmarkID:input_type -> bookowl.UpdateBookmarkIDRequest
-	5,  // 16: bookowl.Book.UpdateReadStatus:input_type -> bookowl.UpdateReadStatusRequest
-	7,  // 17: bookowl.Book.GetBooks:input_type -> bookowl.GetBooksRequest
-	9,  // 18: bookowl.Book.GetReadPercentage:input_type -> bookowl.GetReadPercentageRequest
-	11, // 19: bookowl.Book.GetReadPages:input_type -> bookowl.GetReadPagesRequest
-	13, // 20: bookowl.Book.GetReadPagesWithDuration:input_type -> bookowl.GetReadPagesWithDurationRequest
-	14, // 21: bookowl.Book.GetReadPagesByBookID:input_type -> bookowl.GetReadPagesByBookIDRequest
-	15, // 22: bookowl.Book.GetBookmarkStatus:input_type -> bookowl.GetBookmarkStatusRequest
-	3,  // 23: bookowl.Book.RegisterBook:output_type -> bookowl.RegisterBookResponse
-	6,  // 24: bookowl.Book.UpdateBookmarkID:output_type -> bookowl.UpdateBookResponse
-	6,  // 25: bookowl.Book.UpdateReadStatus:output_type -> bookowl.UpdateBookResponse
-	8,  // 26: bookowl.Book.GetBooks:output_type -> bookowl.GetBooksResponse
-	10, // 27: bookowl.Book.GetReadPercentage:output_type -> bookowl.GetReadPercentageResponse
-	12, // 28: bookowl.Book.GetReadPages:output_type -> bookowl.GetReadPagesResponse
-	12, // 29: bookowl.Book.GetReadPagesWithDuration:output_type -> bookowl.GetReadPagesResponse
-	12, // 30: bookowl.Book.GetReadPagesByBookID:output_type -> bookowl.GetReadPagesResponse
-	16, // 31: bookowl.Book.GetBookmarkStatus:output_type -> bookowl.GetBookmarkStatusResponse
-	23, // [23:32] is the sub-list for method output_type
-	14, // [14:23] is the sub-list for method input_type
-	14, // [14:14] is the sub-list for extension type_name
-	14, // [14:14] is the sub-list for extension extendee
-	0,  // [0:14] is the sub-list for field type_name
+	20, // 3: bookowl.UpdateBookResponse.book_info:type_name -> bookowl.BookInfo
+	21, // 4: bookowl.UpdateBookResponse.time:type_name -> google.protobuf.Timestamp
+	20, // 5: bookowl.GetBooksResponse.books_info:type_name -> bookowl.BookInfo
+	21, // 6: bookowl.GetBooksResponse.time:type_name -> google.protobuf.Timestamp
+	21, // 7: bookowl.GetReadPercentageResponse.time:type_name -> google.protobuf.Timestamp
+	21, // 8: bookowl.GetReadPagesResponse.time:type_name -> google.protobuf.Timestamp
+	21, // 9: bookowl.GetReadPagesWithDurationRequest.start_time:type_name -> google.protobuf.Timestamp
+	21, // 10: bookowl.GetReadPagesWithDurationRequest.end_time:type_name -> google.protobuf.Timestamp
+	21, // 11: bookowl.GetReadSecondsResponse.time:type_name -> google.protobuf.Timestamp
+	21, // 12: bookowl.GetReadSecondsWithDurationRequest.start_time:type_name -> google.protobuf.Timestamp
+	21, // 13: bookowl.GetReadSecondsWithDurationRequest.end_time:type_name -> google.protobuf.Timestamp
+	1,  // 14: bookowl.GetBookmarkStatusResponse.bookmark_status:type_name -> bookowl.BookmarkStatus
+	21, // 15: bookowl.GetBookmarkStatusResponse.time:type_name -> google.protobuf.Timestamp
+	0,  // 16: bookowl.BookInfo.read_status:type_name -> bookowl.ReadStatus
+	2,  // 17: bookowl.Book.RegisterBook:input_type -> bookowl.RegisterBookRequest
+	4,  // 18: bookowl.Book.UpdateBookmarkID:input_type -> bookowl.UpdateBookmarkIDRequest
+	5,  // 19: bookowl.Book.UpdateReadStatus:input_type -> bookowl.UpdateReadStatusRequest
+	7,  // 20: bookowl.Book.GetBooks:input_type -> bookowl.GetBooksRequest
+	9,  // 21: bookowl.Book.GetReadPercentage:input_type -> bookowl.GetReadPercentageRequest
+	11, // 22: bookowl.Book.GetReadPages:input_type -> bookowl.GetReadPagesRequest
+	14, // 23: bookowl.Book.GetReadSeconds:input_type -> bookowl.GetReadSecondsRequest
+	13, // 24: bookowl.Book.GetReadPagesWithDuration:input_type -> bookowl.GetReadPagesWithDurationRequest
+	16, // 25: bookowl.Book.GetReadSecondsWithDuration:input_type -> bookowl.GetReadSecondsWithDurationRequest
+	17, // 26: bookowl.Book.GetReadPagesByBookID:input_type -> bookowl.GetReadPagesByBookIDRequest
+	18, // 27: bookowl.Book.GetBookmarkStatus:input_type -> bookowl.GetBookmarkStatusRequest
+	3,  // 28: bookowl.Book.RegisterBook:output_type -> bookowl.RegisterBookResponse
+	6,  // 29: bookowl.Book.UpdateBookmarkID:output_type -> bookowl.UpdateBookResponse
+	6,  // 30: bookowl.Book.UpdateReadStatus:output_type -> bookowl.UpdateBookResponse
+	8,  // 31: bookowl.Book.GetBooks:output_type -> bookowl.GetBooksResponse
+	10, // 32: bookowl.Book.GetReadPercentage:output_type -> bookowl.GetReadPercentageResponse
+	12, // 33: bookowl.Book.GetReadPages:output_type -> bookowl.GetReadPagesResponse
+	15, // 34: bookowl.Book.GetReadSeconds:output_type -> bookowl.GetReadSecondsResponse
+	12, // 35: bookowl.Book.GetReadPagesWithDuration:output_type -> bookowl.GetReadPagesResponse
+	15, // 36: bookowl.Book.GetReadSecondsWithDuration:output_type -> bookowl.GetReadSecondsResponse
+	12, // 37: bookowl.Book.GetReadPagesByBookID:output_type -> bookowl.GetReadPagesResponse
+	19, // 38: bookowl.Book.GetBookmarkStatus:output_type -> bookowl.GetBookmarkStatusResponse
+	28, // [28:39] is the sub-list for method output_type
+	17, // [17:28] is the sub-list for method input_type
+	17, // [17:17] is the sub-list for extension type_name
+	17, // [17:17] is the sub-list for extension extendee
+	0,  // [0:17] is the sub-list for field type_name
 }
 
 func init() { file_book_proto_init() }
@@ -1476,7 +1683,7 @@ func file_book_proto_init() {
 			}
 		}
 		file_book_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetReadPagesByBookIDRequest); i {
+			switch v := v.(*GetReadSecondsRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1488,7 +1695,7 @@ func file_book_proto_init() {
 			}
 		}
 		file_book_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetBookmarkStatusRequest); i {
+			switch v := v.(*GetReadSecondsResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1500,7 +1707,7 @@ func file_book_proto_init() {
 			}
 		}
 		file_book_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*GetBookmarkStatusResponse); i {
+			switch v := v.(*GetReadSecondsWithDurationRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -1512,6 +1719,42 @@ func file_book_proto_init() {
 			}
 		}
 		file_book_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetReadPagesByBookIDRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_book_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetBookmarkStatusRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_book_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*GetBookmarkStatusResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_book_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*BookInfo); i {
 			case 0:
 				return &v.state
@@ -1530,7 +1773,7 @@ func file_book_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_book_proto_rawDesc,
 			NumEnums:      2,
-			NumMessages:   16,
+			NumMessages:   19,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
