@@ -50,10 +50,10 @@ internal protocol Bookowl_BookClientProtocol: GRPCClient {
     callOptions: CallOptions?
   ) -> UnaryCall<Bookowl_GetBooksRequest, Bookowl_GetBooksResponse>
 
-  func getReadPercentage(
-    _ request: Bookowl_GetReadPercentageRequest,
+  func getReadRatio(
+    _ request: Bookowl_GetReadRatioRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<Bookowl_GetReadPercentageRequest, Bookowl_GetReadPercentageResponse>
+  ) -> UnaryCall<Bookowl_GetReadRatioRequest, Bookowl_GetReadRatioResponse>
 
   func getReadPages(
     _ request: Bookowl_GetReadPagesRequest,
@@ -163,21 +163,21 @@ extension Bookowl_BookClientProtocol {
     )
   }
 
-  /// Unary call to GetReadPercentage
+  /// Unary call to GetReadRatio
   ///
   /// - Parameters:
-  ///   - request: Request to send to GetReadPercentage.
+  ///   - request: Request to send to GetReadRatio.
   ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
-  internal func getReadPercentage(
-    _ request: Bookowl_GetReadPercentageRequest,
+  internal func getReadRatio(
+    _ request: Bookowl_GetReadRatioRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<Bookowl_GetReadPercentageRequest, Bookowl_GetReadPercentageResponse> {
+  ) -> UnaryCall<Bookowl_GetReadRatioRequest, Bookowl_GetReadRatioResponse> {
     return self.makeUnaryCall(
-      path: "/bookowl.Book/GetReadPercentage",
+      path: "/bookowl.Book/GetReadRatio",
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeGetReadPercentageInterceptors() ?? []
+      interceptors: self.interceptors?.makeGetReadRatioInterceptors() ?? []
     )
   }
 
@@ -304,8 +304,8 @@ internal protocol Bookowl_BookClientInterceptorFactoryProtocol {
   /// - Returns: Interceptors to use when invoking 'getBooks'.
   func makeGetBooksInterceptors() -> [ClientInterceptor<Bookowl_GetBooksRequest, Bookowl_GetBooksResponse>]
 
-  /// - Returns: Interceptors to use when invoking 'getReadPercentage'.
-  func makeGetReadPercentageInterceptors() -> [ClientInterceptor<Bookowl_GetReadPercentageRequest, Bookowl_GetReadPercentageResponse>]
+  /// - Returns: Interceptors to use when invoking 'getReadRatio'.
+  func makeGetReadRatioInterceptors() -> [ClientInterceptor<Bookowl_GetReadRatioRequest, Bookowl_GetReadRatioResponse>]
 
   /// - Returns: Interceptors to use when invoking 'getReadPages'.
   func makeGetReadPagesInterceptors() -> [ClientInterceptor<Bookowl_GetReadPagesRequest, Bookowl_GetReadPagesResponse>]
@@ -360,7 +360,7 @@ internal protocol Bookowl_BookProvider: CallHandlerProvider {
 
   func getBooks(request: Bookowl_GetBooksRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetBooksResponse>
 
-  func getReadPercentage(request: Bookowl_GetReadPercentageRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetReadPercentageResponse>
+  func getReadRatio(request: Bookowl_GetReadRatioRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetReadRatioResponse>
 
   func getReadPages(request: Bookowl_GetReadPagesRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetReadPagesResponse>
 
@@ -421,13 +421,13 @@ extension Bookowl_BookProvider {
         userFunction: self.getBooks(request:context:)
       )
 
-    case "GetReadPercentage":
+    case "GetReadRatio":
       return UnaryServerHandler(
         context: context,
-        requestDeserializer: ProtobufDeserializer<Bookowl_GetReadPercentageRequest>(),
-        responseSerializer: ProtobufSerializer<Bookowl_GetReadPercentageResponse>(),
-        interceptors: self.interceptors?.makeGetReadPercentageInterceptors() ?? [],
-        userFunction: self.getReadPercentage(request:context:)
+        requestDeserializer: ProtobufDeserializer<Bookowl_GetReadRatioRequest>(),
+        responseSerializer: ProtobufSerializer<Bookowl_GetReadRatioResponse>(),
+        interceptors: self.interceptors?.makeGetReadRatioInterceptors() ?? [],
+        userFunction: self.getReadRatio(request:context:)
       )
 
     case "GetReadPages":
@@ -508,9 +508,9 @@ internal protocol Bookowl_BookServerInterceptorFactoryProtocol {
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeGetBooksInterceptors() -> [ServerInterceptor<Bookowl_GetBooksRequest, Bookowl_GetBooksResponse>]
 
-  /// - Returns: Interceptors to use when handling 'getReadPercentage'.
+  /// - Returns: Interceptors to use when handling 'getReadRatio'.
   ///   Defaults to calling `self.makeInterceptors()`.
-  func makeGetReadPercentageInterceptors() -> [ServerInterceptor<Bookowl_GetReadPercentageRequest, Bookowl_GetReadPercentageResponse>]
+  func makeGetReadRatioInterceptors() -> [ServerInterceptor<Bookowl_GetReadRatioRequest, Bookowl_GetReadRatioResponse>]
 
   /// - Returns: Interceptors to use when handling 'getReadPages'.
   ///   Defaults to calling `self.makeInterceptors()`.

@@ -13,8 +13,8 @@
     - [GetReadPagesRequest](#bookowl.GetReadPagesRequest)
     - [GetReadPagesResponse](#bookowl.GetReadPagesResponse)
     - [GetReadPagesWithDurationRequest](#bookowl.GetReadPagesWithDurationRequest)
-    - [GetReadPercentageRequest](#bookowl.GetReadPercentageRequest)
-    - [GetReadPercentageResponse](#bookowl.GetReadPercentageResponse)
+    - [GetReadRatioRequest](#bookowl.GetReadRatioRequest)
+    - [GetReadRatioResponse](#bookowl.GetReadRatioResponse)
     - [GetReadSecondsRequest](#bookowl.GetReadSecondsRequest)
     - [GetReadSecondsResponse](#bookowl.GetReadSecondsResponse)
     - [GetReadSecondsWithDurationRequest](#bookowl.GetReadSecondsWithDurationRequest)
@@ -219,9 +219,9 @@
 
 
 
-<a name="bookowl.GetReadPercentageRequest"></a>
+<a name="bookowl.GetReadRatioRequest"></a>
 
-### GetReadPercentageRequest
+### GetReadRatioRequest
 
 
 
@@ -234,15 +234,15 @@
 
 
 
-<a name="bookowl.GetReadPercentageResponse"></a>
+<a name="bookowl.GetReadRatioResponse"></a>
 
-### GetReadPercentageResponse
+### GetReadRatioResponse
 
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| read_percentage | [float](#float) |  |  |
+| read_percentage | [double](#double) |  |  |
 | time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
 
 
@@ -424,7 +424,7 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 | UpdateBookmarkID | [UpdateBookmarkIDRequest](#bookowl.UpdateBookmarkIDRequest) | [UpdateBookResponse](#bookowl.UpdateBookResponse) |  |
 | UpdateReadStatus | [UpdateReadStatusRequest](#bookowl.UpdateReadStatusRequest) | [UpdateBookResponse](#bookowl.UpdateBookResponse) |  |
 | GetBooks | [GetBooksRequest](#bookowl.GetBooksRequest) | [GetBooksResponse](#bookowl.GetBooksResponse) |  |
-| GetReadPercentage | [GetReadPercentageRequest](#bookowl.GetReadPercentageRequest) | [GetReadPercentageResponse](#bookowl.GetReadPercentageResponse) |  |
+| GetReadRatio | [GetReadRatioRequest](#bookowl.GetReadRatioRequest) | [GetReadRatioResponse](#bookowl.GetReadRatioResponse) |  |
 | GetReadPages | [GetReadPagesRequest](#bookowl.GetReadPagesRequest) | [GetReadPagesResponse](#bookowl.GetReadPagesResponse) |  |
 | GetReadSeconds | [GetReadSecondsRequest](#bookowl.GetReadSecondsRequest) | [GetReadSecondsResponse](#bookowl.GetReadSecondsResponse) |  |
 | GetReadPagesWithDuration | [GetReadPagesWithDurationRequest](#bookowl.GetReadPagesWithDurationRequest) | [GetReadPagesResponse](#bookowl.GetReadPagesResponse) |  |

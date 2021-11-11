@@ -34,10 +34,10 @@ class BookStub(object):
                 request_serializer=book__pb2.GetBooksRequest.SerializeToString,
                 response_deserializer=book__pb2.GetBooksResponse.FromString,
                 )
-        self.GetReadPercentage = channel.unary_unary(
-                '/bookowl.Book/GetReadPercentage',
-                request_serializer=book__pb2.GetReadPercentageRequest.SerializeToString,
-                response_deserializer=book__pb2.GetReadPercentageResponse.FromString,
+        self.GetReadRatio = channel.unary_unary(
+                '/bookowl.Book/GetReadRatio',
+                request_serializer=book__pb2.GetReadRatioRequest.SerializeToString,
+                response_deserializer=book__pb2.GetReadRatioResponse.FromString,
                 )
         self.GetReadPages = channel.unary_unary(
                 '/bookowl.Book/GetReadPages',
@@ -98,7 +98,7 @@ class BookServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def GetReadPercentage(self, request, context):
+    def GetReadRatio(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -163,10 +163,10 @@ def add_BookServicer_to_server(servicer, server):
                     request_deserializer=book__pb2.GetBooksRequest.FromString,
                     response_serializer=book__pb2.GetBooksResponse.SerializeToString,
             ),
-            'GetReadPercentage': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetReadPercentage,
-                    request_deserializer=book__pb2.GetReadPercentageRequest.FromString,
-                    response_serializer=book__pb2.GetReadPercentageResponse.SerializeToString,
+            'GetReadRatio': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetReadRatio,
+                    request_deserializer=book__pb2.GetReadRatioRequest.FromString,
+                    response_serializer=book__pb2.GetReadRatioResponse.SerializeToString,
             ),
             'GetReadPages': grpc.unary_unary_rpc_method_handler(
                     servicer.GetReadPages,
@@ -277,7 +277,7 @@ class Book(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def GetReadPercentage(request,
+    def GetReadRatio(request,
             target,
             options=(),
             channel_credentials=None,
@@ -287,9 +287,9 @@ class Book(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/bookowl.Book/GetReadPercentage',
-            book__pb2.GetReadPercentageRequest.SerializeToString,
-            book__pb2.GetReadPercentageResponse.FromString,
+        return grpc.experimental.unary_unary(request, target, '/bookowl.Book/GetReadRatio',
+            book__pb2.GetReadRatioRequest.SerializeToString,
+            book__pb2.GetReadRatioResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

@@ -16,7 +16,7 @@ service Book{
 
   rpc GetBooks(GetBooksRequest) returns (GetBooksResponse);
 
-  rpc GetReadPercentage (GetReadPercentageRequest) returns (GetReadPercentageResponse);
+  rpc GetReadRatio (GetReadRatioRequest) returns (GetReadRatioResponse);
 
   rpc GetReadPages (GetReadPagesRequest) returns (GetReadPagesResponse);
 
@@ -66,12 +66,12 @@ message GetBooksResponse {
   google.protobuf.Timestamp time = 2;
 }
 
-message GetReadPercentageRequest {
+message GetReadRatioRequest {
   uint64 user_id = 1;
 }
 
-message GetReadPercentageResponse {
-  float read_percentage = 1;
+message GetReadRatioResponse {
+  double read_percentage = 1;
   google.protobuf.Timestamp time = 2;
 }
 
