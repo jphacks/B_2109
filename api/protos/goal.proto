@@ -10,13 +10,7 @@ service Goal {
 
   rpc CreateGoal(CreateGoalRequest) returns (CreateGoalResponse);
 
-  rpc RegisterOpponents(RegisterOpponentsRequest) returns (RegisterOpponentsResponse);
-
   rpc GetGoals(GetGoalsRequest) returns (GetGoalsResponse);
-
-  rpc GetOpponents(GetOpponentsRequest) returns (GetOpponentsResponse);
-
-  rpc GetRanking(GetRankingRequest) returns (GetRankingResponse);
 }
 
 message CreateGoalRequest {
@@ -30,15 +24,6 @@ message CreateGoalResponse {
   google.protobuf.Timestamp time = 2;
 }
 
-message RegisterOpponentsRequest {
-  uint64 user_id = 1;
-  repeated uint64 opponent_ids = 2;
-}
-
-message RegisterOpponentsResponse {
-  google.protobuf.Timestamp time = 1;
-}
-
 message GetGoalsRequest {
   uint64 user_id = 1;
 }
@@ -46,25 +31,6 @@ message GetGoalsRequest {
 message GetGoalsResponse{
   repeated GoalInfo goals_info = 1;
   google.protobuf.Timestamp time = 2;
-}
-
-message GetOpponentsRequest {
-  uint64 user_id = 1;
-}
-
-message GetOpponentsResponse {
-  repeated OpponentsInfo opponents = 1;
-  google.protobuf.Timestamp time = 2;
-}
-
-message GetRankingRequest {
-  uint64 user_id = 1;
-}
-
-message GetRankingResponse {
-  repeated RankingInfo ranking_infos = 1;
-  google.protobuf.Timestamp time = 2;
-
 }
 
 enum GoalStatus{
@@ -85,16 +51,4 @@ message GoalInfo{
   int64 num_pages = 5;
   GoalStatus goal_status = 6;
   uint64 user_id = 7;
-}
-
-message OpponentsInfo {
-  uint64 id = 1;
-  string name = 2;
-  uint64 read_pages = 3;
-}
-
-message RankingInfo {
-  uint64 id = 1;
-  string name = 2;
-  uint64 ranking = 3;
 }

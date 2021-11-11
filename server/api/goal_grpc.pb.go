@@ -19,10 +19,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type GoalClient interface {
 	CreateGoal(ctx context.Context, in *CreateGoalRequest, opts ...grpc.CallOption) (*CreateGoalResponse, error)
-	RegisterOpponents(ctx context.Context, in *RegisterOpponentsRequest, opts ...grpc.CallOption) (*RegisterOpponentsResponse, error)
 	GetGoals(ctx context.Context, in *GetGoalsRequest, opts ...grpc.CallOption) (*GetGoalsResponse, error)
-	GetOpponents(ctx context.Context, in *GetOpponentsRequest, opts ...grpc.CallOption) (*GetOpponentsResponse, error)
-	GetRanking(ctx context.Context, in *GetRankingRequest, opts ...grpc.CallOption) (*GetRankingResponse, error)
 }
 
 type goalClient struct {
@@ -42,36 +39,9 @@ func (c *goalClient) CreateGoal(ctx context.Context, in *CreateGoalRequest, opts
 	return out, nil
 }
 
-func (c *goalClient) RegisterOpponents(ctx context.Context, in *RegisterOpponentsRequest, opts ...grpc.CallOption) (*RegisterOpponentsResponse, error) {
-	out := new(RegisterOpponentsResponse)
-	err := c.cc.Invoke(ctx, "/bookowl.Goal/RegisterOpponents", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *goalClient) GetGoals(ctx context.Context, in *GetGoalsRequest, opts ...grpc.CallOption) (*GetGoalsResponse, error) {
 	out := new(GetGoalsResponse)
 	err := c.cc.Invoke(ctx, "/bookowl.Goal/GetGoals", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *goalClient) GetOpponents(ctx context.Context, in *GetOpponentsRequest, opts ...grpc.CallOption) (*GetOpponentsResponse, error) {
-	out := new(GetOpponentsResponse)
-	err := c.cc.Invoke(ctx, "/bookowl.Goal/GetOpponents", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *goalClient) GetRanking(ctx context.Context, in *GetRankingRequest, opts ...grpc.CallOption) (*GetRankingResponse, error) {
-	out := new(GetRankingResponse)
-	err := c.cc.Invoke(ctx, "/bookowl.Goal/GetRanking", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -83,10 +53,7 @@ func (c *goalClient) GetRanking(ctx context.Context, in *GetRankingRequest, opts
 // for forward compatibility
 type GoalServer interface {
 	CreateGoal(context.Context, *CreateGoalRequest) (*CreateGoalResponse, error)
-	RegisterOpponents(context.Context, *RegisterOpponentsRequest) (*RegisterOpponentsResponse, error)
 	GetGoals(context.Context, *GetGoalsRequest) (*GetGoalsResponse, error)
-	GetOpponents(context.Context, *GetOpponentsRequest) (*GetOpponentsResponse, error)
-	GetRanking(context.Context, *GetRankingRequest) (*GetRankingResponse, error)
 	mustEmbedUnimplementedGoalServer()
 }
 
@@ -97,17 +64,8 @@ type UnimplementedGoalServer struct {
 func (UnimplementedGoalServer) CreateGoal(context.Context, *CreateGoalRequest) (*CreateGoalResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateGoal not implemented")
 }
-func (UnimplementedGoalServer) RegisterOpponents(context.Context, *RegisterOpponentsRequest) (*RegisterOpponentsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RegisterOpponents not implemented")
-}
 func (UnimplementedGoalServer) GetGoals(context.Context, *GetGoalsRequest) (*GetGoalsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetGoals not implemented")
-}
-func (UnimplementedGoalServer) GetOpponents(context.Context, *GetOpponentsRequest) (*GetOpponentsResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetOpponents not implemented")
-}
-func (UnimplementedGoalServer) GetRanking(context.Context, *GetRankingRequest) (*GetRankingResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetRanking not implemented")
 }
 func (UnimplementedGoalServer) mustEmbedUnimplementedGoalServer() {}
 
@@ -140,24 +98,6 @@ func _Goal_CreateGoal_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Goal_RegisterOpponents_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RegisterOpponentsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(GoalServer).RegisterOpponents(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/bookowl.Goal/RegisterOpponents",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GoalServer).RegisterOpponents(ctx, req.(*RegisterOpponentsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _Goal_GetGoals_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetGoalsRequest)
 	if err := dec(in); err != nil {
@@ -176,42 +116,6 @@ func _Goal_GetGoals_Handler(srv interface{}, ctx context.Context, dec func(inter
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Goal_GetOpponents_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetOpponentsRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(GoalServer).GetOpponents(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/bookowl.Goal/GetOpponents",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GoalServer).GetOpponents(ctx, req.(*GetOpponentsRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Goal_GetRanking_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetRankingRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(GoalServer).GetRanking(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/bookowl.Goal/GetRanking",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GoalServer).GetRanking(ctx, req.(*GetRankingRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // Goal_ServiceDesc is the grpc.ServiceDesc for Goal service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -224,20 +128,8 @@ var Goal_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Goal_CreateGoal_Handler,
 		},
 		{
-			MethodName: "RegisterOpponents",
-			Handler:    _Goal_RegisterOpponents_Handler,
-		},
-		{
 			MethodName: "GetGoals",
 			Handler:    _Goal_GetGoals_Handler,
-		},
-		{
-			MethodName: "GetOpponents",
-			Handler:    _Goal_GetOpponents_Handler,
-		},
-		{
-			MethodName: "GetRanking",
-			Handler:    _Goal_GetRanking_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

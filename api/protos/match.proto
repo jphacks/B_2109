@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package bookowl;
+
+option go_package = "github.com/jphacks/B_2109/server/api";
+
+import "google/protobuf/timestamp.proto";
+
+service  Match {
+
+  rpc RegisterOpponents(RegisterOpponentsRequest) returns (RegisterOpponentsResponse);
+
+  rpc GetOpponents(GetOpponentsRequest) returns (GetOpponentsResponse);
+
+  rpc GetRanking(GetRankingRequest) returns (GetRankingResponse);
+}
+
+message RegisterOpponentsRequest {
+  uint64 user_id = 1;
+  repeated uint64 opponent_ids = 2;
+}
+
+message RegisterOpponentsResponse {
+  google.protobuf.Timestamp time = 1;
+}
+
+message GetOpponentsRequest {
+  uint64 user_id = 1;
+}
+
+message GetOpponentsResponse {
+  repeated OpponentsInfo opponents = 1;
+  google.protobuf.Timestamp time = 2;
+}
+
+message GetRankingRequest {
+  uint64 user_id = 1;
+}
+
+message GetRankingResponse {
+  repeated RankingInfo ranking_infos = 1;
+  google.protobuf.Timestamp time = 2;
+}
+
+message OpponentsInfo {
+  uint64 id = 1;
+  string name = 2;
+  uint64 read_pages = 3;
+}
+
+message RankingInfo {
+  uint64 id = 1;
+  string name = 2;
+  uint64 ranking = 3;
+}
