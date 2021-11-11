@@ -34,19 +34,23 @@
     - [CreateGoalResponse](#bookowl.CreateGoalResponse)
     - [GetGoalsRequest](#bookowl.GetGoalsRequest)
     - [GetGoalsResponse](#bookowl.GetGoalsResponse)
+    - [GoalInfo](#bookowl.GoalInfo)
+  
+    - [GoalStatus](#bookowl.GoalStatus)
+  
+    - [Goal](#bookowl.Goal)
+  
+- [protos/match.proto](#protos/match.proto)
     - [GetOpponentsRequest](#bookowl.GetOpponentsRequest)
     - [GetOpponentsResponse](#bookowl.GetOpponentsResponse)
     - [GetRankingRequest](#bookowl.GetRankingRequest)
     - [GetRankingResponse](#bookowl.GetRankingResponse)
-    - [GoalInfo](#bookowl.GoalInfo)
     - [OpponentsInfo](#bookowl.OpponentsInfo)
     - [RankingInfo](#bookowl.RankingInfo)
     - [RegisterOpponentsRequest](#bookowl.RegisterOpponentsRequest)
     - [RegisterOpponentsResponse](#bookowl.RegisterOpponentsResponse)
   
-    - [GoalStatus](#bookowl.GoalStatus)
-  
-    - [Goal](#bookowl.Goal)
+    - [Match](#bookowl.Match)
   
 - [protos/read_event.proto](#protos/read_event.proto)
     - [CreateReadEventRequest](#bookowl.CreateReadEventRequest)
@@ -507,6 +511,68 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 
 
 
+<a name="bookowl.GoalInfo"></a>
+
+### GoalInfo
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| goal_id | [uint64](#uint64) |  |  |
+| start_date | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
+| end_date | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
+| num_pages | [int64](#int64) |  | int64 time_amount_minutes = 4; |
+| goal_status | [GoalStatus](#bookowl.GoalStatus) |  |  |
+| user_id | [uint64](#uint64) |  |  |
+
+
+
+
+
+ 
+
+
+<a name="bookowl.GoalStatus"></a>
+
+### GoalStatus
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| GOAL_UNKNOWN | 0 |  |
+| GOAL_PENDING | 1 |  |
+| GOAL_DOING | 2 |  |
+| GOAL_COMPLETE | 3 |  |
+| GOAL_FAILED | 4 |  |
+
+
+ 
+
+ 
+
+
+<a name="bookowl.Goal"></a>
+
+### Goal
+
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| CreateGoal | [CreateGoalRequest](#bookowl.CreateGoalRequest) | [CreateGoalResponse](#bookowl.CreateGoalResponse) |  |
+| GetGoals | [GetGoalsRequest](#bookowl.GetGoalsRequest) | [GetGoalsResponse](#bookowl.GetGoalsResponse) |  |
+
+ 
+
+
+
+<a name="protos/match.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## protos/match.proto
+
+
+
 <a name="bookowl.GetOpponentsRequest"></a>
 
 ### GetOpponentsRequest
@@ -563,26 +629,6 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 | ----- | ---- | ----- | ----------- |
 | ranking_infos | [RankingInfo](#bookowl.RankingInfo) | repeated |  |
 | time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
-
-
-
-
-
-
-<a name="bookowl.GoalInfo"></a>
-
-### GoalInfo
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| goal_id | [uint64](#uint64) |  |  |
-| start_date | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
-| end_date | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
-| num_pages | [int64](#int64) |  | int64 time_amount_minutes = 4; |
-| goal_status | [GoalStatus](#bookowl.GoalStatus) |  |  |
-| user_id | [uint64](#uint64) |  |  |
 
 
 
@@ -655,36 +701,19 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 
  
 
-
-<a name="bookowl.GoalStatus"></a>
-
-### GoalStatus
-
-
-| Name | Number | Description |
-| ---- | ------ | ----------- |
-| GOAL_UNKNOWN | 0 |  |
-| GOAL_PENDING | 1 |  |
-| GOAL_DOING | 2 |  |
-| GOAL_COMPLETE | 3 |  |
-| GOAL_FAILED | 4 |  |
-
-
  
 
  
 
 
-<a name="bookowl.Goal"></a>
+<a name="bookowl.Match"></a>
 
-### Goal
+### Match
 
 
 | Method Name | Request Type | Response Type | Description |
 | ----------- | ------------ | ------------- | ------------|
-| CreateGoal | [CreateGoalRequest](#bookowl.CreateGoalRequest) | [CreateGoalResponse](#bookowl.CreateGoalResponse) |  |
 | RegisterOpponents | [RegisterOpponentsRequest](#bookowl.RegisterOpponentsRequest) | [RegisterOpponentsResponse](#bookowl.RegisterOpponentsResponse) |  |
-| GetGoals | [GetGoalsRequest](#bookowl.GetGoalsRequest) | [GetGoalsResponse](#bookowl.GetGoalsResponse) |  |
 | GetOpponents | [GetOpponentsRequest](#bookowl.GetOpponentsRequest) | [GetOpponentsResponse](#bookowl.GetOpponentsResponse) |  |
 | GetRanking | [GetRankingRequest](#bookowl.GetRankingRequest) | [GetRankingResponse](#bookowl.GetRankingResponse) |  |
 
