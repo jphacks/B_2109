@@ -31,7 +31,7 @@ func (r BookmarkRepository) Create(ctx context.Context, bookmark *models.Bookmar
 	return bookmark, res.Error
 }
 
-func (r BookmarkRepository) UpdateUserBookID(ctx context.Context, bookmark *models.Bookmark, book uint) error {
-	res := db.Model(bookmark).Update("user_book_id", book)
+func (r BookmarkRepository) UpdateUserBookID(ctx context.Context, bookmark *models.Bookmark, ub uint) error {
+	res := db.Model(bookmark).Update("user_book_id", ub)
 	return res.Error
 }

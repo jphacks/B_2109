@@ -34,10 +34,12 @@ func FetchBook(ctx context.Context, isbn string) (*models.Book, error) {
 }
 
 func getPageNum(root *openbd.Root) (int64, error) {
+	// todo handling if the member is nil.
 	return strconv.ParseInt(root.Onix.DescriptiveDetail.Extent[0].ExtentValue, 10, 64)
 }
 
 func getPrice(root *openbd.Root) (int64, error) {
+	// todo handling if the member is nil.
 	return strconv.ParseInt(root.Onix.ProductSupply.SupplyDetail.Price[0].PriceAmount, 10, 64)
 }
 

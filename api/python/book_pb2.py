@@ -21,7 +21,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z$github.com/jphacks/B_2109/server/api',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\nbook.proto\x12\x07\x62ookowl\x1a\x1fgoogle/protobuf/timestamp.proto\"4\n\x13RegisterBookRequest\x12\x0c\n\x04isbn\x18\x01 \x01(\t\x12\x0f\n\x07user_id\x18\x02 \x01(\x04\"f\n\x14RegisterBookResponse\x12$\n\tbook_info\x18\x01 \x01(\x0b\x32\x11.bookowl.BookInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"S\n\x17UpdateBookmarkIDRequest\x12\x0f\n\x07\x62ook_id\x18\x01 \x01(\x04\x12\x13\n\x0b\x62ookmark_id\x18\x02 \x01(\x04\x12\x12\n\nbook_width\x18\x03 \x01(\x04\"T\n\x17UpdateReadStatusRequest\x12\x0f\n\x07\x62ook_id\x18\x01 \x01(\x04\x12(\n\x0bread_status\x18\x02 \x01(\x0e\x32\x13.bookowl.ReadStatus\"d\n\x12UpdateBookResponse\x12$\n\tbook_info\x18\x01 \x01(\x0b\x32\x11.bookowl.BookInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\"\n\x0fGetBooksRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"c\n\x10GetBooksResponse\x12%\n\nbooks_info\x18\x01 \x03(\x0b\x32\x11.bookowl.BookInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"+\n\x18GetReadPercentageRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"^\n\x19GetReadPercentageResponse\x12\x17\n\x0fread_percentage\x18\x01 \x01(\x02\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"&\n\x13GetReadPagesRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"T\n\x14GetReadPagesResponse\x12\x12\n\nread_pages\x18\x01 \x01(\x04\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x90\x01\n\x1fGetReadPagesWithDurationRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\x12.\n\nstart_time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08\x65nd_time\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"(\n\x15GetReadSecondsRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"X\n\x16GetReadSecondsResponse\x12\x14\n\x0cread_seconds\x18\x01 \x01(\x04\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x92\x01\n!GetReadSecondsWithDurationRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\x12.\n\nstart_time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08\x65nd_time\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"?\n\x1bGetReadPagesByBookIDRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\x12\x0f\n\x07\x62ook_id\x18\x02 \x01(\x04\"/\n\x18GetBookmarkStatusRequest\x12\x13\n\x0b\x62ookmark_id\x18\x01 \x01(\x04\"w\n\x19GetBookmarkStatusResponse\x12\x30\n\x0f\x62ookmark_status\x18\x01 \x01(\x0e\x32\x17.bookowl.BookmarkStatus\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xe8\x01\n\x08\x42ookInfo\x12\x0f\n\x07\x62ook_id\x18\x01 \x01(\x04\x12\x0c\n\x04isbn\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\r\n\x05pages\x18\x04 \x01(\x03\x12\r\n\x05price\x18\x06 \x01(\x03\x12\x0f\n\x07\x61uthors\x18\x07 \x03(\t\x12(\n\x0bread_status\x18\x08 \x01(\x0e\x32\x13.bookowl.ReadStatus\x12\x12\n\ncategories\x18\t \x03(\t\x12\x0f\n\x07user_id\x18\n \x01(\x04\x12\x13\n\x0b\x62ookmark_id\x18\x0b \x01(\x04\x12\x16\n\x0e\x62ook_thumbnail\x18\x0c \x01(\tJ\x04\x08\x05\x10\x06*l\n\nReadStatus\x12\x14\n\x10READ_UNSPECIFIED\x10\x00\x12\x0f\n\x0bREAD_UNREAD\x10\x01\x12\x10\n\x0cREAD_READING\x10\x02\x12\x12\n\x0eREAD_SUSPENDED\x10\x03\x12\x11\n\rREAD_COMPLETE\x10\x04*e\n\x0e\x42ookmarkStatus\x12\x1f\n\x1b\x42OOKMARK_STATUS_UNSPECIFIED\x10\x00\x12\x19\n\x15\x42OOKMARK_STATUS_GREEN\x10\x01\x12\x17\n\x13\x42OOKMARK_STATUS_RED\x10\x02\x32\xbf\x07\n\x04\x42ook\x12K\n\x0cRegisterBook\x12\x1c.bookowl.RegisterBookRequest\x1a\x1d.bookowl.RegisterBookResponse\x12Q\n\x10UpdateBookmarkID\x12 .bookowl.UpdateBookmarkIDRequest\x1a\x1b.bookowl.UpdateBookResponse\x12Q\n\x10UpdateReadStatus\x12 .bookowl.UpdateReadStatusRequest\x1a\x1b.bookowl.UpdateBookResponse\x12?\n\x08GetBooks\x12\x18.bookowl.GetBooksRequest\x1a\x19.bookowl.GetBooksResponse\x12Z\n\x11GetReadPercentage\x12!.bookowl.GetReadPercentageRequest\x1a\".bookowl.GetReadPercentageResponse\x12K\n\x0cGetReadPages\x12\x1c.bookowl.GetReadPagesRequest\x1a\x1d.bookowl.GetReadPagesResponse\x12Q\n\x0eGetReadSeconds\x12\x1e.bookowl.GetReadSecondsRequest\x1a\x1f.bookowl.GetReadSecondsResponse\x12\x63\n\x18GetReadPagesWithDuration\x12(.bookowl.GetReadPagesWithDurationRequest\x1a\x1d.bookowl.GetReadPagesResponse\x12i\n\x1aGetReadSecondsWithDuration\x12*.bookowl.GetReadSecondsWithDurationRequest\x1a\x1f.bookowl.GetReadSecondsResponse\x12[\n\x14GetReadPagesByBookID\x12$.bookowl.GetReadPagesByBookIDRequest\x1a\x1d.bookowl.GetReadPagesResponse\x12Z\n\x11GetBookmarkStatus\x12!.bookowl.GetBookmarkStatusRequest\x1a\".bookowl.GetBookmarkStatusResponseB&Z$github.com/jphacks/B_2109/server/apib\x06proto3'
+  serialized_pb=b'\n\nbook.proto\x12\x07\x62ookowl\x1a\x1fgoogle/protobuf/timestamp.proto\"4\n\x13RegisterBookRequest\x12\x0c\n\x04isbn\x18\x01 \x01(\t\x12\x0f\n\x07user_id\x18\x02 \x01(\x04\"f\n\x14RegisterBookResponse\x12$\n\tbook_info\x18\x01 \x01(\x0b\x32\x11.bookowl.BookInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"S\n\x17UpdateBookmarkIDRequest\x12\x0f\n\x07\x62ook_id\x18\x01 \x01(\x04\x12\x13\n\x0b\x62ookmark_id\x18\x02 \x01(\x04\x12\x12\n\nbook_width\x18\x03 \x01(\x04\"T\n\x17UpdateReadStatusRequest\x12\x0f\n\x07\x62ook_id\x18\x01 \x01(\x04\x12(\n\x0bread_status\x18\x02 \x01(\x0e\x32\x13.bookowl.ReadStatus\"d\n\x12UpdateBookResponse\x12$\n\tbook_info\x18\x01 \x01(\x0b\x32\x11.bookowl.BookInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\"\n\x0fGetBooksRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"c\n\x10GetBooksResponse\x12%\n\nbooks_info\x18\x01 \x03(\x0b\x32\x11.bookowl.BookInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"&\n\x13GetReadRatioRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"Y\n\x14GetReadRatioResponse\x12\x17\n\x0fread_percentage\x18\x01 \x01(\x01\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"&\n\x13GetReadPagesRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"T\n\x14GetReadPagesResponse\x12\x12\n\nread_pages\x18\x01 \x01(\x04\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x90\x01\n\x1fGetReadPagesWithDurationRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\x12.\n\nstart_time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08\x65nd_time\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"(\n\x15GetReadSecondsRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"X\n\x16GetReadSecondsResponse\x12\x14\n\x0cread_seconds\x18\x01 \x01(\x04\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\x92\x01\n!GetReadSecondsWithDurationRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\x12.\n\nstart_time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12,\n\x08\x65nd_time\x18\x03 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"?\n\x1bGetReadPagesByBookIDRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\x12\x0f\n\x07\x62ook_id\x18\x02 \x01(\x04\"/\n\x18GetBookmarkStatusRequest\x12\x13\n\x0b\x62ookmark_id\x18\x01 \x01(\x04\"w\n\x19GetBookmarkStatusResponse\x12\x30\n\x0f\x62ookmark_status\x18\x01 \x01(\x0e\x32\x17.bookowl.BookmarkStatus\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"\xe8\x01\n\x08\x42ookInfo\x12\x0f\n\x07\x62ook_id\x18\x01 \x01(\x04\x12\x0c\n\x04isbn\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\r\n\x05pages\x18\x04 \x01(\x03\x12\r\n\x05price\x18\x06 \x01(\x03\x12\x0f\n\x07\x61uthors\x18\x07 \x03(\t\x12(\n\x0bread_status\x18\x08 \x01(\x0e\x32\x13.bookowl.ReadStatus\x12\x12\n\ncategories\x18\t \x03(\t\x12\x0f\n\x07user_id\x18\n \x01(\x04\x12\x13\n\x0b\x62ookmark_id\x18\x0b \x01(\x04\x12\x16\n\x0e\x62ook_thumbnail\x18\x0c \x01(\tJ\x04\x08\x05\x10\x06*l\n\nReadStatus\x12\x14\n\x10READ_UNSPECIFIED\x10\x00\x12\x0f\n\x0bREAD_UNREAD\x10\x01\x12\x10\n\x0cREAD_READING\x10\x02\x12\x12\n\x0eREAD_SUSPENDED\x10\x03\x12\x11\n\rREAD_COMPLETE\x10\x04*e\n\x0e\x42ookmarkStatus\x12\x1f\n\x1b\x42OOKMARK_STATUS_UNSPECIFIED\x10\x00\x12\x19\n\x15\x42OOKMARK_STATUS_GREEN\x10\x01\x12\x17\n\x13\x42OOKMARK_STATUS_RED\x10\x02\x32\xb0\x07\n\x04\x42ook\x12K\n\x0cRegisterBook\x12\x1c.bookowl.RegisterBookRequest\x1a\x1d.bookowl.RegisterBookResponse\x12Q\n\x10UpdateBookmarkID\x12 .bookowl.UpdateBookmarkIDRequest\x1a\x1b.bookowl.UpdateBookResponse\x12Q\n\x10UpdateReadStatus\x12 .bookowl.UpdateReadStatusRequest\x1a\x1b.bookowl.UpdateBookResponse\x12?\n\x08GetBooks\x12\x18.bookowl.GetBooksRequest\x1a\x19.bookowl.GetBooksResponse\x12K\n\x0cGetReadRatio\x12\x1c.bookowl.GetReadRatioRequest\x1a\x1d.bookowl.GetReadRatioResponse\x12K\n\x0cGetReadPages\x12\x1c.bookowl.GetReadPagesRequest\x1a\x1d.bookowl.GetReadPagesResponse\x12Q\n\x0eGetReadSeconds\x12\x1e.bookowl.GetReadSecondsRequest\x1a\x1f.bookowl.GetReadSecondsResponse\x12\x63\n\x18GetReadPagesWithDuration\x12(.bookowl.GetReadPagesWithDurationRequest\x1a\x1d.bookowl.GetReadPagesResponse\x12i\n\x1aGetReadSecondsWithDuration\x12*.bookowl.GetReadSecondsWithDurationRequest\x1a\x1f.bookowl.GetReadSecondsResponse\x12[\n\x14GetReadPagesByBookID\x12$.bookowl.GetReadPagesByBookIDRequest\x1a\x1d.bookowl.GetReadPagesResponse\x12Z\n\x11GetBookmarkStatus\x12!.bookowl.GetBookmarkStatusRequest\x1a\".bookowl.GetBookmarkStatusResponseB&Z$github.com/jphacks/B_2109/server/apib\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
@@ -60,8 +60,8 @@ _READSTATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1789,
-  serialized_end=1897,
+  serialized_start=1779,
+  serialized_end=1887,
 )
 _sym_db.RegisterEnumDescriptor(_READSTATUS)
 
@@ -91,8 +91,8 @@ _BOOKMARKSTATUS = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   serialized_options=None,
-  serialized_start=1899,
-  serialized_end=2000,
+  serialized_start=1889,
+  serialized_end=1990,
 )
 _sym_db.RegisterEnumDescriptor(_BOOKMARKSTATUS)
 
@@ -381,16 +381,16 @@ _GETBOOKSRESPONSE = _descriptor.Descriptor(
 )
 
 
-_GETREADPERCENTAGEREQUEST = _descriptor.Descriptor(
-  name='GetReadPercentageRequest',
-  full_name='bookowl.GetReadPercentageRequest',
+_GETREADRATIOREQUEST = _descriptor.Descriptor(
+  name='GetReadRatioRequest',
+  full_name='bookowl.GetReadRatioRequest',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='user_id', full_name='bookowl.GetReadPercentageRequest.user_id', index=0,
+      name='user_id', full_name='bookowl.GetReadRatioRequest.user_id', index=0,
       number=1, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -409,27 +409,27 @@ _GETREADPERCENTAGEREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=624,
-  serialized_end=667,
+  serialized_end=662,
 )
 
 
-_GETREADPERCENTAGERESPONSE = _descriptor.Descriptor(
-  name='GetReadPercentageResponse',
-  full_name='bookowl.GetReadPercentageResponse',
+_GETREADRATIORESPONSE = _descriptor.Descriptor(
+  name='GetReadRatioResponse',
+  full_name='bookowl.GetReadRatioResponse',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='read_percentage', full_name='bookowl.GetReadPercentageResponse.read_percentage', index=0,
-      number=1, type=2, cpp_type=6, label=1,
+      name='read_percentage', full_name='bookowl.GetReadRatioResponse.read_percentage', index=0,
+      number=1, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=float(0),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR,  create_key=_descriptor._internal_create_key),
     _descriptor.FieldDescriptor(
-      name='time', full_name='bookowl.GetReadPercentageResponse.time', index=1,
+      name='time', full_name='bookowl.GetReadRatioResponse.time', index=1,
       number=2, type=11, cpp_type=10, label=1,
       has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
@@ -447,8 +447,8 @@ _GETREADPERCENTAGERESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=669,
-  serialized_end=763,
+  serialized_start=664,
+  serialized_end=753,
 )
 
 
@@ -479,8 +479,8 @@ _GETREADPAGESREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=765,
-  serialized_end=803,
+  serialized_start=755,
+  serialized_end=793,
 )
 
 
@@ -518,8 +518,8 @@ _GETREADPAGESRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=805,
-  serialized_end=889,
+  serialized_start=795,
+  serialized_end=879,
 )
 
 
@@ -564,8 +564,8 @@ _GETREADPAGESWITHDURATIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=892,
-  serialized_end=1036,
+  serialized_start=882,
+  serialized_end=1026,
 )
 
 
@@ -596,8 +596,8 @@ _GETREADSECONDSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1038,
-  serialized_end=1078,
+  serialized_start=1028,
+  serialized_end=1068,
 )
 
 
@@ -635,8 +635,8 @@ _GETREADSECONDSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1080,
-  serialized_end=1168,
+  serialized_start=1070,
+  serialized_end=1158,
 )
 
 
@@ -681,8 +681,8 @@ _GETREADSECONDSWITHDURATIONREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1171,
-  serialized_end=1317,
+  serialized_start=1161,
+  serialized_end=1307,
 )
 
 
@@ -720,8 +720,8 @@ _GETREADPAGESBYBOOKIDREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1319,
-  serialized_end=1382,
+  serialized_start=1309,
+  serialized_end=1372,
 )
 
 
@@ -752,8 +752,8 @@ _GETBOOKMARKSTATUSREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1384,
-  serialized_end=1431,
+  serialized_start=1374,
+  serialized_end=1421,
 )
 
 
@@ -791,8 +791,8 @@ _GETBOOKMARKSTATUSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1433,
-  serialized_end=1552,
+  serialized_start=1423,
+  serialized_end=1542,
 )
 
 
@@ -893,8 +893,8 @@ _BOOKINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1555,
-  serialized_end=1787,
+  serialized_start=1545,
+  serialized_end=1777,
 )
 
 _REGISTERBOOKRESPONSE.fields_by_name['book_info'].message_type = _BOOKINFO
@@ -904,7 +904,7 @@ _UPDATEBOOKRESPONSE.fields_by_name['book_info'].message_type = _BOOKINFO
 _UPDATEBOOKRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _GETBOOKSRESPONSE.fields_by_name['books_info'].message_type = _BOOKINFO
 _GETBOOKSRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
-_GETREADPERCENTAGERESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_GETREADRATIORESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _GETREADPAGESRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _GETREADPAGESWITHDURATIONREQUEST.fields_by_name['start_time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _GETREADPAGESWITHDURATIONREQUEST.fields_by_name['end_time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
@@ -921,8 +921,8 @@ DESCRIPTOR.message_types_by_name['UpdateReadStatusRequest'] = _UPDATEREADSTATUSR
 DESCRIPTOR.message_types_by_name['UpdateBookResponse'] = _UPDATEBOOKRESPONSE
 DESCRIPTOR.message_types_by_name['GetBooksRequest'] = _GETBOOKSREQUEST
 DESCRIPTOR.message_types_by_name['GetBooksResponse'] = _GETBOOKSRESPONSE
-DESCRIPTOR.message_types_by_name['GetReadPercentageRequest'] = _GETREADPERCENTAGEREQUEST
-DESCRIPTOR.message_types_by_name['GetReadPercentageResponse'] = _GETREADPERCENTAGERESPONSE
+DESCRIPTOR.message_types_by_name['GetReadRatioRequest'] = _GETREADRATIOREQUEST
+DESCRIPTOR.message_types_by_name['GetReadRatioResponse'] = _GETREADRATIORESPONSE
 DESCRIPTOR.message_types_by_name['GetReadPagesRequest'] = _GETREADPAGESREQUEST
 DESCRIPTOR.message_types_by_name['GetReadPagesResponse'] = _GETREADPAGESRESPONSE
 DESCRIPTOR.message_types_by_name['GetReadPagesWithDurationRequest'] = _GETREADPAGESWITHDURATIONREQUEST
@@ -986,19 +986,19 @@ GetBooksResponse = _reflection.GeneratedProtocolMessageType('GetBooksResponse', 
   })
 _sym_db.RegisterMessage(GetBooksResponse)
 
-GetReadPercentageRequest = _reflection.GeneratedProtocolMessageType('GetReadPercentageRequest', (_message.Message,), {
-  'DESCRIPTOR' : _GETREADPERCENTAGEREQUEST,
+GetReadRatioRequest = _reflection.GeneratedProtocolMessageType('GetReadRatioRequest', (_message.Message,), {
+  'DESCRIPTOR' : _GETREADRATIOREQUEST,
   '__module__' : 'book_pb2'
-  # @@protoc_insertion_point(class_scope:bookowl.GetReadPercentageRequest)
+  # @@protoc_insertion_point(class_scope:bookowl.GetReadRatioRequest)
   })
-_sym_db.RegisterMessage(GetReadPercentageRequest)
+_sym_db.RegisterMessage(GetReadRatioRequest)
 
-GetReadPercentageResponse = _reflection.GeneratedProtocolMessageType('GetReadPercentageResponse', (_message.Message,), {
-  'DESCRIPTOR' : _GETREADPERCENTAGERESPONSE,
+GetReadRatioResponse = _reflection.GeneratedProtocolMessageType('GetReadRatioResponse', (_message.Message,), {
+  'DESCRIPTOR' : _GETREADRATIORESPONSE,
   '__module__' : 'book_pb2'
-  # @@protoc_insertion_point(class_scope:bookowl.GetReadPercentageResponse)
+  # @@protoc_insertion_point(class_scope:bookowl.GetReadRatioResponse)
   })
-_sym_db.RegisterMessage(GetReadPercentageResponse)
+_sym_db.RegisterMessage(GetReadRatioResponse)
 
 GetReadPagesRequest = _reflection.GeneratedProtocolMessageType('GetReadPagesRequest', (_message.Message,), {
   'DESCRIPTOR' : _GETREADPAGESREQUEST,
@@ -1080,8 +1080,8 @@ _BOOK = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=2003,
-  serialized_end=2962,
+  serialized_start=1993,
+  serialized_end=2937,
   methods=[
   _descriptor.MethodDescriptor(
     name='RegisterBook',
@@ -1124,12 +1124,12 @@ _BOOK = _descriptor.ServiceDescriptor(
     create_key=_descriptor._internal_create_key,
   ),
   _descriptor.MethodDescriptor(
-    name='GetReadPercentage',
-    full_name='bookowl.Book.GetReadPercentage',
+    name='GetReadRatio',
+    full_name='bookowl.Book.GetReadRatio',
     index=4,
     containing_service=None,
-    input_type=_GETREADPERCENTAGEREQUEST,
-    output_type=_GETREADPERCENTAGERESPONSE,
+    input_type=_GETREADRATIOREQUEST,
+    output_type=_GETREADRATIORESPONSE,
     serialized_options=None,
     create_key=_descriptor._internal_create_key,
   ),

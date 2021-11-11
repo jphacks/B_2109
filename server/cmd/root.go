@@ -27,7 +27,6 @@ import (
 	"fmt"
 	"log"
 	"net"
-	"net/http"
 	"os"
 	"os/signal"
 	"time"
@@ -43,7 +42,6 @@ import (
 
 	pkgapi "github.com/jphacks/B_2109/server/pkg/api"
 	"github.com/jphacks/B_2109/server/pkg/defaults"
-	myhttp "github.com/jphacks/B_2109/server/pkg/http"
 	"github.com/jphacks/B_2109/server/pkg/option"
 	"github.com/jphacks/B_2109/server/pkg/repos"
 
@@ -189,9 +187,6 @@ func runDaemon() error {
 	eg.Go(func() error {
 		return runServer(ctx)
 	})
-	eg.Go(func() error {
-		return runHTTPServer(ctx)
-	})
 	//todo implement
 	//eg.Go(func() error {
 	//	return runDailyGoalUpdate(ctx)
@@ -216,14 +211,6 @@ func runServer(ctx context.Context) error {
 		return err
 	}
 	return s.Serve(lis)
-}
-
-func runHTTPServer(ctx context.Context) error {
-	http.HandleFunc("/readevent", myhttp.CreateReadEventHander)
-	http.HandleFunc("/progress", myhttp.GetProgressByUserIDHandler)
-
-	log.Printf("[DEBUG] %v", option.Config.HTTPServerAddr)
-	return http.ListenAndServe(option.Config.HTTPServerAddr, nil)
 }
 
 func initServer() (*grpc.Server, error) {

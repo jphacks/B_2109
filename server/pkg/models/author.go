@@ -12,7 +12,9 @@ type Author struct {
 	BookID uint
 }
 
-func GetAuthorNameSlice(as []Author) []string {
+type Authors []Author
+
+func (as Authors) GetAuthorNameSlice() []string {
 	var names []string
 
 	log.Println(as)

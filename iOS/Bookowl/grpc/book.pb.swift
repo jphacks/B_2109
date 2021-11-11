@@ -258,7 +258,7 @@ struct Bookowl_GetBooksResponse {
   fileprivate var _time: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
 }
 
-struct Bookowl_GetReadPercentageRequest {
+struct Bookowl_GetReadRatioRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -270,12 +270,12 @@ struct Bookowl_GetReadPercentageRequest {
   init() {}
 }
 
-struct Bookowl_GetReadPercentageResponse {
+struct Bookowl_GetReadRatioResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var readPercentage: Float = 0
+  var readPercentage: Double = 0
 
   var time: SwiftProtobuf.Google_Protobuf_Timestamp {
     get {return _time ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
@@ -811,8 +811,8 @@ extension Bookowl_GetBooksResponse: SwiftProtobuf.Message, SwiftProtobuf._Messag
   }
 }
 
-extension Bookowl_GetReadPercentageRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".GetReadPercentageRequest"
+extension Bookowl_GetReadRatioRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetReadRatioRequest"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "user_id"),
   ]
@@ -836,15 +836,15 @@ extension Bookowl_GetReadPercentageRequest: SwiftProtobuf.Message, SwiftProtobuf
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Bookowl_GetReadPercentageRequest, rhs: Bookowl_GetReadPercentageRequest) -> Bool {
+  static func ==(lhs: Bookowl_GetReadRatioRequest, rhs: Bookowl_GetReadRatioRequest) -> Bool {
     if lhs.userID != rhs.userID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Bookowl_GetReadPercentageResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".GetReadPercentageResponse"
+extension Bookowl_GetReadRatioResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".GetReadRatioResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .standard(proto: "read_percentage"),
     2: .same(proto: "time"),
@@ -856,7 +856,7 @@ extension Bookowl_GetReadPercentageResponse: SwiftProtobuf.Message, SwiftProtobu
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeSingularFloatField(value: &self.readPercentage) }()
+      case 1: try { try decoder.decodeSingularDoubleField(value: &self.readPercentage) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._time) }()
       default: break
       }
@@ -869,7 +869,7 @@ extension Bookowl_GetReadPercentageResponse: SwiftProtobuf.Message, SwiftProtobu
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
     if self.readPercentage != 0 {
-      try visitor.visitSingularFloatField(value: self.readPercentage, fieldNumber: 1)
+      try visitor.visitSingularDoubleField(value: self.readPercentage, fieldNumber: 1)
     }
     try { if let v = self._time {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
@@ -877,7 +877,7 @@ extension Bookowl_GetReadPercentageResponse: SwiftProtobuf.Message, SwiftProtobu
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: Bookowl_GetReadPercentageResponse, rhs: Bookowl_GetReadPercentageResponse) -> Bool {
+  static func ==(lhs: Bookowl_GetReadRatioResponse, rhs: Bookowl_GetReadRatioResponse) -> Bool {
     if lhs.readPercentage != rhs.readPercentage {return false}
     if lhs._time != rhs._time {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}

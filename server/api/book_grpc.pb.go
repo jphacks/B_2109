@@ -22,7 +22,7 @@ type BookClient interface {
 	UpdateBookmarkID(ctx context.Context, in *UpdateBookmarkIDRequest, opts ...grpc.CallOption) (*UpdateBookResponse, error)
 	UpdateReadStatus(ctx context.Context, in *UpdateReadStatusRequest, opts ...grpc.CallOption) (*UpdateBookResponse, error)
 	GetBooks(ctx context.Context, in *GetBooksRequest, opts ...grpc.CallOption) (*GetBooksResponse, error)
-	GetReadPercentage(ctx context.Context, in *GetReadPercentageRequest, opts ...grpc.CallOption) (*GetReadPercentageResponse, error)
+	GetReadRatio(ctx context.Context, in *GetReadRatioRequest, opts ...grpc.CallOption) (*GetReadRatioResponse, error)
 	GetReadPages(ctx context.Context, in *GetReadPagesRequest, opts ...grpc.CallOption) (*GetReadPagesResponse, error)
 	GetReadSeconds(ctx context.Context, in *GetReadSecondsRequest, opts ...grpc.CallOption) (*GetReadSecondsResponse, error)
 	GetReadPagesWithDuration(ctx context.Context, in *GetReadPagesWithDurationRequest, opts ...grpc.CallOption) (*GetReadPagesResponse, error)
@@ -75,9 +75,9 @@ func (c *bookClient) GetBooks(ctx context.Context, in *GetBooksRequest, opts ...
 	return out, nil
 }
 
-func (c *bookClient) GetReadPercentage(ctx context.Context, in *GetReadPercentageRequest, opts ...grpc.CallOption) (*GetReadPercentageResponse, error) {
-	out := new(GetReadPercentageResponse)
-	err := c.cc.Invoke(ctx, "/bookowl.Book/GetReadPercentage", in, out, opts...)
+func (c *bookClient) GetReadRatio(ctx context.Context, in *GetReadRatioRequest, opts ...grpc.CallOption) (*GetReadRatioResponse, error) {
+	out := new(GetReadRatioResponse)
+	err := c.cc.Invoke(ctx, "/bookowl.Book/GetReadRatio", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -146,7 +146,7 @@ type BookServer interface {
 	UpdateBookmarkID(context.Context, *UpdateBookmarkIDRequest) (*UpdateBookResponse, error)
 	UpdateReadStatus(context.Context, *UpdateReadStatusRequest) (*UpdateBookResponse, error)
 	GetBooks(context.Context, *GetBooksRequest) (*GetBooksResponse, error)
-	GetReadPercentage(context.Context, *GetReadPercentageRequest) (*GetReadPercentageResponse, error)
+	GetReadRatio(context.Context, *GetReadRatioRequest) (*GetReadRatioResponse, error)
 	GetReadPages(context.Context, *GetReadPagesRequest) (*GetReadPagesResponse, error)
 	GetReadSeconds(context.Context, *GetReadSecondsRequest) (*GetReadSecondsResponse, error)
 	GetReadPagesWithDuration(context.Context, *GetReadPagesWithDurationRequest) (*GetReadPagesResponse, error)
@@ -172,8 +172,8 @@ func (UnimplementedBookServer) UpdateReadStatus(context.Context, *UpdateReadStat
 func (UnimplementedBookServer) GetBooks(context.Context, *GetBooksRequest) (*GetBooksResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBooks not implemented")
 }
-func (UnimplementedBookServer) GetReadPercentage(context.Context, *GetReadPercentageRequest) (*GetReadPercentageResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetReadPercentage not implemented")
+func (UnimplementedBookServer) GetReadRatio(context.Context, *GetReadRatioRequest) (*GetReadRatioResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetReadRatio not implemented")
 }
 func (UnimplementedBookServer) GetReadPages(context.Context, *GetReadPagesRequest) (*GetReadPagesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetReadPages not implemented")
@@ -278,20 +278,20 @@ func _Book_GetBooks_Handler(srv interface{}, ctx context.Context, dec func(inter
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Book_GetReadPercentage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetReadPercentageRequest)
+func _Book_GetReadRatio_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetReadRatioRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(BookServer).GetReadPercentage(ctx, in)
+		return srv.(BookServer).GetReadRatio(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/bookowl.Book/GetReadPercentage",
+		FullMethod: "/bookowl.Book/GetReadRatio",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(BookServer).GetReadPercentage(ctx, req.(*GetReadPercentageRequest))
+		return srv.(BookServer).GetReadRatio(ctx, req.(*GetReadRatioRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -428,8 +428,8 @@ var Book_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Book_GetBooks_Handler,
 		},
 		{
-			MethodName: "GetReadPercentage",
-			Handler:    _Book_GetReadPercentage_Handler,
+			MethodName: "GetReadRatio",
+			Handler:    _Book_GetReadRatio_Handler,
 		},
 		{
 			MethodName: "GetReadPages",

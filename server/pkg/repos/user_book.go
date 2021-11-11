@@ -18,9 +18,19 @@ func NewUserBookRepository() *UserBookRpository {
 	}
 }
 
-func (r UserBookRpository) GetByID(ctx context.Context, id uint) (*models.UserBook, error) {
+func (r UserBookRpository) GetByID(ctx context.Context, id uint, bmk, re bool) (*models.UserBook, error) {
+	var res *gorm.DB
+
 	ub := models.UserBook{}
-	res := r.db.First(&ub, "id	= ?", id)
+	if bmk && re {
+		res = r.db.Preload("Bookmark").Preload("ReadEvents").First(&ub, "id	= ?", id)
+	} else if bmk {
+		res = r.db.Preload("Bookmark").First(&ub, "id	= ?", id)
+	} else if re {
+		res = r.db.Preload("ReadEvents").First(&ub, "id	= ?", id)
+	} else {
+		res = r.db.First(&ub, "id	= ?", id)
+	}
 	return &ub, res.Error
 }
 
@@ -32,12 +42,20 @@ func (r UserBookRpository) GetByBookID(ctx context.Context, id uint) (*models.Us
 	return &ub, nil
 }
 
-func (r UserBookRpository) GetByUserID(ctx context.Context, id uint) ([]models.UserBook, error) {
+func (r UserBookRpository) GetByUserID(ctx context.Context, id uint, bmk, re bool) ([]models.UserBook, error) {
 	var ubs []models.UserBook
-	if res := r.db.Find(&ubs, "user_id = ?", id); res.Error != nil {
-		return nil, res.Error
+	var res *gorm.DB
+
+	if bmk && re {
+		res = r.db.Preload("Bookmark").Preload("ReadEvents").Find(&ubs, "user_id = ?", id)
+	} else if bmk {
+		res = r.db.Preload("Bookmark").Find(&ubs, "user_id = ?", id)
+	} else if re {
+		res = r.db.Preload("ReadEvents").Find(&ubs, "user_id = ?", id)
+	} else {
+		res = r.db.Find(&ubs, "user_id = ?", id)
 	}
-	return ubs, nil
+	return ubs, res.Error
 }
 
 func (r UserBookRpository) GetByBookmarkID(ctx context.Context, id uint) ([]models.UserBook, error) {
@@ -63,4 +81,8 @@ func (r UserBookRpository) UpdateReadStatus(ctx context.Context, ub *models.User
 
 func (r UserBookRpository) UpdateReadStatusWithBookmarkID(ctx context.Context, tgt models.ReadStatus, dst models.ReadStatus, id uint) error {
 	return r.db.Model(&models.UserBook{}).Where("read_status = ? AND bookmark = ?", tgt, id).Update("read_status", dst).Error
+}
+
+func (r UserBookRpository) UpdateWidthLevel(ctx context.Context, ub *models.UserBook, width uint64) error {
+	return db.Model(ub).Update("width_level", width).Error
 }
