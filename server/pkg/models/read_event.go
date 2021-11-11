@@ -15,10 +15,9 @@ type ReadEvent struct {
 	ReadEndWidthLevel   int64
 }
 
-//todo fix
-func ConstructReadEvent(ub UserBook, start, end time.Time, startWidth, endWidth int64) *ReadEvent {
+func ConstructReadEvent(ubID uint, start, end time.Time, startWidth, endWidth int64) *ReadEvent {
 	return &ReadEvent{
-		UserBookID:          ub.ID,
+		UserBookID:          ubID,
 		ReadStartTime:       start,
 		ReadEndTime:         end,
 		ReadStartWidthLevel: startWidth,
