@@ -27,3 +27,60 @@ func (r UserRepository) Create(ctx context.Context, user *models.User) (*models.
 	res := r.db.Create(user)
 	return user, res.Error
 }
+
+func (r UserRepository) ClearOpponents(ctx context.Context, usrID uint, optIDs []uint) error {
+	var opts []*models.User
+
+	u, err := r.GetByID(usrID)
+	if err != nil {
+		return err
+	}
+
+	for _, optID := range optIDs {
+		opt, err := r.GetByID(optID)
+		if err != nil {
+			return err
+		}
+		opts = append(opts, opt)
+	}
+
+	if err := db.Model(&u).Association("Opponents").Clear(); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r UserRepository) AppendOpponents(ctx context.Context, usrID uint, optIDs []uint) error {
+	var opts []*models.User
+
+	u, err := r.GetByID(usrID)
+	if err != nil {
+		return err
+	}
+
+	for _, optID := range optIDs {
+		opt, err := r.GetByID(optID)
+		if err != nil {
+			return err
+		}
+		opts = append(opts, opt)
+	}
+
+	if err := db.Model(&u).Association("Opponents").Append(opts); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r UserRepository) GetOpponents(ctx context.Context, usrID uint) ([]*models.User, error) {
+	var opts []*models.User
+
+	u, err := r.GetByID(usrID)
+	if err != nil {
+		return nil, err
+	}
+	if err := db.Model(&u).Association("Opponents").Find(&opts); err != nil {
+		return nil, err
+	}
+	return opts, nil
+}

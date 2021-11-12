@@ -23,3 +23,13 @@ type Goal struct {
 	GoalStatus GoalStatus `gorm:"type:enum('pending', 'doing', 'complete', 'failed');default:'pending'"`
 	UserID     uint
 }
+
+func ConstructGoal(start, end time.Time, pages int64, status GoalStatus, usrID uint) *Goal {
+	return &Goal{
+		StartDate:  start,
+		EndDate:    end,
+		NumPages:   pages,
+		GoalStatus: status,
+		UserID:     usrID,
+	}
+}

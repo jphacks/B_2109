@@ -201,10 +201,10 @@ func runServer(ctx context.Context) error {
 		return err
 	}
 
-	// note ここ美しくない
 	api.RegisterBookServer(s, pkgapi.NewBookServer())
 	api.RegisterReadEventServer(s, pkgapi.NewReadEventServer())
-	//api.RegisterGoalServer(s, pkgapi.NewGoalServer())
+	api.RegisterGoalServer(s, pkgapi.NewGoalServer())
+	api.RegisterMatchServer(s, pkgapi.NewMatchServer())
 
 	lis, err := net.Listen("tcp", option.Config.ServerAddr)
 	if err != nil {
