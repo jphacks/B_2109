@@ -9,6 +9,7 @@ WORKDIR /go/src/${REPO_NAME}
 RUN go build -o /go/bin/${APP_NAME}
 
 FROM ubuntu:focal
+RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
 ARG APP_NAME
 COPY --from=build /go/bin/${APP_NAME} /${APP_NAME}
 CMD ["/app"]
