@@ -3,7 +3,10 @@ package api
 import (
 	"context"
 	"errors"
+	"fmt"
 	"time"
+
+	"github.com/sirupsen/logrus"
 
 	"google.golang.org/protobuf/types/known/timestamppb"
 
@@ -27,28 +30,40 @@ func NewBookServer() *BookServer {
 func (s BookServer) RegisterBook(ctx context.Context, r *api.RegisterBookRequest) (*api.RegisterBookResponse, error) {
 	ub, err := registerBook(ctx, uint(r.GetUserId()), r.GetIsbn())
 	if err != nil {
+		log.WithFields(logrus.Fields{
+			"Service": "RegisterBook",
+			"Request": fmt.Sprintf("%#v", r),
+		}).Error(err)
 		return nil, err
 	}
 	b := constructBookInfo(ub)
-	return &api.RegisterBookResponse{BookInfo: b, Time: timestamppb.Now()}, err
+	return &api.RegisterBookResponse{BookInfo: b, Time: timestamppb.Now()}, nil
 }
 
 func (s BookServer) UpdateBookmarkID(ctx context.Context, r *api.UpdateBookmarkIDRequest) (*api.UpdateBookResponse, error) {
 	ub, err := updateUserBookBookmarkID(ctx, r.GetBookWidth(), uint(r.GetBookId()), uint(r.GetBookmarkId()))
 	if err != nil {
+		log.WithFields(logrus.Fields{
+			"Service": "UpdateBookmarkID",
+			"Request": fmt.Sprintf("%#v", r),
+		}).Error(err)
 		return nil, err
 	}
 	b := constructBookInfo(ub)
-	return &api.UpdateBookResponse{BookInfo: b, Time: timestamppb.Now()}, err
+	return &api.UpdateBookResponse{BookInfo: b, Time: timestamppb.Now()}, nil
 }
 
 func (s BookServer) UpdateReadStatus(ctx context.Context, r *api.UpdateReadStatusRequest) (*api.UpdateBookResponse, error) {
 	ub, err := updateUserBookReadStatus(ctx, r.GetBookId(), translateAPIReadStatus(r.GetReadStatus()))
 	if err != nil {
+		log.WithFields(logrus.Fields{
+			"Service": "UpdateReadStatus",
+			"Request": fmt.Sprintf("%#v", r),
+		}).Error(err)
 		return nil, err
 	}
 	b := constructBookInfo(ub)
-	return &api.UpdateBookResponse{BookInfo: b, Time: timestamppb.Now()}, err
+	return &api.UpdateBookResponse{BookInfo: b, Time: timestamppb.Now()}, nil
 }
 
 func (s BookServer) GetBooks(ctx context.Context, r *api.GetBooksRequest) (*api.GetBooksResponse, error) {
@@ -56,17 +71,25 @@ func (s BookServer) GetBooks(ctx context.Context, r *api.GetBooksRequest) (*api.
 
 	ubs, err := getUserBooks(ctx, uint(r.GetUserId()))
 	if err != nil {
+		log.WithFields(logrus.Fields{
+			"Service": "GetBooks",
+			"Request": fmt.Sprintf("%#v", r),
+		}).Error(err)
 		return nil, err
 	}
 	for _, ub := range ubs {
 		bs = append(bs, constructBookInfo(&ub))
 	}
-	return &api.GetBooksResponse{BooksInfo: bs, Time: timestamppb.Now()}, err
+	return &api.GetBooksResponse{BooksInfo: bs, Time: timestamppb.Now()}, nil
 }
 
 func (s BookServer) GetReadRatio(ctx context.Context, r *api.GetReadRatioRequest) (*api.GetReadRatioResponse, error) {
 	p, err := getReadRatio(ctx, uint(r.GetUserId()))
 	if err != nil {
+		log.WithFields(logrus.Fields{
+			"Service": "GetReadRatio",
+			"Request": fmt.Sprintf("%#v", r),
+		}).Error(err)
 		return nil, err
 	}
 	return &api.GetReadRatioResponse{ReadPercentage: p, Time: timestamppb.Now()}, nil
@@ -75,6 +98,10 @@ func (s BookServer) GetReadRatio(ctx context.Context, r *api.GetReadRatioRequest
 func (s BookServer) GetReadPages(ctx context.Context, r *api.GetReadPagesRequest) (*api.GetReadPagesResponse, error) {
 	p, err := getReadPagesWithDuration(ctx, uint(r.GetUserId()), time.Unix(0, 0), time.Now())
 	if err != nil {
+		log.WithFields(logrus.Fields{
+			"Service": "GetReadPages",
+			"Request": fmt.Sprintf("%#v", r),
+		}).Error(err)
 		return nil, err
 	}
 	return &api.GetReadPagesResponse{ReadPages: uint64(p), Time: timestamppb.Now()}, nil
@@ -83,6 +110,10 @@ func (s BookServer) GetReadPages(ctx context.Context, r *api.GetReadPagesRequest
 func (s BookServer) GetReadSeconds(ctx context.Context, r *api.GetReadSecondsRequest) (*api.GetReadSecondsResponse, error) {
 	sec, err := getReadSecondsWithDuration(ctx, uint(r.GetUserId()), time.Unix(0, 0), time.Now())
 	if err != nil {
+		log.WithFields(logrus.Fields{
+			"Service": "GetReadSeconds",
+			"Request": fmt.Sprintf("%#v", r),
+		}).Error(err)
 		return nil, err
 	}
 	return &api.GetReadSecondsResponse{ReadSeconds: uint64(sec), Time: timestamppb.Now()}, nil
@@ -91,6 +122,10 @@ func (s BookServer) GetReadSeconds(ctx context.Context, r *api.GetReadSecondsReq
 func (s BookServer) GetReadPagesWithDuration(ctx context.Context, r *api.GetReadPagesWithDurationRequest) (*api.GetReadPagesResponse, error) {
 	p, err := getReadPagesWithDuration(ctx, uint(r.GetUserId()), r.GetStartTime().AsTime(), r.GetEndTime().AsTime())
 	if err != nil {
+		log.WithFields(logrus.Fields{
+			"Service": "GetReadPagesWithDuration",
+			"Request": fmt.Sprintf("%#v", r),
+		}).Error(err)
 		return nil, err
 	}
 	return &api.GetReadPagesResponse{ReadPages: uint64(p), Time: timestamppb.Now()}, nil
@@ -99,6 +134,10 @@ func (s BookServer) GetReadPagesWithDuration(ctx context.Context, r *api.GetRead
 func (s BookServer) GetReadSecondsWithDuration(ctx context.Context, r *api.GetReadSecondsWithDurationRequest) (*api.GetReadSecondsResponse, error) {
 	sec, err := getReadSecondsWithDuration(ctx, uint(r.GetUserId()), r.GetStartTime().AsTime(), r.GetEndTime().AsTime())
 	if err != nil {
+		log.WithFields(logrus.Fields{
+			"Service": "GetReadSecondsWithDuration",
+			"Request": fmt.Sprintf("%#v", r),
+		}).Error(err)
 		return nil, err
 	}
 	return &api.GetReadSecondsResponse{ReadSeconds: uint64(sec), Time: timestamppb.Now()}, nil
@@ -107,6 +146,10 @@ func (s BookServer) GetReadSecondsWithDuration(ctx context.Context, r *api.GetRe
 func (s BookServer) GetReadPagesByBookID(ctx context.Context, r *api.GetReadPagesByBookIDRequest) (*api.GetReadPagesResponse, error) {
 	p, err := getReadPagesByBookID(ctx, uint(r.GetUserId()), uint(r.GetBookId()))
 	if err != nil {
+		log.WithFields(logrus.Fields{
+			"Service": "GetReadPagesByBookID",
+			"Request": fmt.Sprintf("%#v", r),
+		}).Error(err)
 		return nil, err
 	}
 	return &api.GetReadPagesResponse{ReadPages: uint64(p), Time: timestamppb.Now()}, nil
@@ -115,6 +158,10 @@ func (s BookServer) GetReadPagesByBookID(ctx context.Context, r *api.GetReadPage
 func (s BookServer) GetBookmarkStatus(ctx context.Context, r *api.GetBookmarkStatusRequest) (*api.GetBookmarkStatusResponse, error) {
 	st, err := getBookmarkStatus(ctx, uint(r.GetBookmarkId()))
 	if err != nil {
+		log.WithFields(logrus.Fields{
+			"Service": "GetBookmarkStatus",
+			"Request": fmt.Sprintf("%#v", r),
+		}).Error(err)
 		return nil, err
 	}
 	return &api.GetBookmarkStatusResponse{BookmarkStatus: st, Time: timestamppb.Now()}, nil

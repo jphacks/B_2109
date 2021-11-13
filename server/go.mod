@@ -4,6 +4,7 @@ go 1.17
 
 require (
 	github.com/osamingo/openbd v0.0.0-20180723132306-69760cef3c5e
+	github.com/sirupsen/logrus v1.8.1
 	github.com/spf13/cobra v1.2.1
 	github.com/spf13/viper v1.8.1
 	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
