@@ -2,15 +2,17 @@ package repos
 
 import (
 	"fmt"
-	"log"
 	"time"
 
+	"github.com/jphacks/B_2109/server/pkg/logging"
 	"github.com/jphacks/B_2109/server/pkg/models"
+
 	"gorm.io/gorm"
 )
 
 var (
-	db = &gorm.DB{}
+	log = logging.DefaultLogger
+	db  = &gorm.DB{}
 )
 
 func InitDB(dl gorm.Dialector, cfg *gorm.Config) error {
@@ -18,8 +20,8 @@ func InitDB(dl gorm.Dialector, cfg *gorm.Config) error {
 
 	for {
 		if db, err = gorm.Open(dl, cfg); err != nil {
-			log.Println(err)
-			log.Println("sleep")
+			log.Warn(err)
+			log.Info("sleep 5s")
 			time.Sleep(5 * time.Second)
 		} else {
 			break

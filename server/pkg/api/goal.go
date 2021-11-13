@@ -2,7 +2,10 @@ package api
 
 import (
 	"context"
+	"fmt"
 	"time"
+
+	"github.com/sirupsen/logrus"
 
 	"github.com/jphacks/B_2109/server/api"
 	"github.com/jphacks/B_2109/server/pkg/models"
@@ -21,6 +24,10 @@ func NewGoalServer() *GoalServer {
 func (s GoalServer) CreateGoal(ctx context.Context, r *api.CreateGoalRequest) (*api.CreateGoalResponse, error) {
 	g, err := createGoal(ctx, r.GetTime().AsTime(), r.GetNumPages(), uint(r.GetUserId()))
 	if err != nil {
+		log.WithFields(logrus.Fields{
+			"Service": "CreateGoal",
+			"Request": fmt.Sprintf("%#v", r),
+		}).Error(err)
 		return nil, err
 	}
 	return &api.CreateGoalResponse{GoalInfo: constructGoalInfo(g), Time: timestamppb.Now()}, nil
@@ -31,6 +38,10 @@ func (s GoalServer) GetGoals(ctx context.Context, r *api.GetGoalsRequest) (*api.
 
 	gs, err := getGoals(ctx, uint(r.GetUserId()))
 	if err != nil {
+		log.WithFields(logrus.Fields{
+			"Service": "GetGoals",
+			"Request": fmt.Sprintf("%#v", r),
+		}).Error(err)
 		return nil, err
 	}
 
