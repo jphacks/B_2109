@@ -25,29 +25,24 @@ package cmd
 import (
 	"context"
 	"fmt"
-	"log"
 	"net"
 	"os"
-	"os/signal"
-	"time"
-
-	"github.com/jphacks/B_2109/server/pkg/models"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
 	"github.com/jphacks/B_2109/server/api"
-
-	"github.com/spf13/viper"
-
 	pkgapi "github.com/jphacks/B_2109/server/pkg/api"
 	"github.com/jphacks/B_2109/server/pkg/defaults"
+	"github.com/jphacks/B_2109/server/pkg/logging"
+	"github.com/jphacks/B_2109/server/pkg/models"
 	"github.com/jphacks/B_2109/server/pkg/option"
 	"github.com/jphacks/B_2109/server/pkg/repos"
+	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 
 	"golang.org/x/sync/errgroup"
 
-	"github.com/spf13/cobra"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )
@@ -69,33 +64,35 @@ func init() {
 	viper.BindPFlags(flags)
 }
 
+var (
+	log = logging.DefaultLogger
+)
+
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "bookowl",
 	Short: "bookowl",
 	Run: func(cmd *cobra.Command, args []string) {
-		// initiate to DB
-		time.Sleep(5 * time.Second)
-
 		// initialize
-		log.Println("Initialize Start")
+		log.Info("Initialize Start")
 		initEnv()
 		if err := initDB(); err != nil {
-			//	todo logrus
-			log.Fatalln(err)
+			log.Error(err)
+			return
 		}
 
-		log.Println("Initialize Data")
+		log.Info("Inject init Data")
 		if err := initData(); err != nil {
-			log.Fatalln(err)
+			log.Error(err)
+			return
 		}
 
-		log.Println("Server Start")
+		log.Info("Server Start")
 		if err := runDaemon(); err != nil {
-			//	todo logrus
-			log.Fatalln(err)
-
+			log.Error(err)
+			return
 		}
+		return
 	},
 }
 
@@ -114,7 +111,7 @@ func initEnv() {
 
 func initDB() error {
 	dsn := repos.ConstructDSN(option.Config.DBUser, option.Config.DBPass, option.Config.DBAddr, option.Config.DBName)
-	log.Printf("dsn: %s\n", dsn)
+	log.WithField("dsn", dsn).Infof("DSN is constructed")
 	return repos.InitDB(mysql.Open(dsn), &gorm.Config{})
 }
 
@@ -180,22 +177,19 @@ func initData() error {
 }
 
 func runDaemon() error {
-	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
-	defer stop()
-
-	eg, ctx := errgroup.WithContext(ctx)
+	eg := errgroup.Group{}
 	eg.Go(func() error {
-		return runServer(ctx)
+		return runServer()
 	})
 	//todo implement
 	//eg.Go(func() error {
-	//	return runDailyGoalUpdate(ctx)
+	//	return runDailyGoalUpdate()
 	//})
 
 	return eg.Wait()
 }
 
-func runServer(ctx context.Context) error {
+func runServer() error {
 	s, err := initServer()
 	if err != nil {
 		return err
@@ -226,7 +220,7 @@ func initServer() (*grpc.Server, error) {
 	return grpc.NewServer(opts...), nil
 }
 
-//func runDailyGoalUpdate(ctx context.Context) error {
+//func runDailyGoalUpdate() error {
 //	//todo implement
 //	return nil
 //}

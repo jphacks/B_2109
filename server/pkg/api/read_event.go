@@ -2,7 +2,10 @@ package api
 
 import (
 	"context"
+	"fmt"
 	"time"
+
+	"github.com/sirupsen/logrus"
 
 	"google.golang.org/protobuf/types/known/timestamppb"
 
@@ -21,9 +24,13 @@ func NewReadEventServer() *ReadEventServer {
 }
 
 func (s ReadEventServer) CreateReadEvent(ctx context.Context, r *api.CreateReadEventRequest) (*api.CreateReadEventResponse, error) {
-	re, err := s.createReadEvent(ctx, uint(r.GetBookmarkId()), r.GetReadEventInfo().GetReadStartTime().AsTime(), r.GetReadEventInfo().GetReadEndTime().AsTime(),
+	re, err := createReadEvent(ctx, uint(r.GetBookmarkId()), r.GetReadEventInfo().GetReadStartTime().AsTime(), r.GetReadEventInfo().GetReadEndTime().AsTime(),
 		r.GetReadEventInfo().ReadStartWidthRevel, r.GetReadEventInfo().GetReadEndWidthLevel())
 	if err != nil {
+		log.WithFields(logrus.Fields{
+			"Service": "CreateReadEvent",
+			"Request": fmt.Sprintf("%#v", r),
+		}).Error(err)
 		return nil, err
 	}
 
@@ -33,8 +40,12 @@ func (s ReadEventServer) CreateReadEvent(ctx context.Context, r *api.CreateReadE
 func (s ReadEventServer) GetReadEventsByBookID(ctx context.Context, r *api.GetReadEventsByBookIDRequest) (*api.GetReadEventsResponse, error) {
 	var ris []*api.ReadEventInfo
 
-	res, err := s.getReadEventsByUserBookID(ctx, uint(r.GetBookId()))
+	res, err := getReadEventsByUserBookID(ctx, uint(r.GetBookId()))
 	if err != nil {
+		log.WithFields(logrus.Fields{
+			"Service": "GetReadEventsByBookID",
+			"Request": fmt.Sprintf("%#v", r),
+		}).Error(err)
 		return nil, err
 	}
 	for _, re := range res {
@@ -44,7 +55,7 @@ func (s ReadEventServer) GetReadEventsByBookID(ctx context.Context, r *api.GetRe
 	return &api.GetReadEventsResponse{ReadEventsInfo: ris, Time: timestamppb.Now()}, nil
 }
 
-func (s ReadEventServer) createReadEvent(ctx context.Context, bmID uint, start, end time.Time, startWidth, endWidth int64) (*models.ReadEvent, error) {
+func createReadEvent(ctx context.Context, bmID uint, start, end time.Time, startWidth, endWidth int64) (*models.ReadEvent, error) {
 	bmr := repos.NewBookmarkRepository()
 	bm, err := bmr.GetByID(ctx, bmID)
 	if err != nil {
@@ -56,7 +67,7 @@ func (s ReadEventServer) createReadEvent(ctx context.Context, bmID uint, start, 
 	return re, err
 }
 
-func (s ReadEventServer) getReadEventsByUserBookID(ctx context.Context, id uint) ([]models.ReadEvent, error) {
+func getReadEventsByUserBookID(ctx context.Context, id uint) ([]models.ReadEvent, error) {
 	rer := repos.NewReadEventRpository()
 	return rer.GetByUserBookID(ctx, id)
 }

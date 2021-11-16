@@ -2,8 +2,11 @@ package api
 
 import (
 	"context"
+	"fmt"
 	"sort"
 	"time"
+
+	"github.com/sirupsen/logrus"
 
 	"github.com/jphacks/B_2109/server/pkg/models"
 
@@ -25,6 +28,10 @@ func NewMatchServer() *MatchServer {
 func (s MatchServer) RegisterOpponents(ctx context.Context, r *api.RegisterOpponentsRequest) (*api.RegisterOpponentsResponse, error) {
 	err := registerOpponents(ctx, uint(r.GetUserId()), uintSlice(r.GetOpponentIds()))
 	if err != nil {
+		log.WithFields(logrus.Fields{
+			"Service": "RegisterOpponents",
+			"Request": fmt.Sprintf("%#v", r),
+		}).Error(err)
 		return nil, err
 	}
 	return &api.RegisterOpponentsResponse{Time: timestamppb.Now()}, nil
@@ -35,6 +42,10 @@ func (s MatchServer) GetOpponents(ctx context.Context, r *api.GetOpponentsReques
 
 	opts, err := getOpponents(ctx, uint(r.GetUserId()))
 	if err != nil {
+		log.WithFields(logrus.Fields{
+			"Service": "GetOpponents",
+			"Request": fmt.Sprintf("%#v", r),
+		}).Error(err)
 		return nil, err
 	}
 
@@ -53,6 +64,10 @@ func (s MatchServer) GetOpponents(ctx context.Context, r *api.GetOpponentsReques
 func (s MatchServer) GetRanking(ctx context.Context, r *api.GetRankingRequest) (*api.GetRankingResponse, error) {
 	rs, err := getRanking(ctx, uint(r.GetUserId()))
 	if err != nil {
+		log.WithFields(logrus.Fields{
+			"Service": "GetRanking",
+			"Request": fmt.Sprintf("%#v", r),
+		}).Error(err)
 		return nil, err
 	}
 	return &api.GetRankingResponse{RankingInfos: rs, Time: timestamppb.Now()}, nil
