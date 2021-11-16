@@ -6,53 +6,60 @@
 //
 
 import SwiftUI
+
+struct CurrentUserDefaults{
+    // 初回起動時判定
+    static let isFirstVisit = "is_first_visit"
+    static let goal = "goal"
+}
+
 struct ContentView: View {
-    let scannerModel = ScannerViewModel()
+    @State var isShowGoalSettingView = false
+    @ObservedObject var goalParser = GoalModelParser()
     var body: some View {
         ZStack{
             Color(red: 255/255, green: 241/255, blue: 179/255)
                 .edgesIgnoringSafeArea(.all)
-            NavigationView {
-                TabView{
-                    TopView()
-                        // タイトルと左右のアイコンを指定
-                .tabItem {
-                    VStack{
-                       Text("目標")
-                    }
-                }.tag(1)
+            if isShowGoalSettingView{
+                GoalRegisterView(goalModelParser: goalParser)
+            }else{
+                TabsView(goalParser: goalParser)
+            }
         
-                ShelfView()
-                    // タイトルと左右のアイコンを指定
-                .tabItem{
-                    VStack{
-                        Text("本棚")
-                    }
-                }.tag(2)
-                    
-            
-            ISBNView(viewModel:scannerModel)
-                .tabItem{
-                    VStack{
-                        Text("登録")
-                    }
-                }.tag(3)
         }
-                .navigationBarTitle("ブックロウ", displayMode: .inline)
-            }.navigationViewStyle(StackNavigationViewStyle())
+        .onAppear(){
+            self.firstVisit()
+        }
     }
-}
-}
-
-// Iconの形式をそろえる
-struct IconView: View {
-    var systemName: String
-    var body: some View {
-        Image(systemName)
-            .resizable()
-            .font(.title)
-            .frame(width: 50, height: 50, alignment: .leading)
+    
+    
+    func firstVisit()-> Bool{
+        let visit = UserDefaults.standard.bool(forKey: CurrentUserDefaults.isFirstVisit)
+        let goal =  UserDefaults.standard.bool(forKey: CurrentUserDefaults.goal)
+        print(visit && goal)
+                if visit && goal{
+                    print("Access More Than Once")
+                    goalParser.decodeToGoalModel()
+//                    UserDefaults.standard.set(false, forKey: CurrentUserDefaults.isFirstVisit)
+                    return false
+                }else{
+                    print("First Access")
+                    DispatchQueue.main.async {
+                        self.isShowGoalSettingView.toggle()
+                    }
+                    UserDefaults.standard.set(true, forKey: CurrentUserDefaults.isFirstVisit)
+                    return true
+                }
     }
+    
+//    func getDestination(from navItem: Navs) -> AnyView {
+//        if navItem == Navs.goalRegister {
+//            return AnyView(GoalRegisterView( goalModelParser: goalParser))
+//        } else{
+//            return AnyView(ISBNView())
+//        }
+//        
+//    }
 }
 
 struct ContentView_Previews: PreviewProvider {

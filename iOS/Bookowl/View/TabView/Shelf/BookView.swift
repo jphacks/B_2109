@@ -10,7 +10,7 @@ import SwiftUI
 struct BookView: View {
     @Binding var model : Bookowl_BookInfo
     let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
-    let bookAPI = BookAPI(viewName: "book")
+    let bookAPI = BookAPI()
     @State private var progressAmount = 0
     var body: some View {
         ZStack{

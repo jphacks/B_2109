@@ -8,8 +8,8 @@
 import Foundation
 import SwiftProtobuf
 
-struct GoalModel : Codable {
-    var Id : Int = 0
+struct GoalModel : Codable, Identifiable {
+    var id: Int = 0
     var progress : Float = 0.0
     var startDate : String = ""
     var endDate : String = ""
@@ -20,19 +20,29 @@ struct GoalModel : Codable {
 
 class GoalModelParser : NSObject, ObservableObject{
     @Published var hasGoalModel : Bool = false
-    @Published var model : GoalModel!
+    @Published var model = GoalModel()
     override init() {
         super.init()
-        self.model = decodeToGoalModel()
+        decodeToGoalModel()
+    }
+    func saveModel(model:GoalModel){
+        UserDefaults.standard.set(true, forKey: CurrentUserDefaults.goal)
+        UserDefaults.standard.set(model.num_pages, forKey: "page")
+        let json = JSONEncoder()
+        guard let data = try? json.encode(model) else{
+            return
+        }
+        UserDefaults.standard.set(data, forKey: "goalModel")
+        self.model = model
     }
     
-    func decodeToGoalModel() -> GoalModel?{
-        guard let data = UserDefaults.standard.data(forKey: "goalModel"),
-        let goalModel = try? JSONDecoder().decode(GoalModel.self, from: data) else {
-            return nil
-        }
-        hasGoalModel = true
-        return goalModel
+    
+    func decodeToGoalModel(){
+        let page = UserDefaults.standard.integer(forKey: "page")
+        self.hasGoalModel = true
+        self.model.num_pages = page
+        print(self.model.num_pages)
+        
     }
 }
 

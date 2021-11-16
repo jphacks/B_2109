@@ -18,31 +18,27 @@ struct BookListView: View {
         }
     
     var body: some View {
-        NavigationView{
             ZStack {
                background
                     .edgesIgnoringSafeArea(.all)
                 List{
                     ForEach(0 ..< books.count) { book in
                                     
-                    ZStack{
-                        NavigationLink(destination: BookView(model: $books[book])) {
-                                background.edgesIgnoringSafeArea(.all)
-                                    EmptyView()
-                                    .foregroundColor(background)
-                            }.frame(width: 0, height: 0).opacity(0).hidden()
-                        BookCell(model: books[book])
-                            .frame(width: UIScreen.main.bounds.width, height: 150, alignment: .center)
-                    }
+                        ZStack{
+                            NavigationLink(destination: BookView(model: $books[book])) {
+                                    background.edgesIgnoringSafeArea(.all)
+                                        EmptyView()
+                                        .foregroundColor(background)
+                                }.frame(width: 0, height: 0).opacity(0).hidden()
+                            BookCell(model: books[book])
+                                .frame(width: UIScreen.main.bounds.width, height: 150, alignment: .center)
+                        }
                     }
 //                        .frame(width: UIScreen.main.bounds.width, height: 150, alignment: .center)
                     }
-                       
-                       
-                }.navigationBarHidden(true)
+                }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height-250, alignment: .center)
 //                .position(x: 0, y: 80)
-                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height-250, alignment: .center)
-            }.navigationViewStyle(StackNavigationViewStyle())
+//            }
         }
     }
 

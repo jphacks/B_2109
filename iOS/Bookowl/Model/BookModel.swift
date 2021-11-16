@@ -9,20 +9,7 @@ import Foundation
 import SwiftUI
 
 class BookModel : ObservableObject{
-//    override init() {
-//        super.init()
-//        id = 0
-//        name = ""
-//        status = .readUnread
-//        progress = 0
-//        imagePath = ""
-//        bookMarkId = 0
-//        isbn = ""
-//        widthLevel = 0
-//        authors = [""]
-//        price = 0
-//        pages = 0
-//    }
+
     init(id:UInt64, name : String, status : Bookowl_ReadStatus, progress : UInt64, imagePath : String, bookMarkId : UInt64, isbn:String, widthLevel : UInt64, authors : [String], price:Int64, pages : Int64){
         
     }

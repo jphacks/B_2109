@@ -9,10 +9,10 @@ import SwiftUI
 
 struct RegisterView: View {
 //    var isbn : String
-    @State var model : Bookowl_BookInfo
     @State var isUpdated = false
     @Binding var isFindBarcode : Bool
-    @Binding var isFinish : Bool
+    @Binding var isFinished : Bool
+    @ObservedObject var viewModel:ScannerViewModel
     let brown = Color(red: 105/255, green: 78/255, blue: 51/255)
     let bookAPI = BookAPI()
     var body: some View {
@@ -20,9 +20,10 @@ struct RegisterView: View {
             Bookowl.background.edgesIgnoringSafeArea(.all)
             
             VStack{
-                URLImageView(viewModel: .init(url: model.bookThumbnail))
+                
+                URLImageView(viewModel: .init(url: viewModel.bookModel.bookThumbnail))
                     .frame(width: 150, height: 200, alignment: .center)
-                Text(model.name)
+                Text(viewModel.bookModel.name)
                 .font(.title)
                 .foregroundColor(brown)
                 .frame(width: 300, height: 20, alignment: .leading)
@@ -33,12 +34,12 @@ struct RegisterView: View {
 //                    .frame(width: 300, height: 20, alignment: .leading)
 //                    .padding(20)
                 HStack{
-                    Text("ページ数:" + String(model.pages))
+                    Text("ページ数:" + String(viewModel.bookModel.pages))
                         .font(.title)
                     .foregroundColor(brown)
                     .frame(width: 150, height: 20, alignment: .leading)
                     .padding(20)
-                    Text("価格:" + String(model.price))
+                    Text("価格:" + String(viewModel.bookModel.price))
                         .font(.title)
                         .foregroundColor(brown)
                         .frame(width: 150, height: 20, alignment: .leading)
@@ -54,36 +55,36 @@ struct RegisterView: View {
                     Text("読む場合はしおりを登録してください。")
                     HStack{
                         Button( action: {
-                            model.bookmarkID = 1
-                            model.readStatus = .readReading
-                            bookAPI.UpdateBookmarkIDRequest(model: model)
+                            viewModel.bookModel.bookmarkID = 1
+                            viewModel.bookModel.readStatus = .readReading
+                            bookAPI.UpdateBookmarkIDRequest(model: viewModel.bookModel)
                             isUpdated = true
                         }){
                         Image("bookmark1owl")
                             .resizable()
                             .frame(width: 80, height: 80, alignment: .center)}
                         Button( action: {
-                            model.bookmarkID = 2
-                            model.readStatus = .readReading
-                            bookAPI.UpdateBookmarkIDRequest(model: model)
+                            viewModel.bookModel.bookmarkID = 2
+                            viewModel.bookModel.readStatus = .readReading
+                            bookAPI.UpdateBookmarkIDRequest(model: viewModel.bookModel)
                             isUpdated = true
                         }){
                         Image("bookmark2owl")
                             .resizable()
                             .frame(width: 80, height: 80,  alignment: .center)}
                         Button( action: {
-                            model.bookmarkID = 3
-                            model.readStatus = .readReading
-                            bookAPI.UpdateBookmarkIDRequest(model: model)
+                            viewModel.bookModel.bookmarkID = 3
+                            viewModel.bookModel.readStatus = .readReading
+                            bookAPI.UpdateBookmarkIDRequest(model: viewModel.bookModel)
                             isUpdated = true
                         }){
                         Image("bookmark3owl")
                             .resizable()
                             .frame(width: 80, height: 80, alignment: .center)}
                         Button( action: {
-                            model.bookmarkID = 4
-                            model.readStatus = .readReading
-                            bookAPI.UpdateBookmarkIDRequest(model: model)
+                            viewModel.bookModel.bookmarkID = 4
+                            viewModel.bookModel.readStatus = .readReading
+                            bookAPI.UpdateBookmarkIDRequest(model: viewModel.bookModel)
                             isUpdated = true
                         }){
                         Image("bookmark4owl")
@@ -94,10 +95,10 @@ struct RegisterView: View {
                     }
                   
                   Button(action: {
-                      model.bookmarkID = 0
-                      model.readStatus = .readUnread
-                      bookAPI.UpdateBookmarkIDRequest(model: model)
-                     isUpdated = true
+                      viewModel.bookModel.bookmarkID = 0
+                      viewModel.bookModel.readStatus = .readUnread
+                      bookAPI.UpdateBookmarkIDRequest(model: viewModel.bookModel)
+                      isUpdated = true
                   }){ Text("しおりを登録しない")
                             .font(.title)
                             .foregroundColor(brown)
@@ -109,7 +110,7 @@ struct RegisterView: View {
             Alert(title: Text("本の登録が完了しました。"), message: Text(""), dismissButton: .default(Text("はい")){
                 isFindBarcode = false
                 isUpdated = false
-                isFinish = true
+                isFinished = false
             })
             
             

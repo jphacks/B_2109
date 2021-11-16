@@ -13,9 +13,9 @@ class BookRegisterAPI : NSObject{
     }
     
     func sendRegisterBookrequest(){
-        let client = Bookowl_BookClient.init(channel: "localhost" as! GRPCChannel)
+        let client = Bookowl_BookClient.init(channel: address as! GRPCChannel)
         var request = Bookowl_RegisterBookRequest()
-        request.bookInfo.isbn = "aaaa"
+        request.isbn = "aaaa"
         let res = try? client.registerBook(request, callOptions: nil)
         print(res!.response)
     }

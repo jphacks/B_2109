@@ -16,8 +16,10 @@ struct ShelfView: View {
 //    TODO: BookModelの渡し方
     let titles = ["読書中","積読中","読了本"]
     @State var selectedIndex: Int = 0
-    let bookAPI = BookAPI(viewName: "shelf")
+    @State var isRegisterBook = false
+    let bookAPI = BookAPI()
         var body: some View {
+            NavigationView{
             ZStack{
                 backgroundColor.edgesIgnoringSafeArea(.all)
                     PagerTabStripView() {
@@ -26,31 +28,47 @@ struct ShelfView: View {
                         }.onPageAppear {
         //                    homeModel.isLoading = true
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                bookAPI.divideByStatus(bookInfos: bookAPI.bookInfos)
-                                    
+//                                bookAPI.divideByStatus(bookInfos: bookAPI.bookInfos)
+                                
                             }
                         }
-                        
+
                         BookListView(books: bookAPI.unReads).pagerTabItem {
                             TitleNavBarItem(title: "積読中")
                         }
                         .onPageAppear {
         //                    trendingModel.isLoading = true
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-        //                        trendingModel.isLoading = false
+                                bookAPI.divideByStatus(bookInfos: bookAPI.bookInfos)
                             }
                         }
-                        
+
                         BookListView(books: bookAPI.completed).pagerTabItem {
                         TitleNavBarItem(title: "読了本")
-                        }
+                            .onAppear{
+                                DispatchQueue.main.asyncAfter(deadline: .now()+2) {
+//                                    あああああ
+                                }
+                            }
                             
+                        }
+
                         
                     }
                     .pagerTabStripViewStyle(.normal(indicatorBarHeight: 5, indicatorBarColor: selectedColor, tabItemHeight: 80))
                     
                     .frame(alignment: .center)
-        
+            }.navigationBarItems(trailing: Button(action: {
+                isRegisterBook = true  
+            }){
+                Text("本登録")
+                    .fullScreenCover(isPresented: $isRegisterBook){
+                        ISBNView(viewModel: ScannerViewModel() , isActive: $isRegisterBook )
+                    }
+            })
+                .navigationTitle("本棚")
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationViewStyle(StackNavigationViewStyle())
             }
     }
 

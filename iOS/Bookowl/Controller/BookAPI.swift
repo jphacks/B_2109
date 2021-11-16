@@ -15,18 +15,14 @@ class BookAPI :  ObservableObject{
     @Published var unReads : [Bookowl_BookInfo] = []
     @Published var reading : [Bookowl_BookInfo] = []
     @Published var completed : [Bookowl_BookInfo] = []
+    let port = 8080
 //    var connection : ClientConnection?
 //    var client : Bookowl_BookClient?
 
     
-    init(viewName : String){
-        switch viewName{
-        case "shelf":
-            let bookinfos = self.getBookByUserIdRequest()
-            self.divideByStatus(bookInfos: bookInfos)
-            break
-        default:break
-        }
+    init(){
+        bookInfos = self.getBookByUserIdRequest()
+        self.divideByStatus(bookInfos: bookInfos)
     }
     
 //    func sendRegisterGoalrequest(model : GoalModel){
@@ -65,15 +61,16 @@ class BookAPI :  ObservableObject{
         }
         var request = Bookowl_RegisterBookRequest()
         request.userID = UInt64(USER_ID)
-        request.bookInfo.readStatus = .readUnread
-        request.bookInfo.isbn = model.isbn
-        request.bookInfo.widthLevel = Int64(model.widthLevel)
-        print(model.widthLevel)
+//        request.readStatus = .readUnread
+        request.isbn = model.isbn
+//        request.widthLevel = Int64(model.widthLevel)
+//        print(model.widthLevel)
         let connection = ClientConnection
             .insecure(group: group)
-            .connect(host: "163.221.29.71", port: 8080)
+            .connect(host: address, port: port)
             do {
-                print("aaa")
+                print(model.isbn)
+                print("registered")
                 let client = Bookowl_BookClient.init(channel: connection, defaultCallOptions: CallOptions())
                 let response = try client.registerBook(request, callOptions: CallOptions()).response.wait()
                 print("registerBook")
@@ -96,7 +93,7 @@ class BookAPI :  ObservableObject{
         request.bookmarkID = model.bookmarkID
         let connection = ClientConnection
             .insecure(group: group)
-            .connect(host: "163.221.29.71", port: 8080)
+            .connect(host: address, port: port)
         do{
             let client = Bookowl_BookClient.init(channel: connection, defaultCallOptions: CallOptions())
             let response = try client.updateBookmarkID(request, callOptions: CallOptions()).response.wait()
@@ -113,14 +110,14 @@ class BookAPI :  ObservableObject{
         defer{
             try? group.syncShutdownGracefully()
         }
-        var request = Bookowl_GetBooksByUserIDRequest()
+        var request = Bookowl_GetBooksRequest()
         request.userID = UInt64(USER_ID)
         let connection = ClientConnection
             .insecure(group: group)
-            .connect(host: "163.221.29.71", port: 8080)
+            .connect(host: address, port: port)
         do{
             let client = Bookowl_BookClient.init(channel: connection, defaultCallOptions: CallOptions())
-            let response = try client.getBooksByUserID(request, callOptions: CallOptions()).response.wait()
+            let response = try client.getBooks(request, callOptions: CallOptions()).response.wait()
             print("response!!")
             self.bookInfos = response.booksInfo
             return response.booksInfo

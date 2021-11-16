@@ -25,16 +25,17 @@ struct GoalRegisterView: View {
     @State private var selectionStartDate = Date()
     @State private var selectionEndDate = Date()
     @ObservedObject var goalAPI = GoalRegisterAPI()
+    @ObservedObject var goalModelParser : GoalModelParser
+    @Environment(\.presentationMode) var presentationMode
     var body: some View {
         ZStack{
             background.edgesIgnoringSafeArea(.all)
             VStack{
                 let date2 = date1.addingTimeInterval(365*100*60*60)
                 Text("目標設定")
-                DatePicker("開始日時を選択", selection: $selectionStartDate, in: date1...date2,displayedComponents: .date)
-                DatePicker("終了日時を選択", selection: $selectionEndDate, in: date1...date2,displayedComponents: .date)
                 
                 TextField("何ページ読むかを入力", text: $page, onEditingChanged: {_ in print("change") }, onCommit: {print("commit") })
+                    .keyboardType(.numberPad)
                 
                 Button(action: {
                     var model = GoalModel()
@@ -50,25 +51,10 @@ struct GoalRegisterView: View {
                     }else{
                         model.num_pages = Int(page)!
                     }
-                    
-                    let json = JSONEncoder()
-                    guard let data = try? json.encode(model) else{
-                        return
-                    }
-                    
-                    UserDefaults.standard.set(data, forKey: "goalModel")
-                    
-//                    guard let data = UserDefaults.standard.data(forKey: "goalModel"),
-//                          let goalModel = try? JSONDecoder().decode(GoalModel.self, from: data) else {
-//                        return
-//                    }
-                    
-//                    print(goalModel.startDate)
-//                    model.time_amount_minutes = Int(hour)!
-//                    goalAPI.sendRegisterGoalrequest(model: model)
-//                    goalAPI.getGoalByUserId()
-//                    UserDefaults.standard.set(model, forKey: "goalModel"
-//                    )
+
+                    goalModelParser.saveModel(model: model)
+                    presentationMode.wrappedValue.dismiss()
+
                 }
                     , label: {
                     Text("決定")
@@ -84,7 +70,8 @@ struct GoalRegisterView: View {
 
 struct GoalRegisterView_Previews: PreviewProvider {
     static var previews: some View {
-            GoalRegisterView()
+        let parser = GoalModelParser()
+            GoalRegisterView(goalModelParser: parser)
     }
 }
 
