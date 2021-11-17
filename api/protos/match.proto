@@ -13,6 +13,8 @@ service  Match {
   rpc GetOpponents(GetOpponentsRequest) returns (GetOpponentsResponse);
 
   rpc GetRanking(GetRankingRequest) returns (GetRankingResponse);
+
+  rpc GetUsers(GetUserRequest) returns (GetUserResponse);
 }
 
 message RegisterOpponentsRequest {
@@ -42,6 +44,15 @@ message GetRankingResponse {
   google.protobuf.Timestamp time = 2;
 }
 
+message GetUserRequest {
+  uint64 user_id = 1;
+}
+
+message GetUserResponse {
+  repeated UserInfo user_info = 1;
+  google.protobuf.Timestamp time = 2;
+}
+
 message OpponentsInfo {
   uint64 id = 1;
   string name = 2;
@@ -52,4 +63,10 @@ message RankingInfo {
   uint64 id = 1;
   string name = 2;
   uint64 ranking = 3;
+  int64 read_pages = 4;
+}
+
+message UserInfo {
+  uint64 id = 1;
+  string name = 2;
 }

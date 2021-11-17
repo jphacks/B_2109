@@ -2,30 +2,24 @@ package repos
 
 import (
 	"fmt"
-	"time"
 
-	"github.com/jphacks/B_2109/server/pkg/logging"
 	"github.com/jphacks/B_2109/server/pkg/models"
 
 	"gorm.io/gorm"
 )
 
 var (
-	log = logging.DefaultLogger
-	db  = &gorm.DB{}
+	db              = &gorm.DB{}
+	DefaultDBConfig = &gorm.Config{
+		DisableForeignKeyConstraintWhenMigrating: true,
+	}
 )
 
 func InitDB(dl gorm.Dialector, cfg *gorm.Config) error {
 	var err error
 
-	for {
-		if db, err = gorm.Open(dl, cfg); err != nil {
-			log.Warn(err)
-			log.Info("sleep 5s")
-			time.Sleep(5 * time.Second)
-		} else {
-			break
-		}
+	if db, err = gorm.Open(dl, cfg); err != nil {
+		return err
 	}
 
 	return db.AutoMigrate(
@@ -33,7 +27,7 @@ func InitDB(dl gorm.Dialector, cfg *gorm.Config) error {
 		&models.Author{},
 		&models.Bookmark{},
 		//&models.Category{},
-		//&models.Goal{},
+		&models.Goal{},
 		&models.ReadEvent{},
 		&models.User{},
 		&models.UserBook{},

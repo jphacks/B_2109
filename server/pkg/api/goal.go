@@ -53,7 +53,7 @@ func (s GoalServer) GetGoals(ctx context.Context, r *api.GetGoalsRequest) (*api.
 }
 
 func createGoal(ctx context.Context, time time.Time, pages int64, usrID uint) (*models.Goal, error) {
-	start, end := getThisMondayAndSunday(time)
+	start, end := getThisAndNextMonday(time)
 	g := models.ConstructGoal(start, end, pages, models.GOAL_STATUS_DOING, usrID)
 	gr := repos.NewGoalRepository()
 	err := gr.Create(ctx, g)
@@ -68,22 +68,22 @@ func getGoals(ctx context.Context, usrID uint) ([]models.Goal, error) {
 	return gr.GetByUserID(ctx, usrID)
 }
 
-func getThisMondayAndSunday(current time.Time) (mon, sun time.Time) {
+func getThisAndNextMonday(current time.Time) (mon, sun time.Time) {
 	switch current.Weekday() {
 	case time.Monday:
-		return current, current.AddDate(0, 0, 6)
+		return current, current.AddDate(0, 0, 7)
 	case time.Tuesday:
-		return current.AddDate(0, 0, -1), current.AddDate(0, 0, 5)
+		return current.AddDate(0, 0, -1), current.AddDate(0, 0, 6)
 	case time.Wednesday:
-		return current.AddDate(0, 0, -2), current.AddDate(0, 0, 4)
+		return current.AddDate(0, 0, -2), current.AddDate(0, 0, 5)
 	case time.Thursday:
-		return current.AddDate(0, 0, -3), current.AddDate(0, 0, 3)
+		return current.AddDate(0, 0, -3), current.AddDate(0, 0, 4)
 	case time.Friday:
-		return current.AddDate(0, 0, -4), current.AddDate(0, 0, 2)
+		return current.AddDate(0, 0, -4), current.AddDate(0, 0, 3)
 	case time.Saturday:
-		return current.AddDate(0, 0, -5), current.AddDate(0, 0, 1)
+		return current.AddDate(0, 0, -5), current.AddDate(0, 0, 2)
 	case time.Sunday:
-		return current.AddDate(0, 0, -6), current
+		return current.AddDate(0, 0, -6), current.AddDate(0, 0, 1)
 	}
 	// not reach here
 	return

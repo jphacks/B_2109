@@ -113,35 +113,38 @@ func getRanking(ctx context.Context, usrID uint) ([]*api.RankingInfo, error) {
 	}
 	us := append(opts, user)
 
-	pagesUserMap := make(map[int64]*models.User, len(opts)+1)
+	pagesUsersMap := make(map[int64][]*models.User, len(opts)+1)
 	for _, u := range us {
 		pages, err := getReadPagesWithDuration(ctx, u.ID, time.Unix(0, 0), time.Now())
 		if err != nil {
 			return nil, err
 		}
-		pagesUserMap[pages] = u
+		pagesUsersMap[pages] = append(pagesUsersMap[pages], u)
 	}
-	rankUserMap := sortByPages(pagesUserMap)
-	for r, u := range rankUserMap {
+	userRankMap := makeRankByPages(pagesUsersMap)
+	for u, r := range userRankMap {
 		ri := constructRankingInfo(u, uint64(r))
 		ris = append(ris, ri)
 	}
 	return ris, nil
 }
 
-func sortByPages(m map[int64]*models.User) map[int]*models.User {
-	pages := make([]int, 0, len(m))
-	for k := range m {
-		pages = append(pages, int(k))
+func makeRankByPages(m map[int64][]*models.User) map[*models.User]int64 {
+	pagesSlice := make([]int, 0, len(m))
+	for k, _ := range m {
+		pagesSlice = append(pagesSlice, int(k))
 	}
-	sort.Sort(sort.Reverse(sort.IntSlice(pages)))
+	sort.Sort(sort.Reverse(sort.IntSlice(pagesSlice)))
 
-	rankUserMap := make(map[int]*models.User)
-	rank := 1
-	for _, p := range pages {
-		rankUserMap[rank] = m[int64(p)]
+	userRankMap := make(map[*models.User]int64, len(m))
+	rank := int64(1)
+	for _, p := range pagesSlice {
+		for _, u := range m[int64(p)] {
+			userRankMap[u] = rank
+		}
+		rank++
 	}
-	return rankUserMap
+	return userRankMap
 }
 
 func constructOpponentsInfo(o *models.User, pages uint64) *api.OpponentsInfo {

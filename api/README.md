@@ -45,10 +45,13 @@
     - [GetOpponentsResponse](#bookowl.GetOpponentsResponse)
     - [GetRankingRequest](#bookowl.GetRankingRequest)
     - [GetRankingResponse](#bookowl.GetRankingResponse)
+    - [GetUserRequest](#bookowl.GetUserRequest)
+    - [GetUserResponse](#bookowl.GetUserResponse)
     - [OpponentsInfo](#bookowl.OpponentsInfo)
     - [RankingInfo](#bookowl.RankingInfo)
     - [RegisterOpponentsRequest](#bookowl.RegisterOpponentsRequest)
     - [RegisterOpponentsResponse](#bookowl.RegisterOpponentsResponse)
+    - [UserInfo](#bookowl.UserInfo)
   
     - [Match](#bookowl.Match)
   
@@ -635,6 +638,37 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 
 
 
+<a name="bookowl.GetUserRequest"></a>
+
+### GetUserRequest
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_id | [uint64](#uint64) |  |  |
+
+
+
+
+
+
+<a name="bookowl.GetUserResponse"></a>
+
+### GetUserResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| user_info | [UserInfo](#bookowl.UserInfo) | repeated |  |
+| time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
+
+
+
+
+
+
 <a name="bookowl.OpponentsInfo"></a>
 
 ### OpponentsInfo
@@ -663,6 +697,7 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 | id | [uint64](#uint64) |  |  |
 | name | [string](#string) |  |  |
 | ranking | [uint64](#uint64) |  |  |
+| read_pages | [int64](#int64) |  |  |
 
 
 
@@ -699,6 +734,22 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 
 
 
+
+<a name="bookowl.UserInfo"></a>
+
+### UserInfo
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [uint64](#uint64) |  |  |
+| name | [string](#string) |  |  |
+
+
+
+
+
  
 
  
@@ -716,6 +767,7 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 | RegisterOpponents | [RegisterOpponentsRequest](#bookowl.RegisterOpponentsRequest) | [RegisterOpponentsResponse](#bookowl.RegisterOpponentsResponse) |  |
 | GetOpponents | [GetOpponentsRequest](#bookowl.GetOpponentsRequest) | [GetOpponentsResponse](#bookowl.GetOpponentsResponse) |  |
 | GetRanking | [GetRankingRequest](#bookowl.GetRankingRequest) | [GetRankingResponse](#bookowl.GetRankingResponse) |  |
+| GetUsers | [GetUserRequest](#bookowl.GetUserRequest) | [GetUserResponse](#bookowl.GetUserResponse) |  |
 
  
 
