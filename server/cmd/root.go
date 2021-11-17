@@ -27,9 +27,9 @@ import (
 	"fmt"
 	"net"
 	"os"
+	"time"
 
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
+	"github.com/sirupsen/logrus"
 
 	"github.com/jphacks/B_2109/server/api"
 	pkgapi "github.com/jphacks/B_2109/server/pkg/api"
@@ -40,6 +40,7 @@ import (
 	"github.com/jphacks/B_2109/server/pkg/repos"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+	"gorm.io/driver/mysql"
 
 	"golang.org/x/sync/errgroup"
 
@@ -63,6 +64,10 @@ func init() {
 
 	viper.BindPFlags(flags)
 }
+
+const (
+	maxDBInitFail = 10
+)
 
 var (
 	log = logging.DefaultLogger
@@ -112,7 +117,17 @@ func initEnv() {
 func initDB() error {
 	dsn := repos.ConstructDSN(option.Config.DBUser, option.Config.DBPass, option.Config.DBAddr, option.Config.DBName)
 	log.WithField("dsn", dsn).Infof("DSN is constructed")
-	return repos.InitDB(mysql.Open(dsn), &gorm.Config{})
+	cnt := 0
+	for {
+		if err := repos.InitDB(mysql.Open(dsn), repos.DefaultDBConfig); err != nil && cnt < maxDBInitFail {
+			log.WithFields(logrus.Fields{"Fail Count": cnt}).Warn(err)
+			log.Info("sleep 5s")
+			time.Sleep(5 * time.Second)
+			cnt++
+		} else {
+			return err
+		}
+	}
 }
 
 func initData() error {

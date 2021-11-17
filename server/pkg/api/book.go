@@ -164,7 +164,8 @@ func (s BookServer) GetBookmarkStatus(ctx context.Context, r *api.GetBookmarkSta
 		}).Error(err)
 		return nil, err
 	}
-	return &api.GetBookmarkStatusResponse{BookmarkStatus: st, Time: timestamppb.Now()}, nil
+	ast := translateModelBookmarkStatus(st)
+	return &api.GetBookmarkStatusResponse{BookmarkStatus: ast, Time: timestamppb.Now()}, nil
 
 }
 
@@ -229,10 +230,24 @@ func updateUserBookBookmarkID(ctx context.Context, width uint64, ubID, bmkID uin
 	if err != nil {
 		return nil, err
 	}
-	err = bmr.UpdateUserBookID(ctx, bm, ubID)
 
 	ubr := repos.NewUserBookRepository()
-	ub, err := ubr.GetByID(ctx, ubID, false, false)
+	ub, err := ubr.GetByID(ctx, bm.UserBookID, false, false)
+	if err == nil {
+		ub, err = ubr.UpdateReadStatus(ctx, ub, models.READ_STATUS_SUSPENDED)
+		if err != nil {
+			return nil, err
+		}
+	} else if err != gorm.ErrRecordNotFound && err != nil {
+		return nil, err
+	}
+
+	err = bmr.UpdateUserBookID(ctx, bm, ubID)
+	if err != nil {
+		return nil, err
+	}
+
+	ub, err = ubr.GetByID(ctx, ubID, false, false)
 	if err != nil {
 		return nil, err
 	}
@@ -242,29 +257,7 @@ func updateUserBookBookmarkID(ctx context.Context, width uint64, ubID, bmkID uin
 		return nil, err
 	}
 
-	return changeReadingUserBook(ctx, ubr, ubID, bmkID)
-}
-
-func changeReadingUserBook(ctx context.Context, ubr *repos.UserBookRpository, ubID, bmkID uint) (*models.UserBook, error) {
-	reading := &models.UserBook{}
-	ubs, err := ubr.GetByBookmarkID(ctx, bmkID)
-	for _, ub := range ubs {
-		if ub.ID == ubID {
-			reading, err = ubr.UpdateReadStatus(ctx, &ub, models.READ_STATUS_READING)
-			if err != nil {
-				return nil, err
-			}
-			continue
-		}
-
-		if ub.ReadStatus == models.READ_STATUS_READING {
-			_, err = ubr.UpdateReadStatus(ctx, &ub, models.READ_STATUS_SUSPENDED)
-			if err != nil {
-				return nil, err
-			}
-		}
-	}
-	return reading, nil
+	return ubr.UpdateReadStatus(ctx, ub, models.READ_STATUS_READING)
 }
 
 func updateUserBookReadStatus(ctx context.Context, book uint64, status models.ReadStatus) (*models.UserBook, error) {
@@ -351,24 +344,14 @@ func getBookTotalPages(ub *models.UserBook) (int64, error) {
 	return b.Pages, err
 }
 
-func getBookmarkStatus(ctx context.Context, bmID uint) (api.BookmarkStatus, error) {
+func getBookmarkStatus(ctx context.Context, bmID uint) (models.BookmarkStatus, error) {
 	bmr := repos.NewBookmarkRepository()
 	bm, err := bmr.GetByID(ctx, bmID)
 	if err != nil {
-		return api.BookmarkStatus_BOOKMARK_STATUS_UNSPECIFIED, err
-	}
+		return models.BOOKMARK_STATUS_UNSPECIFIED, err
 
-	ubr := repos.NewUserBookRepository()
-	ub, err := ubr.GetByID(ctx, bm.UserBookID, false, true)
-	if err != nil {
-		return api.BookmarkStatus_BOOKMARK_STATUS_UNSPECIFIED, err
 	}
-
-	t := ub.GetLastReadEndTime()
-	if time.Now().AddDate(0, 0, -7).Before(t) {
-		return api.BookmarkStatus_BOOKMARK_STATUS_RED, nil
-	}
-	return api.BookmarkStatus_BOOKMARK_STATUS_GREEN, nil
+	return bm.Status, nil
 }
 
 func constructBookInfo(ub *models.UserBook) *api.BookInfo {
@@ -415,4 +398,14 @@ func translateAPIReadStatus(s api.ReadStatus) models.ReadStatus {
 		return models.READ_STATUS_COMPLETE
 	}
 	return models.READ_STATUS_UNREAD
+}
+
+func translateModelBookmarkStatus(s models.BookmarkStatus) api.BookmarkStatus {
+	switch s {
+	case models.BOOKMARK_STATUS_GREEN:
+		return api.BookmarkStatus_BOOKMARK_STATUS_GREEN
+	case models.BOOKMARK_STATUS_RED:
+		return api.BookmarkStatus_BOOKMARK_STATUS_RED
+	}
+	return api.BookmarkStatus_BOOKMARK_STATUS_UNSPECIFIED
 }
