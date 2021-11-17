@@ -17,6 +17,7 @@ struct ISBNView: View {
     @State var widthLevel : String = ""
     @Binding var isActive : Bool
     @State var isFinish = false
+    @ObservedObject var bookAPI : BookAPI
     var bookmarkId : Int = 0
     var body: some View {
 //        NavigationView{
@@ -85,7 +86,7 @@ struct ISBNView: View {
         
         }.fullScreenCover(isPresented: $viewModel.isLoading){
 //            isbnReader.setIsISBNFind(bo: false)
-            RegisterView(model:  viewModel.bookModel, isFindBarcode: $viewModel.isLoading, isFinish: $isFinish)
+            RegisterView(model:  viewModel.bookModel, isFindBarcode: $viewModel.isLoading, isFinish: $isFinish,bookAPI: bookAPI)
         }
         
 //        .navigationViewStyle(StackNavigationViewStyle())

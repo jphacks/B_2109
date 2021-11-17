@@ -11,10 +11,10 @@ import Logging
 import NIO
 
 class BookAPI :  ObservableObject{
-    @Published var bookInfos : [Bookowl_BookInfo] = []
-    @Published var unReads : [Bookowl_BookInfo] = []
-    @Published var reading : [Bookowl_BookInfo] = []
-    @Published var completed : [Bookowl_BookInfo] = []
+    @Published var bookInfos:[Bookowl_BookInfo] = []
+    @Published var unReads = BookModels()
+    @Published var reading = BookModels()
+    @Published var completed = BookModels()
     let port = 8080
 //    var connection : ClientConnection?
 //    var client : Bookowl_BookClient?
@@ -76,6 +76,7 @@ class BookAPI :  ObservableObject{
                 print("registerBook")
                 print(response.bookInfo.isbn)
                 print(response.bookInfo.authors)
+                reload()
                 return response.bookInfo
             }catch let error{
                 print(error)
@@ -83,14 +84,11 @@ class BookAPI :  ObservableObject{
         return nil
     }
     
-    func UpdateBookmarkIDRequest(model : Bookowl_BookInfo) -> Bool{
+    func UpdateBookmarkIDRequest(request : Bookowl_UpdateBookmarkIDRequest) -> Bool{
         let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
         defer{
             try? group.syncShutdownGracefully()
         }
-        var request = Bookowl_UpdateBookmarkIDRequest()
-        request.bookID = model.bookID
-        request.bookmarkID = model.bookmarkID
         let connection = ClientConnection
             .insecure(group: group)
             .connect(host: address, port: port)
@@ -98,12 +96,31 @@ class BookAPI :  ObservableObject{
             let client = Bookowl_BookClient.init(channel: connection, defaultCallOptions: CallOptions())
             let response = try client.updateBookmarkID(request, callOptions: CallOptions()).response.wait()
             print("BookMarker is Updated!!")
+            reload()
             return true
         }catch let error{
             print(error)
         }
         return false
     }
+    
+    func UpdateReadStatusRequest(request: Bookowl_UpdateReadStatusRequest) {
+        let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
+        defer{
+            try? group.syncShutdownGracefully()
+        }
+        let connection = ClientConnection
+            .insecure(group: group)
+            .connect(host: address, port: port)
+        do{
+            let client = Bookowl_BookClient.init(channel: connection, defaultCallOptions: CallOptions())
+            let response = try client.updateReadStatus(request, callOptions: CallOptions()).response.wait()
+            print("BookStatus is Updated!!")
+        }catch let error{
+            print(error)
+        }
+    }
+    
  
     func getBookByUserIdRequest() -> [Bookowl_BookInfo]!{
         let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
@@ -128,20 +145,41 @@ class BookAPI :  ObservableObject{
     }
     
     func divideByStatus(bookInfos : [Bookowl_BookInfo]){
-        print("aaa")
+        print("devide")
+        self.unReads.clear()
+        self.completed.clear()
+        self.reading.clear()
         for bookInfo in bookInfos {
+            let bookModel = BookModel(id: bookInfo.bookID, name: bookInfo.name, status: bookInfo.readStatus, progress: 0, imagePath: bookInfo.bookThumbnail, bookMarkId: bookInfo.bookmarkID, isbn: bookInfo.isbn, widthLevel: 0, authors: bookInfo.authors, price: bookInfo.price, pages: bookInfo.pages)
+            
             switch bookInfo.readStatus{
             case .readComplete:
-                self.completed.append(bookInfo)
+                self.completed.append(book:bookModel)
                 break
             case .readUnread, .readSuspended, .readUnspecified:
-                self.unReads.append( bookInfo)
+                self.unReads.append(book: bookModel)
                 break
             case .readReading:
-                self.reading.append( bookInfo)
+                self.reading.append(book: bookModel)
+                
                 break
             default: break
             }
+        }
+    }
+    
+    func reload(){
+        bookInfos = self.getBookByUserIdRequest()
+        self.divideByStatus(bookInfos: bookInfos)
+    }
+    
+    func getBooks(status:Bookowl_ReadStatus)-> [BookModel]{
+        if status == .readReading{
+            return reading.books
+        }else if status == .readUnread || status == .readSuspended{
+            return unReads.books
+        }else {
+            return completed.books
         }
     }
     

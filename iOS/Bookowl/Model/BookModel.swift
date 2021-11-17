@@ -8,12 +8,22 @@
 import Foundation
 import SwiftUI
 
-class BookModel : ObservableObject{
+class BookModel : ObservableObject, Identifiable{
 
     init(id:UInt64, name : String, status : Bookowl_ReadStatus, progress : UInt64, imagePath : String, bookMarkId : UInt64, isbn:String, widthLevel : UInt64, authors : [String], price:Int64, pages : Int64){
-        
+        self.bookId = id
+        self.name = name
+        self.status = status
+        self.pages = pages
+        self.progress = progress
+        self.imagePath = imagePath
+        self.widthLevel  = widthLevel
+        self.authors = authors
+        self.price = price
+        self.bookMarkId = bookMarkId
+        self.isbn = isbn
     }
-    var id : UInt64 = 0
+    var bookId : UInt64 = 0
     var name : String = ""
     @Published var status : Bookowl_ReadStatus = .readUnread
     var progress : UInt64 = 0

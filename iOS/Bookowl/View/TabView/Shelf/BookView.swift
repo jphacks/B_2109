@@ -8,7 +8,12 @@
 import SwiftUI
 
 struct BookView: View {
-    @Binding var model : Bookowl_BookInfo
+    var model : BookModel
+    @State var isPushed = false
+    @State var isUpdated  = false
+    @State var width = ""
+    @State var request = Bookowl_UpdateBookmarkIDRequest()
+    @ObservedObject var isReload : reloadModel
     let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
     let bookAPI = BookAPI()
     @State private var progressAmount = 0
@@ -18,7 +23,7 @@ struct BookView: View {
                 .edgesIgnoringSafeArea(.all)
         VStack{
             HStack{
-                URLImageView(viewModel: .init(url: model.bookThumbnail))
+                URLImageView(viewModel: .init(url: model.imagePath))
                     .frame(width: 50, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 Text(model.name)
                     .font(.title)
@@ -47,56 +52,97 @@ struct BookView: View {
                         timer.upstream.connect().cancel()
                     }
                 })
-                Text("読む場合はしおりを登録してください。")
-                HStack{
-                    Button( action: {
-                        model.bookmarkID = 1
-                        model.readStatus = .readReading
-                        bookAPI.UpdateBookmarkIDRequest(model: model)
-                    }){
-                    Image("bookmark1owl")
-                        .resizable()
-                        .frame(width: 80, height: 80, alignment: .center)}
-                    Button( action: {
-                        model.bookmarkID = 2
-                        model.readStatus = .readReading
-                        bookAPI.UpdateBookmarkIDRequest(model: model)
-                    }){
-                    Image("bookmark2owl")
-                        .resizable()
-                        .frame(width: 80, height: 80, alignment: .center)}
-                    Button( action: {
-                        model.bookmarkID = 3
-                        model.readStatus = .readReading
-                        bookAPI.UpdateBookmarkIDRequest(model: model)
-                    }){
-                    Image("bookmark3owl")
-                        .resizable()
-                        .frame(width: 80, height: 80, alignment: .center)}
-                    Button( action: {
-                        model.bookmarkID = 1
-                        model.readStatus = .readReading
-                        bookAPI.UpdateBookmarkIDRequest(model: model)
-                    }){
-                    Image("bookmark4owl")
-                        .resizable()
-                        .frame(width: 80, height: 80, alignment: .center)
-                    }
-//                    Spacer()
-//                }
-//            }else if model.readStatus == .readComplete{
-//                Text("おめでとうございます！\nこの本を読み切りました。")
-//                .font(.title)
-//                .foregroundColor(brown)
-//            }
+            Group  {
+                  Text("読む場合はしおりを登録してください。")
+                  HStack{
+                      Button( action: {
+                          
+                          request.bookmarkID = 1
+                          isPushed = true
+                      }){
+                      Image("bookmark1owl")
+                          .resizable()
+                          .frame(width: 80, height: 80, alignment: .center)}
+                      Button( action: {
+                          request.bookmarkID = 2
+                          isPushed = true
+                      }){
+                      Image("bookmark2owl")
+                          .resizable()
+                          .frame(width: 80, height: 80,  alignment: .center)}
+                      Button( action: {
+                          request.bookmarkID = 3
+                          isPushed = true
+                      }){
+                      Image("bookmark3owl")
+                          .resizable()
+                          .frame(width: 80, height: 80, alignment: .center)}
+                      Button( action: {
+                          request.bookmarkID = 4
+                          isPushed = true
+                      }){
+                      Image("bookmark4owl")
+                          .resizable()
+                          .frame(width: 80, height: 80, alignment: .center)
+                      }
+                          
+                  }
+                
+                Button(action: {
+                    request.bookID = model.bookId
+                    request.bookmarkID = 0
+                    bookAPI.UpdateBookmarkIDRequest(request: self.request)
+                    var statusRequest = Bookowl_UpdateReadStatusRequest()
+                    statusRequest.bookID = model.bookId
+                    statusRequest.readStatus = .readUnread
+                    bookAPI.UpdateReadStatusRequest(request: statusRequest)
+                   isUpdated = true
+                }){ Text("しおりを登録しない")
+                          .font(.title)
+                          .foregroundColor(brown)
+              }
+              
             }
+              if isPushed{
+              TextFieldAlertView(text: $width, isShowingAlert: $isPushed, placeholder: "", isSecureTextEntry: false, title: "厚みを入力してください。", message: "スイッチを押して表示される数値を入力してください。", leftButtonTitle: "キャンセル", rightButtonTitle: "決定", leftButtonAction: nil, rightButtonAction: {
+                      
+                      request.bookWidth = UInt64(width)!
+                      bookAPI.UpdateBookmarkIDRequest(request: request)
+                  var statusRequest = Bookowl_UpdateReadStatusRequest()
+                  statusRequest.bookID = model.bookId
+                  statusRequest.readStatus = .readReading
+                  bookAPI.UpdateReadStatusRequest(request: statusRequest)
+                  isPushed = false
+                  isUpdated = true
+                  
+              })
+              }
+          
             Button(action: {
-                model.bookmarkID = 0
-                model.readStatus = .readComplete
-                bookAPI.UpdateBookmarkIDRequest(model: model)
+                var bookmarkRequest = Bookowl_UpdateBookmarkIDRequest()
+                bookmarkRequest.bookID = model.bookId
+                bookmarkRequest.bookWidth = 0
+                bookmarkRequest.bookmarkID = 0
+                bookAPI.UpdateBookmarkIDRequest(request: bookmarkRequest )
+                var statusRequest = Bookowl_UpdateReadStatusRequest()
+                statusRequest.bookID = model.bookId
+                statusRequest.readStatus = .readComplete
+                bookAPI.UpdateReadStatusRequest(request: statusRequest)
+                isUpdated = true
             }){Text("完読！！！").foregroundColor(red).font(.title)}
                                                 
             Spacer()
+            
+        }.alert(isPresented: $isUpdated) {
+            
+            Alert(title: Text("本の登録が完了しました。"), message: Text(""), dismissButton: .default(Text("はい")){
+//                isFindBarcode = false
+                
+                isUpdated = false
+                isReload.isReload = true
+//                isFinish = true
+            })
+            
             
         }
 //    }

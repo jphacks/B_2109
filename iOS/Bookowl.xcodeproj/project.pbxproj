@@ -14,6 +14,8 @@
 		6503A8E8273C5D3600E14621 /* goal.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6503A8E2273C5D3600E14621 /* goal.grpc.swift */; };
 		6503A8E9273C5D3600E14621 /* goal.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6503A8E3273C5D3600E14621 /* goal.pb.swift */; };
 		652C3648274428C200547F89 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652C3647274428C200547F89 /* TabView.swift */; };
+		652C364B27443F0700547F89 /* ChooseBattleMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652C364A27443F0700547F89 /* ChooseBattleMember.swift */; };
+		652C364F2744BB8500547F89 /* SwiftUIRefresh in Frameworks */ = {isa = PBXBuildFile; productRef = 652C364E2744BB8500547F89 /* SwiftUIRefresh */; };
 		65575A0F272C4AD400ACF5F9 /* ISBNReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65575A0D272C4AD400ACF5F9 /* ISBNReader.swift */; };
 		65575A10272C4AD400ACF5F9 /* ScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65575A0E272C4AD400ACF5F9 /* ScannerViewModel.swift */; };
 		65575A12272C4ADC00ACF5F9 /* GoalRegisterApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65575A11272C4ADC00ACF5F9 /* GoalRegisterApi.swift */; };
@@ -75,10 +77,11 @@
 		6503A8E2273C5D3600E14621 /* goal.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = goal.grpc.swift; sourceTree = "<group>"; };
 		6503A8E3273C5D3600E14621 /* goal.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = goal.pb.swift; sourceTree = "<group>"; };
 		652C3647274428C200547F89 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
+		652C364A27443F0700547F89 /* ChooseBattleMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseBattleMember.swift; sourceTree = "<group>"; };
 		65575A0D272C4AD400ACF5F9 /* ISBNReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISBNReader.swift; sourceTree = "<group>"; };
 		65575A0E272C4AD400ACF5F9 /* ScannerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerViewModel.swift; sourceTree = "<group>"; };
 		65575A11272C4ADC00ACF5F9 /* GoalRegisterApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GoalRegisterApi.swift; path = Bookowl/Controller/GoalRegisterApi.swift; sourceTree = SOURCE_ROOT; };
-		65575A20272C4B7700ACF5F9 /* GoalRegisterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GoalRegisterView.swift; path = Bookowl/View/TabView/GoalRegisterView.swift; sourceTree = SOURCE_ROOT; };
+		65575A20272C4B7700ACF5F9 /* GoalRegisterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GoalRegisterView.swift; path = Bookowl/View/TabView/Goal/GoalRegisterView.swift; sourceTree = SOURCE_ROOT; };
 		65610CA12723F7CA00549108 /* Bookowl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bookowl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65610CA42723F7CA00549108 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65610CA62723F7CA00549108 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -118,6 +121,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				652C364F2744BB8500547F89 /* SwiftUIRefresh in Frameworks */,
 				65C9F38D2729261D00F8B02B /* PagerTabStripView in Frameworks */,
 				65C9F3C6272951DB00F8B02B /* CGRPCZlib in Frameworks */,
 				65610D242727E84200549108 /* SegmentedPicker in Frameworks */,
@@ -153,6 +157,23 @@
 				6503A8E3273C5D3600E14621 /* goal.pb.swift */,
 			);
 			path = grpc;
+			sourceTree = "<group>";
+		};
+		652C364927443EEF00547F89 /* Battle */ = {
+			isa = PBXGroup;
+			children = (
+				652C364A27443F0700547F89 /* ChooseBattleMember.swift */,
+			);
+			path = Battle;
+			sourceTree = "<group>";
+		};
+		652C364C27443F1500547F89 /* Goal */ = {
+			isa = PBXGroup;
+			children = (
+				65575A20272C4B7700ACF5F9 /* GoalRegisterView.swift */,
+				65610D052727237600549108 /* TopView.swift */,
+			);
+			path = Goal;
 			sourceTree = "<group>";
 		};
 		65575A0C272C4AD400ACF5F9 /* ISBNReader */ = {
@@ -231,10 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				65610CA82723F7CA00549108 /* ContentView.swift */,
-				652C3647274428C200547F89 /* TabView.swift */,
 				65610CFC2727219700549108 /* TabView */,
-				65610CE52724137C00549108 /* CameraLayer.swift */,
-				65610CED27243A7B00549108 /* ISBNScannerView.swift */,
 				65A66C94272CC413000026BD /* UrlImageView.swift */,
 			);
 			path = View;
@@ -243,10 +261,11 @@
 		65610CFC2727219700549108 /* TabView */ = {
 			isa = PBXGroup;
 			children = (
-				65575A20272C4B7700ACF5F9 /* GoalRegisterView.swift */,
+				652C3647274428C200547F89 /* TabView.swift */,
+				652C364C27443F1500547F89 /* Goal */,
+				652C364927443EEF00547F89 /* Battle */,
 				65C9F361272917CA00F8B02B /* Shelf */,
 				65C9F36A272917F500F8B02B /* ISBN */,
-				65610D052727237600549108 /* TopView.swift */,
 				65C9F391272930DD00F8B02B /* TitleNavBarItem.swift */,
 			);
 			path = TabView;
@@ -267,6 +286,9 @@
 		65C9F36A272917F500F8B02B /* ISBN */ = {
 			isa = PBXGroup;
 			children = (
+				65575A0C272C4AD400ACF5F9 /* ISBNReader */,
+				65610CE52724137C00549108 /* CameraLayer.swift */,
+				65610CED27243A7B00549108 /* ISBNScannerView.swift */,
 				65610CF727271E3C00549108 /* ISBNView.swift */,
 				65C9F36B2729180B00F8B02B /* RegisterView.swift */,
 			);
@@ -286,7 +308,6 @@
 			isa = PBXGroup;
 			children = (
 				65575A11272C4ADC00ACF5F9 /* GoalRegisterApi.swift */,
-				65575A0C272C4AD400ACF5F9 /* ISBNReader */,
 				65C9F3CB272953EF00F8B02B /* APITest.swift */,
 				65EB37B1272B3BF500EF1474 /* BookRegisterAPI.swift */,
 				65A66C90272C5EB9000026BD /* BookAPI.swift */,
@@ -316,6 +337,7 @@
 				65C9F38C2729261D00F8B02B /* PagerTabStripView */,
 				65C9F3C3272951DB00F8B02B /* GRPC */,
 				65C9F3C5272951DB00F8B02B /* CGRPCZlib */,
+				652C364E2744BB8500547F89 /* SwiftUIRefresh */,
 			);
 			productName = Bookowl;
 			productReference = 65610CA12723F7CA00549108 /* Bookowl.app */;
@@ -392,6 +414,7 @@
 				65610D222727E84200549108 /* XCRemoteSwiftPackageReference "SwiftySegmentedPicker" */,
 				65C9F38B2729261D00F8B02B /* XCRemoteSwiftPackageReference "PagerTabStripView" */,
 				65C9F3C2272951DB00F8B02B /* XCRemoteSwiftPackageReference "grpc-swift" */,
+				652C364D2744BB8500547F89 /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */,
 			);
 			productRefGroup = 65610CA22723F7CA00549108 /* Products */;
 			projectDirPath = "";
@@ -451,6 +474,7 @@
 				6503A8E6273C5D3600E14621 /* read_event.pb.swift in Sources */,
 				65610CFE2727235700549108 /* ShelfView.swift in Sources */,
 				65610CEE27243A7B00549108 /* ISBNScannerView.swift in Sources */,
+				652C364B27443F0700547F89 /* ChooseBattleMember.swift in Sources */,
 				65610CA52723F7CA00549108 /* AppDelegate.swift in Sources */,
 				65C9F3972729359E00F8B02B /* StackedView.swift in Sources */,
 				65610D062727237600549108 /* TopView.swift in Sources */,
@@ -798,6 +822,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		652C364D2744BB8500547F89 /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/timbersoftware/SwiftUIRefresh.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.0.3;
+			};
+		};
 		65610D222727E84200549108 /* XCRemoteSwiftPackageReference "SwiftySegmentedPicker" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/KazaiMazai/SwiftySegmentedPicker.git";
@@ -825,6 +857,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		652C364E2744BB8500547F89 /* SwiftUIRefresh */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 652C364D2744BB8500547F89 /* XCRemoteSwiftPackageReference "SwiftUIRefresh" */;
+			productName = SwiftUIRefresh;
+		};
 		65610D232727E84200549108 /* SegmentedPicker */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 65610D222727E84200549108 /* XCRemoteSwiftPackageReference "SwiftySegmentedPicker" */;
