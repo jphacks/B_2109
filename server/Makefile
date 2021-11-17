@@ -4,6 +4,10 @@ GO=go
 GO_BUILD_OPT=-v
 GO_VET_OPTS=-v
 GO_TEST_OPTS=-v -race
+
+GINKGO=ginkgo
+GINKGO_TEST_OPTS=-race
+
 RM_OPTS=-f
 
 CMD_DIRS:=$(wildcard cmd/*)
@@ -14,6 +18,9 @@ DOCKER_FILE:=./docker/bookowl.Dockerfile
 DOCKER_REPO:=ghcr.io/chez-shanpu/bookowl
 DOCKER_TAG:=latest
 DOCKER_CONTEXT:=./
+
+DOCKERCOMPOSE=docker-compose
+DOCKERCOMPOSE_FILE=docker-compose.test.yaml
 
 .SECONDEXPANSION:
 bin/%:
@@ -31,9 +38,15 @@ build: $(CMDS)
 vet:
 	$(GO) vet $(GO_VET_OPTS) ./...
 
+.PHONY: test-dep
+test-dep:
+	$(DOCKERCOMPOSE) -f $(DOCKERCOMPOSE_FILE) down --volumes
+	$(DOCKERCOMPOSE) -f $(DOCKERCOMPOSE_FILE) up -d
+
 .PHONY: test
-test: vet
-	$(GO) test $(GO_TEST_OPTS) ./...
+test: vet test-dep
+#	$(GO) test $(GO_TEST_OPTS) ./...
+	$(GINKGO) $(GINKGO_TEST_OPTS) ./...
 
 .PHONY: mod
 mod:
@@ -45,6 +58,6 @@ clean:
 	-rm $(RM_OPTS) bin/*
 
 .PHONY: all
-all: mod test build docker
+all: mod vet build docker
 
 .DEFAULT_GOAL=all

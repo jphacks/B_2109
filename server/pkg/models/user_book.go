@@ -14,7 +14,6 @@ const (
 	READ_STATUS_SUSPENDED ReadStatus = "suspended"
 	READ_STATUS_COMPLETE  ReadStatus = "complete"
 
-	BOOKMARK_COLUMN   = "bookmark_id"
 	READSTATUS_COLUMN = "read_status"
 )
 
@@ -35,7 +34,7 @@ func (ub *UserBook) GetReadRatioWithDuration(start, end time.Time) float64 {
 	minStartWidth := 1024.0
 	maxEndWidth := 0.0
 	for _, e := range ub.ReadEvents {
-		if start.Before(e.ReadStartTime) || end.After(e.ReadEndTime) {
+		if start.After(e.ReadStartTime) || end.Before(e.ReadEndTime) {
 			continue
 		}
 		minStartWidth = math.Min(minStartWidth, float64(e.ReadStartWidthLevel))
@@ -52,7 +51,7 @@ func (ub *UserBook) GetReadRatioWithDuration(start, end time.Time) float64 {
 func (ub UserBook) GetReadSecondsWithDuration(start, end time.Time) int64 {
 	sec := int64(0)
 	for _, e := range ub.ReadEvents {
-		if start.Before(e.ReadStartTime) || end.After(e.ReadEndTime) {
+		if start.After(e.ReadStartTime) || end.Before(e.ReadEndTime) {
 			continue
 		}
 		sec += int64(e.ReadEndTime.Sub(e.ReadStartTime).Seconds())
