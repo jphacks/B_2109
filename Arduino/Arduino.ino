@@ -1,3 +1,12 @@
+//サーボ関係
+#include <Servo.h>
+Servo myservo; //Servoオブジェクトの宣言
+int unread_ratio[4] = {0, 0, 0, 0};  //各しおりの未読経過割合を格納する配列を初期化
+int angle[4] = {0, 0, 0, 0};  //サーボモータの角度指令値
+int light[4] = {0, 0, 0, 0};  //LEDの明るさ
+int notminus_dlayed_ratio[4] = {0, 0, 0, 0};  //LED用にシフトした未読経過割合を格納する配列
+const int LED_PIN[4] = {6, 0, 0, 0};  //LEDピン番号のセット
+
 //接続ピンの指定
 const int VOLUME_PIN = A0;  //可変抵抗器の信号線をA0に接続
 const int MAGNET_PIN = A1;  //ホールICの信号線をA1に接続
@@ -10,7 +19,6 @@ const int DETECT_DELAY = 1000;  //厚み計測の遅延時間[msec]
 
 //センサ初期値の指定
 const int INITIAL_VOLUME = 0;  //可変抵抗器の角度0度のときの値
-
 
 //センサデータの格納変数定義
 int VOLUME; //可変抵抗器（厚み）の値
@@ -42,6 +50,8 @@ int NUM_PAGES; //現在のページ数
 
 void setup() {
   Serial.begin( 9600 );     // シリアル通信を初期化する。通信速度は9600bps
+  myservo.attach(9);//servo変数をピンに割り当てる、ここでは9番ピン
+  myservo.write(0);//角度を初期化
 }
 
 void loop() {
@@ -139,6 +149,32 @@ void loop() {
   } else {
     SEND_COUNT += LOOP_TIME;  //カウントをすすめる．
   }
+
+  //サーボとLEDの出力
+  angle[0] = int(150.0 * float(100 - unread_ratio[0]) / 100.0);  //角度の計算
+  notminus_dlayed_ratio[0] = unread_ratio[0] - 50;  //50%以下はLEDを光らせない．
+  if (notminus_dlayed_ratio[0] < 0){
+    notminus_dlayed_ratio[0] = 0;  //非負となるように制限`
+  }
+  light[0] = int(255.0 * float(notminus_dlayed_ratio[0]) / 50.0);  //明るさの計算
+  myservo.write(angle[0]);  //ID1サーボの目標角度をセット
+  analogWrite(LED_PIN[0], light[0]);  //PWM出力
   
   delay(LOOP_TIME);  //ループ間隔LOOP_TIME[msec]だけ待つ
+}
+
+void serialEvent(){
+  String mystring = Serial.readStringUntil('\n');  //シリアルを\nまで読み込む
+  int i = mystring.lastIndexOf('S');  //末尾から検索して'S'がある位置を取得(以降，現在の探索位置となる)
+  i += 2;  //Sに続く数値データの先頭位置まで移動
+  int id_num = 0;  //データ代入先のしおりID選択インデックス
+
+  while (mystring.substring(i) != '\n' && id_num <= 3){  //探索位置以降の文字列が'\n'ではない限りループ
+    int j = mystring.indexOf(',', i);  //現在の探索位置から次の','までの位置を読み取り
+    String numeric_data = mystring.substring(i, j);  //数値データの先頭から末尾までを取り出す
+    unread_ratio[id_num] = numeric_data.toInt();  //int型変換し，配列に格納
+
+    i = j + 1;  //次の数値データの先頭位置まで探索位置を更新
+    id_num += 1;  //しおりIDを次にシフトさせる
+  }
 }
