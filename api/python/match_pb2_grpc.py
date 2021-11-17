@@ -29,6 +29,11 @@ class MatchStub(object):
                 request_serializer=match__pb2.GetRankingRequest.SerializeToString,
                 response_deserializer=match__pb2.GetRankingResponse.FromString,
                 )
+        self.GetUsers = channel.unary_unary(
+                '/bookowl.Match/GetUsers',
+                request_serializer=match__pb2.GetUserRequest.SerializeToString,
+                response_deserializer=match__pb2.GetUserResponse.FromString,
+                )
 
 
 class MatchServicer(object):
@@ -52,6 +57,12 @@ class MatchServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetUsers(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_MatchServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -69,6 +80,11 @@ def add_MatchServicer_to_server(servicer, server):
                     servicer.GetRanking,
                     request_deserializer=match__pb2.GetRankingRequest.FromString,
                     response_serializer=match__pb2.GetRankingResponse.SerializeToString,
+            ),
+            'GetUsers': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetUsers,
+                    request_deserializer=match__pb2.GetUserRequest.FromString,
+                    response_serializer=match__pb2.GetUserResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -128,5 +144,22 @@ class Match(object):
         return grpc.experimental.unary_unary(request, target, '/bookowl.Match/GetRanking',
             match__pb2.GetRankingRequest.SerializeToString,
             match__pb2.GetRankingResponse.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetUsers(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/bookowl.Match/GetUsers',
+            match__pb2.GetUserRequest.SerializeToString,
+            match__pb2.GetUserResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

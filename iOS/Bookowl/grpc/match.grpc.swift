@@ -44,6 +44,11 @@ internal protocol Bookowl_MatchClientProtocol: GRPCClient {
     _ request: Bookowl_GetRankingRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Bookowl_GetRankingRequest, Bookowl_GetRankingResponse>
+
+  func getUsers(
+    _ request: Bookowl_GetUserRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Bookowl_GetUserRequest, Bookowl_GetUserResponse>
 }
 
 extension Bookowl_MatchClientProtocol {
@@ -104,6 +109,24 @@ extension Bookowl_MatchClientProtocol {
       interceptors: self.interceptors?.makeGetRankingInterceptors() ?? []
     )
   }
+
+  /// Unary call to GetUsers
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetUsers.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  internal func getUsers(
+    _ request: Bookowl_GetUserRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Bookowl_GetUserRequest, Bookowl_GetUserResponse> {
+    return self.makeUnaryCall(
+      path: "/bookowl.Match/GetUsers",
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetUsersInterceptors() ?? []
+    )
+  }
 }
 
 internal protocol Bookowl_MatchClientInterceptorFactoryProtocol {
@@ -116,6 +139,9 @@ internal protocol Bookowl_MatchClientInterceptorFactoryProtocol {
 
   /// - Returns: Interceptors to use when invoking 'getRanking'.
   func makeGetRankingInterceptors() -> [ClientInterceptor<Bookowl_GetRankingRequest, Bookowl_GetRankingResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getUsers'.
+  func makeGetUsersInterceptors() -> [ClientInterceptor<Bookowl_GetUserRequest, Bookowl_GetUserResponse>]
 }
 
 internal final class Bookowl_MatchClient: Bookowl_MatchClientProtocol {
@@ -149,6 +175,8 @@ internal protocol Bookowl_MatchProvider: CallHandlerProvider {
   func getOpponents(request: Bookowl_GetOpponentsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetOpponentsResponse>
 
   func getRanking(request: Bookowl_GetRankingRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetRankingResponse>
+
+  func getUsers(request: Bookowl_GetUserRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Bookowl_GetUserResponse>
 }
 
 extension Bookowl_MatchProvider {
@@ -188,6 +216,15 @@ extension Bookowl_MatchProvider {
         userFunction: self.getRanking(request:context:)
       )
 
+    case "GetUsers":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Bookowl_GetUserRequest>(),
+        responseSerializer: ProtobufSerializer<Bookowl_GetUserResponse>(),
+        interceptors: self.interceptors?.makeGetUsersInterceptors() ?? [],
+        userFunction: self.getUsers(request:context:)
+      )
+
     default:
       return nil
     }
@@ -207,4 +244,8 @@ internal protocol Bookowl_MatchServerInterceptorFactoryProtocol {
   /// - Returns: Interceptors to use when handling 'getRanking'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeGetRankingInterceptors() -> [ServerInterceptor<Bookowl_GetRankingRequest, Bookowl_GetRankingResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getUsers'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetUsersInterceptors() -> [ServerInterceptor<Bookowl_GetUserRequest, Bookowl_GetUserResponse>]
 }

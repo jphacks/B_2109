@@ -21,6 +21,7 @@ type MatchClient interface {
 	RegisterOpponents(ctx context.Context, in *RegisterOpponentsRequest, opts ...grpc.CallOption) (*RegisterOpponentsResponse, error)
 	GetOpponents(ctx context.Context, in *GetOpponentsRequest, opts ...grpc.CallOption) (*GetOpponentsResponse, error)
 	GetRanking(ctx context.Context, in *GetRankingRequest, opts ...grpc.CallOption) (*GetRankingResponse, error)
+	GetUsers(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
 }
 
 type matchClient struct {
@@ -58,6 +59,15 @@ func (c *matchClient) GetRanking(ctx context.Context, in *GetRankingRequest, opt
 	return out, nil
 }
 
+func (c *matchClient) GetUsers(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error) {
+	out := new(GetUserResponse)
+	err := c.cc.Invoke(ctx, "/bookowl.Match/GetUsers", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MatchServer is the server API for Match service.
 // All implementations must embed UnimplementedMatchServer
 // for forward compatibility
@@ -65,6 +75,7 @@ type MatchServer interface {
 	RegisterOpponents(context.Context, *RegisterOpponentsRequest) (*RegisterOpponentsResponse, error)
 	GetOpponents(context.Context, *GetOpponentsRequest) (*GetOpponentsResponse, error)
 	GetRanking(context.Context, *GetRankingRequest) (*GetRankingResponse, error)
+	GetUsers(context.Context, *GetUserRequest) (*GetUserResponse, error)
 	mustEmbedUnimplementedMatchServer()
 }
 
@@ -80,6 +91,9 @@ func (UnimplementedMatchServer) GetOpponents(context.Context, *GetOpponentsReque
 }
 func (UnimplementedMatchServer) GetRanking(context.Context, *GetRankingRequest) (*GetRankingResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRanking not implemented")
+}
+func (UnimplementedMatchServer) GetUsers(context.Context, *GetUserRequest) (*GetUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUsers not implemented")
 }
 func (UnimplementedMatchServer) mustEmbedUnimplementedMatchServer() {}
 
@@ -148,6 +162,24 @@ func _Match_GetRanking_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Match_GetUsers_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MatchServer).GetUsers(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/bookowl.Match/GetUsers",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MatchServer).GetUsers(ctx, req.(*GetUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Match_ServiceDesc is the grpc.ServiceDesc for Match service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -166,6 +198,10 @@ var Match_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetRanking",
 			Handler:    _Match_GetRanking_Handler,
+		},
+		{
+			MethodName: "GetUsers",
+			Handler:    _Match_GetUsers_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
