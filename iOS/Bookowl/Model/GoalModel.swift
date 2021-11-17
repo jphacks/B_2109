@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftProtobuf
-
+import GRPC
 struct GoalModel : Codable, Identifiable {
     var id: Int = 0
     var progress : Float = 0.0
@@ -34,8 +34,34 @@ class GoalModelParser : NSObject, ObservableObject{
         }
         UserDefaults.standard.set(data, forKey: "goalModel")
         self.model = model
+        RegisterBookRequest()
     }
     
+    
+    func RegisterBookRequest() {
+        print("GoalregisterAPI")
+        let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
+        defer{
+            try? group.syncShutdownGracefully()
+        }
+        var request = Bookowl_CreateGoalRequest()
+        request.userID = UInt64(USER_ID)
+        request.time = Google_Protobuf_Timestamp.init(date: Date())
+        request.numPages = Int64(self.model.num_pages)
+
+        let connection = ClientConnection
+            .insecure(group: group)
+            .connect(host: address, port: port)
+            do {
+                print("registered Goal")
+                let client = Bookowl_GoalClient.init(channel: connection, defaultCallOptions: CallOptions())
+                let response = try client.createGoal(request, callOptions: CallOptions()).response.wait()
+
+            }catch let error{
+                print(error)
+            }
+
+    }
     
     func decodeToGoalModel(){
         let page = UserDefaults.standard.integer(forKey: "page")
@@ -44,5 +70,27 @@ class GoalModelParser : NSObject, ObservableObject{
         print(self.model.num_pages)
         
     }
+    
+    func getGoal(){
+        print("GoalregisterAPI")
+        let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
+        defer{
+            try? group.syncShutdownGracefully()
+        }
+        var request = Bookowl_GetGoalsRequest()
+        
+        request.userID = UInt64(USER_ID)
+        let connection = ClientConnection
+            .insecure(group: group)
+            .connect(host: address, port: port)
+            do {
+                print("registered Goal")
+                let client = Bookowl_GoalClient.init(channel: connection, defaultCallOptions: CallOptions())
+                let response = try client.getGoals(request, callOptions: CallOptions()).response.wait()
+            }catch let error{
+                print(error)
+            }
+    }
+    
 }
 

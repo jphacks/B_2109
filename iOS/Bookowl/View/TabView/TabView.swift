@@ -46,6 +46,10 @@ struct TabsView: View {
     //                            }
                             }.tag(Tabs.shelf)
                     
+                        ChooseBattleMember()
+                            .tabItem{
+                                Text(Tabs.battle.rawValue)
+                            }.tag(Tabs.battle)
                 }
         }
     }

@@ -9,7 +9,18 @@ import SwiftUI
 
 struct ChooseBattleMember: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView{
+            ZStack{
+                backgroundColor.edgesIgnoringSafeArea(.all)
+                VStack{
+                    Text("進捗")
+                } .navigationTitle("進捗ランキング")
+                    .navigationViewStyle(.stack)
+                    .navigationBarTitleDisplayMode(.inline)
+                    .navigationBarItems(trailing: NavigationLink( "フォロー追加", destination: UserListView()))
+            }
+               
+        }
     }
 }
 

@@ -32,7 +32,7 @@ struct BookView: View {
             .padding(10)
             HStack{
 //                Text("進捗 : " + String(model.progress) + " %")
-                Text("進捗 : " + "70" + " %")
+                Text("進捗 : " + String(model.progress) + " %")
                     .font(.largeTitle)
                     .frame(width: 200, height: 50, alignment: .leading)
                     .padding(10)
@@ -45,8 +45,7 @@ struct BookView: View {
                 .font(.title)
                 .scaleEffect(x: 1, y: 4, anchor: .center)
                 .onReceive(timer, perform: { _ in
-//                    あとで変える
-                    if progressAmount < 60{
+                    if progressAmount < Int(model.progress){
                         progressAmount += 1
                     }else{
                         timer.upstream.connect().cancel()

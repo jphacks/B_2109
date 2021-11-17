@@ -49,16 +49,9 @@ struct BookListView: View {
                                             }.frame(width: 0, height: 0).opacity(0).hidden()
                                 BookCell(model: book)
                                     .frame(width: UIScreen.main.bounds.width, height: 150, alignment: .center)
-                            
-                                
-                                
                             }
-                        
                     }
-    //                        .frame(width: UIScreen.main.bounds.width, height: 150, alignment: .center)
                 }
-                
-
                 }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height-250, alignment: .center)
 //                .position(x: 0, y: 80)
 //            }

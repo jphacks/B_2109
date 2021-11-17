@@ -51,7 +51,7 @@ struct GoalRegisterView: View {
                     }else{
                         model.num_pages = Int(page)!
                     }
-
+                    
                     goalModelParser.saveModel(model: model)
                     presentationMode.wrappedValue.dismiss()
 

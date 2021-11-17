@@ -30,7 +30,7 @@ struct BookCell : View {
 //            }
 
             Spacer()
-                }
+            }
         }
     }
 }

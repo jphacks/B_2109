@@ -84,11 +84,13 @@ struct ShelfView: View {
                     newValue in
                     print("registerChanged!!")
                     print(newValue)
-                    isReload.isReload.toggle()
-                    bookAPI.reload()
-                    reading.setBooks(books:bookAPI.getBooks(status: .readReading))
-                    unReads.setBooks(books:bookAPI.getBooks(status: .readUnread))
-                    completed.setBooks(books: bookAPI.getBooks(status: .readComplete))
+                    if newValue == true{
+                        bookAPI.reload()
+                        reading.setBooks(books:bookAPI.getBooks(status: .readReading))
+                        unReads.setBooks(books:bookAPI.getBooks(status: .readUnread))
+                        completed.setBooks(books: bookAPI.getBooks(status: .readComplete))
+                        isReload.isReload.toggle()
+                    }
                 }
                 }
             

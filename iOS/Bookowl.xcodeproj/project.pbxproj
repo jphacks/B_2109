@@ -16,6 +16,10 @@
 		652C3648274428C200547F89 /* TabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652C3647274428C200547F89 /* TabView.swift */; };
 		652C364B27443F0700547F89 /* ChooseBattleMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652C364A27443F0700547F89 /* ChooseBattleMember.swift */; };
 		652C364F2744BB8500547F89 /* SwiftUIRefresh in Frameworks */ = {isa = PBXBuildFile; productRef = 652C364E2744BB8500547F89 /* SwiftUIRefresh */; };
+		652C36512744E3FF00547F89 /* MatchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652C36502744E3FE00547F89 /* MatchAPI.swift */; };
+		652C36532745207900547F89 /* UserListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652C36522745207900547F89 /* UserListView.swift */; };
+		652C36552745212900547F89 /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652C36542745212900547F89 /* UserCell.swift */; };
+		652C36572745215500547F89 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652C36562745215500547F89 /* UserModel.swift */; };
 		65575A0F272C4AD400ACF5F9 /* ISBNReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65575A0D272C4AD400ACF5F9 /* ISBNReader.swift */; };
 		65575A10272C4AD400ACF5F9 /* ScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65575A0E272C4AD400ACF5F9 /* ScannerViewModel.swift */; };
 		65575A12272C4ADC00ACF5F9 /* GoalRegisterApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65575A11272C4ADC00ACF5F9 /* GoalRegisterApi.swift */; };
@@ -78,6 +82,10 @@
 		6503A8E3273C5D3600E14621 /* goal.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = goal.pb.swift; sourceTree = "<group>"; };
 		652C3647274428C200547F89 /* TabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabView.swift; sourceTree = "<group>"; };
 		652C364A27443F0700547F89 /* ChooseBattleMember.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseBattleMember.swift; sourceTree = "<group>"; };
+		652C36502744E3FE00547F89 /* MatchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchAPI.swift; sourceTree = "<group>"; };
+		652C36522745207900547F89 /* UserListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListView.swift; sourceTree = "<group>"; };
+		652C36542745212900547F89 /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
+		652C36562745215500547F89 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		65575A0D272C4AD400ACF5F9 /* ISBNReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISBNReader.swift; sourceTree = "<group>"; };
 		65575A0E272C4AD400ACF5F9 /* ScannerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerViewModel.swift; sourceTree = "<group>"; };
 		65575A11272C4ADC00ACF5F9 /* GoalRegisterApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GoalRegisterApi.swift; path = Bookowl/Controller/GoalRegisterApi.swift; sourceTree = SOURCE_ROOT; };
@@ -163,6 +171,8 @@
 			isa = PBXGroup;
 			children = (
 				652C364A27443F0700547F89 /* ChooseBattleMember.swift */,
+				652C36522745207900547F89 /* UserListView.swift */,
+				652C36542745212900547F89 /* UserCell.swift */,
 			);
 			path = Battle;
 			sourceTree = "<group>";
@@ -300,6 +310,7 @@
 			children = (
 				65C9F3B527294D6700F8B02B /* BookModel.swift */,
 				65C9F3BD27294EC800F8B02B /* GoalModel.swift */,
+				652C36562745215500547F89 /* UserModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -308,6 +319,7 @@
 			isa = PBXGroup;
 			children = (
 				65575A11272C4ADC00ACF5F9 /* GoalRegisterApi.swift */,
+				652C36502744E3FE00547F89 /* MatchAPI.swift */,
 				65C9F3CB272953EF00F8B02B /* APITest.swift */,
 				65EB37B1272B3BF500EF1474 /* BookRegisterAPI.swift */,
 				65A66C90272C5EB9000026BD /* BookAPI.swift */,
@@ -466,6 +478,7 @@
 				65C9F36C2729180B00F8B02B /* RegisterView.swift in Sources */,
 				65A66C93272C5FCA000026BD /* Const.swift in Sources */,
 				65575A12272C4ADC00ACF5F9 /* GoalRegisterApi.swift in Sources */,
+				652C36572745215500547F89 /* UserModel.swift in Sources */,
 				65C9F363272917E000F8B02B /* BookView.swift in Sources */,
 				65C9F3FD272A859E00F8B02B /* BookCellView.swift in Sources */,
 				65610CE62724137C00549108 /* CameraLayer.swift in Sources */,
@@ -480,7 +493,9 @@
 				65610D062727237600549108 /* TopView.swift in Sources */,
 				65610CA72723F7CA00549108 /* SceneDelegate.swift in Sources */,
 				6503A8E7273C5D3600E14621 /* read_event.grpc.swift in Sources */,
+				652C36532745207900547F89 /* UserListView.swift in Sources */,
 				6503A8E4273C5D3600E14621 /* book.pb.swift in Sources */,
+				652C36512744E3FF00547F89 /* MatchAPI.swift in Sources */,
 				65C9F392272930DD00F8B02B /* TitleNavBarItem.swift in Sources */,
 				65C9F3BE27294EC800F8B02B /* GoalModel.swift in Sources */,
 				65610CA92723F7CA00549108 /* ContentView.swift in Sources */,
@@ -489,6 +504,7 @@
 				652C3648274428C200547F89 /* TabView.swift in Sources */,
 				65C9F3CC272953EF00F8B02B /* APITest.swift in Sources */,
 				65575A21272C4B7700ACF5F9 /* GoalRegisterView.swift in Sources */,
+				652C36552745212900547F89 /* UserCell.swift in Sources */,
 				65575A0F272C4AD400ACF5F9 /* ISBNReader.swift in Sources */,
 				65C9F3B627294D6700F8B02B /* BookModel.swift in Sources */,
 				65A66C95272CC413000026BD /* UrlImageView.swift in Sources */,
