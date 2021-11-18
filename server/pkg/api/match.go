@@ -73,6 +73,24 @@ func (s MatchServer) GetRanking(ctx context.Context, r *api.GetRankingRequest) (
 	return &api.GetRankingResponse{RankingInfos: rs, Time: timestamppb.Now()}, nil
 }
 
+func (s MatchServer) GetUsers(ctx context.Context, r *api.GetUserRequest) (*api.GetUserResponse, error) {
+	var uis []*api.UserInfo
+
+	us, err := getUsers(ctx, uint(r.GetUserId()))
+	if err != nil {
+		return nil, err
+	}
+
+	for _, u := range us {
+		uis = append(uis, constructUserInfo(u))
+	}
+	return &api.GetUserResponse{
+		UsersInfo: uis,
+		Time:      timestamppb.Now(),
+	}, nil
+
+}
+
 func uintSlice(us []uint64) []uint {
 	var res []uint
 
@@ -114,16 +132,18 @@ func getRanking(ctx context.Context, usrID uint) ([]*api.RankingInfo, error) {
 	us := append(opts, user)
 
 	pagesUsersMap := make(map[int64][]*models.User, len(opts)+1)
+	userPagesMap := make(map[*models.User]int64, len(opts)+1)
 	for _, u := range us {
 		pages, err := getReadPagesWithDuration(ctx, u.ID, time.Unix(0, 0), time.Now())
 		if err != nil {
 			return nil, err
 		}
 		pagesUsersMap[pages] = append(pagesUsersMap[pages], u)
+		userPagesMap[u] = pages
 	}
 	userRankMap := makeRankByPages(pagesUsersMap)
 	for u, r := range userRankMap {
-		ri := constructRankingInfo(u, uint64(r))
+		ri := constructRankingInfo(u, uint64(r), userPagesMap[u])
 		ris = append(ris, ri)
 	}
 	return ris, nil
@@ -147,6 +167,11 @@ func makeRankByPages(m map[int64][]*models.User) map[*models.User]int64 {
 	return userRankMap
 }
 
+func getUsers(ctx context.Context, userID uint) ([]*models.User, error) {
+	ubr := repos.NewUserRepository()
+	return ubr.GetAll()
+}
+
 func constructOpponentsInfo(o *models.User, pages uint64) *api.OpponentsInfo {
 	return &api.OpponentsInfo{
 		Id:        uint64(o.ID),
@@ -155,10 +180,18 @@ func constructOpponentsInfo(o *models.User, pages uint64) *api.OpponentsInfo {
 	}
 }
 
-func constructRankingInfo(o *models.User, rank uint64) *api.RankingInfo {
+func constructRankingInfo(o *models.User, rank uint64, pages int64) *api.RankingInfo {
 	return &api.RankingInfo{
-		Id:      uint64(o.ID),
-		Name:    o.Name,
-		Ranking: rank,
+		Id:        uint64(o.ID),
+		Name:      o.Name,
+		Ranking:   rank,
+		ReadPages: pages,
+	}
+}
+
+func constructUserInfo(u *models.User) *api.UserInfo {
+	return &api.UserInfo{
+		Id:   uint64(u.ID),
+		Name: u.Name,
 	}
 }

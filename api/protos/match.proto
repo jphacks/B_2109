@@ -49,7 +49,7 @@ message GetUserRequest {
 }
 
 message GetUserResponse {
-  repeated UserInfo user_info = 1;
+  repeated UserInfo users_info = 1;
   google.protobuf.Timestamp time = 2;
 }
 
