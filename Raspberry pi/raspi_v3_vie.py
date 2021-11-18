@@ -18,19 +18,29 @@ import goal_pb2_grpc
 import book_pb2
 import book_pb2_grpc
 
-class Owl(name):
-    def __init__(self,name):
-        self.x=0
-        self.y=0
+class Owl():
+    def __init__(self, name):
+        self.x = int(0)
+        self.y = int(400)
         self.img = ImageTk.PhotoImage(file=name)
+        self.up_flag = True
 
-    
+    def set_move(self):
+        if(self.up_flag):
+            self.y += 1
+            if(self.y > 500):
+                self.up_flag = False
+        else:
+            self.y -= 1
+            if(self.y < 300):
+                self.up_flag = True
+
 class GUI(tk.Frame):
-    def __init__(self,master = None):
+    def __init__(self, master = None):
         super().__init__(master)
         #初期変数
-        h=768
-        w=1024
+        h = 768
+        w = 1024
         #canvas 初期化
         self.master = master
         master.geometry("1024x768")
@@ -39,9 +49,10 @@ class GUI(tk.Frame):
         self.pack()
 
         #変数　栞関係　arduino用
-        self.bk_ID=["bookmark_1","bookmark_2","bookmark_3","bookmark_4"]
-        self.bk_open_now=[0,0,0,0]
-        self.bk_open_old=[0,0,0,0]
+        self.bk_ID = ["bookmark_1", "bookmark_2", "bookmark_3", "bookmark_4"]
+        self.bk_open_now = [0, 0, 0, 0]
+        self.bk_open_old = [0,0,0,0]
+        self.bk_end_time=[time.time(),time.time(),time.time(),time.time()]
         self.bk_mode_now=[0,0,0,0]
         self.bk_mode_old=[0,0,0,0]
         self.bk_max=[0,0,0,0]
@@ -67,6 +78,8 @@ class GUI(tk.Frame):
         self.read=0
         self.goal=0#目標量を保存
         self.read_rate=0#進捗
+
+        self.max_elapsed_time=10#unixtimeで1週間=604800
         #self.set_posi=(850-110)*(self.per/self.goal)
         self.set_posi=110
         #表示画像
@@ -74,6 +87,7 @@ class GUI(tk.Frame):
         self.switch_flag2=0
         self.switch_flag1=0
         self.count_1=0
+        self.mes=""#talk message
         
         self.ut="sec"
 
@@ -81,10 +95,11 @@ class GUI(tk.Frame):
         #PILでjpgを使用
         self.img1 = ImageTk.PhotoImage(file="back_50.png")
         self.img2 = ImageTk.PhotoImage(file="reowl.png")
-        self.img3 = ImageTk.PhotoImage(file="bowl2.png")
+        self.img3 = ImageTk.PhotoImage(file="bowl.png")
         self.img4 = ImageTk.PhotoImage(file="bokowl.png")
+        self.img5 = ImageTk.PhotoImage(file="tak.png")
 
-        owl1=Owl("bowl2.png")
+        self.owl1=Owl("bowl3.png")
 
         self.ser = serial.Serial('/dev/ttyACM0', 9600)
         self.url="163.221.29.71:9091"
@@ -108,10 +123,11 @@ class GUI(tk.Frame):
             self.canvas.create_image(0, 0, image=self.img1,anchor=tk.NW,tag="normal")
             self.canvas.create_rectangle(0, 0, 510, 180, fill = '#694E33',tag="normal") 
             self.canvas.create_text(250,60,text="前回のページ:"+str(self.read),fill='#FFF1B3',font=('',40), tag="normal")
-            self.canvas.create_text(250,120,text="全体の進捗:"+str(int(self.goal))+"%",fill='#FFF1B3',font=('',40), tag="normal")
+            self.canvas.create_text(250,120,text="全体の進捗:"+str(int(self.read_rate*100))+"%",fill='#FFF1B3',font=('',40), tag="normal")
             self.flag=0
-
-        self.canvas.create_image(owl1.x ,owl1.y, image=owl1.img,anchor=tk.NW,tag="normal2")
+        self.canvas.create_image(self.owl1.x ,self.owl1.y, image=self.owl1.img,anchor=tk.NW,tag="normal")
+        self.owl1.set_move()
+        print(self.owl1.x)
         self.tag="normal"
         self.canvas.pack()
 
@@ -150,18 +166,11 @@ class GUI(tk.Frame):
         self.tag="fin"
 
         self.canvas.pack()
-    def create_rank(self):
-        self.canvas.create_text(int(1024/2),int(768/6),text="進捗状況",fill='#694E33',font=('',60), tag="initial")
-        self.canvas.create_text(int(1024/3),int(768/6)*2,text="しおり①",fill='#694E33',font=('',40), tag="initial")
-        self.canvas.create_text(int(1024/3),int(768/6)*3,text="しおり②",fill='#694E33',font=('',40), tag="initial")
-        self.canvas.create_text(int(1024/3),int(768/6)*4,text="しおり③",fill='#694E33',font=('',40), tag="initial")
-        self.canvas.create_text(int(1024/3),int(768/6)*5,text="しおり④",fill='#694E33',font=('',40), tag="initial")
-
-        self.canvas.create_text(int(1024/3)*2,int(768/6)*2,text=self.bk_open_now[0],fill='#694E33',font=('',40), tag="initial2")
-        self.canvas.create_text(int(1024/3)*2,int(768/6)*3,text=self.bk_open_now[1],fill='#694E33',font=('',40), tag="initial2")
-        self.canvas.create_text(int(1024/3)*2,int(768/6)*4,text=self.bk_open_now[2],fill='#694E33',font=('',40), tag="initial2")
-        self.canvas.create_text(int(1024/3)*2,int(768/6)*5,text=self.bk_open_now[3],fill='#694E33',font=('',40), tag="initial2")
-        self.tag="initial"
+    def create_rank(self):    
+        self.canvas.create_image(0, 0, image=self.img5,anchor=tk.NW,tag="rank")
+        self.canvas.create_text(int(1024/5)*3,int(768/3),text=self.mes,fill='#694E33',font=('',40), tag="rank")
+        
+        self.tag="rank"
 
 
         
@@ -177,31 +186,39 @@ class GUI(tk.Frame):
         self.after(500, self.checkEvent)# 
         
     def check_server_Event(self):#arduinoからの通信を監視、フラグの管理
-        th3 = threading.Thread(target=self.get_server_data)# スレッドインスタンス生成
-        th3.start()# スレッドスタート
-        self.after(1000, self.checkEvent)# ここで、再帰的に関数を呼び出す
+        pass
+        #th3 = threading.Thread(target=self.get_server_data)# スレッドインスタンス生成
+        #th3.start()# スレッドスタート
+        #self.after(1000, self.checkEvent)# ここで、再帰的に関数を呼び出す
     
+
     def put_ser(self):
-        id = [10, 20, 30, 40]  # しおり4個分の未読割合を格納する配列
-        ser_put = serial.Serial('/dev/tty.usbmodem144301', 9600)  # シリアルポートをオープン
-
+        id = [0, 0, 0, 0]  # しおり4個分の未読割合を格納する配列
+        for i in range(self.bk_num):
+            id[i]=int(((time.time()-self.bk_end_time[i])/(self.max_elapsed_time))*100)
+            if(id[i]>100):
+                id[i]=100
+            elif(id[i]<0):
+                id[i]=0
+        print(id)
+        #ser_put = serial.Serial('/dev/tty.usbmodem144301', 9600)  # シリアルポートをオープン
+        ser_put=self.ser
         try:  # ループ処理部
-            while True:
-             # 送信する割合を更新．
-            for i in range(4):
-                id[i] = id[i] + 10
-                if id[i] > 150:
-                    id[i] = 0
-            ser_put.write(f"S,{id[0]},{id[1]},{id[2]},{id[3]},\n".encode())
-            print(f"　　S,{id[0]},{id[1]},{id[2]},{id[3]},＼n" + "を送信！")
-
-            String_data = ser_put.read_all()
-            print(String_data)
-            print('')
-            time.sleep(0.5)
+            # 送信する割合を更新．
+            #for i in range(4):
+            #    id[i] = id[i] + 10
+            #    if id[i] > 150:
+            #        id[i] = 0
+            if(self.view_flag!=3):
+                ser_put.write(f"S,{id[0]},{id[1]},{id[2]},{id[3]},\n".encode())
+                #print(f"　　S,{id[0]},{id[1]},{id[2]},{id[3]},＼n" + "を送信！")
+                String_data = ser_put.read_all()
+                print(String_data)
+                print('')
+                time.sleep(0.5)
         except KeyboardInterrupt: # exceptに例外処理を書く
             print('stop!')
-            ser.close()
+            ser_put.close()
 
     def check_flag(self):
         ##
@@ -242,11 +259,13 @@ class GUI(tk.Frame):
                         self.bookmark_flag=i
                         self.read_start_data[i]=time.time()
                         self.start_time=time.time()
+                        self.bk_end_time[i]=time.time()
                         self.read_start_mm[i]=self.bk_open_old[i]
                         self.view_flag=2
                     elif(self.bk_mode_now[i]==str(1)):#読書終了
                         self.read_end_data[i]=time.time()
                         self.end_time=time.time()
+                        self.bk_end_time[i]=time.time()+5
                         self.read_end_mm[i]=self.bk_open_now[i]
                         self.read=self.read_end_mm[i]
                         self.mode_flag=1# 0=更新不要,1=サーバと通信
@@ -254,6 +273,11 @@ class GUI(tk.Frame):
             for i in range(self.bk_num):
                 self.bk_mode_old[i]=self.bk_mode_now[i]
                 self.bk_open_old[i]=self.bk_open_now[i]
+            
+            for i in range(self.bk_num):
+                if(self.bk_mode_now[i]==str(0)):
+                        self.bk_end_time[i]=time.time()
+                    
         else:
             pass
         self.put_ser()
@@ -288,6 +312,7 @@ class GUI(tk.Frame):
             self.canvas.delete("initial")
             self.canvas.delete("initial2")
             self.canvas.delete("read")
+            self.canvas.delete("rank")
             self.canvas.delete("read2")
             self.canvas.delete("fin")
             self.create_normal()
@@ -297,6 +322,7 @@ class GUI(tk.Frame):
             self.canvas.delete("normal2")
             self.canvas.delete("read")
             self.canvas.delete("read2")
+            self.canvas.delete("rank")
             self.canvas.delete("fin")
             self.create_initial()
         elif(self.view_flag==2):#読書中
@@ -305,6 +331,7 @@ class GUI(tk.Frame):
             self.canvas.delete("initial")
             self.canvas.delete("initial2")
             self.canvas.delete("read2")
+            self.canvas.delete("rank")
             self.canvas.delete("fin")
             self.create_read_start()
         elif(self.view_flag==3):#
@@ -315,48 +342,53 @@ class GUI(tk.Frame):
                 self.canvas.delete("initial2")
                 self.canvas.delete("read")
                 self.canvas.delete("read2")
+                self.canvas.delete("rank")
                 self.canvas.delete("fin")
                 self.create_read_finish()
                 self.read_rate=int(self.read)/int(self.goal)
-                owl1.x =int(930*(self.read_rate))+80
-                owl1.y =int(400)
+                self.owl1.x =int(800*(self.read_rate))-50
             self.count_1=self.count_1+1
-            if(self.count_1>3):
+            if(self.count_1>5):
                 self.count_1=0
                 print("test")
                 self.flag=1
                 self.view_flag=0
+                
         elif(self.view_flag==4):#SW(2)
             self.canvas.delete("normal")
             self.canvas.delete("normal2")
             self.canvas.delete("initial")
             self.canvas.delete("initial2")
+            self.canvas.delete("read")
             self.canvas.delete("read2")
             self.canvas.delete("fin")
-            self.create_read_start()
+            self.mes="あなたは1位です\nおめでとう！"
+            self.mes="あなたはX位です\n一つ上のXXさんは\nXXページ読んでるよ"
+            self.create_rank()
 
         if(self.mode_flag==1):
-                self.connection_push()
-                self.mode_flag=0            
+            self.connection_push()
+            self.mode_flag=0            
         self.view_flag_old=self.view_flag
         self.switch_flag_old=self.switch_flag
 
 
     def connection_push(self):#サーバと通信
-        data = {"read_start_time":int(self.read_start_data[self.bookmark_flag]),
-        "read_end_time":int(self.read_end_data[self.bookmark_flag]),
-        "read_start_width_revel":int(self.read_start_mm[self.bookmark_flag]),
-        "read_end_width_level":int(self.read_end_mm[self.bookmark_flag]),
-        "bookmark_id":1}
-        js=json.dumps(data)
-        set_url=str(self.url)+"/readevent"
-        headers = {'Content-Type': 'application/json; charset=utf8'}
-        r = requests.post(set_url, headers=headers, json=js)
-        print(r)
+        #data = {"read_start_time":int(self.read_start_data[self.bookmark_flag]),
+        #"read_end_time":int(self.read_end_data[self.bookmark_flag]),
+        #"read_start_width_revel":int(self.read_start_mm[self.bookmark_flag]),
+        #"read_end_width_level":int(self.read_end_mm[self.bookmark_flag]),
+        #"bookmark_id":1}
+        #js=json.dumps(data)
+        #set_url=str(self.url)+"/readevent"
+        #headers = {'Content-Type': 'application/json; charset=utf8'}
+        #r = requests.post(set_url, headers=headers, json=js)
+        #print(r)
+        pass
 
-    
-    def get_goal(stub2,user_id):
-        book_id=stub2.GetByUserID(goal_pb2.GetGoalByUserIDRequest())
+    #grpc server
+    def get_goal(stub,user_id):
+        book_id=stub.GetByUserID(goal_pb2.GetGoalByUserIDRequest())
         print(book_id)
 
     def run():
@@ -364,24 +396,24 @@ class GUI(tk.Frame):
             #stub = read_event_pb2_grpc.ReadEventStub(channel)
             stub2 = goal_pb2_grpc.GoalStub(channel)
             #put_read_event(stub)
-            get_goal(stub2,"user_1")
+            #self.get_goal(stub2,"1")
 
-if __name__ == '__main__':
-    run()
 
     def connection_get(self):#サーバと通信   
-        set_url=str(self.url)+"/progress"
-        headers = {'Content-Type': 'application/json; charset=utf8'}
-        data={'user_id':int(1)}
-        js=json.dumps(data)
-        r = requests.post(set_url, headers=headers, json=js)
-        s=r.text
-        s=re.sub(r'[^0-9.]',"",s)
-        self.goal=float(s)
+        #set_url=str(self.url)+"/progress"
+        #headers = {'Content-Type': 'application/json; charset=utf8'}
+        #data={'user_id':int(1)}
+        #js=json.dumps(data)
+        #r = requests.post(set_url, headers=headers, json=js)
+        #s=r.text
+        #s=re.sub(r'[^0-9.]',"",s)
+        #self.goal=float(s)
+        self.goal=float(200)
 
     def ras_sw(self):#物理スイッチ確認
         pin1 = 23 #39=GND
         pin2 = 22 #39=GND
+        pin3 = 24 #39=GND
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(pin1, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
         GPIO.setup(pin2, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
@@ -390,15 +422,12 @@ if __name__ == '__main__':
         sw = GPIO.input(pin1)
         sw2 = GPIO.input(pin2)
         sw3 = GPIO.input(pin3)
-        if sw == False:
-            self.switch_flag=0
-        else:
+        if sw == True:
             self.switch_flag=1
-        
-        if sw2 == False:
-            self.switch_flag=0
-        else:
+        elif sw2 == True:
             self.switch_flag=2
+        else:
+            self.switch_flag=0
             
         GPIO.cleanup()
 
@@ -410,5 +439,17 @@ if __name__ == "__main__":
     app = GUI(master = gui)
     app.mainloop()
 
+
+
+
+#実装内容
+#状態遷移図作成
+#それに応じたメソッド作成
+#機能
+#arduinoから状態を受け取る
+#初期登録スイッチの状態を確認する
+#サーバにポストする
+#画面を作る
 #
+#hurendo
 #
