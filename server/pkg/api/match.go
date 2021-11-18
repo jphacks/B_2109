@@ -132,16 +132,18 @@ func getRanking(ctx context.Context, usrID uint) ([]*api.RankingInfo, error) {
 	us := append(opts, user)
 
 	pagesUsersMap := make(map[int64][]*models.User, len(opts)+1)
+	userPagesMap := make(map[*models.User]int64, len(opts)+1)
 	for _, u := range us {
 		pages, err := getReadPagesWithDuration(ctx, u.ID, time.Unix(0, 0), time.Now())
 		if err != nil {
 			return nil, err
 		}
 		pagesUsersMap[pages] = append(pagesUsersMap[pages], u)
+		userPagesMap[u] = pages
 	}
 	userRankMap := makeRankByPages(pagesUsersMap)
 	for u, r := range userRankMap {
-		ri := constructRankingInfo(u, uint64(r))
+		ri := constructRankingInfo(u, uint64(r), userPagesMap[u])
 		ris = append(ris, ri)
 	}
 	return ris, nil
@@ -178,11 +180,12 @@ func constructOpponentsInfo(o *models.User, pages uint64) *api.OpponentsInfo {
 	}
 }
 
-func constructRankingInfo(o *models.User, rank uint64) *api.RankingInfo {
+func constructRankingInfo(o *models.User, rank uint64, pages int64) *api.RankingInfo {
 	return &api.RankingInfo{
-		Id:      uint64(o.ID),
-		Name:    o.Name,
-		Ranking: rank,
+		Id:        uint64(o.ID),
+		Name:      o.Name,
+		Ranking:   rank,
+		ReadPages: pages,
 	}
 }
 
