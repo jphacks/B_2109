@@ -37,8 +37,14 @@ class MatchAPI : ObservableObject{
                     if !idSet.contains(user.id){
                         let userModel = UserModel(userId: user.id, name: user.name, numPages: 0, rank: 0, isFollow: false)
                         users.append(userModel)
+                    }else{
+                        if user.id != USER_ID{
+                            let userModel = UserModel(userId: user.id, name: user.name, numPages: 0, rank: 0, isFollow: true)
+                            users.append(userModel)
+                        }
                     }
                     
+//
                 }
                 isAPICalling = false
                 return users
