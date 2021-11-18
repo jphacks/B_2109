@@ -40,16 +40,14 @@ struct BookListView: View {
                     .edgesIgnoringSafeArea(.all)
                 List{
                     ForEach(books.books, id:\.bookId) { book in
-                            
-                            ZStack{
                                 NavigationLink(destination: BookView(model: book, isReload: isReload)) {
                                             background.edgesIgnoringSafeArea(.all)
-                                                EmptyView()
-                                                .foregroundColor(background)
-                                            }.frame(width: 0, height: 0).opacity(0).hidden()
-                                BookCell(model: book)
-                                    .frame(width: UIScreen.main.bounds.width, height: 150, alignment: .center)
-                            }
+//                                                EmptyView()
+//                                                .foregroundColor(background)
+                                    BookCell(model: book)
+                                        .frame(width: UIScreen.main.bounds.width, height: 150, alignment: .center)
+                                        .listRowBackground(backgroundColor)
+                                }
                     }
                 }
                 }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height-250, alignment: .center)

@@ -55,7 +55,6 @@ struct BookView: View {
                   Text("読む場合はしおりを登録してください。")
                   HStack{
                       Button( action: {
-                          
                           request.bookmarkID = 1
                           isPushed = true
                       }){
@@ -84,9 +83,7 @@ struct BookView: View {
                           .resizable()
                           .frame(width: 80, height: 80, alignment: .center)
                       }
-                          
                   }
-                
                 Button(action: {
                     request.bookID = model.bookId
                     request.bookmarkID = 0
