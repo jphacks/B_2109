@@ -17,6 +17,13 @@ func NewUserRepository() *UserRepository {
 	}
 }
 
+func (r UserRepository) GetAll() ([]*models.User, error) {
+	var us []*models.User
+
+	res := r.db.Find(&us)
+	return us, res.Error
+}
+
 func (r UserRepository) GetByID(id uint) (*models.User, error) {
 	user := models.User{}
 	res := r.db.First(&user, "id = ?", id)

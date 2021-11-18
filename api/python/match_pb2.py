@@ -20,7 +20,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   syntax='proto3',
   serialized_options=b'Z$github.com/jphacks/B_2109/server/api',
   create_key=_descriptor._internal_create_key,
-  serialized_pb=b'\n\x0bmatch.proto\x12\x07\x62ookowl\x1a\x1fgoogle/protobuf/timestamp.proto\"A\n\x18RegisterOpponentsRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\x12\x14\n\x0copponent_ids\x18\x02 \x03(\x04\"E\n\x19RegisterOpponentsResponse\x12(\n\x04time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"&\n\x13GetOpponentsRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"k\n\x14GetOpponentsResponse\x12)\n\topponents\x18\x01 \x03(\x0b\x32\x16.bookowl.OpponentsInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"$\n\x11GetRankingRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"k\n\x12GetRankingResponse\x12+\n\rranking_infos\x18\x01 \x03(\x0b\x32\x14.bookowl.RankingInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"!\n\x0eGetUserRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"a\n\x0fGetUserResponse\x12$\n\tuser_info\x18\x01 \x03(\x0b\x32\x11.bookowl.UserInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"=\n\rOpponentsInfo\x12\n\n\x02id\x18\x01 \x01(\x04\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x12\n\nread_pages\x18\x03 \x01(\x04\"L\n\x0bRankingInfo\x12\n\n\x02id\x18\x01 \x01(\x04\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0f\n\x07ranking\x18\x03 \x01(\x04\x12\x12\n\nread_pages\x18\x04 \x01(\x03\"$\n\x08UserInfo\x12\n\n\x02id\x18\x01 \x01(\x04\x12\x0c\n\x04name\x18\x02 \x01(\t2\xb6\x02\n\x05Match\x12Z\n\x11RegisterOpponents\x12!.bookowl.RegisterOpponentsRequest\x1a\".bookowl.RegisterOpponentsResponse\x12K\n\x0cGetOpponents\x12\x1c.bookowl.GetOpponentsRequest\x1a\x1d.bookowl.GetOpponentsResponse\x12\x45\n\nGetRanking\x12\x1a.bookowl.GetRankingRequest\x1a\x1b.bookowl.GetRankingResponse\x12=\n\x08GetUsers\x12\x17.bookowl.GetUserRequest\x1a\x18.bookowl.GetUserResponseB&Z$github.com/jphacks/B_2109/server/apib\x06proto3'
+  serialized_pb=b'\n\x0bmatch.proto\x12\x07\x62ookowl\x1a\x1fgoogle/protobuf/timestamp.proto\"A\n\x18RegisterOpponentsRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\x12\x14\n\x0copponent_ids\x18\x02 \x03(\x04\"E\n\x19RegisterOpponentsResponse\x12(\n\x04time\x18\x01 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"&\n\x13GetOpponentsRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"k\n\x14GetOpponentsResponse\x12)\n\topponents\x18\x01 \x03(\x0b\x32\x16.bookowl.OpponentsInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"$\n\x11GetRankingRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"k\n\x12GetRankingResponse\x12+\n\rranking_infos\x18\x01 \x03(\x0b\x32\x14.bookowl.RankingInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"!\n\x0eGetUserRequest\x12\x0f\n\x07user_id\x18\x01 \x01(\x04\"b\n\x0fGetUserResponse\x12%\n\nusers_info\x18\x01 \x03(\x0b\x32\x11.bookowl.UserInfo\x12(\n\x04time\x18\x02 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"=\n\rOpponentsInfo\x12\n\n\x02id\x18\x01 \x01(\x04\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x12\n\nread_pages\x18\x03 \x01(\x04\"L\n\x0bRankingInfo\x12\n\n\x02id\x18\x01 \x01(\x04\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\x0f\n\x07ranking\x18\x03 \x01(\x04\x12\x12\n\nread_pages\x18\x04 \x01(\x03\"$\n\x08UserInfo\x12\n\n\x02id\x18\x01 \x01(\x04\x12\x0c\n\x04name\x18\x02 \x01(\t2\xb6\x02\n\x05Match\x12Z\n\x11RegisterOpponents\x12!.bookowl.RegisterOpponentsRequest\x1a\".bookowl.RegisterOpponentsResponse\x12K\n\x0cGetOpponents\x12\x1c.bookowl.GetOpponentsRequest\x1a\x1d.bookowl.GetOpponentsResponse\x12\x45\n\nGetRanking\x12\x1a.bookowl.GetRankingRequest\x1a\x1b.bookowl.GetRankingResponse\x12=\n\x08GetUsers\x12\x17.bookowl.GetUserRequest\x1a\x18.bookowl.GetUserResponseB&Z$github.com/jphacks/B_2109/server/apib\x06proto3'
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
 
@@ -281,7 +281,7 @@ _GETUSERRESPONSE = _descriptor.Descriptor(
   create_key=_descriptor._internal_create_key,
   fields=[
     _descriptor.FieldDescriptor(
-      name='user_info', full_name='bookowl.GetUserResponse.user_info', index=0,
+      name='users_info', full_name='bookowl.GetUserResponse.users_info', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -307,7 +307,7 @@ _GETUSERRESPONSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=526,
-  serialized_end=623,
+  serialized_end=624,
 )
 
 
@@ -352,8 +352,8 @@ _OPPONENTSINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=625,
-  serialized_end=686,
+  serialized_start=626,
+  serialized_end=687,
 )
 
 
@@ -405,8 +405,8 @@ _RANKINGINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=688,
-  serialized_end=764,
+  serialized_start=689,
+  serialized_end=765,
 )
 
 
@@ -444,8 +444,8 @@ _USERINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=766,
-  serialized_end=802,
+  serialized_start=767,
+  serialized_end=803,
 )
 
 _REGISTEROPPONENTSRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
@@ -453,7 +453,7 @@ _GETOPPONENTSRESPONSE.fields_by_name['opponents'].message_type = _OPPONENTSINFO
 _GETOPPONENTSRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _GETRANKINGRESPONSE.fields_by_name['ranking_infos'].message_type = _RANKINGINFO
 _GETRANKINGRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
-_GETUSERRESPONSE.fields_by_name['user_info'].message_type = _USERINFO
+_GETUSERRESPONSE.fields_by_name['users_info'].message_type = _USERINFO
 _GETUSERRESPONSE.fields_by_name['time'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 DESCRIPTOR.message_types_by_name['RegisterOpponentsRequest'] = _REGISTEROPPONENTSREQUEST
 DESCRIPTOR.message_types_by_name['RegisterOpponentsResponse'] = _REGISTEROPPONENTSRESPONSE
@@ -555,8 +555,8 @@ _MATCH = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   create_key=_descriptor._internal_create_key,
-  serialized_start=805,
-  serialized_end=1115,
+  serialized_start=806,
+  serialized_end=1116,
   methods=[
   _descriptor.MethodDescriptor(
     name='RegisterOpponents',

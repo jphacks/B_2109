@@ -73,6 +73,24 @@ func (s MatchServer) GetRanking(ctx context.Context, r *api.GetRankingRequest) (
 	return &api.GetRankingResponse{RankingInfos: rs, Time: timestamppb.Now()}, nil
 }
 
+func (s MatchServer) GetUsers(ctx context.Context, r *api.GetUserRequest) (*api.GetUserResponse, error) {
+	var uis []*api.UserInfo
+
+	us, err := getUsers(ctx, uint(r.GetUserId()))
+	if err != nil {
+		return nil, err
+	}
+
+	for _, u := range us {
+		uis = append(uis, constructUserInfo(u))
+	}
+	return &api.GetUserResponse{
+		UsersInfo: uis,
+		Time:      timestamppb.Now(),
+	}, nil
+
+}
+
 func uintSlice(us []uint64) []uint {
 	var res []uint
 
@@ -147,6 +165,11 @@ func makeRankByPages(m map[int64][]*models.User) map[*models.User]int64 {
 	return userRankMap
 }
 
+func getUsers(ctx context.Context, userID uint) ([]*models.User, error) {
+	ubr := repos.NewUserRepository()
+	return ubr.GetAll()
+}
+
 func constructOpponentsInfo(o *models.User, pages uint64) *api.OpponentsInfo {
 	return &api.OpponentsInfo{
 		Id:        uint64(o.ID),
@@ -160,5 +183,12 @@ func constructRankingInfo(o *models.User, rank uint64) *api.RankingInfo {
 		Id:      uint64(o.ID),
 		Name:    o.Name,
 		Ranking: rank,
+	}
+}
+
+func constructUserInfo(u *models.User) *api.UserInfo {
+	return &api.UserInfo{
+		Id:   uint64(u.ID),
+		Name: u.Name,
 	}
 }

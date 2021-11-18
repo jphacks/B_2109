@@ -142,7 +142,7 @@ struct Bookowl_GetUserResponse {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var userInfo: [Bookowl_UserInfo] = []
+  var usersInfo: [Bookowl_UserInfo] = []
 
   var time: SwiftProtobuf.Google_Protobuf_Timestamp {
     get {return _time ?? SwiftProtobuf.Google_Protobuf_Timestamp()}
@@ -469,7 +469,7 @@ extension Bookowl_GetUserRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageI
 extension Bookowl_GetUserResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".GetUserResponse"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .standard(proto: "user_info"),
+    1: .standard(proto: "users_info"),
     2: .same(proto: "time"),
   ]
 
@@ -479,7 +479,7 @@ extension Bookowl_GetUserResponse: SwiftProtobuf.Message, SwiftProtobuf._Message
       // allocates stack space for every case branch when no optimizations are
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
-      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.userInfo) }()
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.usersInfo) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._time) }()
       default: break
       }
@@ -491,8 +491,8 @@ extension Bookowl_GetUserResponse: SwiftProtobuf.Message, SwiftProtobuf._Message
     // allocates stack space for every if/case branch local when no optimizations
     // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
     // https://github.com/apple/swift-protobuf/issues/1182
-    if !self.userInfo.isEmpty {
-      try visitor.visitRepeatedMessageField(value: self.userInfo, fieldNumber: 1)
+    if !self.usersInfo.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.usersInfo, fieldNumber: 1)
     }
     try { if let v = self._time {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
@@ -501,7 +501,7 @@ extension Bookowl_GetUserResponse: SwiftProtobuf.Message, SwiftProtobuf._Message
   }
 
   static func ==(lhs: Bookowl_GetUserResponse, rhs: Bookowl_GetUserResponse) -> Bool {
-    if lhs.userInfo != rhs.userInfo {return false}
+    if lhs.usersInfo != rhs.usersInfo {return false}
     if lhs._time != rhs._time {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
