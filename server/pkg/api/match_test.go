@@ -48,16 +48,19 @@ var _ = Describe("Match", func() {
 			Expect(err).To(BeNil())
 
 			By("checking result")
+			user1ReadPages := float64(200) / float64(testUserBook1WidthLevel) * testBook1Pages
 			wantRanking := []*api.RankingInfo{
 				{
-					Id:      testUser1ID,
-					Name:    testUser1Name,
-					Ranking: 1,
+					Id:        testUser1ID,
+					Name:      testUser1Name,
+					Ranking:   1,
+					ReadPages: int64(user1ReadPages),
 				},
 				{
-					Id:      testUser2ID,
-					Name:    testUser2Name,
-					Ranking: 2,
+					Id:        testUser2ID,
+					Name:      testUser2Name,
+					Ranking:   2,
+					ReadPages: 0,
 				},
 			}
 			Expect(len(rs)).To(Equal(len(wantRanking)))
@@ -65,6 +68,7 @@ var _ = Describe("Match", func() {
 				Expect(r.Id).To(Equal(wantRanking[i].Id))
 				Expect(r.Name).To(Equal(wantRanking[i].Name))
 				Expect(r.Ranking).To(Equal(wantRanking[i].Ranking))
+				Expect(r.ReadPages).To(Equal(wantRanking[i].ReadPages))
 			}
 		})
 
