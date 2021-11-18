@@ -9,14 +9,14 @@ import Foundation
 import SwiftUI
 struct BookCell : View {
     
-    let model : Bookowl_BookInfo
+    var model : BookModel
     
     var body : some View{
         ZStack{
             backgroundColor
                 .edgesIgnoringSafeArea(.all)
         HStack {
-            URLImageView(viewModel: .init(url: model.bookThumbnail))
+            URLImageView(viewModel: .init(url: model.imagePath))
                 .frame(width: 100, height: 150)
                 .padding(10)
 //            VStack{
@@ -30,7 +30,7 @@ struct BookCell : View {
 //            }
 
             Spacer()
-                }
+            }
         }
     }
 }

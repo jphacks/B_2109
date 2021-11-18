@@ -11,51 +11,19 @@ import Logging
 import NIO
 
 class BookAPI :  ObservableObject{
-    @Published var bookInfos : [Bookowl_BookInfo] = []
-    @Published var unReads : [Bookowl_BookInfo] = []
-    @Published var reading : [Bookowl_BookInfo] = []
-    @Published var completed : [Bookowl_BookInfo] = []
+    @Published var bookInfos:[BookModel] = []
+    @Published var unReads = BookModels()
+    @Published var reading = BookModels()
+    @Published var completed = BookModels()
+    let port = 8080
 //    var connection : ClientConnection?
 //    var client : Bookowl_BookClient?
 
     
-    init(viewName : String){
-        switch viewName{
-        case "shelf":
-            let bookinfos = self.getBookByUserIdRequest()
-            self.divideByStatus(bookInfos: bookInfos)
-            break
-        default:break
-        }
+    init(){
+        bookInfos = self.getBookByUserIdRequest()
+        self.divideByStatus(bookInfos: bookInfos)
     }
-    
-//    func sendRegisterGoalrequest(model : GoalModel){
-//        let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
-//        let connection = ClientConnection
-//            .secure(group: group)
-//            .connect(host: "163.221.29.71", port: 8080)
-////        let client = Bookowl_GoalClient.init(channel:connection )
-//        var request = Bookowl_CreateGoalRequest()
-//
-//        request.goalInfo.goalStatus = .goalDoing
-//        request.goalInfo.startDate = model.startDate
-//        request.goalInfo.endDate = model.endDate
-//        request.goalInfo.numPages = Int64(model.num_pages)
-//        request.goalInfo.timeAmountMinutes = Int64(model.time_amount_minutes)
-//        request.goalInfo.userID = 1
-//        print("aaa")
-//        do {
-//            let client = Bookowl_GoalClient.init(channel: connection, defaultCallOptions: CallOptions())
-//            let call = client.createGoal(request, callOptions: CallOptions())
-//            let response = try call.response.wait()
-//            print("response!!!")
-//            print(response.goalID)
-//        } catch {
-//            print("error!!!!")
-//            print(error)
-//        }
-//
-//    }
     
     func RegisterBookRequest(model : Bookowl_BookInfo) -> Bookowl_BookInfo! {
         print("registerAPI")
@@ -65,20 +33,22 @@ class BookAPI :  ObservableObject{
         }
         var request = Bookowl_RegisterBookRequest()
         request.userID = UInt64(USER_ID)
-        request.bookInfo.readStatus = .readUnread
-        request.bookInfo.isbn = model.isbn
-        request.bookInfo.widthLevel = Int64(model.widthLevel)
-        print(model.widthLevel)
+//        request.readStatus = .readUnread
+        request.isbn = model.isbn
+//        request.widthLevel = Int64(model.widthLevel)
+//        print(model.widthLevel)
         let connection = ClientConnection
             .insecure(group: group)
-            .connect(host: "163.221.29.71", port: 8080)
+            .connect(host: address, port: port)
             do {
-                print("aaa")
+                print(model.isbn)
+                print("registered")
                 let client = Bookowl_BookClient.init(channel: connection, defaultCallOptions: CallOptions())
                 let response = try client.registerBook(request, callOptions: CallOptions()).response.wait()
                 print("registerBook")
                 print(response.bookInfo.isbn)
                 print(response.bookInfo.authors)
+                reload()
                 return response.bookInfo
             }catch let error{
                 print(error)
@@ -86,66 +56,148 @@ class BookAPI :  ObservableObject{
         return nil
     }
     
-    func UpdateBookmarkIDRequest(model : Bookowl_BookInfo) -> Bool{
+    func UpdateBookmarkIDRequest(request : Bookowl_UpdateBookmarkIDRequest) -> Bool{
         let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
         defer{
             try? group.syncShutdownGracefully()
         }
-        var request = Bookowl_UpdateBookmarkIDRequest()
-        request.bookID = model.bookID
-        request.bookmarkID = model.bookmarkID
         let connection = ClientConnection
             .insecure(group: group)
-            .connect(host: "163.221.29.71", port: 8080)
+            .connect(host: address, port: port)
         do{
             let client = Bookowl_BookClient.init(channel: connection, defaultCallOptions: CallOptions())
             let response = try client.updateBookmarkID(request, callOptions: CallOptions()).response.wait()
             print("BookMarker is Updated!!")
+            setBookMarkId(bookId: request.bookID, bookMarkId: request.bookmarkID, width: request.bookWidth)
+            reload()
             return true
         }catch let error{
             print(error)
         }
         return false
     }
- 
-    func getBookByUserIdRequest() -> [Bookowl_BookInfo]!{
+    
+    func setBookMarkId(bookId:UInt64, bookMarkId:UInt64,width:UInt64){
+        for model in bookInfos{
+            if model.bookId == bookId{
+                model.widthLevel = width
+                model.bookMarkId = bookMarkId
+            }
+        }
+    }
+    
+    func setProgressByBook(bookId:UInt64, pages:UInt64){
+        for model in bookInfos{
+            if model.bookId == bookId{
+                let progress = pages * 100 / model.widthLevel
+                model.progress = progress
+            }
+        }
+    }
+    
+    func UpdateReadStatusRequest(request: Bookowl_UpdateReadStatusRequest) {
         let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
         defer{
             try? group.syncShutdownGracefully()
         }
-        var request = Bookowl_GetBooksByUserIDRequest()
+        let connection = ClientConnection
+            .insecure(group: group)
+            .connect(host: address, port: port)
+        do{
+            let client = Bookowl_BookClient.init(channel: connection, defaultCallOptions: CallOptions())
+            let response = try client.updateReadStatus(request, callOptions: CallOptions()).response.wait()
+            print("BookStatus is Updated!!")
+        }catch let error{
+            print(error)
+        }
+    }
+    
+ 
+    func getBookByUserIdRequest() -> [BookModel]!{
+        let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
+        defer{
+            try? group.syncShutdownGracefully()
+        }
+        var request = Bookowl_GetBooksRequest()
         request.userID = UInt64(USER_ID)
         let connection = ClientConnection
             .insecure(group: group)
-            .connect(host: "163.221.29.71", port: 8080)
+            .connect(host: address, port: port)
         do{
             let client = Bookowl_BookClient.init(channel: connection, defaultCallOptions: CallOptions())
-            let response = try client.getBooksByUserID(request, callOptions: CallOptions()).response.wait()
+            let response = try client.getBooks(request, callOptions: CallOptions()).response.wait()
             print("response!!")
-            self.bookInfos = response.booksInfo
-            return response.booksInfo
+            let bookArray = response.booksInfo
+            var bookInfos : [BookModel] = []
+            for bookInfo in bookArray {
+                let bookModel = BookModel(id: bookInfo.bookID, name: bookInfo.name, status: bookInfo.readStatus, progress: 0, imagePath: bookInfo.bookThumbnail, bookMarkId: bookInfo.bookmarkID, isbn: bookInfo.isbn, widthLevel: 0, authors: bookInfo.authors, price: bookInfo.price, pages: bookInfo.pages)
+                
+                bookInfos.append(bookModel)
+            }
+            return bookInfos
         }catch let error{
             print(error)
         }
         return nil
     }
     
-    func divideByStatus(bookInfos : [Bookowl_BookInfo]){
-        print("aaa")
-        for bookInfo in bookInfos {
-            switch bookInfo.readStatus{
+    func divideByStatus(bookInfos : [BookModel]){
+        print("devide")
+        self.unReads.clear()
+        self.completed.clear()
+        self.reading.clear()
+        for bookModel in bookInfos {
+            let pages =  getReadPages(model: bookModel)
+            switch bookModel.status{
             case .readComplete:
-                self.completed.append(bookInfo)
+                self.completed.append(book:bookModel)
                 break
             case .readUnread, .readSuspended, .readUnspecified:
-                self.unReads.append( bookInfo)
+                self.unReads.append(book: bookModel)
                 break
             case .readReading:
-                self.reading.append( bookInfo)
+                self.reading.append(book: bookModel)
                 break
             default: break
             }
         }
+    }
+    
+    func reload(){
+        bookInfos = self.getBookByUserIdRequest()
+        self.divideByStatus(bookInfos: bookInfos)
+    }
+    
+    func getBooks(status:Bookowl_ReadStatus)-> [BookModel]{
+        if status == .readReading{
+            return reading.books
+        }else if status == .readUnread || status == .readSuspended{
+            return unReads.books
+        }else {
+            return completed.books
+        }
+    }
+    
+    func getReadPages(model : BookModel)-> UInt64{
+        let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
+        defer{
+            try? group.syncShutdownGracefully()
+        }
+        var request = Bookowl_GetReadPagesByBookIDRequest()
+        request.userID = UInt64(USER_ID)
+        request.bookID = model.bookId
+        let connection = ClientConnection
+            .insecure(group: group)
+            .connect(host: address, port: port)
+        do{
+            let client = Bookowl_BookClient.init(channel: connection, defaultCallOptions: CallOptions())
+            let response = try client.getReadPagesByBookID(request, callOptions: CallOptions()).response.wait()
+            print("response!!")
+            return response.readPages
+        }catch let error{
+            print(error)
+        }
+        return 0
     }
     
 }

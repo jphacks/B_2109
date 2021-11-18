@@ -12,11 +12,21 @@ class ScannerViewModel: ObservableObject {
     @Published var lastQrCode: String = "QRコード"
     @Published var isShowing: Bool = false
     @Published var isLoading: Bool = false
-    private var bookRegisterAPI = BookAPI(viewName: "scanner")
+    @Published var isFinished : Bool = false
+    private var bookRegisterAPI = BookAPI()
     var bookModel = Bookowl_BookInfo()
+    
+    func initModel() {
+        lastQrCode = "QRコード"
+        isShowing = false
+        isLoading = false
+        bookRegisterAPI = BookAPI()
+        bookModel = Bookowl_BookInfo()
+    }
+    
     func onFoundQrCode(_ code: String) {
         print("widthLevel")
-        print(bookModel.widthLevel)
+//        print(bookModel.widthLevel)
         print(code)
         self.lastQrCode = code
         isShowing = true
