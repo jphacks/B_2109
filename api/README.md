@@ -661,7 +661,7 @@ ReadStatus links to server/pkg/models/user_book.go ReadStatus
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| user_info | [UserInfo](#bookowl.UserInfo) | repeated |  |
+| users_info | [UserInfo](#bookowl.UserInfo) | repeated |  |
 | time | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
 
 

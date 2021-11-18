@@ -67,5 +67,34 @@ var _ = Describe("Match", func() {
 				Expect(r.Ranking).To(Equal(wantRanking[i].Ranking))
 			}
 		})
+
+		It("tests GetUsers", func() {
+			By("calling getRanking() and nil check for return")
+			us, err := getUsers(context.Background(), testUser1ID)
+			Expect(err).To(BeNil())
+			Expect(us).ToNot(BeNil())
+
+			By("checking result")
+			want := []*api.UserInfo{
+				{
+					Id:   testUser1ID,
+					Name: testUser1Name,
+				},
+				{
+					Id:   testUser2ID,
+					Name: testUser2Name,
+				},
+			}
+
+			var uis []*api.UserInfo
+			for _, u := range us {
+				uis = append(uis, constructUserInfo(u))
+			}
+			Expect(len(us)).To(Equal(len(want)))
+			for i, ui := range uis {
+				Expect(ui.Id).To(Equal(want[i].Id))
+				Expect(ui.Name).To(Equal(want[i].Name))
+			}
+		})
 	})
 })
