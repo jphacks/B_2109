@@ -133,13 +133,49 @@ func initDB() error {
 func initData() error {
 	ur := repos.NewUserRepository()
 	_, err := ur.Create(context.Background(), &models.User{
-		Name: "ユーザ1",
+		Name: "五十嵐 双葉",
 	})
 	if err != nil {
 		return err
 	}
 	_, err = ur.Create(context.Background(), &models.User{
-		Name: "ユーザ2",
+		Name: "武田 晴海",
+	})
+	if err != nil {
+		return err
+	}
+	_, err = ur.Create(context.Background(), &models.User{
+		Name: "桜井 桃子",
+	})
+	if err != nil {
+		return err
+	}
+	_, err = ur.Create(context.Background(), &models.User{
+		Name: "風間 蒼太",
+	})
+	if err != nil {
+		return err
+	}
+	_, err = ur.Create(context.Background(), &models.User{
+		Name: "黒部 夏美",
+	})
+	if err != nil {
+		return err
+	}
+	_, err = ur.Create(context.Background(), &models.User{
+		Name: "桜井 優人",
+	})
+	if err != nil {
+		return err
+	}
+	_, err = ur.Create(context.Background(), &models.User{
+		Name: "月城 モナ",
+	})
+	if err != nil {
+		return err
+	}
+	_, err = ur.Create(context.Background(), &models.User{
+		Name: "ナスラ",
 	})
 	if err != nil {
 		return err
@@ -149,19 +185,78 @@ func initData() error {
 	err = br.Create(context.Background(), &models.Book{
 		ISBN:          "1",
 		Name:          "dummy1",
-		Pages:         1,
-		Price:         1,
+		Pages:         100,
+		Price:         200,
 		ThumbnailPath: "",
 	})
 	if err != nil {
 		return err
 	}
-
 	err = br.Create(context.Background(), &models.Book{
 		ISBN:          "2",
 		Name:          "dummy2",
-		Pages:         1,
-		Price:         1,
+		Pages:         200,
+		Price:         200,
+		ThumbnailPath: "",
+	})
+	if err != nil {
+		return err
+	}
+	err = br.Create(context.Background(), &models.Book{
+		ISBN:          "3",
+		Name:          "dummy3",
+		Pages:         300,
+		Price:         300,
+		ThumbnailPath: "",
+	})
+	if err != nil {
+		return err
+	}
+	err = br.Create(context.Background(), &models.Book{
+		ISBN:          "4",
+		Name:          "dummy4",
+		Pages:         400,
+		Price:         400,
+		ThumbnailPath: "",
+	})
+	if err != nil {
+		return err
+	}
+	err = br.Create(context.Background(), &models.Book{
+		ISBN:          "5",
+		Name:          "dummy5",
+		Pages:         500,
+		Price:         500,
+		ThumbnailPath: "",
+	})
+	if err != nil {
+		return err
+	}
+	err = br.Create(context.Background(), &models.Book{
+		ISBN:          "6",
+		Name:          "dummy6",
+		Pages:         600,
+		Price:         600,
+		ThumbnailPath: "",
+	})
+	if err != nil {
+		return err
+	}
+	err = br.Create(context.Background(), &models.Book{
+		ISBN:          "7",
+		Name:          "dummy7",
+		Pages:         700,
+		Price:         700,
+		ThumbnailPath: "",
+	})
+	if err != nil {
+		return err
+	}
+	err = br.Create(context.Background(), &models.Book{
+		ISBN:          "8",
+		Name:          "dummy8",
+		Pages:         800,
+		Price:         800,
 		ThumbnailPath: "",
 	})
 	if err != nil {
@@ -171,9 +266,36 @@ func initData() error {
 	ubr := repos.NewUserBookRepository()
 	err = ubr.Create(context.Background(), &models.UserBook{
 		UserID:     2,
-		BookID:     1,
-		WidthLevel: 1,
-		ReadStatus: models.READ_STATUS_UNREAD,
+		BookID:     2,
+		WidthLevel: 100,
+		ReadStatus: models.READ_STATUS_COMPLETE,
+	})
+	if err != nil {
+		return err
+	}
+	err = ubr.Create(context.Background(), &models.UserBook{
+		UserID:     3,
+		BookID:     3,
+		WidthLevel: 100,
+		ReadStatus: models.READ_STATUS_COMPLETE,
+	})
+	if err != nil {
+		return err
+	}
+	err = ubr.Create(context.Background(), &models.UserBook{
+		UserID:     4,
+		BookID:     4,
+		WidthLevel: 100,
+		ReadStatus: models.READ_STATUS_COMPLETE,
+	})
+	if err != nil {
+		return err
+	}
+	err = ubr.Create(context.Background(), &models.UserBook{
+		UserID:     5,
+		BookID:     5,
+		WidthLevel: 100,
+		ReadStatus: models.READ_STATUS_COMPLETE,
 	})
 	if err != nil {
 		return err
@@ -183,6 +305,69 @@ func initData() error {
 	_, err = bmr.Create(context.Background(), &models.Bookmark{
 		Name:       "しおり1",
 		UserBookID: 1,
+	})
+	if err != nil {
+		return err
+	}
+	_, err = bmr.Create(context.Background(), &models.Bookmark{
+		Name:       "しおり2",
+		UserBookID: 1,
+	})
+	if err != nil {
+		return err
+	}
+	_, err = bmr.Create(context.Background(), &models.Bookmark{
+		Name:       "しおり3",
+		UserBookID: 1,
+	})
+	if err != nil {
+		return err
+	}
+	_, err = bmr.Create(context.Background(), &models.Bookmark{
+		Name:       "しおり4",
+		UserBookID: 1,
+	})
+	if err != nil {
+		return err
+	}
+
+	rer := repos.NewReadEventRpository()
+	err = rer.Create(context.Background(), &models.ReadEvent{
+		UserBookID:          1,
+		ReadStartTime:       time.Date(2021, 11, 14, 10, 0, 0, 0, time.Local),
+		ReadEndTime:         time.Date(2021, 11, 14, 10, 30, 0, 0, time.Local),
+		ReadStartWidthLevel: 0,
+		ReadEndWidthLevel:   100,
+	})
+	if err != nil {
+		return err
+	}
+	err = rer.Create(context.Background(), &models.ReadEvent{
+		UserBookID:          2,
+		ReadStartTime:       time.Date(2021, 11, 14, 10, 0, 0, 0, time.Local),
+		ReadEndTime:         time.Date(2021, 11, 14, 10, 30, 0, 0, time.Local),
+		ReadStartWidthLevel: 0,
+		ReadEndWidthLevel:   100,
+	})
+	if err != nil {
+		return err
+	}
+	err = rer.Create(context.Background(), &models.ReadEvent{
+		UserBookID:          3,
+		ReadStartTime:       time.Date(2021, 11, 14, 10, 0, 0, 0, time.Local),
+		ReadEndTime:         time.Date(2021, 11, 14, 10, 30, 0, 0, time.Local),
+		ReadStartWidthLevel: 0,
+		ReadEndWidthLevel:   100,
+	})
+	if err != nil {
+		return err
+	}
+	err = rer.Create(context.Background(), &models.ReadEvent{
+		UserBookID:          4,
+		ReadStartTime:       time.Date(2021, 11, 14, 10, 0, 0, 0, time.Local),
+		ReadEndTime:         time.Date(2021, 11, 14, 10, 30, 0, 0, time.Local),
+		ReadStartWidthLevel: 0,
+		ReadEndWidthLevel:   100,
 	})
 	if err != nil {
 		return err
