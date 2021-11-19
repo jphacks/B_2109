@@ -22,6 +22,11 @@ func NewGoalServer() *GoalServer {
 }
 
 func (s GoalServer) CreateGoal(ctx context.Context, r *api.CreateGoalRequest) (*api.CreateGoalResponse, error) {
+	log.WithFields(logrus.Fields{
+		"Service": "CreateGoal",
+		"Request": fmt.Sprintf("%#v", r),
+	}).Info("request comes.")
+
 	g, err := createGoal(ctx, r.GetTime().AsTime(), r.GetNumPages(), uint(r.GetUserId()))
 	if err != nil {
 		log.WithFields(logrus.Fields{
@@ -35,6 +40,11 @@ func (s GoalServer) CreateGoal(ctx context.Context, r *api.CreateGoalRequest) (*
 
 func (s GoalServer) GetGoals(ctx context.Context, r *api.GetGoalsRequest) (*api.GetGoalsResponse, error) {
 	var gis []*api.GoalInfo
+
+	log.WithFields(logrus.Fields{
+		"Service": "GetGoals",
+		"Request": fmt.Sprintf("%#v", r),
+	}).Info("request comes.")
 
 	gs, err := getGoals(ctx, uint(r.GetUserId()))
 	if err != nil {
