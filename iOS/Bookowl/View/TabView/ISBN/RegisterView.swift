@@ -23,6 +23,7 @@ struct RegisterView: View {
             Bookowl.background.edgesIgnoringSafeArea(.all)
             
             VStack{
+                
                 URLImageView(viewModel: .init(url: model.bookThumbnail))
                     .frame(width: 150, height: 200, alignment: .center)
                 Text(model.name)
@@ -37,15 +38,15 @@ struct RegisterView: View {
 //                    .padding(20)
                 HStack{
                     Text("ページ数:" + String(model.pages))
-                        .font(.title)
+                        .font(.title3)
                     .foregroundColor(brown)
                     .frame(width: 150, height: 20, alignment: .leading)
-                    .padding(20)
+                    .padding(10)
                     Text("価格:" + String(model.price))
-                        .font(.title)
+                        .font(.title3)
                         .foregroundColor(brown)
                         .frame(width: 150, height: 20, alignment: .leading)
-                        .padding(20)
+                        .padding(10)
                 }
 //                Spacer()
 //                Text("この本を登録しました。")
@@ -57,7 +58,6 @@ struct RegisterView: View {
                     Text("読む場合はしおりを登録してください。")
                     HStack{
                         Button( action: {
-                            
                             request.bookmarkID = 1
                             
                             model.readStatus = .readReading
@@ -99,10 +99,10 @@ struct RegisterView: View {
                     }
                   
                   Button(action: {
-                      request.bookID = model.bookID
-                      request.bookmarkID = 0
-                      model.readStatus = .readUnread
-                      bookAPI.UpdateBookmarkIDRequest(request: self.request)
+//                      request.bookID = model.bookID
+//                      request.bookmarkID = 0
+//                      model.readStatus = .readUnread
+//                      bookAPI.UpdateBookmarkIDRequest(request: self.request)
                       var statusRequest = Bookowl_UpdateReadStatusRequest()
                       statusRequest.bookID = model.bookID
                       statusRequest.readStatus = .readUnread
@@ -116,24 +116,22 @@ struct RegisterView: View {
               }
                 if isPushed{
                 TextFieldAlertView(text: $width, isShowingAlert: $isPushed, placeholder: "", isSecureTextEntry: false, title: "厚みを入力してください。", message: "スイッチを押して表示される数値を入力してください。", leftButtonTitle: "キャンセル", rightButtonTitle: "決定", leftButtonAction: nil, rightButtonAction: {
-                        
+                        print("width")
+                        print(width)
+                        request.bookID = model.bookID
                         request.bookWidth = UInt64(width)!
                         bookAPI.UpdateBookmarkIDRequest(request: request)
                     var statusRequest = Bookowl_UpdateReadStatusRequest()
-                    statusRequest.bookID = model.bookID
-                    statusRequest.readStatus = .readReading
-                    bookAPI.UpdateReadStatusRequest(request: statusRequest)
+//                    statusRequest.bookID = model.bookID
+//                    statusRequest.readStatus = .readReading
+//                    bookAPI.UpdateReadStatusRequest(request: statusRequest)
                     isPushed = false
                     isUpdated = true
                     
                 })
                 }
             }
-       
-            
-            
         } .alert(isPresented: $isUpdated) {
-            
             Alert(title: Text("本の登録が完了しました。"), message: Text(""), dismissButton: .default(Text("はい")){
                 isFindBarcode = false
                 isUpdated = false

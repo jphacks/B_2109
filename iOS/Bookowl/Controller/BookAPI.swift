@@ -59,6 +59,10 @@ class BookAPI :  ObservableObject{
     }
     
     func UpdateBookmarkIDRequest(request : Bookowl_UpdateBookmarkIDRequest) -> Bool{
+        print("updateBookmarkIDRequest")
+        print(request.bookID)
+        print(request.bookmarkID)
+        print(request.bookWidth)
         let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
         defer{
             try? group.syncShutdownGracefully()
@@ -70,10 +74,12 @@ class BookAPI :  ObservableObject{
             let client = Bookowl_BookClient.init(channel: connection, defaultCallOptions: CallOptions())
             let response = try client.updateBookmarkID(request, callOptions: CallOptions()).response.wait()
             print("BookMarker is Updated!!")
+            print(response.bookInfo.bookmarkID)
             setBookMarkId(bookId: request.bookID, bookMarkId: request.bookmarkID, width: request.bookWidth)
 //            reload()
             return true
         }catch let error{
+            print("updateError!")
             print(error)
         }
         return false
@@ -207,7 +213,9 @@ class BookAPI :  ObservableObject{
         do{
             let client = Bookowl_BookClient.init(channel: connection, defaultCallOptions: CallOptions())
             let response = try client.getReadPagesByBookID(request, callOptions: CallOptions()).response.wait()
+            
             print("readPages")
+            print(response.readPages)
             return response.readPages
         }catch let error{
             print(error)

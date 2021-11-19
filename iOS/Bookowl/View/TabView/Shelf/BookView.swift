@@ -30,6 +30,7 @@ struct BookView: View {
                     .foregroundColor(brown)
             }
             .padding(10)
+            Text("ページ数：" + String(model.pages))
             HStack{
 //                Text("進捗 : " + String(model.progress) + " %")
                 Text("進捗 : " + String(model.progress) + " %")
@@ -85,14 +86,14 @@ struct BookView: View {
                       }
                   }
                 Button(action: {
-                    request.bookID = model.bookId
-                    request.bookmarkID = 0
-                    bookAPI.UpdateBookmarkIDRequest(request: self.request)
+//                    request.bookID = model.bookId
+//                    request.bookmarkID = 0
+//                    bookAPI.UpdateBookmarkIDRequest(request: request)
                     var statusRequest = Bookowl_UpdateReadStatusRequest()
                     statusRequest.bookID = model.bookId
                     statusRequest.readStatus = .readUnread
                     bookAPI.UpdateReadStatusRequest(request: statusRequest)
-                   isUpdated = true
+                    isUpdated = true
                 }){ Text("しおりを登録しない")
                           .font(.title)
                           .foregroundColor(brown)
@@ -101,13 +102,13 @@ struct BookView: View {
             }
               if isPushed{
               TextFieldAlertView(text: $width, isShowingAlert: $isPushed, placeholder: "", isSecureTextEntry: false, title: "厚みを入力してください。", message: "スイッチを押して表示される数値を入力してください。", leftButtonTitle: "キャンセル", rightButtonTitle: "決定", leftButtonAction: nil, rightButtonAction: {
-                      
+                      request.bookID = model.bookId
                       request.bookWidth = UInt64(width)!
                       bookAPI.UpdateBookmarkIDRequest(request: request)
-                  var statusRequest = Bookowl_UpdateReadStatusRequest()
-                  statusRequest.bookID = model.bookId
-                  statusRequest.readStatus = .readReading
-                  bookAPI.UpdateReadStatusRequest(request: statusRequest)
+//                  var statusRequest = Bookowl_UpdateReadStatusRequest()
+//                  statusRequest.bookID = model.bookId
+//                  statusRequest.readStatus = .readReading
+//                  bookAPI.UpdateReadStatusRequest(request: statusRequest)
                   isPushed = false
                   isUpdated = true
                   
@@ -115,11 +116,11 @@ struct BookView: View {
               }
           
             Button(action: {
-                var bookmarkRequest = Bookowl_UpdateBookmarkIDRequest()
-                bookmarkRequest.bookID = model.bookId
-                bookmarkRequest.bookWidth = 0
-                bookmarkRequest.bookmarkID = 0
-                bookAPI.UpdateBookmarkIDRequest(request: bookmarkRequest )
+//                var bookmarkRequest = Bookowl_UpdateBookmarkIDRequest()
+//                bookmarkRequest.bookID = model.bookId
+//                bookmarkRequest.bookWidth = 0
+//                bookmarkRequest.bookmarkID = 0
+//                bookAPI.UpdateBookmarkIDRequest(request: bookmarkRequest )
                 var statusRequest = Bookowl_UpdateReadStatusRequest()
                 statusRequest.bookID = model.bookId
                 statusRequest.readStatus = .readComplete

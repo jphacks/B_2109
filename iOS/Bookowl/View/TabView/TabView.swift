@@ -11,7 +11,7 @@ struct TabsView: View {
     enum Tabs:String{
         case goal = "目標"
         case shelf = "本棚"
-        case battle = "対戦相手"
+        case battle = "ランキング"
     }
     
     enum Navs:String{
@@ -29,16 +29,12 @@ struct TabsView: View {
             Color(red: 255/255, green: 241/255, blue: 179/255)
                 .edgesIgnoringSafeArea(.all)
                 TabView(selection: $selectedTab){
-                    
                         TopView(goalParser: goalParser)
                             .tabItem{
     //                            VStack{
                                 Text(Tabs.goal.rawValue)
     //                        }
-                                
                         }.tag(Tabs.goal)
-                    
-                    
                         ShelfView()
                             .tabItem{
     //                            VStack{

@@ -25,7 +25,6 @@
 		652C365F2746537000547F89 /* RankingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652C365E2746537000547F89 /* RankingCell.swift */; };
 		65575A0F272C4AD400ACF5F9 /* ISBNReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65575A0D272C4AD400ACF5F9 /* ISBNReader.swift */; };
 		65575A10272C4AD400ACF5F9 /* ScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65575A0E272C4AD400ACF5F9 /* ScannerViewModel.swift */; };
-		65575A21272C4B7700ACF5F9 /* GoalRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65575A20272C4B7700ACF5F9 /* GoalRegisterView.swift */; };
 		65610CA52723F7CA00549108 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65610CA42723F7CA00549108 /* AppDelegate.swift */; };
 		65610CA72723F7CA00549108 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65610CA62723F7CA00549108 /* SceneDelegate.swift */; };
 		65610CA92723F7CA00549108 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65610CA82723F7CA00549108 /* ContentView.swift */; };
@@ -93,7 +92,6 @@
 		652C365E2746537000547F89 /* RankingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingCell.swift; sourceTree = "<group>"; };
 		65575A0D272C4AD400ACF5F9 /* ISBNReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ISBNReader.swift; sourceTree = "<group>"; };
 		65575A0E272C4AD400ACF5F9 /* ScannerViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerViewModel.swift; sourceTree = "<group>"; };
-		65575A20272C4B7700ACF5F9 /* GoalRegisterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GoalRegisterView.swift; path = Bookowl/View/TabView/Goal/GoalRegisterView.swift; sourceTree = SOURCE_ROOT; };
 		65610CA12723F7CA00549108 /* Bookowl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bookowl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65610CA42723F7CA00549108 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		65610CA62723F7CA00549108 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -187,7 +185,6 @@
 		652C364C27443F1500547F89 /* Goal */ = {
 			isa = PBXGroup;
 			children = (
-				65575A20272C4B7700ACF5F9 /* GoalRegisterView.swift */,
 				65610D052727237600549108 /* TopView.swift */,
 			);
 			path = Goal;
@@ -510,7 +507,6 @@
 				652C365D274533BA00547F89 /* UserModel.swift in Sources */,
 				652C3648274428C200547F89 /* TabView.swift in Sources */,
 				65C9F3CC272953EF00F8B02B /* APITest.swift in Sources */,
-				65575A21272C4B7700ACF5F9 /* GoalRegisterView.swift in Sources */,
 				652C36552745212900547F89 /* UserCell.swift in Sources */,
 				65575A0F272C4AD400ACF5F9 /* ISBNReader.swift in Sources */,
 				65C9F3B627294D6700F8B02B /* BookModel.swift in Sources */,
