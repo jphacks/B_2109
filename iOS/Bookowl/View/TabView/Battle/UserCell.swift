@@ -16,7 +16,7 @@ struct UserCell: View {
                 .edgesIgnoringSafeArea(.all)
         HStack {
             Spacer()
-            Text(String(model.userId))
+//            Text(String(model.userId))
             
             Text(model.name)
                 .padding(10)

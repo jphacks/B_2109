@@ -191,6 +191,7 @@ class GoalModelParser : NSObject, ObservableObject{
                 let response = try client.getReadPages(request, callOptions: CallOptions()).response.wait()
                 print("getReadPages")
                 print(response.readPages)
+                model.progress = Float(Int64(response.readPages) * 100  / model.num_pages)
                 return Int(response.readPages)
 
             }catch let error{

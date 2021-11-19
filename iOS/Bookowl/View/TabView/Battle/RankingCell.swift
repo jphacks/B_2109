@@ -14,40 +14,44 @@ struct RankingCell: View {
             backgroundColor
                 .edgesIgnoringSafeArea(.all)
         HStack {
-            Spacer()
             ZStack(alignment: .center){
-                Image("crown")
-                    .resizable()
-                    .frame(width: 70, height: 70, alignment: .top)
-                    .foregroundColor(brown)
-                    .offset(x: 0, y: 0)
+                if model.rank == 1{
+                    Image("crown")
+                        .resizable()
+                        .frame(width: 70, height: 70, alignment: .top)
+                        .foregroundColor(brown)
+                        .offset(x: 0, y: 0)
+                }
                 Text(String(model.rank))
                     .foregroundColor(red)
                     .font(.title)
-                    .frame(width: 50, height: 50, alignment: .center)
+                    .frame(width: 70, height: 50, alignment: .center)
             }
             
             
 //            Text(String(model.userId))
-            
-            Text(model.name)
-                .padding(10)
-                .foregroundColor(brown)
-                .font(.subheadline)
-            
-            Text(String(model.numPages) + " ページ")
-                .foregroundColor(brown)
-                .font(.subheadline)
-            
             if model.userId == USER_ID{
-                Text("(あなた)")
+                Text(model.name)
+                    .padding(10)
+                    .foregroundColor(red)
+                    .font(.headline)
+                    .frame(width: 150, height: 50, alignment: .center)
+                Text(String(model.numPages) + " ページ")
+                    .foregroundColor(brown)
+                    .font(.headline)
+                    .foregroundColor(red)
+            }else{
+                Text(model.name)
+                    .padding(10)
+                    .foregroundColor(brown)
+                    .font(.subheadline)
+                    .frame(width: 150, height: 50, alignment: .center)
+                Text(String(model.numPages) + " ページ")
+                    .foregroundColor(brown)
                     .font(.subheadline)
                     .foregroundColor(brown)
-                
-            }else{
-                Spacer()
             }
-            
+
             Spacer()
                
             }
@@ -58,7 +62,7 @@ struct RankingCell: View {
 
 struct RankingCell_Previews: PreviewProvider {
     static var previews: some View {
-        var model = UserModel(userId: 6, name: "naa", numPages: 0, rank: 0, isFollow: false)
+        var model = UserModel(userId: 6, name: "五十嵐　双風", numPages: 0, rank: 0, isFollow: true)
         RankingCell(model: model)
     }
 }

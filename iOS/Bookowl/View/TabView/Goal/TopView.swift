@@ -33,15 +33,15 @@ struct TopView: View {
                                 .frame(width: 200, height: 100, alignment: .leading)
                                 .padding(10)
                                 Text(String(goalParser.model.num_pages))
-                            ProgressView(value: progressAmount , total: Float(weekReadPages * 100 / Int(goalParser.model.num_pages)))
+                            ProgressView(value: Float(progressAmount) , total: 100)
                                 .progressViewStyle(LinearProgressViewStyle(tint: green))
-                                .frame(width: UIScreen.main.bounds.width-50, height: 150, alignment: .center)
+                                .frame(width: UIScreen.main.bounds.width-50, height: 30, alignment: .center)
                                 .foregroundColor(brown)
-                                .font(.largeTitle)
+                                .font(.title)
                                 .scaleEffect(x: 1, y: 4, anchor: .center)
                                 .onReceive(timer, perform: { _ in
-                                    if progressAmount < goalParser.model.progress {
-                                        progressAmount = progressAmount + 1
+                                    if progressAmount < goalParser.model.progress{
+                                        progressAmount += 1
                                     }else{
                                         timer.upstream.connect().cancel()
                                     }

@@ -31,12 +31,18 @@ struct TabsView: View {
                 TabView(selection: $selectedTab){
                         TopView(goalParser: goalParser)
                             .tabItem{
-    //                            VStack{
+//                                VStack{
+//                                    if selectedTab == Tabs.goal{
+                                        Image(systemName: "flag.fill")
+
+//                                    }
                                 Text(Tabs.goal.rawValue)
-    //                        }
+                                        
+//                            }
                         }.tag(Tabs.goal)
                         ShelfView()
                             .tabItem{
+                                Image(systemName: "books.vertical.fill")
     //                            VStack{
                                 Text(Tabs.shelf.rawValue)
     //                            }
@@ -44,18 +50,20 @@ struct TabsView: View {
                     
                         ChooseBattleMember()
                             .tabItem{
+                                Image(systemName: "crown.fill")
                                 Text(Tabs.battle.rawValue)
+            
                             }.tag(Tabs.battle)
-                }
+                }.accentColor(red)
         }
     }
 }
 
-//struct TabView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TabView()
-//    }
-//}
+struct TabView_Previews: PreviewProvider {
+    static var previews: some View {
+        TabsView(goalParser: GoalModelParser())
+    }
+}
 // Iconの形式をそろえる
 struct IconView: View {
     var systemName: String
