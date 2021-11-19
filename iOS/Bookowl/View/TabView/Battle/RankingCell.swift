@@ -15,17 +15,37 @@ struct RankingCell: View {
                 .edgesIgnoringSafeArea(.all)
         HStack {
             Spacer()
-            Text(String(model.rank))
+            ZStack(alignment: .center){
+                Image("crown")
+                    .resizable()
+                    .frame(width: 70, height: 70, alignment: .top)
+                    .foregroundColor(brown)
+                    .offset(x: 0, y: 0)
+                Text(String(model.rank))
+                    .foregroundColor(red)
+                    .font(.title)
+                    .frame(width: 50, height: 50, alignment: .center)
+            }
             
-            Text(String(model.userId))
+            
+//            Text(String(model.userId))
             
             Text(model.name)
                 .padding(10)
+                .foregroundColor(brown)
+                .font(.subheadline)
             
-            Text(String(model.numPages))
+            Text(String(model.numPages) + " ページ")
+                .foregroundColor(brown)
+                .font(.subheadline)
             
             if model.userId == USER_ID{
                 Text("(あなた)")
+                    .font(.subheadline)
+                    .foregroundColor(brown)
+                
+            }else{
+                Spacer()
             }
             
             Spacer()

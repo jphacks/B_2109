@@ -168,6 +168,7 @@ class BookAPI :  ObservableObject{
         self.reading.clear()
         for bookModel in bookInfos {
             let pages =  getReadPages(model: bookModel)
+            bookModel.progress = UInt64(Int(pages * 100) / Int(bookModel.pages))
             switch bookModel.status{
             case .readComplete:
                 self.completed.append(book:bookModel)

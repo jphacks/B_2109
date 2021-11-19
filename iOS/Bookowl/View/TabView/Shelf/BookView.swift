@@ -22,23 +22,34 @@ struct BookView: View {
             Bookowl.background
                 .edgesIgnoringSafeArea(.all)
         VStack{
+            Spacer()
             HStack{
+                Spacer()
                 URLImageView(viewModel: .init(url: model.imagePath))
-                    .frame(width: 50, height: 100, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    .frame(width: 150, height: 200, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                 Text(model.name)
-                    .font(.title)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(width: 200, height: 200)
+                    .font(.headline)
                     .foregroundColor(brown)
             }
             .padding(10)
-            Text("ページ数：" + String(model.pages))
             HStack{
-//                Text("進捗 : " + String(model.progress) + " %")
-                Text("進捗 : " + String(model.progress) + " %")
-                    .font(.largeTitle)
-                    .frame(width: 200, height: 50, alignment: .leading)
-                    .padding(10)
+                Text("ページ数：" + String(model.pages))
                     .foregroundColor(brown)
+                    .frame(width: 150, height: 60, alignment: .center)
+                    .font(.title2)
+                
+                
             }
+            Spacer()
+            Text("進捗 : " + String(model.progress) + " %")
+                .font(.title2)
+                .frame(width: 200, height: 50, alignment: .center
+                )
+                .padding(10)
+                .foregroundColor(brown)
+    
             ProgressView(value: Float(progressAmount) , total: 100)
                 .progressViewStyle(LinearProgressViewStyle(tint: green))
                 .frame(width: UIScreen.main.bounds.width-50, height: 30, alignment: .center)
@@ -52,8 +63,12 @@ struct BookView: View {
                         timer.upstream.connect().cancel()
                     }
                 })
+            Spacer()
             Group  {
                   Text("読む場合はしおりを登録してください。")
+                    .font(.headline)
+                    .foregroundColor(brown)
+                Spacer()
                   HStack{
                       Button( action: {
                           request.bookmarkID = 1
@@ -85,50 +100,71 @@ struct BookView: View {
                           .frame(width: 80, height: 80, alignment: .center)
                       }
                   }
-                Button(action: {
-//                    request.bookID = model.bookId
-//                    request.bookmarkID = 0
-//                    bookAPI.UpdateBookmarkIDRequest(request: request)
-                    var statusRequest = Bookowl_UpdateReadStatusRequest()
-                    statusRequest.bookID = model.bookId
-                    statusRequest.readStatus = .readUnread
-                    bookAPI.UpdateReadStatusRequest(request: statusRequest)
-                    isUpdated = true
-                }){ Text("しおりを登録しない")
-                          .font(.title)
-                          .foregroundColor(brown)
-              }
-              
-            }
-              if isPushed{
-              TextFieldAlertView(text: $width, isShowingAlert: $isPushed, placeholder: "", isSecureTextEntry: false, title: "厚みを入力してください。", message: "スイッチを押して表示される数値を入力してください。", leftButtonTitle: "キャンセル", rightButtonTitle: "決定", leftButtonAction: nil, rightButtonAction: {
-                      request.bookID = model.bookId
-                      request.bookWidth = UInt64(width)!
-                      bookAPI.UpdateBookmarkIDRequest(request: request)
-//                  var statusRequest = Bookowl_UpdateReadStatusRequest()
-//                  statusRequest.bookID = model.bookId
-//                  statusRequest.readStatus = .readReading
-//                  bookAPI.UpdateReadStatusRequest(request: statusRequest)
-                  isPushed = false
-                  isUpdated = true
+                
+                Spacer()
+                HStack{
+                    Button(action: {
+    //                    request.bookID = model.bookId
+    //                    request.bookmarkID = 0
+    //                    bookAPI.UpdateBookmarkIDRequest(request: request)
+                        var statusRequest = Bookowl_UpdateReadStatusRequest()
+                        statusRequest.bookID = model.bookId
+                        statusRequest.readStatus = .readUnread
+                        bookAPI.UpdateReadStatusRequest(request: statusRequest)
+                        isUpdated = true
+                    }){
+                        ZStack{
+                            Image("book")
+                                .resizable()
+                                .frame(width: 150, height: 100, alignment: .center)
+                            Text("しおりを外す")
+                              .font(.title3)
+                              .foregroundColor(red)
+                            
+                        }
+                  }
+                    
+                    Button(action: {
+        //                var bookmarkRequest = Bookowl_UpdateBookmarkIDRequest()
+        //                bookmarkRequest.bookID = model.bookId
+        //                bookmarkRequest.bookWidth = 0
+        //                bookmarkRequest.bookmarkID = 0
+        //                bookAPI.UpdateBookmarkIDRequest(request: bookmarkRequest )
+                        var statusRequest = Bookowl_UpdateReadStatusRequest()
+                        statusRequest.bookID = model.bookId
+                        statusRequest.readStatus = .readComplete
+                        bookAPI.UpdateReadStatusRequest(request: statusRequest)
+                        isUpdated = true
+                    }){
+                        ZStack{
+                            Image("book")
+                                .resizable()
+                                .frame(width: 150, height: 100, alignment: .center)
+                            Text("読み終わり").foregroundColor(red).font(.title3)
+                        }
+                    }
+                    
                   
-              })
-              }
-          
-            Button(action: {
-//                var bookmarkRequest = Bookowl_UpdateBookmarkIDRequest()
-//                bookmarkRequest.bookID = model.bookId
-//                bookmarkRequest.bookWidth = 0
-//                bookmarkRequest.bookmarkID = 0
-//                bookAPI.UpdateBookmarkIDRequest(request: bookmarkRequest )
-                var statusRequest = Bookowl_UpdateReadStatusRequest()
-                statusRequest.bookID = model.bookId
-                statusRequest.readStatus = .readComplete
-                bookAPI.UpdateReadStatusRequest(request: statusRequest)
-                isUpdated = true
-            }){Text("完読！！！").foregroundColor(red).font(.title)}
+                }
+                  if isPushed{
+                  TextFieldAlertView(text: $width, isShowingAlert: $isPushed, placeholder: "", isSecureTextEntry: false, title: "厚みを入力してください。", message: "スイッチを押して表示される数値を入力してください。", leftButtonTitle: "キャンセル", rightButtonTitle: "決定", leftButtonAction: nil, rightButtonAction: {
+                          request.bookID = model.bookId
+                          request.bookWidth = UInt64(width)!
+                          bookAPI.UpdateBookmarkIDRequest(request: request)
+    //                  var statusRequest = Bookowl_UpdateReadStatusRequest()
+    //                  statusRequest.bookID = model.bookId
+    //                  statusRequest.readStatus = .readReading
+    //                  bookAPI.UpdateReadStatusRequest(request: statusRequest)
+                      isPushed = false
+                      isUpdated = true
+                      
+                  })
+                  }
+                Spacer()
+               
+                   
+                }
                                                 
-            Spacer()
             
         }.alert(isPresented: $isUpdated) {
             
@@ -152,12 +188,15 @@ struct BookView: View {
 }
 
 //
-//struct BookView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Group {
-//            @State var model = Bookowl_BookInfo()
-//            BookView(model:$model)
-//                .previewDevice("iPhone 11")
-//        }
-//    }
-//}
+struct BookView_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            let bookAPI = BookAPI()
+            let model = unReadModels[0]
+            let isPushed = false
+            let isreload = reloadModel()
+            BookView(model: model, isPushed: isPushed, isUpdated: isPushed, isReload: isreload, bookAPI: bookAPI)
+                .previewDevice("iPhone X")
+        }
+    }
+}
