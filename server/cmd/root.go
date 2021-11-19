@@ -284,7 +284,7 @@ func initData() error {
 	}
 	err = ubr.Create(context.Background(), &models.UserBook{
 		UserID:     4,
-		BookID:     4,
+		BookID:     6,
 		WidthLevel: 100,
 		ReadStatus: models.READ_STATUS_COMPLETE,
 	})
@@ -293,7 +293,7 @@ func initData() error {
 	}
 	err = ubr.Create(context.Background(), &models.UserBook{
 		UserID:     5,
-		BookID:     5,
+		BookID:     8,
 		WidthLevel: 100,
 		ReadStatus: models.READ_STATUS_COMPLETE,
 	})
