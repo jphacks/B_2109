@@ -138,6 +138,7 @@ struct RegisterView: View {
                 isFindBarcode = false
                 isUpdated = false
                 isFinish = true
+                
             })
             
             

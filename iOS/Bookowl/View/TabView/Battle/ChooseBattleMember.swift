@@ -33,7 +33,6 @@ struct ChooseBattleMember: View {
                 .navigationViewStyle(.stack)
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarItems(trailing:
-                                 
                     NavigationLink( "フォロー追加", destination: UserListView(users: _users, matchAPI: _matchAPI, follows: _follows)
                                         .onDisappear(perform: {
                         isFollowView = false
@@ -43,8 +42,7 @@ struct ChooseBattleMember: View {
                     isFollowView = true
                     print("list appear")
                 })
-                                  )
-                    
+                    )
                 )
             .onAppear{
                 print("onAppear!!")

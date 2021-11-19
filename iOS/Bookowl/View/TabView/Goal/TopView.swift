@@ -15,11 +15,13 @@ struct TopView: View {
     let green = Color(red: 143/255, green: 156/255, blue: 64/255)
     let background = Color(red: 255/255, green: 241/255, blue: 179/255)
     @ObservedObject var goalParser : GoalModelParser
-    
+    @State var allReadPages = 0
+    @State var allReadSecond = 0
+    @State var weekReadPages = 0
+    @State var weekReadSecond = 0
     var body: some View {
         NavigationView{
                 ZStack{
-                    
                     background
                         .edgesIgnoringSafeArea(.all)
                     if !ContentView().firstVisit(){
@@ -29,7 +31,7 @@ struct TopView: View {
                                 .frame(width: 200, height: 100, alignment: .leading)
                                 .padding(10)
                                 Text(String(goalParser.model.num_pages))
-                            ProgressView(value: progressAmount , total: 100)
+                            ProgressView(value: progressAmount , total: Float(weekReadPages * 100 / goalParser.model.num_pages))
                                 .progressViewStyle(LinearProgressViewStyle(tint: green))
                                 .frame(width: UIScreen.main.bounds.width-50, height: 150, alignment: .center)
                                 .foregroundColor(brown)
@@ -53,6 +55,7 @@ struct TopView: View {
                 .navigationViewStyle(StackNavigationViewStyle())
                 .onAppear{
                     goalParser.decodeToGoalModel()
+                    weekReadPages = goalParser.getReadPagesRequest()
                 }
             }
     }

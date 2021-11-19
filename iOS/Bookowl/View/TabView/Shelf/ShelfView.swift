@@ -39,7 +39,7 @@ struct ShelfView: View {
         //                    homeModel.isLoading = true
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
 //                                bookAPI.divideByStatus(bookInfos: bookAPI.bookInfos)
-                                self.reading.setBooks(books:bookAPI.getBooks(status: .readReading))
+//                                self.reading.setBooks(books:bookAPI.getBooks(status: .readReading))
                             }
                         }
 
@@ -49,7 +49,7 @@ struct ShelfView: View {
                         .onPageAppear {
         //                    trendingModel.isLoading = true
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                self.unReads.setBooks(books:bookAPI.getBooks(status: .readUnread))
+//                                self.unReads.setBooks(books:bookAPI.getBooks(status: .readUnread))
                             }
                         }
 
@@ -57,7 +57,7 @@ struct ShelfView: View {
                         TitleNavBarItem(title: "読了本")
                         } .onPageAppear{
                             DispatchQueue.main.asyncAfter(deadline: .now()+2) {
-                                self.completed.setBooks(books:bookAPI.getBooks(status: .readComplete))
+//                                self.completed.setBooks(books:bookAPI.getBooks(status: .readComplete))
                             }
                         }
 
@@ -73,7 +73,9 @@ struct ShelfView: View {
                 isRegisterBook = true  
             }){
                 Text("本登録")
-                    .fullScreenCover(isPresented: $isRegisterBook){
+                    .fullScreenCover(isPresented: $isRegisterBook, onDismiss: {
+                        isReload.isReload = true
+                    }){
                         ISBNView(viewModel: ScannerViewModel() , isActive: $isRegisterBook, bookAPI: bookAPI )
                     }
             })
@@ -93,6 +95,11 @@ struct ShelfView: View {
                     }
                 }
                 }
+            .onAppear(perform: {
+                reading.setBooks(books:bookAPI.getBooks(status: .readReading))
+                unReads.setBooks(books:bookAPI.getBooks(status: .readUnread))
+                completed.setBooks(books: bookAPI.getBooks(status: .readComplete))
+            })
             
     }
 

@@ -43,15 +43,12 @@ class MatchAPI : ObservableObject{
                             users.append(userModel)
                         }
                     }
-                    
-//
                 }
                 isAPICalling = false
                 return users
             }catch let error{
                 print(error)
                 isAPICalling = false
-                
             }
         isAPICalling = false
         return []

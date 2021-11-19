@@ -126,7 +126,7 @@ class BookAPI :  ObservableObject{
         do{
             let client = Bookowl_BookClient.init(channel: connection, defaultCallOptions: CallOptions())
             let response = try client.getBooks(request, callOptions: CallOptions()).response.wait()
-            print("response!!")
+            print("getUserbyRequest!!")
             let bookArray = response.booksInfo
             var bookInfos : [BookModel] = []
             for bookInfo in bookArray {
@@ -192,7 +192,7 @@ class BookAPI :  ObservableObject{
         do{
             let client = Bookowl_BookClient.init(channel: connection, defaultCallOptions: CallOptions())
             let response = try client.getReadPagesByBookID(request, callOptions: CallOptions()).response.wait()
-            print("response!!")
+            print("readPages")
             return response.readPages
         }catch let error{
             print(error)
