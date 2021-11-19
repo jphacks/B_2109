@@ -20,7 +20,7 @@ struct TabsView: View {
     }
 
     @ObservedObject var goalParser : GoalModelParser
-    @ObservedObject var bookAPI = BookAPI()
+//    @ObservedObject var bookAPI = BookAPI()
     
     @State private var navigationTitle: String = Tabs.goal.rawValue
        @State private var selectedTab: Tabs = .goal

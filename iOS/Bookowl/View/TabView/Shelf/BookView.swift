@@ -15,7 +15,7 @@ struct BookView: View {
     @State var request = Bookowl_UpdateBookmarkIDRequest()
     @ObservedObject var isReload : reloadModel
     let timer = Timer.publish(every: 0.01, on: .main, in: .common).autoconnect()
-    let bookAPI = BookAPI()
+    @ObservedObject var bookAPI : BookAPI
     @State private var progressAmount = 0
     var body: some View {
         ZStack{

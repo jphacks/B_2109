@@ -23,6 +23,7 @@ class BookAPI :  ObservableObject{
     init(){
         bookInfos = self.getBookByUserIdRequest()
         self.divideByStatus(bookInfos: bookInfos)
+        print("initBookAPI")
     }
     
     func RegisterBookRequest(model : Bookowl_BookInfo) -> Bookowl_BookInfo! {
@@ -48,7 +49,8 @@ class BookAPI :  ObservableObject{
                 print("registerBook")
                 print(response.bookInfo.isbn)
                 print(response.bookInfo.authors)
-                reload()
+//                bookInfos.append()
+//                reload()
                 return response.bookInfo
             }catch let error{
                 print(error)
@@ -69,7 +71,7 @@ class BookAPI :  ObservableObject{
             let response = try client.updateBookmarkID(request, callOptions: CallOptions()).response.wait()
             print("BookMarker is Updated!!")
             setBookMarkId(bookId: request.bookID, bookMarkId: request.bookmarkID, width: request.bookWidth)
-            reload()
+//            reload()
             return true
         }catch let error{
             print(error)
@@ -111,9 +113,19 @@ class BookAPI :  ObservableObject{
             print(error)
         }
     }
-    
+//
+//    func moveBookList(bookId:UInt64,status:Bookowl_ReadStatus,isFirst:Bool){
+//        if isFirst{
+//            switch status{
+//            case .readReading:
+//                reading.append()
+//            }
+//        }
+//    }
+     
  
     func getBookByUserIdRequest() -> [BookModel]!{
+        let start = Date()
         let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
         defer{
             try? group.syncShutdownGracefully()
@@ -127,6 +139,8 @@ class BookAPI :  ObservableObject{
             let client = Bookowl_BookClient.init(channel: connection, defaultCallOptions: CallOptions())
             let response = try client.getBooks(request, callOptions: CallOptions()).response.wait()
             print("getUserbyRequest!!")
+            let elapsed = Date().timeIntervalSince(start)
+            print(elapsed)
             let bookArray = response.booksInfo
             var bookInfos : [BookModel] = []
             for bookInfo in bookArray {
@@ -142,7 +156,7 @@ class BookAPI :  ObservableObject{
     }
     
     func divideByStatus(bookInfos : [BookModel]){
-        print("devide")
+        print("divide")
         self.unReads.clear()
         self.completed.clear()
         self.reading.clear()
@@ -164,6 +178,7 @@ class BookAPI :  ObservableObject{
     }
     
     func reload(){
+        print("reload")
         bookInfos = self.getBookByUserIdRequest()
         self.divideByStatus(bookInfos: bookInfos)
     }

@@ -33,7 +33,7 @@ struct ShelfView: View {
                 backgroundColor.edgesIgnoringSafeArea(.all)
                 VStack{
                     PagerTabStripView() {
-                        BookListView(books: _reading,isReload: _isReload,status: Bookowl_ReadStatus.readReading).pagerTabItem {
+                        BookListView(books: _reading,isReload: _isReload,status: Bookowl_ReadStatus.readReading, bookAPI: _bookAPI).pagerTabItem {
                             TitleNavBarItem(title: "読書中")
                         }.onPageAppear {
         //                    homeModel.isLoading = true
@@ -43,7 +43,7 @@ struct ShelfView: View {
                             }
                         }
 
-                        BookListView(books: _unReads,isReload: _isReload, status:Bookowl_ReadStatus.readUnread).pagerTabItem {
+                        BookListView(books: _unReads,isReload: _isReload, status:Bookowl_ReadStatus.readUnread, bookAPI: _bookAPI).pagerTabItem {
                             TitleNavBarItem(title: "積読中")
                         }
                         .onPageAppear {
@@ -53,7 +53,7 @@ struct ShelfView: View {
                             }
                         }
 
-                        BookListView(books: _completed,isReload: _isReload, status:Bookowl_ReadStatus.readComplete).pagerTabItem {
+                        BookListView(books: _completed,isReload: _isReload, status:Bookowl_ReadStatus.readComplete, bookAPI: _bookAPI).pagerTabItem {
                         TitleNavBarItem(title: "読了本")
                         } .onPageAppear{
                             DispatchQueue.main.asyncAfter(deadline: .now()+2) {
@@ -105,42 +105,6 @@ struct ShelfView: View {
 
 }
     
-
-struct RefreshControl: View {
-    
-    @State private var isRefreshing = false
-    var coordinateSpaceName: String
-    var onRefresh: () -> Void
-    
-    var body: some View {
-        GeometryReader { geometry in
-            if geometry.frame(in: .named(coordinateSpaceName)).midY > 50 {
-                Spacer()
-                    .onAppear() {
-                        isRefreshing = true
-                    }
-            } else if geometry.frame(in: .named(coordinateSpaceName)).maxY < 10 {
-                Spacer()
-                    .onAppear() {
-                        if isRefreshing {
-                            isRefreshing = false
-                            onRefresh()
-                        }
-                    }
-            }
-            HStack {
-                Spacer()
-                if isRefreshing {
-                    ProgressView()
-                } else {
-                    Text("⬇︎")
-                        .font(.system(size: 28))
-                }
-                Spacer()
-            }
-        }.padding(.top, -50)
-    }
-}
 
 struct ShelfView_Previews: PreviewProvider {
     static var previews: some View {
