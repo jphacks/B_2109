@@ -38,13 +38,8 @@ build: $(CMDS)
 vet:
 	$(GO) vet $(GO_VET_OPTS) ./...
 
-.PHONY: test-dep
-test-dep:
-	$(DOCKERCOMPOSE) -f $(DOCKERCOMPOSE_FILE) down --volumes
-	$(DOCKERCOMPOSE) -f $(DOCKERCOMPOSE_FILE) up -d
-
 .PHONY: test
-test: vet test-dep
+test: vet run
 #	$(GO) test $(GO_TEST_OPTS) ./...
 	$(GINKGO) $(GINKGO_TEST_OPTS) ./...
 
@@ -56,6 +51,11 @@ mod:
 clean:
 	-$(GO) clean
 	-rm $(RM_OPTS) bin/*
+
+.PHONY: run
+run:
+	$(DOCKERCOMPOSE) -f $(DOCKERCOMPOSE_FILE) down --volumes
+	$(DOCKERCOMPOSE) -f $(DOCKERCOMPOSE_FILE) up -d
 
 .PHONY: all
 all: mod vet build docker
