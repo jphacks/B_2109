@@ -26,11 +26,11 @@ func GetFormatter(format LogFormat) logrus.Formatter {
 	case LogFormatText:
 		return &logrus.TextFormatter{
 			DisableTimestamp: true,
-			DisableColors:    true,
+			//DisableColors:    true,
 		}
 	case LogFormatJSON:
 		return &logrus.JSONFormatter{
-			DisableTimestamp: true,
+			//DisableTimestamp: true,
 		}
 	}
 

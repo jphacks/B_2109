@@ -24,6 +24,11 @@ func NewReadEventServer() *ReadEventServer {
 }
 
 func (s ReadEventServer) CreateReadEvent(ctx context.Context, r *api.CreateReadEventRequest) (*api.CreateReadEventResponse, error) {
+	log.WithFields(logrus.Fields{
+		"Service": "CreateReadEvent",
+		"Request": fmt.Sprintf("%#v", r),
+	}).Info("request comes.")
+
 	re, err := createReadEvent(ctx, uint(r.GetBookmarkId()), r.GetReadEventInfo().GetReadStartTime().AsTime(), r.GetReadEventInfo().GetReadEndTime().AsTime(),
 		r.GetReadEventInfo().ReadStartWidthRevel, r.GetReadEventInfo().GetReadEndWidthLevel())
 	if err != nil {
@@ -39,6 +44,11 @@ func (s ReadEventServer) CreateReadEvent(ctx context.Context, r *api.CreateReadE
 
 func (s ReadEventServer) GetReadEventsByBookID(ctx context.Context, r *api.GetReadEventsByBookIDRequest) (*api.GetReadEventsResponse, error) {
 	var ris []*api.ReadEventInfo
+
+	log.WithFields(logrus.Fields{
+		"Service": "GetReadEventsByBookID",
+		"Request": fmt.Sprintf("%#v", r),
+	}).Info("request comes.")
 
 	res, err := getReadEventsByUserBookID(ctx, uint(r.GetBookId()))
 	if err != nil {

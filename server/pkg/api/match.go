@@ -26,6 +26,11 @@ func NewMatchServer() *MatchServer {
 }
 
 func (s MatchServer) RegisterOpponents(ctx context.Context, r *api.RegisterOpponentsRequest) (*api.RegisterOpponentsResponse, error) {
+	log.WithFields(logrus.Fields{
+		"Service": "RegisterOpponents",
+		"Request": fmt.Sprintf("%#v", r),
+	}).Info("request comes.")
+
 	err := registerOpponents(ctx, uint(r.GetUserId()), uintSlice(r.GetOpponentIds()))
 	if err != nil {
 		log.WithFields(logrus.Fields{
@@ -39,6 +44,11 @@ func (s MatchServer) RegisterOpponents(ctx context.Context, r *api.RegisterOppon
 
 func (s MatchServer) GetOpponents(ctx context.Context, r *api.GetOpponentsRequest) (*api.GetOpponentsResponse, error) {
 	var ois []*api.OpponentsInfo
+
+	log.WithFields(logrus.Fields{
+		"Service": "GetOpponents",
+		"Request": fmt.Sprintf("%#v", r),
+	}).Info("request comes.")
 
 	opts, err := getOpponents(ctx, uint(r.GetUserId()))
 	if err != nil {
@@ -62,6 +72,11 @@ func (s MatchServer) GetOpponents(ctx context.Context, r *api.GetOpponentsReques
 }
 
 func (s MatchServer) GetRanking(ctx context.Context, r *api.GetRankingRequest) (*api.GetRankingResponse, error) {
+	log.WithFields(logrus.Fields{
+		"Service": "GetRanking",
+		"Request": fmt.Sprintf("%#v", r),
+	}).Info("request comes.")
+
 	rs, err := getRanking(ctx, uint(r.GetUserId()))
 	if err != nil {
 		log.WithFields(logrus.Fields{
@@ -75,6 +90,11 @@ func (s MatchServer) GetRanking(ctx context.Context, r *api.GetRankingRequest) (
 
 func (s MatchServer) GetUsers(ctx context.Context, r *api.GetUserRequest) (*api.GetUserResponse, error) {
 	var uis []*api.UserInfo
+
+	log.WithFields(logrus.Fields{
+		"Service": "GetUsers",
+		"Request": fmt.Sprintf("%#v", r),
+	}).Info("request comes.")
 
 	us, err := getUsers(ctx, uint(r.GetUserId()))
 	if err != nil {
