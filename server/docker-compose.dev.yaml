@@ -20,9 +20,9 @@ services:
     build:
       dockerfile: ./docker/bookowl.Dockerfile
       context: ./
-    depends_on:
-      mysql:
-        condition: service_healthy
+#    depends_on:
+#      mysql:
+#        condition: service_healthy
     command:
     - "/bookowl"
     - "--addr"
