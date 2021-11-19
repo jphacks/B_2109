@@ -52,12 +52,13 @@ struct ISBNView: View {
                         ZStack{
                         ActivityIndicator(isAnimating: $viewModel.isShowing, style: .large)
                         VStack{
+                            Spacer()
                         Text("バーコード読み取り中．．．\n 978から始まるバーコードをかざしてください。")
-                            .font(.caption)
+                            .font(.headline)
                             .foregroundColor(brown)
                         
-                        Text("バーコード読み取り結果 = [ " + self.viewModel.lastQrCode + " ]")
-                    
+                        Text("バーコード読み取り結果  " + self.viewModel.lastQrCode + " ")
+                                .foregroundColor(red)
                     .padding(.vertical, 20)
 //                    Spacer()
                           
@@ -65,6 +66,18 @@ struct ISBNView: View {
                             .found(r: self.viewModel.onFoundQrCode)
                             .interval(delay: self.viewModel.scanInterval)
                             .frame(width: UIScreen.main.bounds.width, height: 200, alignment: .center)
+                        
+                            Spacer()
+                            Button(action: {isActive = false}){
+                                Text("閉じる")
+                                    .foregroundColor(brown)
+                                    .font(.title2)
+                                    .frame(width: 120, height: 50, alignment: .center)
+                                                // 枠線を描画
+                                    .overlay(RoundedRectangle(cornerRadius: 10)
+                                    .stroke(red, lineWidth: 2))
+                            }
+                            Spacer()
                         }
                         }.onChange(of: isFinish){
                             newValue in
