@@ -20,7 +20,7 @@ struct RankingCell: View {
                         .resizable()
                         .frame(width: 70, height: 70, alignment: .top)
                         .foregroundColor(brown)
-                        .offset(x: 0, y: 0)
+                        .offset(x: 0, y: -10)
                 }
                 Text(String(model.rank))
                     .foregroundColor(red)
@@ -38,7 +38,7 @@ struct RankingCell: View {
                     .frame(width: 150, height: 50, alignment: .center)
                 Text(String(model.numPages) + " ページ")
                     .foregroundColor(brown)
-                    .font(.headline)
+                    .font(.subheadline)
                     .foregroundColor(red)
             }else{
                 Text(model.name)

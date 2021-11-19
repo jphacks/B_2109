@@ -54,14 +54,6 @@ struct ContentView: View {
                 }
     }
     
-//    func getDestination(from navItem: Navs) -> AnyView {
-//        if navItem == Navs.goalRegister {
-//            return AnyView(GoalRegisterView( goalModelParser: goalParser))
-//        } else{
-//            return AnyView(ISBNView())
-//        }
-//        
-//    }
 }
 
 

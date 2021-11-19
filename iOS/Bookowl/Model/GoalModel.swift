@@ -149,6 +149,33 @@ class GoalModelParser : NSObject, ObservableObject{
         
     }
     
+    func getDayCountBySunday()->Int{
+        let calendar = Calendar(identifier: .gregorian)
+        let today = Date()
+        let weekday = WeekDay(rawValue: Calendar.current.component(Calendar.Component.weekday, from: today))
+        switch weekday {
+        case .monday:
+            return 7
+            break
+        case .none:
+            return 0
+            break
+        case .some(.sunday):
+            return 1
+        case .some(.tuesday):
+            return 6
+        case .some(.wednesday):
+            return 5
+            
+        case .some(.thursday):
+            return 4
+        case .some(.friday):
+            return 3
+        case .some(.saturday):
+            return 2
+        }
+    }
+    
     
     func getReadPagesWithDurationRequest()->Int{
         let date = getMondaySunday()
