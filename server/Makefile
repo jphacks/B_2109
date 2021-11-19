@@ -61,7 +61,7 @@ test-run:
 .PHONY: run
 run:
 	$(DOCKERCOMPOSE) -f $(DOCKERCOMPOSE_DEV_FILE) down --volumes
-	$(DOCKERCOMPOSE) -f $(DOCKERCOMPOSE_DEV_FILE) up -d
+	$(DOCKERCOMPOSE) -f $(DOCKERCOMPOSE_DEV_FILE) up -d --build
 
 .PHONY: all
 all: mod vet build docker
