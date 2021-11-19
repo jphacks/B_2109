@@ -23,6 +23,7 @@ class BookAPI :  ObservableObject{
     init(){
         bookInfos = self.getBookByUserIdRequest()
         self.divideByStatus(bookInfos: bookInfos)
+        print("initBookAPI")
     }
     
     func RegisterBookRequest(model : Bookowl_BookInfo) -> Bookowl_BookInfo! {
@@ -48,7 +49,8 @@ class BookAPI :  ObservableObject{
                 print("registerBook")
                 print(response.bookInfo.isbn)
                 print(response.bookInfo.authors)
-                reload()
+//                bookInfos.append()
+//                reload()
                 return response.bookInfo
             }catch let error{
                 print(error)
@@ -57,6 +59,10 @@ class BookAPI :  ObservableObject{
     }
     
     func UpdateBookmarkIDRequest(request : Bookowl_UpdateBookmarkIDRequest) -> Bool{
+        print("updateBookmarkIDRequest")
+        print(request.bookID)
+        print(request.bookmarkID)
+        print(request.bookWidth)
         let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
         defer{
             try? group.syncShutdownGracefully()
@@ -68,10 +74,12 @@ class BookAPI :  ObservableObject{
             let client = Bookowl_BookClient.init(channel: connection, defaultCallOptions: CallOptions())
             let response = try client.updateBookmarkID(request, callOptions: CallOptions()).response.wait()
             print("BookMarker is Updated!!")
+            print(response.bookInfo.bookmarkID)
             setBookMarkId(bookId: request.bookID, bookMarkId: request.bookmarkID, width: request.bookWidth)
-            reload()
+//            reload()
             return true
         }catch let error{
+            print("updateError!")
             print(error)
         }
         return false
@@ -111,9 +119,19 @@ class BookAPI :  ObservableObject{
             print(error)
         }
     }
-    
+//
+//    func moveBookList(bookId:UInt64,status:Bookowl_ReadStatus,isFirst:Bool){
+//        if isFirst{
+//            switch status{
+//            case .readReading:
+//                reading.append()
+//            }
+//        }
+//    }
+     
  
     func getBookByUserIdRequest() -> [BookModel]!{
+        let start = Date()
         let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
         defer{
             try? group.syncShutdownGracefully()
@@ -126,7 +144,9 @@ class BookAPI :  ObservableObject{
         do{
             let client = Bookowl_BookClient.init(channel: connection, defaultCallOptions: CallOptions())
             let response = try client.getBooks(request, callOptions: CallOptions()).response.wait()
-            print("response!!")
+            print("getUserbyRequest!!")
+            let elapsed = Date().timeIntervalSince(start)
+            print(elapsed)
             let bookArray = response.booksInfo
             var bookInfos : [BookModel] = []
             for bookInfo in bookArray {
@@ -142,12 +162,13 @@ class BookAPI :  ObservableObject{
     }
     
     func divideByStatus(bookInfos : [BookModel]){
-        print("devide")
+        print("divide")
         self.unReads.clear()
         self.completed.clear()
         self.reading.clear()
         for bookModel in bookInfos {
             let pages =  getReadPages(model: bookModel)
+            bookModel.progress = UInt64(Int(pages * 100) / Int(bookModel.pages))
             switch bookModel.status{
             case .readComplete:
                 self.completed.append(book:bookModel)
@@ -164,6 +185,7 @@ class BookAPI :  ObservableObject{
     }
     
     func reload(){
+        print("reload")
         bookInfos = self.getBookByUserIdRequest()
         self.divideByStatus(bookInfos: bookInfos)
     }
@@ -192,7 +214,9 @@ class BookAPI :  ObservableObject{
         do{
             let client = Bookowl_BookClient.init(channel: connection, defaultCallOptions: CallOptions())
             let response = try client.getReadPagesByBookID(request, callOptions: CallOptions()).response.wait()
-            print("response!!")
+            
+            print("readPages")
+            print(response.readPages)
             return response.readPages
         }catch let error{
             print(error)

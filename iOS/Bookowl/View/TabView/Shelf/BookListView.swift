@@ -23,15 +23,17 @@ class BookModels : ObservableObject{
 struct BookListView: View {
     @ObservedObject var books : BookModels
     @ObservedObject var isReload : reloadModel
+    @ObservedObject var bookAPI : BookAPI
     let background =  Color(red: 255/255, green: 241/255, blue: 179/255)
     var status = Bookowl_ReadStatus.readUnread
-    init(books:ObservedObject<BookModels>,isReload:ObservedObject<reloadModel>, status:Bookowl_ReadStatus){
+    init(books:ObservedObject<BookModels>,isReload:ObservedObject<reloadModel>, status:Bookowl_ReadStatus, bookAPI : ObservedObject<BookAPI>){
         //List全体の背景色の設定
         UITableView.appearance().backgroundColor = UIColor(background)
 //        self._bookAPI = bookAPI
         self._books = books
         self._isReload = isReload
         self.status = status
+        self._bookAPI = bookAPI
     }
     
     var body: some View {
@@ -40,7 +42,7 @@ struct BookListView: View {
                     .edgesIgnoringSafeArea(.all)
                 List{
                     ForEach(books.books, id:\.bookId) { book in
-                                NavigationLink(destination: BookView(model: book, isReload: isReload)) {
+                                NavigationLink(destination: BookView(model: book, isReload: isReload,bookAPI: bookAPI)) {
                                             background.edgesIgnoringSafeArea(.all)
 //                                                EmptyView()
 //                                                .foregroundColor(background)

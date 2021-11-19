@@ -33,31 +33,31 @@ struct ShelfView: View {
                 backgroundColor.edgesIgnoringSafeArea(.all)
                 VStack{
                     PagerTabStripView() {
-                        BookListView(books: _reading,isReload: _isReload,status: Bookowl_ReadStatus.readReading).pagerTabItem {
+                        BookListView(books: _reading,isReload: _isReload,status: Bookowl_ReadStatus.readReading, bookAPI: _bookAPI).pagerTabItem {
                             TitleNavBarItem(title: "読書中")
                         }.onPageAppear {
         //                    homeModel.isLoading = true
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
 //                                bookAPI.divideByStatus(bookInfos: bookAPI.bookInfos)
-                                self.reading.setBooks(books:bookAPI.getBooks(status: .readReading))
+//                                self.reading.setBooks(books:bookAPI.getBooks(status: .readReading))
                             }
                         }
 
-                        BookListView(books: _unReads,isReload: _isReload, status:Bookowl_ReadStatus.readUnread).pagerTabItem {
+                        BookListView(books: _unReads,isReload: _isReload, status:Bookowl_ReadStatus.readUnread, bookAPI: _bookAPI).pagerTabItem {
                             TitleNavBarItem(title: "積読中")
                         }
                         .onPageAppear {
         //                    trendingModel.isLoading = true
                             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                                self.unReads.setBooks(books:bookAPI.getBooks(status: .readUnread))
+//                                self.unReads.setBooks(books:bookAPI.getBooks(status: .readUnread))
                             }
                         }
 
-                        BookListView(books: _completed,isReload: _isReload, status:Bookowl_ReadStatus.readComplete).pagerTabItem {
+                        BookListView(books: _completed,isReload: _isReload, status:Bookowl_ReadStatus.readComplete, bookAPI: _bookAPI).pagerTabItem {
                         TitleNavBarItem(title: "読了本")
                         } .onPageAppear{
                             DispatchQueue.main.asyncAfter(deadline: .now()+2) {
-                                self.completed.setBooks(books:bookAPI.getBooks(status: .readComplete))
+//                                self.completed.setBooks(books:bookAPI.getBooks(status: .readComplete))
                             }
                         }
 
@@ -73,7 +73,9 @@ struct ShelfView: View {
                 isRegisterBook = true  
             }){
                 Text("本登録")
-                    .fullScreenCover(isPresented: $isRegisterBook){
+                    .fullScreenCover(isPresented: $isRegisterBook, onDismiss: {
+                        isReload.isReload = true
+                    }){
                         ISBNView(viewModel: ScannerViewModel() , isActive: $isRegisterBook, bookAPI: bookAPI )
                     }
             })
@@ -93,47 +95,16 @@ struct ShelfView: View {
                     }
                 }
                 }
+            .onAppear(perform: {
+                reading.setBooks(books:bookAPI.getBooks(status: .readReading))
+                unReads.setBooks(books:bookAPI.getBooks(status: .readUnread))
+                completed.setBooks(books: bookAPI.getBooks(status: .readComplete))
+            })
             
     }
 
 }
     
-
-struct RefreshControl: View {
-    
-    @State private var isRefreshing = false
-    var coordinateSpaceName: String
-    var onRefresh: () -> Void
-    
-    var body: some View {
-        GeometryReader { geometry in
-            if geometry.frame(in: .named(coordinateSpaceName)).midY > 50 {
-                Spacer()
-                    .onAppear() {
-                        isRefreshing = true
-                    }
-            } else if geometry.frame(in: .named(coordinateSpaceName)).maxY < 10 {
-                Spacer()
-                    .onAppear() {
-                        if isRefreshing {
-                            isRefreshing = false
-                            onRefresh()
-                        }
-                    }
-            }
-            HStack {
-                Spacer()
-                if isRefreshing {
-                    ProgressView()
-                } else {
-                    Text("⬇︎")
-                        .font(.system(size: 28))
-                }
-                Spacer()
-            }
-        }.padding(.top, -50)
-    }
-}
 
 struct ShelfView_Previews: PreviewProvider {
     static var previews: some View {

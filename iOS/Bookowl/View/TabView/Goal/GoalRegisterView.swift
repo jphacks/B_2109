@@ -24,7 +24,6 @@ struct GoalRegisterView: View {
     @State var page = ""
     @State private var selectionStartDate = Date()
     @State private var selectionEndDate = Date()
-    @ObservedObject var goalAPI = GoalRegisterAPI()
     @ObservedObject var goalModelParser : GoalModelParser
     @Environment(\.presentationMode) var presentationMode
     var body: some View {

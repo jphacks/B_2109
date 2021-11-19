@@ -11,7 +11,7 @@ struct TabsView: View {
     enum Tabs:String{
         case goal = "目標"
         case shelf = "本棚"
-        case battle = "対戦相手"
+        case battle = "ランキング"
     }
     
     enum Navs:String{
@@ -20,7 +20,7 @@ struct TabsView: View {
     }
 
     @ObservedObject var goalParser : GoalModelParser
-    @ObservedObject var bookAPI = BookAPI()
+//    @ObservedObject var bookAPI = BookAPI()
     
     @State private var navigationTitle: String = Tabs.goal.rawValue
        @State private var selectedTab: Tabs = .goal
@@ -29,18 +29,20 @@ struct TabsView: View {
             Color(red: 255/255, green: 241/255, blue: 179/255)
                 .edgesIgnoringSafeArea(.all)
                 TabView(selection: $selectedTab){
-                    
                         TopView(goalParser: goalParser)
                             .tabItem{
-    //                            VStack{
+//                                VStack{
+//                                    if selectedTab == Tabs.goal{
+                                        Image(systemName: "flag.fill")
+
+//                                    }
                                 Text(Tabs.goal.rawValue)
-    //                        }
-                                
+                                        
+//                            }
                         }.tag(Tabs.goal)
-                    
-                    
                         ShelfView()
                             .tabItem{
+                                Image(systemName: "books.vertical.fill")
     //                            VStack{
                                 Text(Tabs.shelf.rawValue)
     //                            }
@@ -48,18 +50,20 @@ struct TabsView: View {
                     
                         ChooseBattleMember()
                             .tabItem{
+                                Image(systemName: "crown.fill")
                                 Text(Tabs.battle.rawValue)
+            
                             }.tag(Tabs.battle)
-                }
+                }.accentColor(red)
         }
     }
 }
 
-//struct TabView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TabView()
-//    }
-//}
+struct TabView_Previews: PreviewProvider {
+    static var previews: some View {
+        TabsView(goalParser: GoalModelParser())
+    }
+}
 // Iconの形式をそろえる
 struct IconView: View {
     var systemName: String

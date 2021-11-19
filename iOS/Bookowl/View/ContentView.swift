@@ -20,15 +20,16 @@ struct ContentView: View {
         ZStack{
             Color(red: 255/255, green: 241/255, blue: 179/255)
                 .edgesIgnoringSafeArea(.all)
-            if isShowGoalSettingView{
-                GoalRegisterView(goalModelParser: goalParser)
-            }else{
+//            if isShowGoalSettingView{
+//                GoalRegisterView(goalModelParser: goalParser)
+//            }else{
                 TabsView(goalParser: goalParser)
-            }
+//            }
         
         }
         .onAppear(){
-            self.firstVisit()
+            print("appear")
+//            self.firstVisit()
         }
     }
     
@@ -48,6 +49,7 @@ struct ContentView: View {
                         self.isShowGoalSettingView.toggle()
                     }
                     UserDefaults.standard.set(true, forKey: CurrentUserDefaults.isFirstVisit)
+                    goalParser.RegisterGoalRequest(pages: 550)
                     return true
                 }
     }

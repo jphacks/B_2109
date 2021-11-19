@@ -39,6 +39,7 @@ class ScannerViewModel: ObservableObject {
             print(bookInfo!.pages)
             print(bookInfo!.authors)
             print(bookInfo!)
+            
             self.bookModel.bookID = bookInfo!.bookID
             self.bookModel.name = bookInfo!.name
             self.bookModel.bookThumbnail = bookInfo!.bookThumbnail
