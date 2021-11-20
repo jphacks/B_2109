@@ -2,8 +2,11 @@
 
 [![ブックロウ プロトタイプ](./docs/product_image.png)](https://youtu.be/yoWo9el3d8k)
 
-## デモ動画
-[![ブックロウ プロトタイプ](./docs/demovideo_samune.png)](https://youtu.be/yoWo9el3d8k)
+## Award Day用デモ動画
+[![Award Day用デモ動画](./docs/award_video.jpg)](https://youtu.be/fX7wFp31BY0)
+
+## Hacking Day用デモ動画
+[![Hacking Day用デモ動画](./docs/demovideo_samune.png)](https://youtu.be/yoWo9el3d8k)
 
 ## 製品概要
 ### 背景(製品開発のきっかけ、課題等）
