@@ -117,6 +117,8 @@ func (s BookServer) GetReadRatio(ctx context.Context, r *api.GetReadRatioRequest
 		}).Error(err)
 		return nil, err
 	}
+
+	log.Println(p)
 	return &api.GetReadRatioResponse{ReadPercentage: p, Time: timestamppb.Now()}, nil
 }
 
@@ -336,6 +338,9 @@ func getReadRatio(ctx context.Context, usrID uint) (float64, error) {
 		return 0, err
 	}
 	totalPages, totalReadPages, err := getTotalPagesAndReadPagesWithDuration(ubs, time.Unix(0, 0), time.Now())
+	if totalPages == 0 {
+		return 0, err
+	}
 	return float64(totalReadPages) / float64(totalPages), err
 }
 
